@@ -23,5 +23,8 @@ jobs:
         with: { distribution: "temurin", java-version: "25" }
       - uses: ruby/setup-ruby@v1
         with: { ruby-version: "3.3" }
+      - name: Install TypeScript (for type-checking the .ts examples)
+        run: npm install -g typescript@5 @types/node@22
+
       - name: Run every example in every language
         run: bash code/run-all.sh

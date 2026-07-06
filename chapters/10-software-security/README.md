@@ -287,6 +287,27 @@ def find_safe(db, name)
 end
 ```
 
+```typescript
+// UNSAFE: the name is concatenated into the SQL text, so an input like
+//   Robert'); DROP TABLE appointments; --  is parsed as SQL, not as a name.
+interface Database {
+  all(query: string, params?: unknown[]): Promise<unknown[]>;
+}
+
+function findUnsafe(db: Database, name: string): Promise<unknown[]> {
+  const query =
+    "SELECT * FROM appointments WHERE patient_name = '" + name + "'";
+  return db.all(query); // A05:2025 Injection
+}
+
+// SAFE: the ? placeholder binds the name as a parameter; the database never
+// parses it as SQL, so the same malicious input is just an unmatched name.
+function findSafe(db: Database, name: string): Promise<unknown[]> {
+  const query = "SELECT * FROM appointments WHERE patient_name = ?";
+  return db.all(query, [name]);
+}
+```
+
 The two functions look almost identical, and that is the lesson. In the first, the boundary
 between *code* (the query) and *data* (the name) is a string the attacker can rewrite; a
 crafted name like `Robert'); DROP TABLE appointments; --` closes the quote, ends the

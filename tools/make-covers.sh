@@ -4,15 +4,15 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 OUTDIR="${1:-covers}"; shift || true
-LANGS=("${@:-python java javascript go ruby}")
-[ $# -eq 0 ] && LANGS=(python java javascript go ruby)
+LANGS=("${@:-python java javascript go ruby typescript}")
+[ $# -eq 0 ] && LANGS=(python java javascript go ruby typescript)
 mkdir -p "$OUTDIR"
 CHROME="${CHROME_BIN:-$(command -v google-chrome-stable || command -v google-chrome \
   || command -v chromium-browser || command -v chromium)}"
 
-declare -A NAME=([python]=Python [java]=Java [javascript]=JavaScript [go]=Go [ruby]=Ruby)
+declare -A NAME=([python]=Python [java]=Java [javascript]=JavaScript [go]=Go [ruby]=Ruby [typescript]=TypeScript)
 declare -A ACCENT=([python]="#4b8bbe" [java]="#f89820" [javascript]="#f0db4f" \
-  [go]="#00add8" [ruby]="#cc342d")
+  [go]="#00add8" [ruby]="#cc342d" [typescript]="#3178c6")
 
 for lang in "${LANGS[@]}"; do
   html="$(mktemp --suffix=.html)"

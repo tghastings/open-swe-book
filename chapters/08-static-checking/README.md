@@ -414,6 +414,17 @@ different question. It helps to know the categories so you can assemble the righ
   # srb tc: Expected `Float` but found `String("9.99")` for argument `price`
   ```
 
+  ```typescript
+  function lineTotal(price: number, quantity: number): number {
+    return price * quantity;
+  }
+
+  const price = "9.99";       // read from a CSV row, still a string
+  const total = lineTotal(price, 3);
+  console.log(total);         // node strips types and prints 29.97
+  // tsc: Argument of type 'string' is not assignable to parameter of type 'number'.
+  ```
+
   In each fence, the trailing comment quotes its checker's actual verdict — the same fault,
   caught before the code ever runs.
 
@@ -519,6 +530,35 @@ different question. It helps to know the categories so you can assemble the righ
     path
   end
   # rubocop: C: Style/AutoResourceCleanup: Use the block version of File.open.
+  ```
+
+  ```typescript
+  import { open } from "node:fs/promises";
+
+  interface Discounts {
+    percentFor(item: string): number;
+  }
+
+  async function exportPrices(
+    catalog: Record<string, number>,
+    discounts: Discounts,
+    path: string,
+  ): Promise<string | null> {
+    const out = await open(path, "w");
+    await out.write("item,price\n");
+    for (const item of Object.keys(catalog).sort()) {
+      const pct = discounts.percentFor(item);
+      if (pct < 0 || pct > 100) {
+        return null;                // error path: `out` is never closed
+      }
+      const final = Math.round(catalog[item] * (1 - pct / 100) * 100) / 100;
+      await out.write(`${item},${final}\n`);
+    }
+    await out.close();
+    return path;
+  }
+  // node, when the abandoned handle is finally garbage-collected:
+  //   Warning: Closing file descriptor 20 on garbage collection
   ```
 
   The closing comment in each fence shows how the leak surfaces for that language — a linter

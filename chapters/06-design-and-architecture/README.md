@@ -332,6 +332,35 @@ end
 end
 ```
 
+```typescript
+import * as fs from "node:fs";
+import * as assert from "node:assert";
+
+interface User { id: string; name: string; }
+interface Store { find(id: string): User | undefined; save(record: User): void; }
+class UserStore implements Store {        // the secret: a JSON file
+  private path: string;
+  constructor(path: string) { this.path = path; }
+  find(id: string) { return this.load()[id]; }
+  save(record: User) {
+    fs.writeFileSync(this.path, JSON.stringify({ ...this.load(), [record.id]: record }));
+  }
+  private load(): Record<string, User> {
+    return fs.existsSync(this.path) ? JSON.parse(fs.readFileSync(this.path, "utf8")) : {};
+  }
+}
+class MemoryUserStore implements Store {  // the new secret: an in-memory table
+  private records: Record<string, User> = {};
+  find(id: string) { return this.records[id]; }
+  save(record: User) { this.records[record.id] = record; }
+}
+
+for (const store of [new UserStore("users.json"), new MemoryUserStore()]) {
+  store.save({ id: "u7", name: "Dana" });        // the identical caller, untouched
+  assert.strictEqual(store.find("u7")!.name, "Dana");
+}
+```
+
 When disk storage becomes the bottleneck, the secret changes and the promise does not.
 
 ```go
@@ -377,6 +406,14 @@ class MemoryUserStore                  # the new secret: an in-memory table.
 end
 ```
 
+```typescript
+class MemoryUserStore implements Store {  // the new secret: an in-memory table,
+  private records: Record<string, User> = {};   // now behind the same Store type
+  find(id: string) { return this.records[id]; }
+  save(record: User) { this.records[record.id] = record; }
+}
+```
+
 A caller that relied only on the promise runs unchanged against either version.
 
 ```go
@@ -402,6 +439,11 @@ assert store.find("u7")["name"] == "Dana"
 ```ruby
 store.save({ "id" => "u7", "name" => "Dana" })
 raise unless store.find("u7")["name"] == "Dana"
+```
+
+```typescript
+store.save({ id: "u7", name: "Dana" });
+assert.strictEqual(store.find("u7")!.name, "Dana");
 ```
 
 **Encapsulation** is the mechanism that enforces information hiding: the language keeps
@@ -966,6 +1008,35 @@ end
 fake = FakeTransport.new
 MessageRouter.new(fake).route({ "to" => "dana", "body" => "you are on call" })
 raise unless fake == [["dana", "you are on call"]]
+```
+
+```typescript
+import * as assert from "node:assert";
+
+interface Transport { deliver(to: string, body: string): void; }
+interface Message { to: string; body: string; }
+interface Socket { send(data: string): void; }
+
+class MessageRouter {                     // application code sees only the interface
+  private transport: Transport;
+  constructor(transport: Transport) { this.transport = transport; }
+  route(message: Message) { this.transport.deliver(message.to, message.body); }
+}
+
+class WebSocketTransport implements Transport {   // infrastructure, from below
+  private socket: Socket;
+  constructor(socket: Socket) { this.socket = socket; }
+  deliver(to: string, body: string) { this.socket.send(`${to}:${body}`); }
+}
+
+class FakeTransport implements Transport {        // a two-line test double
+  sent: [string, string][] = [];
+  deliver(to: string, body: string) { this.sent.push([to, body]); }
+}
+
+const fake = new FakeTransport();
+new MessageRouter(fake).route({ to: "dana", body: "you are on call" });
+assert.deepStrictEqual(fake.sent, [["dana", "you are on call"]]);
 ```
 
 The `MessageRouter` can now be exercised in a test without opening a socket — the same

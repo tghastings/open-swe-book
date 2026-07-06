@@ -86,14 +86,14 @@ echo "diagrams rendered: $rendered/$expected_diagrams"
 rm -f "$OUT/light-print.html" "$OUT/chrome.log"
 
 # 2. Covers (regenerated every run: they carry the version).
-LANGS="${1:-python java javascript go ruby}"
+LANGS="${1:-python java javascript go ruby typescript}"
 for lang in $LANGS; do
   [ "$lang" = all ] || bash tools/make-covers.sh covers "$lang"
 done
 
 # 3. Per-language filter + pandoc.
 TITLE="Software Engineering: Standing on the Shoulders of Giants"
-declare -A PRETTY=([python]=Python [java]=Java [javascript]=JavaScript [go]=Go [ruby]=Ruby)
+declare -A PRETTY=([python]=Python [java]=Java [javascript]=JavaScript [go]=Go [ruby]=Ruby [typescript]=TypeScript)
 for lang in $LANGS; do
   python3 tools/epub-lang-filter.py "$OUT/rendered.html" "$lang" "$VERSION" > "$OUT/filtered-$lang.html"
   if [ "$lang" = all ]; then

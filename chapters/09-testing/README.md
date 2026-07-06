@@ -222,6 +222,24 @@ PropCheck.forall(G.array(G.integer, empty: false)) do |xs|
 end
 ```
 
+```typescript
+// fast-check generates the inputs: npm install fast-check
+import fc from "fast-check";
+
+function median(xs: number[]): number {
+  const ys = xs.slice().sort((a, b) => a - b);
+  return ys[Math.floor(xs.length / 2)];   // middle element (upper median)
+}
+
+fc.assert(
+  fc.property(fc.array(fc.integer(), { minLength: 1 }), (xs: number[]): boolean => {
+    const m = median(xs);
+    return m === median(xs.slice().reverse())  // order independence
+      && xs.includes(m);                       // the median is one of the inputs
+  })
+);
+```
+
 ### 9.1.5 Mutation Testing: Grading Your Suite
 
 Coverage tells you what your tests *ran*; it cannot tell you what they would *catch*. The
@@ -276,6 +294,12 @@ def test_free_item_allowed():
 def test_free_item_allowed
   assert_equal(0.0, apply_discount(0.0, 50))   # kills the `price <= 0` mutant
 end
+```
+
+```typescript
+test("free item allowed", () => {
+  assert.equal(applyDiscount(0.0, 50), 0.0);   // kills the `price <= 0` mutant
+});
 ```
 
 Add it, rerun, and the mutant dies — and, not coincidentally, you have just written the
@@ -374,6 +398,19 @@ svc = PriceService.new(StubCatalog.new, StubDiscounts.new)
 raise unless svc.quote("mug") == 9.0             # 12.0 * (1 - 0.25)
 ```
 
+```typescript
+class StubCatalog implements Catalog {
+  priceOf(item: string): number { return 12.0; }   // every item costs 12.0
+}
+
+class StubDiscounts implements Discounts {
+  percentFor(item: string): number { return 25; }  // canned answer, any item
+}
+
+const svc = new PriceService(new StubCatalog(), new StubDiscounts());
+assert.equal(svc.quote("mug"), 9.0);             // 12.0 * (1 - 0.25)
+```
+
 The mock also records the interaction, so the test can assert on *how* the unit used it:
 
 ```go
@@ -448,6 +485,20 @@ PriceService.new(StubCatalog.new, mock).quote("mug")
 raise unless mock.calls == ["mug"]               # called exactly once, with "mug"
 ```
 
+```typescript
+class MockDiscounts implements Discounts {
+  calls: string[] = [];
+  percentFor(item: string): number {
+    this.calls.push(item);
+    return 25;
+  }
+}
+
+const mock = new MockDiscounts();
+new PriceService(new StubCatalog(), mock).quote("mug");
+assert.deepEqual(mock.calls, ["mug"]);           // called exactly once, with "mug"
+```
+
 And the fake actually works — an in-memory table stands in for the discount database, so
 any lookup behaves the way the real component would:
 
@@ -512,6 +563,18 @@ raise unless svc.quote("mug") == 9.0
 raise unless svc.quote("bowl") == 12.0           # unknown item: no discount
 ```
 
+```typescript
+class FakeDiscounts implements Discounts {
+  private table: Record<string, number>;
+  constructor(table: Record<string, number>) { this.table = { ...table }; }  // stand-in
+  percentFor(item: string): number { return this.table[item] ?? 0; }
+}
+
+const svc = new PriceService(new StubCatalog(), new FakeDiscounts({ mug: 25 }));
+assert.equal(svc.quote("mug"), 9.0);
+assert.equal(svc.quote("bowl"), 12.0);           // unknown item: no discount
+```
+
 Unit tests are the workhorses of a suite because they are *fast*, *precise*, and *stable*:
 fast because they touch no network or disk, precise because a failure points at one unit,
 and stable because they do not break when an unrelated part of the system changes. Here is
@@ -566,6 +629,15 @@ def apply_discount(price, percent)
   raise ArgumentError, "percent must be in 0..100" unless (0..100).cover?(percent)
   (price * (1 - percent / 100.0)).round(2)
 end
+```
+
+```typescript
+// Reduce price by percent (0..100). Throws RangeError on bad input.
+function applyDiscount(price: number, percent: number): number {
+  if (price < 0) throw new RangeError("price must be non-negative");
+  if (percent < 0 || percent > 100) throw new RangeError("percent must be in 0..100");
+  return Math.round(price * (1 - percent / 100) * 100) / 100;
+}
 ```
 
 ```go
@@ -647,6 +719,19 @@ class TestApplyDiscount < Minitest::Test
     assert_raises(ArgumentError) { apply_discount(100.0, 150) }
   end
 end
+```
+
+```typescript
+import test from "node:test";
+import assert from "node:assert/strict";
+
+test("no discount", () => assert.equal(applyDiscount(100.0, 0), 100.0));
+test("half off", () => assert.equal(applyDiscount(100.0, 50), 50.0));
+test("rounds to cents", () => assert.equal(applyDiscount(9.99, 10), 8.99));
+test("full discount", () => assert.equal(applyDiscount(40.0, 100), 0.0));
+test("rejects bad percent", () => {
+  assert.throws(() => applyDiscount(100.0, 150), RangeError);
+});
 ```
 
 Each test names a distinct behavior and carries its own oracle (the expected value or the
@@ -751,6 +836,26 @@ class PriceService
 end
 ```
 
+```typescript
+interface Catalog { priceOf(item: string): number; }
+interface Discounts { percentFor(item: string): number; }
+
+class PriceService {
+  catalog: Catalog;      // unit A: name -> base price
+  discounts: Discounts;  // unit B: name -> percent off
+  constructor(catalog: Catalog, discounts: Discounts) {
+    this.catalog = catalog;
+    this.discounts = discounts;
+  }
+
+  quote(item: string): number {
+    const base = this.catalog.priceOf(item);
+    const pct = this.discounts.percentFor(item);
+    return applyDiscount(base, pct);
+  }
+}
+```
+
 A unit test of `PriceService`'s quote method would *mock* `catalog` and `discounts`. An
 **integration test** instead wires the real (or fake) catalog and discount components
 together and checks that their contract holds end to end:
@@ -813,6 +918,18 @@ class TestPriceServiceIntegration < Minitest::Test
     assert_equal(9.0, svc.quote("mug"))  # 12.0 * (1 - 0.25)
   end
 end
+```
+
+```typescript
+import test from "node:test";
+import assert from "node:assert/strict";
+
+test("quote integrates catalog and discounts", () => {
+  const catalog = new Catalog({ mug: 12.0 });
+  const discounts = new Discounts({ mug: 25 });
+  const svc = new PriceService(catalog, discounts);
+  assert.equal(svc.quote("mug"), 9.0);  // 12.0 * (1 - 0.25)
+});
 ```
 
 If `Discounts` returned a *fraction* (0.25) while the discount function expects a *percentage*
@@ -999,6 +1116,21 @@ def classify_and_sum(n)  # node 1  (entry)
 end
 ```
 
+```typescript
+function classifyAndSum(n: number): string {  // node 1  (entry)
+  if (n < 0) {                // node 2  (decision)
+    return "negative";        // node 3
+  }
+  let total = 0;              // node 4
+  let i = 1;                  // node 4
+  while (i <= n) {            // node 5  (decision)
+    total += i;               // node 6
+    i += 1;                   // node 6
+  }
+  return `sum=${total}`;      // node 7  (exit)
+}
+```
+
 Its control-flow graph:
 
 ```mermaid
@@ -1181,6 +1313,16 @@ def set_volume(level)
   end
   apply(level)
 end
+```
+
+```typescript
+function setVolume(level: unknown): void {
+  if (typeof level !== "number" || !Number.isInteger(level)
+      || level < 1 || level >= 100) {          // BUG: >= should be >
+    throw new RangeError("level must be 1..100");
+  }
+  apply(level);
+}
 ```
 
 The equivalence-class test with representative `55` passes (it is happily accepted), and

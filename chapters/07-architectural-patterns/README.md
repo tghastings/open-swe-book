@@ -345,6 +345,35 @@ appt.subscribe { |a| puts "display: appointment is now #{a.status}" }
 appt.set_status("arrived")               # prints: display: appointment is now arrived
 ```
 
+```typescript
+type Observer = (appointment: Appointment) => void;
+
+class Appointment {
+  status: string;
+  private observers: Observer[] = [];
+
+  constructor(status: string = "booked") {
+    this.status = status;
+  }
+
+  subscribe(callback: Observer): void {
+    this.observers.push(callback);
+  }
+
+  setStatus(newStatus: string): void {
+    this.status = newStatus;
+    for (const notify of this.observers) notify(this);  // any callback will do
+  }
+}
+
+const waitingRoomDisplay: Observer = (appointment) =>
+  console.log(`display: appointment is now ${appointment.status}`);
+
+const appt = new Appointment();
+appt.subscribe(waitingRoomDisplay);
+appt.setStatus("arrived");               // prints: display: appointment is now arrived
+```
+
 Nowhere does `Appointment` name a concrete observer type — it iterates whatever
 subscribed and invokes each one's notification callback.
 
@@ -530,6 +559,26 @@ class InvoiceWidget
 end
 ```
 
+```typescript
+const MS_PER_DAY = 86_400_000;
+
+interface Invoice {
+  patientName: string;
+  sentOn: Date;
+  paid: boolean;
+}
+
+class InvoiceWidget {
+  render(invoice: Invoice, today: Date): string {
+    let text = invoice.patientName;
+    if (!invoice.paid && (+today - +invoice.sentOn) / MS_PER_DAY > 30) {
+      text += " — OVERDUE";              // a business rule, trapped on screen
+    }
+    return text;
+  }
+}
+```
+
 The humble version moves the rule into a view-model and leaves the view nothing to decide:
 
 ```go
@@ -619,6 +668,28 @@ class InvoiceWidget
 end
 ```
 
+```typescript
+interface InvoiceViewModel {
+  text: string;
+}
+
+// the rule, extracted where tests reach it
+function isOverdue(invoice: Invoice, today: Date): boolean {
+  return !invoice.paid && (+today - +invoice.sentOn) / MS_PER_DAY > 30;
+}
+
+function invoiceViewModel(invoice: Invoice, today: Date): InvoiceViewModel {
+  const badge = isOverdue(invoice, today) ? " — OVERDUE" : "";
+  return { text: invoice.patientName + badge };
+}
+
+class InvoiceWidget {
+  render(vm: InvoiceViewModel): string {   // maps a precomputed field to a widget
+    return vm.text;
+  }
+}
+```
+
 The extracted rule now tests in a few short lines, with no widget in sight:
 
 ```go
@@ -654,6 +725,14 @@ def test_unpaid_31_days_is_overdue
   ana = Invoice.new("Ana", Date.new(2026, 6, 1), false)
   raise unless overdue?(ana, Date.new(2026, 7, 2))
 end
+```
+
+```typescript
+function testUnpaid31DaysIsOverdue(): void {
+  const ana: Invoice =
+    { patientName: "Ana", sentOn: new Date("2026-06-01"), paid: false };
+  assert(isOverdue(ana, new Date("2026-07-02")));
+}
 ```
 
 > **Principle.** *Put logic where it can be tested.* The humble-view rule is a
@@ -1006,6 +1085,26 @@ end
 port = stub.addr[1]
 raise unless fetch_appointments("http://127.0.0.1:#{port}") == []
 stub.close
+```
+
+```typescript
+import assert from "node:assert";
+import http from "node:http";
+import type { AddressInfo } from "node:net";
+
+async function fetchAppointments(baseUrl: string): Promise<Buffer | never[]> {
+  const resp = await fetch(baseUrl + "/appointments");
+  if (!resp.ok) return [];               // fallback: empty schedule, not a crash
+  return Buffer.from(await resp.arrayBuffer());
+}
+
+const stub = http.createServer((req, res) => res.writeHead(500).end());
+stub.listen(0, "127.0.0.1", async () => {
+  const { port } = stub.address() as AddressInfo;
+  const base = `http://127.0.0.1:${port}`;
+  assert.deepStrictEqual(await fetchAppointments(base), []);
+  stub.close();
+});
 ```
 
 The substitution is the network-tier echo of the layering benefit in §7.1.2: *depend on

@@ -514,6 +514,33 @@ def scheduler_page_rollout(user_id, flags)           # same conditional, new pre
 end
 ```
 
+```typescript
+interface Flags {
+  newScheduler: boolean;
+  newSchedulerPct: number;
+}
+
+function bucket(userId: string): number {            // FNV-1a: stable, JS has no
+  let h = 0x811c9dc5;                                // built-in string hash
+  for (const ch of userId) h = Math.imul(h ^ ch.codePointAt(0)!, 0x01000193);
+  return (h >>> 0) % 100;
+}
+
+function schedulerPage(userId: string, flags: Flags): string {
+  if (flags.newScheduler) {                          // release flag: one bit, everyone
+    return renderNew(userId);
+  }
+  return renderOld(userId);
+}
+
+function schedulerPageRollout(userId: string, flags: Flags): string { // same conditional
+  if (bucket(userId) < flags.newSchedulerPct) {      // stable bucket 0..99
+    return renderNew(userId);
+  }
+  return renderOld(userId);
+}
+```
+
 How does a flip actually reach production? In real systems the flag's *state* lives
 outside the code, in a flag-management service — LaunchDarkly and Unleash are common
 platforms, and open-source flag libraries exist for every major language — while the
@@ -984,6 +1011,31 @@ class TestFeeCode < Minitest::Test
 end
 ```
 
+```typescript
+import test from "node:test";
+import assert from "node:assert/strict";
+
+function legacyFeeCode(visitType: string): string {  // inherited: no docs, no tests
+  const codes: Record<string, string> =
+    { exam: "E10", lab: "L20", vaccine: "V30" };
+  return codes[visitType] ?? "E10";
+}
+
+test("probe unknown type", () => {
+  assert.equal(legacyFeeCode("phone"), "XXX");       // deliberately wrong
+});
+// FAILED: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+// 'E10' !== 'XXX'
+
+test("unknown type bills as exam", () => {           // observed value, promoted
+  assert.equal(legacyFeeCode("phone"), "E10");
+});
+
+test("empty type bills as exam", () => {             // edge probe: pinned, bug or not
+  assert.equal(legacyFeeCode(""), "E10");
+});
+```
+
 Characterizing assumes you can find your way around, and with an inherited codebase that
 takes a deliberate workflow. Read what the previous team left behind first — the tests
 above all (a passing test is documentation that cannot drift out of date), then any design
@@ -1125,6 +1177,28 @@ def can_book(patient, slot, booked_today)
 end
 ```
 
+```typescript
+interface Slot {
+  open: boolean;
+}
+
+function canBook(patient: string | null, slot: Slot, bookedToday: number): boolean {
+  if (patient !== null) {
+    if (slot.open) {
+      if (bookedToday < 8) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+```
+
 Replace the magic `8` with a named constant, run the suite, flatten the nesting with
 guard clauses, run it again — the tests stay green after each move:
 
@@ -1181,6 +1255,16 @@ def can_book(patient, slot, booked_today)
   return false unless slot.open
   booked_today < MAX_DAILY_BOOKINGS
 end
+```
+
+```typescript
+const MAX_DAILY_BOOKINGS = 8;
+
+function canBook(patient: string | null, slot: Slot, bookedToday: number): boolean {
+  if (patient === null) return false;
+  if (!slot.open) return false;
+  return bookedToday < MAX_DAILY_BOOKINGS;
+}
 ```
 
 Legacy code adds a chicken-and-egg problem the catalog alone cannot solve: the worst code

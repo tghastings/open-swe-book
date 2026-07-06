@@ -368,6 +368,24 @@ end
 # Red: each test errors with NoMethodError — undefined method `slots_overlap`.
 ```
 
+```typescript
+import test from "node:test";
+import assert from "node:assert/strict";
+
+type Slot = [string, string];
+declare function slotsOverlap(a: Slot, b: Slot): boolean;
+
+test("overlapping slots conflict", () => {
+  assert.ok(slotsOverlap(["09:00", "09:30"], ["09:15", "09:45"]));
+});
+
+test("back-to-back slots do not conflict", () => {
+  assert.ok(!slotsOverlap(["09:00", "09:30"], ["09:30", "10:00"]));
+});
+
+// Red: each test fails with "ReferenceError: slotsOverlap is not defined".
+```
+
 The least code that makes both tests pass turns the run *green*:
 
 ```go
@@ -397,6 +415,14 @@ def slots_overlap(a, b):
 def slots_overlap(a, b)
   a[0] < b[1] && b[0] < a[1]
 end
+```
+
+```typescript
+type Slot = [string, string];
+
+function slotsOverlap(a: Slot, b: Slot): boolean {
+  return a[0] < b[1] && b[0] < a[1];
+}
 ```
 
 Why work this way? Three reasons. First, tests written *first* are honest — they cannot be

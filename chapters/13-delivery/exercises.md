@@ -155,6 +155,16 @@ only the answer.
     end
     ```
 
+    ```typescript
+    function normCode(s: string | null, strict: boolean = false): string | null {
+      if (s === null) return strict ? null : "";
+      s = s.trim().toUpperCase().replaceAll("-", "");
+      if (s.length > 8) s = s.slice(0, 8);
+      if (strict && !/^[\p{L}\p{N}]+$/u.test(s)) throw new RangeError(s);
+      return s || (strict ? null : "");
+    }
+    ```
+
     (a) Following §13.6.2, write a suite of characterization tests, in your language's
     test framework, that pins the current behavior for at least six input classes,
     including a missing value (`None`, `null`, or `nil`, whichever your tab uses),

@@ -64,7 +64,7 @@ The chapters are organized into thematic arcs:
   [`curriculum/course-plan.md`](curriculum/course-plan.md).
 - **One-quarter course (~10 weeks).** Keep the spine and compress: Chapters 1–2
   (week 1), 3–4 (weeks 2–3, folding Chapter 5's use-case notation into the requirements
-  work), 6–7 (weeks 4–5), 8–9 (weeks 6–7), 10 (week 8), and 12 (week 9), with
+  work), 6–7 (weeks 4–5), 8–9 (weeks 6–7), 10–11 (week 8), and 13 (week 9), with
   Chapter 12 read alongside each topic through its per-stage sections (§12.2). Run a
   scoped-down project: proposal, two sprints, final demo.
 - For self-study, chapters should be read sequentially. Each chapter concludes with key takeaways, exercises, and
@@ -72,10 +72,10 @@ The chapters are organized into thematic arcs:
   goal, such as Chapters 8–9 for quality practices or Chapter 13 for CI/CD. Chapters cross-reference the
   earlier ideas they depend on.
 
-## Code examples in five languages
+## Code examples in six languages
 
-Every code example in the book is provided in **Python, Java, JavaScript, Go, and
-Ruby**, behind language tabs — pick your language once and the whole site follows
+Every code example in the book is provided in **Python, Java, JavaScript, Go, Ruby,
+and TypeScript**, behind language tabs — pick your language once and the whole site follows
 (or open any page with [`?lang=go`](?lang=go) to pre-select one). Each snippet also lives in
 [`code/`](code/) as a runnable file with a test, executed by continuous integration on
 every change.
@@ -88,13 +88,15 @@ EPUB:
 [Java](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-java.epub) ·
 [JavaScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-javascript.epub) ·
 [Go](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-go.epub) ·
-[Ruby](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-ruby.epub)
+[Ruby](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-ruby.epub) ·
+[TypeScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-typescript.epub)
 &nbsp;&nbsp;PDF:
 [Python](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-python.pdf) ·
 [Java](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-java.pdf) ·
 [JavaScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-javascript.pdf) ·
 [Go](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-go.pdf) ·
-[Ruby](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-ruby.pdf)
+[Ruby](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-ruby.pdf) ·
+[TypeScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-typescript.pdf)
 
 All editions, including past versions, are on the
 [releases page](https://github.com/tghastings/open-swe-book/releases).

@@ -568,6 +568,33 @@ Then('no interpreter banner is shown') do
 end
 ```
 
+```typescript
+import assert from "node:assert";
+import { Given, When, Then } from "@cucumber/cucumber";
+
+interface Patient { interpreter: boolean; }
+interface Visit { banners: string[]; }
+interface ClinicWorld { patient: Patient; visit: Visit; }
+declare function checkIn(opts: { interpreter: boolean }): Patient;
+declare function openVisit(patient: Patient): Visit;
+
+Given("a checked-in patient flagged for an interpreter", function (this: ClinicWorld) {
+  this.patient = checkIn({ interpreter: true });
+});
+Given("a checked-in patient with no interpreter flag", function (this: ClinicWorld) {
+  this.patient = checkIn({ interpreter: false });
+});
+When("the clinician opens the visit", function (this: ClinicWorld) {
+  this.visit = openVisit(this.patient);
+});
+Then('an "interpreter needed" banner is shown', function (this: ClinicWorld) {
+  assert.ok(this.visit.banners.includes("interpreter needed"));
+});
+Then("no interpreter banner is shown", function (this: ClinicWorld) {
+  assert.equal(this.visit.banners.length, 0);
+});
+```
+
 A few guidelines for good scenarios: keep them **declarative** (describe *what*, not which
 buttons to click); use **one** `When` per scenario (multiple actions usually means you have
 multiple scenarios); cover the **happy path and the important alternatives** (mirroring the

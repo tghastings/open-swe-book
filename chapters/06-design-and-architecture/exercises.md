@@ -153,6 +153,32 @@ Mermaid block is fine — the thinking is what is graded.
    end
    ```
 
+   ```typescript
+   let lastTotal = 0.0;                      // read by Checkout and Receipt
+
+   interface Item { qty: number; retail: number; wholesale: number; }
+   interface Cart { _items: Item[]; }         // internals, not an interface
+
+   class PriceEngine {
+     compute(cart: Cart, isB2b: boolean): void {
+       cart._items.sort((a, b) => a.qty - b.qty);  // reaches into Cart's internals
+       let total = 0.0;
+       for (const item of cart._items) {
+         if (isB2b) {
+           total += item.wholesale * item.qty * 0.9;
+         } else {
+           total += item.retail * item.qty;
+         }
+       }
+       lastTotal = total;
+     }
+   }
+
+   class Receipt {
+     render(): string { return `Total: $${lastTotal.toFixed(2)}`; }
+   }
+   ```
+
    Identify each coupling type present (there are at least three), explain the concrete
    risk of each, and rewrite the design in a paragraph so that the modules communicate
    through data coupling and depend on interfaces.

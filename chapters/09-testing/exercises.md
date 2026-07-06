@@ -119,6 +119,20 @@ answer.
    end
    ```
 
+   ```typescript
+   function fizzbuzz(n: number): string {
+     if (n % 15 === 0) {
+       return "FizzBuzz";
+     } else if (n % 3 === 0) {
+       return "Fizz";
+     } else if (n % 5 === 0) {
+       return "Buzz";
+     } else {
+       return String(n);
+     }
+   }
+   ```
+
    (a) Draw the control-flow graph (Mermaid or by hand), labeling each decision node and
    each edge. (b) Give the minimum number of test inputs that achieves 100% **branch
    coverage**, list the input and expected output for each, and (c) state which branch

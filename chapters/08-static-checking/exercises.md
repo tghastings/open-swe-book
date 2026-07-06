@@ -133,6 +133,29 @@ reason.
    end
    ```
 
+   ```typescript
+   // Applies a discount code to a shopping cart and returns the new total.
+   interface Item { price: number; quantity: number; }
+   interface Cart { items: Item[]; total: number; }
+   interface Discount { percent: number; }
+
+   declare const discounts: { lookup(code: string): Discount | null };
+
+   function applyDiscount(cart: Cart, code: string): number {
+     let total = 0;
+     for (const item of cart.items) {
+       total = total + item.price * item.quantity;
+     }
+     const discount = discounts.lookup(code);   // returns null if code is unknown
+     total = total - total * discount.percent / 100;
+     if (total < 0) {
+       total == 0;
+     }
+     cart.total = total;
+     return total;
+   }
+   ```
+
 10. **[analysis]** In an inspection meeting, a reviewer starts sketching, on the whiteboard, a
     better algorithm to replace the one under inspection, and a fifteen‑minute design debate
     breaks out. As the moderator, what rule is being violated, what do you say, and where does

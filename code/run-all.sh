@@ -22,6 +22,36 @@ for f in */javascript/*.js; do
   node "$f" >/dev/null 2>&1 && ok || bad "node $f"
 done
 
+# --- TypeScript: type-check with tsc, run via node (Node >=22.6 strips types).
+# The ch08 examples are type-fault demos and MUST fail tsc (like the Go/Java
+# compile-fault demos); every other .ts must type-check clean and run.
+TSC=""
+for c in ./node_modules/.bin/tsc /tmp/node_modules/.bin/tsc "$(command -v tsc 2>/dev/null)"; do
+  [ -x "$c" ] && { TSC="$c"; break; }
+done
+# locate @types/node so tsc can resolve node:test / node:assert imports
+TYPEROOTS=""
+for r in ./node_modules/@types /tmp/node_modules/@types "$(dirname "$TSC" 2>/dev/null)/../@types"; do
+  [ -d "$r/node" ] && { TYPEROOTS="$r"; break; }
+done
+tscheck() {  # tscheck <file> ; returns 0 if it type-checks clean
+  [ -n "$TSC" ] || return 0
+  local tr=(); [ -n "$TYPEROOTS" ] && tr=(--typeRoots "$TYPEROOTS")
+  "$TSC" --strict --noEmit --target es2022 --module nodenext \
+    --moduleResolution nodenext --skipLibCheck "${tr[@]}" "$1" >/dev/null 2>&1
+}
+for f in */typescript/*.ts; do
+  [ -e "$f" ] || continue
+  case "$f" in
+    ch08/typescript/line_total.ts|ch08/typescript/applyDiscount.ts)
+      # type-fault demo: tsc MUST reject it
+      if tscheck "$f"; then bad "expected tsc error missing: $f"; else ok; fi ;;
+    *)
+      tscheck "$f" || { bad "tsc $f"; continue; }
+      node --experimental-strip-types "$f" >/dev/null 2>&1 && ok || bad "ts-run $f" ;;
+  esac
+done
+
 # --- Ruby -------------------------------------------------------------------
 for f in */ruby/*.rb; do
   [ -e "$f" ] || continue

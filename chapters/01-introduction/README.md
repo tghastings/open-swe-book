@@ -352,18 +352,18 @@ those pressures:
 
 A word about the code you will meet along the way. Concepts come first in this book and
 code second, but from Chapter 2 onward nearly every code-shaped idea is also shown as a
-short, runnable example — and each example appears in five languages: **Python, Java,
-JavaScript, Go, and Ruby**, behind a row of tabs. Pick your language once and every
+short, runnable example — and each example appears in six languages: **Python, Java,
+JavaScript, Go, Ruby, and TypeScript**, behind a row of tabs. Pick your language once and every
 example on every page follows; you can also open any page with [`?lang=go`](?lang=go)
 (or [`java`](?lang=java), [`javascript`](?lang=javascript), [`python`](?lang=python),
-[`ruby`](?lang=ruby)) to pre-select one. The tabs run alphabetically,
+[`ruby`](?lang=ruby), [`typescript`](?lang=typescript)) to pre-select one. The tabs run alphabetically,
 with Ruby shown until you choose otherwise — and the examples are written to read
 cleanly even in a language you have never used.
 
-The other four are worth your attention even so, because some lessons only appear in the
+The others are worth your attention even so, because some lessons only appear in the
 contrast: information hiding looks different as a Java interface, a Go implicit
-interface, and Ruby duck typing; the same five unit tests read differently in pytest,
-JUnit, `node:test`, `go test`, and Minitest — and each difference says something about
+interface, Ruby duck typing, and a TypeScript `interface`; the same unit tests read
+differently in pytest, JUnit, `node:test`, `go test`, and Minitest — and each difference says something about
 the language's design. Every snippet is a real program, kept as a runnable file with a
 test in the book's repository and exercised by continuous integration, so the examples
 cannot silently rot. And when an example is *supposed* to fail — a type fault the
