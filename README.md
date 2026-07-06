@@ -2,6 +2,8 @@
 
 *First Edition, July 2026.*
 
+📖 **Read the book online at [www.swebook.org](https://www.swebook.org).**
+
 This book is freely available and openly licensed, providing instruction in the principles and best practices of
 modern software engineering: how software is built in industry using
 agile methods, how to discover and analyze requirements, how to design and architect
@@ -180,6 +182,18 @@ views in this book are his own and do not reflect those of his employers.
 Links: [Google Scholar](https://scholar.google.com/citations?user=8iQ6Jt0AAAAJ) ·
 [tom.hastings.dev](https://tom.hastings.dev) ·
 [GitHub](https://github.com/tghastings)
+
+## If this book helped you
+
+This book is free, and it stays free. If it helped you learn a topic, teach a course, or
+build something, the most useful thing you can do in return is
+**[star the repository on GitHub](https://github.com/tghastings/open-swe-book)** — it
+takes a second, and a star is how I get to see who the book is reaching: students,
+instructors, teams, and self‑learners. Knowing where it lands is what tells me the work is
+worth continuing, and it shapes what I write and fix next. If you have a moment for more
+than a click, I would genuinely love to hear how you are using it — a quick note in an
+[issue](https://github.com/tghastings/open-swe-book/issues) naming your course, team, or
+project makes my week.
 
 ## Citing this book
 

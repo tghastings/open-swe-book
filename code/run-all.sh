@@ -29,16 +29,18 @@ TSC=""
 for c in ./node_modules/.bin/tsc /tmp/node_modules/.bin/tsc "$(command -v tsc 2>/dev/null)"; do
   [ -x "$c" ] && { TSC="$c"; break; }
 done
-# locate @types/node so tsc can resolve node:test / node:assert imports
-TYPEROOTS=""
-for r in ./node_modules/@types /tmp/node_modules/@types "$(dirname "$TSC" 2>/dev/null)/../@types"; do
-  [ -d "$r/node" ] && { TYPEROOTS="$r"; break; }
-done
-tscheck() {  # tscheck <file> ; returns 0 if it type-checks clean
-  [ -n "$TSC" ] || return 0
-  local tr=(); [ -n "$TYPEROOTS" ] && tr=(--typeRoots "$TYPEROOTS")
+# tsc needs @types/node to resolve node:test / node:assert. Install it under
+# code/node_modules once, so tsc's DEFAULT @types resolution finds it (this
+# works identically locally and in CI; no fragile --typeRoots guessing).
+if [ -n "$TSC" ] && [ ! -d node_modules/@types/node ]; then
+  npm install --no-save --no-audit --no-fund @types/node@22 >/dev/null 2>&1 || true
+fi
+[ -d node_modules/@types/node ] || { [ -n "$TSC" ] && \
+  note "note: @types/node unavailable — type-checking .ts by node-run only"; }
+tscheck() {  # tscheck <file> ; 0 = type-checks clean (or tsc/@types absent)
+  { [ -n "$TSC" ] && [ -d node_modules/@types/node ]; } || return 0
   "$TSC" --strict --noEmit --target es2022 --module nodenext \
-    --moduleResolution nodenext --skipLibCheck "${tr[@]}" "$1" >/dev/null 2>&1
+    --moduleResolution nodenext --skipLibCheck "$1" >/dev/null 2>&1
 }
 for f in */typescript/*.ts; do
   [ -e "$f" ] || continue

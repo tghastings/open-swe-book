@@ -21,3 +21,6 @@ tools/covers/
 
 # One-shot verification builds (mdbook build -d .verify)
 .verify/
+
+# TypeScript type-check deps (installed by code/run-all.sh)
+code/node_modules/
