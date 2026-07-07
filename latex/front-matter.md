@@ -2,47 +2,15 @@
   Print-edition front matter for the GENERIC (pseudocode) hardcover, 7x10.
   This is print-only: no links, no download/citation/repository sections, no
   "read online" or language-tab references. It replaces the web landing page
-  (README) at the front of the print PDF. Keep it in sync with the book's
-  content, but written for a reader holding the book, not a browser.
+  (README) at the front of the print PDF.
+
+  NOTE: book-build.sh extracts ONLY the <section class="introduction"> below.
+  The title page and the copyright page are typeset separately from
+  latex/title.tex, so they intentionally do NOT live here — keeping a second
+  copy here only risks drift and a duplicate copyright page. Keep this Preface
+  in sync with the book's content, written for a reader holding the book, not a
+  browser.
 -->
-
-<!-- ============================ TITLE PAGE ============================ -->
-<section class="title-page">
-
-# Software Engineering
-
-## Standing on the Shoulders of Giants
-
-Thomas Hastings, Ph.D.
-
-*First Edition · Beta*
-
-</section>
-
-<!-- ========================== COPYRIGHT PAGE ========================= -->
-<section class="copyright-page">
-
-Copyright © 2026 Thomas Hastings.
-
-Except where otherwise noted, the text and figures are licensed under Creative Commons
-Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). Code examples are licensed under
-the MIT License. Some rights reserved.
-
-This work includes human-authored text, editing, revisions, selection, coordination,
-arrangement, code examples, exercises, explanations, and instructional design by the
-author. Portions of the manuscript were drafted with assistance from artificial
-intelligence tools and were reviewed, revised, edited, and arranged by the author.
-
-All trademarks, product names, and company names are the property of their respective
-owners and are used for identification and educational purposes only.
-
-First Edition (Beta), 2026.
-
-The Amazon Endure typeface was designed by 2K/DENMARK in 2025.
-
-Printed in the United States.
-
-</section>
 
 <!-- ========================== INTRODUCTION =========================== -->
 <section class="introduction">

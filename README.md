@@ -245,8 +245,7 @@ styles ignore `booktitle` inside `@inbook`.
 licensed **[CC BY‑SA 4.0](LICENSE)**; code examples are licensed **MIT**. You are free to
 share and adapt with attribution. All trademarks, product names, and company names are the
 property of their respective owners and are used for identification and educational
-purposes only. The full notice is on the [Copyright](copyright.md) page; see also
-[`LICENSE`](LICENSE).
+purposes only. See also the [`LICENSE`](LICENSE) file.
 
 [^1]: ACM/IEEE‑CS Joint Task Force on Computing Curricula, *Software Engineering 2014:
 Curriculum Guidelines for Undergraduate Degree Programs in Software Engineering*
