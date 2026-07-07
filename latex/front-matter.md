@@ -4,7 +4,7 @@
   "read online" or language-tab references. It replaces the web landing page
   (README) at the front of the print PDF.
 
-  NOTE: book-build.sh extracts ONLY the <section class="introduction"> below.
+  NOTE: book-build.sh extracts ONLY the introduction section below (the Preface).
   The title page and the copyright page are typeset separately from
   latex/title.tex, so they intentionally do NOT live here — keeping a second
   copy here only risks drift and a duplicate copyright page. Keep this Preface

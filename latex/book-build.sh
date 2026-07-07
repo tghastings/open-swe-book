@@ -29,6 +29,7 @@ emit() {  # <src> <target> <demote>
 python3 - > "$B/intro-raw.md" <<'PY'
 import re
 t = open("latex/front-matter.md", encoding="utf-8").read()
+t = re.sub(r'<!--.*?-->', '', t, flags=re.S)   # drop HTML comments first, so a comment that merely mentions the section tag can't be matched ahead of the real one
 m = re.search(r'<section class="introduction">(.*?)</section>', t, re.S)
 open("/dev/stdout", "w").write(m.group(1).strip())
 PY
