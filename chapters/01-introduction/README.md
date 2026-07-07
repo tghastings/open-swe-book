@@ -14,7 +14,7 @@ head. Understanding the gap between those two activities is the subject of this 
 
 ## 1.1 What Is Software Engineering?
 
-### 1.1.1 A working definition
+### 1.1.1 A Working Definition
 
 > **Definition.** *Software engineering* is the disciplined application of principles,
 > methods, and tools to build and evolve software systems that are useful, correct
@@ -40,7 +40,7 @@ An engineer understands *what problem it solves* (coupling), *when it helps*, an
 it is overkill* along with the tradeoffs — and can make the call on a design they have never
 seen before.
 
-### 1.1.2 A tale of two companies
+### 1.1.2 A Tale of Two Companies
 
 Consider two startups building the same product — a scheduling app for clinics.
 
@@ -64,7 +64,7 @@ small, early, *predictable* cost to avoid a large, late, *unpredictable* one. Th
 of this book is, in effect, a catalog of the disciplines that make a team behave like
 Company B — and an honest account of when each is worth its cost.
 
-### 1.1.3 Where the discipline came from
+### 1.1.3 Where the Discipline Came From
 
 The phrase "software engineering" was not coined by a standards committee. In the 1960s,
 **Margaret Hamilton** led the team at the MIT Instrumentation Laboratory that wrote the
@@ -112,7 +112,7 @@ famously argued that the hardest single part of software work is deciding precis
 what to build, because it is the one part whose mistakes most cripple the result and 
 are hardest to fix later.[^7]
 
-### 1.2.1 Identifying users and requirements
+### 1.2.1 Identifying Users and Requirements
 
 A **requirement** is a statement of something the software must do or a quality it must
 have. The catch is that the people who *have* the need are usually not the people who
@@ -131,7 +131,7 @@ Requirements also come from more than the obvious end user. A clinic scheduling 
 Chapter 3 gives concrete techniques — user stories, features, scenarios, and goal
 hierarchies — for eliciting and recording what all of these stakeholders actually need.
 
-### 1.2.2 Dealing with requirements changes
+### 1.2.2 Dealing with Requirements Changes
 
 Requirements *change*, and this is normal, not a failure. Users learn from early
 versions; markets move; regulations update. The engineering question is not "how do we
@@ -151,7 +151,7 @@ Two broad answers appear throughout the book:
 
 ## 1.3 Software Is Intrinsically Complex
 
-### 1.3.1 Sources of complexity
+### 1.3.1 Sources of Complexity
 
 Some complexity is **essential** — it is inherent in the problem. A tax‑preparation
 program is complicated because tax law is complicated; no cleverness removes that.
@@ -171,7 +171,7 @@ Software is also uniquely complex among engineered artifacts for structural reas
 - It is **changed constantly** — a bridge is designed once; software is redesigned every
   sprint.
 
-### 1.3.2 Architecture: dealing with program complexity
+### 1.3.2 Architecture: Dealing with Program Complexity
 
 The primary weapon against complexity is **decomposition**: split the system into parts
 small enough to understand, with **well‑defined interfaces** between them, so that you
@@ -201,7 +201,7 @@ Humans make mistakes; therefore software has defects. The engineering response i
 accept this and build **multiple, overlapping** nets that catch defects early,
 when they are cheap to fix.
 
-### 1.4.1 Fix faults to avoid failures
+### 1.4.1 Fix Faults to Avoid Failures
 
 It helps to separate three ideas that everyday speech blurs into "bug":
 
@@ -218,7 +218,7 @@ requirements and reviews reduce **mistakes**; static checking and inspection fin
 **faults** before they run; testing provokes **failures** in a safe setting before users
 do. No single technique suffices, which is why Chapters 8 and 9 are complementary.
 
-### 1.4.2 Introduction to testing
+### 1.4.2 Introduction to Testing
 
 **Testing** runs the software on chosen inputs and checks the outputs against what we
 expect. It cannot prove the absence of defects — as Dijkstra, a pioneer in computing
@@ -227,7 +227,7 @@ but a well‑designed test suite makes it *unlikely* that a serious fault surviv
 it makes change safe by catching regressions. Testing is important enough that Chapter 9 
 is devoted to it, including how to decide when you have tested *enough* (coverage).
 
-### 1.4.3 Black‑box and white‑box testing
+### 1.4.3 Black‑Box and White‑Box Testing
 
 Two complementary viewpoints run through all of testing:
 
@@ -251,13 +251,13 @@ Every project runs under three linked constraints:
 - **Time** — when it must ship.
 
 ```mermaid
-flowchart LR
+flowchart TD
     S[Scope] --- C[Cost]
     C --- T[Time]
     T --- S
 ```
 
-### 1.5.1 Scope. Cost. Time. Pick any two!
+### 1.5.1 Scope. Cost. Time. Pick Any Two!
 
 These constraints are coupled: you cannot freely fix all three. Want more **scope** at
 the same **time**? Pay more **cost** (people, tools). Want to ship sooner without more
@@ -284,7 +284,7 @@ Software runs medical devices, cars, elections, and financial systems. Engineeri
 decisions are therefore **ethical** decisions, and "I was just implementing the spec" is
 not a defense. This section grounds that claim in three cases.
 
-### 1.6.1 Case study: the Volkswagen emissions scandal
+### 1.6.1 Case Study: The Volkswagen Emissions Scandal
 
 In 2015, regulators discovered that Volkswagen diesel vehicles contained a **defeat
 device**: software that detected when the car was being emissions‑tested (from steering,
@@ -296,7 +296,7 @@ been implemented. Engineers wrote that code. The lesson: **correctness is not th
 as rightness.** A professional must sometimes refuse to build what they are asked to
 build.
 
-### 1.6.2 The ACM code
+### 1.6.2 The ACM Code
 
 The profession has written norms. The **ACM Code of Ethics and Professional Conduct**
 and the joint **ACM/IEEE‑CS Software Engineering Code of Ethics** state, among other
@@ -305,7 +305,7 @@ principles, that software engineers shall act in the **public interest**, produc
 **competence**.[^10]<!-- -->[^11] These are not decoration: they give an engineer a shared, citable basis
 for saying *no*, and for raising concerns without it being merely personal opinion.
 
-### 1.6.3 Case study: the Therac‑25 accidents
+### 1.6.3 Case Study: The Therac‑25 Accidents
 
 Between 1985 and 1987, a radiation‑therapy machine, the **Therac‑25**, delivered
 massive radiation overdoses to at least six patients, several fatally.[^12] The causes were
@@ -320,7 +320,7 @@ The Therac‑25 is the canonical warning that in safety‑critical systems, soft
 kill, and that **process, testing, and honest incident response are matters of life and
 death** — not bureaucratic overhead.
 
-### 1.6.4 Lessons for software projects
+### 1.6.4 Lessons for Software Projects
 
 Across these cases, recurring lessons:
 
@@ -352,13 +352,15 @@ those pressures:
 
 A word about the code you will meet along the way. Concepts come first in this book and
 code second, but from Chapter 2 onward nearly every code-shaped idea is also shown as a
-short, runnable example — and each example appears in six languages: **Python, Java,
-JavaScript, Go, Ruby, and TypeScript**, behind a row of tabs. Pick your language once and every
+short, runnable example — and each example appears in six languages — **Python, Java,
+JavaScript, Go, Ruby, and TypeScript** — plus a language-agnostic **Generic** tab written
+in pseudocode, for when you want the idea without any one language's syntax. They sit
+behind a row of tabs. Pick your language once and every
 example on every page follows; you can also open any page with [`?lang=go`](?lang=go)
 (or [`java`](?lang=java), [`javascript`](?lang=javascript), [`python`](?lang=python),
-[`ruby`](?lang=ruby), [`typescript`](?lang=typescript)) to pre-select one. The tabs run alphabetically,
-with Ruby shown until you choose otherwise — and the examples are written to read
-cleanly even in a language you have never used.
+[`ruby`](?lang=ruby), [`typescript`](?lang=typescript), [`generic`](?lang=generic)) to pre-select one.
+The tabs run alphabetically, so **Generic** leads the row, with Ruby shown until you choose
+otherwise — and the examples are written to read cleanly even in a language you have never used.
 
 The others are worth your attention even so, because some lessons only appear in the
 contrast: information hiding looks different as a Java interface, a Go implicit
@@ -392,7 +394,7 @@ technique in this book earns its place by answering one of them.
 
 [^7]: Frederick P. Brooks, Jr., *No Silver Bullet: Essence and Accidents of Software Engineering*, Computer 20(4), pp. 10–19 (1987). [doi.org](https://doi.org/10.1109/MC.1987.1663532).
 
-[^8]: Edsger W. Dijkstra, *Notes on Structured Programming*, EWD249, p. 7 (1969). [cs.utexas.edu](https://www.cs.utexas.edu/users/EWD/ewd02xx/EWD249.PDF).
+[^8]: Edsger W. Dijkstra, *Notes on Structured Programming*, EWD249, p. 7 (1970). [cs.utexas.edu](https://www.cs.utexas.edu/users/EWD/ewd02xx/EWD249.PDF).
 
 [^9]: U.S. Environmental Protection Agency, *Notice of Violation to Volkswagen AG* (Sept. 18, 2015). [epa.gov](https://www.epa.gov/vw).
 

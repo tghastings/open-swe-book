@@ -39,7 +39,7 @@ resource is free to read but not openly relicensable, it is marked *free to read
 - 📄 **W. P. Stevens, G. J. Myers, and L. L. Constantine, "Structured Design"**, *IBM
   Systems Journal* 13(2), 1974 — the paper that introduced coupling and cohesion (§6.2.2).
   Official page: [dl.acm.org/doi/10.1147/sj.132.0115](https://dl.acm.org/doi/10.1147/sj.132.0115).
-  *License:* IBM/ACM copyright, *free to read* via .edu mirrors.
+  *License:* IBM and ACM copyright, *free to read* via .edu mirrors.
 - 📄 **E. Yourdon and L. L. Constantine, *Structured Design: Fundamentals of a Discipline
   of Computer Program and Systems Design*** (1979) — the book-length treatment of the
   coupling and cohesion ladders used in §6.2.2. Borrowable scan:

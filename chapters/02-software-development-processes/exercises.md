@@ -49,7 +49,7 @@ trade-offs.
    §2.3.3 pitfall. In your answer, name one kind of decision that XP still says deserves
    deliberate up-front thought, and explain why it is an exception.
 
-## Plan-driven models and their risks (§2.4–2.5)
+## Plan-driven models and their risks (§§2.4–2.5)
 
 10. **[warm-up]** Draw the V-model and label, for each of the four testing levels, the single
     question it answers. Explain why *system testing can pass while acceptance testing fails*.
@@ -62,7 +62,7 @@ trade-offs.
     largely waterfall flow. Using §2.4.3, propose three concrete mitigations you would build
     into the plan, and note how each one pulls the project *toward* iteration.
 
-## Risk and the spiral (§2.6–2.7)
+## Risk and the spiral (§§2.6–2.7)
 
 13. **[analysis]** Compare the successful iterative project (§2.6.2) with the troubled rewrite
     (§2.6.3). Identify the *single structural difference* that the chapter says explains the

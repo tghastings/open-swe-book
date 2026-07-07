@@ -130,7 +130,7 @@ its author's copyright.
   at [dl.acm.org](https://dl.acm.org/doi/book/10.5555/231003).
   *Free to read; © the authors.*
 - 📄 **Trygve Reenskaug — "MVC: Xerox PARC 1978–79"** —
-  [folk.universitetetioslo.no](https://folk.universitetetioslo.no/trygver/themes/mvc/mvc-index.html).
+  [folk.uio.no](https://folk.uio.no/trygver/themes/mvc/mvc-index.html).
   The inventor's own notes on the origin of Model-View-Controller (§7.3.2). *Free to read;
   © the author.*
 - 📄 **ISO/IEC 7498-1:1994 — the OSI Basic Reference Model** —
@@ -141,13 +141,6 @@ its author's copyright.
   [en.wikipedia.org/wiki/Architectural_pattern](https://en.wikipedia.org/wiki/Architectural_pattern).
   A reliable, openly-licensed starting map with references. *Text under CC BY-SA.*
 
-## Pattern taxonomy
-
-- 📘 **"Pattern-Oriented Software Architecture, Vol. 1: A System of Patterns,"
-  Buschmann, Meunier, Rohnert, Sommerlad & Stal (Wiley, 1996)** — the classic
-  three-level taxonomy (architectural patterns, design patterns, idioms) behind this
-  chapter's altitude caveat.
-  <https://www.wiley.com/en-us/Pattern+Oriented+Software+Architecture,+Volume+1,+A+System+of+Patterns-p-9780471958697> · Publisher page.
 
 ## License note
 

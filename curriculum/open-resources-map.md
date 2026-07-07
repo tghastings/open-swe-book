@@ -1,7 +1,7 @@
 # Open Curriculum Resource Map
 
 This book is designed to support **a complete first undergraduate software‑engineering
-course** on its own (see the [chapter → ACM/IEEE SEEK mapping](#coverage-vs-the-acmieee-seek-body-of-knowledge)
+course** on its own (see the [chapter-to-SEEK mapping](#coverage-vs-the-acmieee-seek-body-of-knowledge)
 below). This map is a companion: for each chapter it lists the best **free or openly
 accessible** courses, textbooks, primary sources, and videos, so learners who want more
 depth — or instructors assembling a reading list — can reinforce every topic without
@@ -106,7 +106,7 @@ include/extend relationships.
 | 📘 | [MIT 6.031 — Specifications, ADTs, Abstraction](http://web.mit.edu/6.031/www/sp21/) | Modularity, coupling/cohesion, spec design. |
 | 📄 | P. Kruchten, ["Architectural Blueprints — the 4+1 View Model"](https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf) (1995) | The 4+1 views. |
 | 📘 | [refactoring.guru — Design Principles & SOLID](https://refactoring.guru/design-patterns) | Coupling, cohesion, OO relationships. |
-| 📄 | [UML Class Diagrams reference](https://www.uml-diagrams.org/class-diagrams-overview.html) | Association/aggregation/composition/inheritance. |
+| 📄 | [UML Class Diagrams reference](https://www.uml-diagrams.org/class-diagrams-overview.html) | Association, aggregation, composition, inheritance. |
 | 📘 | ["Software Engineering at Google" ch. on design](https://abseil.io/resources/swe-book) | Real‑world modular design. |
 
 Covers: role of architecture, modularity principle, coupling & cohesion, UML class
@@ -202,10 +202,10 @@ lifecycle stage, evidence on quality/security, the o16g manifesto.
 |------|----------|-------|
 | 📄 | [SEC Release No. 34‑70694 — In the Matter of Knight Capital](https://www.sec.gov/litigation/admin/2013/34-70694.pdf) | The primary source for the Knight Capital case study (§13.3). Public domain. |
 | 📄 | [CrowdStrike — External Technical Root Cause Analysis (2024)](https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/) | Primary source for the July 2024 outage case study (§13.3). |
-| 📄 | [DORA — research and the four keys](https://dora.dev/) | Deployment frequency, lead time, change‑fail rate, failed‑deployment recovery time (§13.5). |
-| 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue‑Green, Strangler Fig](https://martinfowler.com/) | Canonical free articles for §13.2–13.3, §13.6. |
+| 📄 | [DORA — research and the four keys](https://dora.dev/) | Deployment frequency, lead time, change‑fail rate, failed‑deployment recovery time (§13.7). |
+| 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue‑Green, Strangler Fig](https://martinfowler.com/) | Canonical free articles for §§13.2–13.3, §13.8. |
 | 📘 | [Google SRE books](https://sre.google/books/) | Free online; reliability, release engineering, postmortems. |
-| 📄 | [GitHub Dependabot docs](https://docs.github.com/en/code-security/dependabot) · [OWASP Dependency‑Check](https://owasp.org/www-project-dependency-check/) · [SLSA](https://slsa.dev/) | Dependency scanning and supply‑chain security (§13.4). |
+| 📄 | [GitHub Dependabot docs](https://docs.github.com/en/code-security/dependabot) · [OWASP Dependency‑Check](https://owasp.org/www-project-dependency-check/) · [SLSA](https://slsa.dev/) | Dependency scanning and supply‑chain security (§13.6). |
 | 📘 | [minimumcd.org](https://minimumcd.org/) | A concise, community definition of minimum CD practice. |
 
 Covers: SaaS & cloud, CI pipelines, continuous deployment & rollout strategies (Knight
@@ -241,9 +241,9 @@ covers the whole discipline, and the "Depth" column is honest about that.
 | Software Design (DES) | Ch. 6–7 (modularity, UML, 4+1, patterns) | Solid |
 | Software V&V (VAV) | Ch. 8–9 (reviews, static analysis, testing, coverage) | Solid |
 | Software Quality (QUA) | Ch. 11 (metrics, statistics, defects) | Solid |
-| Security (SEC) | **Ch. 10 (OWASP Top 10:2025, SAST/DAST/SCA, AI security testing, supply‑chain security)**; reinforced by Ch. 3 §3.7 (attack trees, STRIDE), Ch. 8 §8.4 (SAST), Ch. 13 §13.4 (security pipelines) | Solid |
+| Security (SEC) | **Ch. 10 (OWASP Top 10:2025, SAST/DAST/SCA, AI security testing, supply‑chain security)**; reinforced by Ch. 3 §3.7 (attack trees, STRIDE), Ch. 8 §8.4 (SAST), Ch. 13 §13.6 (security pipelines) | Solid |
 | Software Construction (CST) | assumed as a prerequisite; touched in Ch. 8–9 | Light |
-| Software Evolution / Maintenance | Ch. 13 §13.6 (legacy code, refactoring, technical debt); cost‑of‑change theme throughout | Introductory |
+| Software Evolution / Maintenance | Ch. 13 §13.8 (legacy code, refactoring, technical debt); cost‑of‑change theme throughout | Introductory |
 | Emerging practice: AI‑assisted SE | Ch. 12 | Introductory |
 | Computing Essentials, Math & Eng. Fundamentals (CMP, FND) | assumed prerequisites | Out of scope |
 

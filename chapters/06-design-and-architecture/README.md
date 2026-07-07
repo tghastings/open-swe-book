@@ -200,6 +200,35 @@ change because it was, in fact, hidden.
 Here is that module, its secret — how the records are laid out on disk — behind the
 interface. (Each listing names its exact secret in a comment.)
 
+```generic
+// a UserStore promises two operations: find(id) and save(record)
+// statically typed languages declare that promise as an interface; duck typing just uses it
+
+function file_find(path, id)            // the secret: one JSON file of all users
+  users <- load table from file at path, or empty if absent
+  return users[id]
+end function
+
+function file_save(path, record)
+  users <- load table from file at path, or empty if absent
+  users[record.id] <- record
+  write users to file at path
+end function
+
+function memory_find(records, id)       // the new secret: an in-memory table
+  return records[id]
+end function
+
+function memory_save(records, record)
+  records[record.id] <- record
+end function
+
+for each store in [file-backed store, in-memory store]
+  save record {id: "u7", name: "Dana"} to store   // the identical caller, untouched
+  assert store's find of "u7" has name "Dana"
+end for
+```
+
 ```go
 type User struct{ ID, Name string }
 type UserStore interface { // the promise, spelled out as a type
@@ -363,6 +392,18 @@ for (const store of [new UserStore("users.json"), new MemoryUserStore()]) {
 
 When disk storage becomes the bottleneck, the secret changes and the promise does not.
 
+```generic
+// the secret changes to an in-memory table; the promise (find, save) does not
+
+function find(records, id)
+  return records[id]                    // the new secret: an in-memory table
+end function
+
+function save(records, record)
+  records[record.id] <- record
+end function
+```
+
 ```go
 // MemStore never says "implements UserStore" — Go interfaces are satisfied implicitly.
 type MemStore map[string]User          // the new secret: an in-memory table
@@ -415,6 +456,13 @@ class MemoryUserStore implements Store {  // the new secret: an in-memory table,
 ```
 
 A caller that relied only on the promise runs unchanged against either version.
+
+```generic
+// same caller as above — no changes needed
+
+save record {id: "u7", name: "Dana"} to store
+assert store's find of "u7" has name "Dana"
+```
 
 ```go
 store.Save(User{ID: "u7", Name: "Dana"})
@@ -892,6 +940,27 @@ In code, the inversion is small: the application layer owns the definition of wh
 transport must do — deliver a body to a recipient — and the real transport and a test fake
 both conform to it from below.
 
+```generic
+// Transport contract, owned by the application layer: deliver(to, body)
+// statically typed languages declare this as an interface; any deliver-shaped thing fits
+
+function route(transport, message)      // the router sees only the deliver operation
+  transport delivers (message.to, message.body)
+end function
+
+function websocket_deliver(socket, to, body)   // infrastructure, conforming from below
+  write to + ":" + body to socket
+end function
+
+function fake_deliver(sent, to, body)   // a two-line test double
+  append [to, body] to sent
+end function
+
+fake <- new fake transport with an empty sent list
+route(fake, {to: "dana", body: "you are on call"})
+assert fake's sent = [["dana", "you are on call"]]
+```
+
 ```go
 type Transport interface { // owned by the application layer
 	Deliver(to, body string)
@@ -1078,12 +1147,6 @@ reuse the judgment, not just the diagram.
 
 [^5]: Len Bass, Paul Clements, and Rick Kazman, *Software Architecture in Practice*, 4th ed. (Addison-Wesley, 2021), ch. 3 — the six-part quality-attribute scenario (source, stimulus, artifact, environment, response, response measure). [informit.com](https://www.informit.com/store/software-architecture-in-practice-9780136886099).
 
----
-
-- **Key takeaways** are summarized above in §6.6.
-- Continue to the [Exercises](exercises.md).
-- Go deeper with the [Open Resources](resources.md) for this chapter.
-
 [^6]: David L. Parnas, "On the Criteria To Be Used in Decomposing Systems into Modules," *Communications of the ACM* 15(12) (1972). [dl.acm.org](https://dl.acm.org/doi/10.1145/361598.361623).
 
 [^7]: W. P. Stevens, G. J. Myers, and L. L. Constantine, "Structured Design," *IBM Systems Journal* 13(2) (1974). [dl.acm.org](https://dl.acm.org/doi/10.1147/sj.132.0115).
@@ -1103,3 +1166,9 @@ reuse the judgment, not just the diagram.
 [^14]: ISO/IEC/IEEE, *ISO/IEC/IEEE 42010:2022 — Software, systems and enterprise — Architecture description* (2022). [iso.org](https://www.iso.org/standard/74393.html).
 
 [^15]: Philippe Kruchten, "Architectural Blueprints — The 4+1 View Model of Software Architecture," *IEEE Software* 12(6) (1995). [cs.ubc.ca](https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf).
+
+---
+
+- **Key takeaways** are summarized above in §6.6.
+- Continue to the [Exercises](exercises.md).
+- Go deeper with the [Open Resources](resources.md) for this chapter.

@@ -1,0 +1,794 @@
+{
+ "chapters/01-introduction/README.md": [
+  [
+   "Software engineering",
+   "softwareengineering"
+  ],
+  [
+   "Software crisis",
+   "softwarecrisis"
+  ],
+  [
+   "Empiricism",
+   "empiricism"
+  ],
+  [
+   "Requirement",
+   "requirement"
+  ],
+  [
+   "Essential complexity",
+   "essentialcomplexity"
+  ],
+  [
+   "Accidental complexity",
+   "accidentalcomplexity"
+  ],
+  [
+   "Decomposition",
+   "decomposition"
+  ],
+  [
+   "Cohesion",
+   "cohesion"
+  ],
+  [
+   "Coupling",
+   "coupling"
+  ],
+  [
+   "Fault",
+   "fault"
+  ],
+  [
+   "Failure",
+   "failure"
+  ],
+  [
+   "Testing",
+   "testing"
+  ],
+  [
+   "Black-box testing",
+   "blackboxtesting"
+  ],
+  [
+   "White-box testing",
+   "whiteboxtesting"
+  ],
+  [
+   "Iron triangle",
+   "irontriangle"
+  ]
+ ],
+ "chapters/02-software-development-processes/README.md": [
+  [
+   "software development process",
+   "softwaredevelopmentprocess"
+  ],
+  [
+   "plan-driven culture",
+   "plandrivenculture"
+  ],
+  [
+   "grow-it culture",
+   "growitculture"
+  ],
+  [
+   "Scrum",
+   "scrum"
+  ],
+  [
+   "sprint",
+   "sprint"
+  ],
+  [
+   "Definition of Done",
+   "definitionofdone"
+  ],
+  [
+   "Extreme Programming (XP)",
+   "extremeprogrammingxp"
+  ],
+  [
+   "user story",
+   "userstory"
+  ],
+  [
+   "test-driven development (TDD)",
+   "testdrivendevelopmenttdd"
+  ],
+  [
+   "refactoring",
+   "refactoring"
+  ],
+  [
+   "continuous integration",
+   "continuousintegration"
+  ],
+  [
+   "waterfall model",
+   "waterfallmodel"
+  ],
+  [
+   "V-model",
+   "vmodel"
+  ],
+  [
+   "spiral model",
+   "spiralmodel"
+  ],
+  [
+   "Shape Up",
+   "shapeup"
+  ]
+ ],
+ "chapters/03-user-requirements/README.md": [
+  [
+   "Functional requirement",
+   "functionalrequirement"
+  ],
+  [
+   "Quality requirement",
+   "qualityrequirement"
+  ],
+  [
+   "Elicitation",
+   "elicitation"
+  ],
+  [
+   "Latent need",
+   "latentneed"
+  ],
+  [
+   "Kano model",
+   "kanomodel"
+  ],
+  [
+   "INVEST",
+   "invest"
+  ],
+  [
+   "Acceptance criteria",
+   "acceptancecriteria"
+  ],
+  [
+   "Gherkin",
+   "gherkin"
+  ],
+  [
+   "Behavior-Driven Development (BDD)",
+   "behaviordrivendevelopmentbdd"
+  ],
+  [
+   "Requirements traceability",
+   "requirementstraceability"
+  ],
+  [
+   "Scenario",
+   "scenario"
+  ],
+  [
+   "Storyboard",
+   "storyboard"
+  ],
+  [
+   "Attack tree",
+   "attacktree"
+  ]
+ ],
+ "chapters/04-requirements-analysis/README.md": [
+  [
+   "Requirements analysis",
+   "requirementsanalysis"
+  ],
+  [
+   "Anchoring",
+   "anchoring"
+  ],
+  [
+   "Story point",
+   "storypoint"
+  ],
+  [
+   "Reference story",
+   "referencestory"
+  ],
+  [
+   "Velocity",
+   "velocity"
+  ],
+  [
+   "Appetite",
+   "appetite"
+  ],
+  [
+   "Scope hammering",
+   "scopehammering"
+  ],
+  [
+   "Wideband Delphi",
+   "widebanddelphi"
+  ],
+  [
+   "Planning Poker",
+   "planningpoker"
+  ],
+  [
+   "Delphi method",
+   "delphimethod"
+  ],
+  [
+   "MoSCoW",
+   "moscow"
+  ],
+  [
+   "WSJF (Weighted Shortest Job First)",
+   "wsjfweightedshortestjobfirst"
+  ],
+  [
+   "COCOMO",
+   "cocomo"
+  ],
+  [
+   "Diseconomy of scale",
+   "diseconomyofscale"
+  ]
+ ],
+ "chapters/05-use-cases/README.md": [
+  [
+   "Use case",
+   "usecase"
+  ],
+  [
+   "Actor",
+   "actor"
+  ],
+  [
+   "Primary actor",
+   "primaryactor"
+  ],
+  [
+   "Supporting actor",
+   "supportingactor"
+  ],
+  [
+   "Goal",
+   "goal"
+  ],
+  [
+   "Actor\u2013goal list",
+   "actorgoallist"
+  ],
+  [
+   "Basic flow",
+   "basicflow"
+  ],
+  [
+   "Alternative flow",
+   "alternativeflow"
+  ],
+  [
+   "Specific alternative flow",
+   "specificalternativeflow"
+  ],
+  [
+   "Bounded alternative flow",
+   "boundedalternativeflow"
+  ],
+  [
+   "Extension point",
+   "extensionpoint"
+  ],
+  [
+   "Use-case diagram",
+   "usecasediagram"
+  ],
+  [
+   "Subflow",
+   "subflow"
+  ],
+  [
+   "Include",
+   "include"
+  ],
+  [
+   "Extend",
+   "extend"
+  ]
+ ],
+ "chapters/06-design-and-architecture/README.md": [
+  [
+   "Architecture",
+   "architecture"
+  ],
+  [
+   "Modularity",
+   "modularity"
+  ],
+  [
+   "Module",
+   "module"
+  ],
+  [
+   "Information hiding",
+   "informationhiding"
+  ],
+  [
+   "Encapsulation",
+   "encapsulation"
+  ],
+  [
+   "Quality-attribute scenario",
+   "qualityattributescenario"
+  ],
+  [
+   "Class diagram",
+   "classdiagram"
+  ],
+  [
+   "Multiplicity",
+   "multiplicity"
+  ],
+  [
+   "View",
+   "view"
+  ],
+  [
+   "4+1 view model",
+   "41viewmodel"
+  ],
+  [
+   "SOLID",
+   "solid"
+  ],
+  [
+   "DRY",
+   "dry"
+  ]
+ ],
+ "chapters/07-architectural-patterns/README.md": [
+  [
+   "Architectural pattern",
+   "architecturalpattern"
+  ],
+  [
+   "Layered pattern",
+   "layeredpattern"
+  ],
+  [
+   "Shared-data (repository) pattern",
+   "shareddatarepositorypattern"
+  ],
+  [
+   "Observer pattern",
+   "observerpattern"
+  ],
+  [
+   "Publish\u2013subscribe",
+   "publishsubscribe"
+  ],
+  [
+   "Model-View-Controller (MVC)",
+   "modelviewcontrollermvc"
+  ],
+  [
+   "Humble view",
+   "humbleview"
+  ],
+  [
+   "Pipes and filters",
+   "pipesandfilters"
+  ],
+  [
+   "Dataflow network",
+   "dataflownetwork"
+  ],
+  [
+   "Unbounded stream",
+   "unboundedstream"
+  ],
+  [
+   "MapReduce",
+   "mapreduce"
+  ],
+  [
+   "Client-server pattern",
+   "clientserverpattern"
+  ],
+  [
+   "Broker pattern",
+   "brokerpattern"
+  ],
+  [
+   "REST (Representational State Transfer)",
+   "restrepresentationalstatetransfer"
+  ],
+  [
+   "Software product-line engineering",
+   "softwareproductlineengineering"
+  ]
+ ],
+ "chapters/08-static-checking/README.md": [
+  [
+   "Static checking",
+   "staticchecking"
+  ],
+  [
+   "Architecture review",
+   "architecturereview"
+  ],
+  [
+   "Discovery review",
+   "discoveryreview"
+  ],
+  [
+   "Deep-dive review",
+   "deepdivereview"
+  ],
+  [
+   "Retrospective review",
+   "retrospectivereview"
+  ],
+  [
+   "Software inspection",
+   "softwareinspection"
+  ],
+  [
+   "Fagan inspection",
+   "faganinspection"
+  ],
+  [
+   "Code review",
+   "codereview"
+  ],
+  [
+   "Invested expert reviewer",
+   "investedexpertreviewer"
+  ],
+  [
+   "Automated static analysis",
+   "automatedstaticanalysis"
+  ],
+  [
+   "Type checker",
+   "typechecker"
+  ],
+  [
+   "Linter",
+   "linter"
+  ],
+  [
+   "Data-flow analyzer",
+   "dataflowanalyzer"
+  ],
+  [
+   "False positive",
+   "falsepositive"
+  ],
+  [
+   "False negative",
+   "falsenegative"
+  ],
+  [
+   "Precision",
+   "precision"
+  ],
+  [
+   "Recall",
+   "recall"
+  ]
+ ],
+ "chapters/09-testing/README.md": [
+  [
+   "Test oracle",
+   "testoracle"
+  ],
+  [
+   "Test-adequacy criterion",
+   "testadequacycriterion"
+  ],
+  [
+   "Property-based testing",
+   "propertybasedtesting"
+  ],
+  [
+   "Mutation testing",
+   "mutationtesting"
+  ],
+  [
+   "Unit test",
+   "unittest"
+  ],
+  [
+   "Test double",
+   "testdouble"
+  ],
+  [
+   "Integration testing",
+   "integrationtesting"
+  ],
+  [
+   "Smoke test",
+   "smoketest"
+  ],
+  [
+   "Testing pyramid",
+   "testingpyramid"
+  ],
+  [
+   "Control-flow graph",
+   "controlflowgraph"
+  ],
+  [
+   "Cyclomatic complexity",
+   "cyclomaticcomplexity"
+  ],
+  [
+   "Boundary-value analysis",
+   "boundaryvalueanalysis"
+  ],
+  [
+   "Modified Condition/Decision Coverage (MC/DC)",
+   "modifiedconditiondecisioncoveragemcdc"
+  ]
+ ],
+ "chapters/10-software-security/README.md": [
+  [
+   "CIA triad",
+   "ciatriad"
+  ],
+  [
+   "Vulnerability",
+   "vulnerability"
+  ],
+  [
+   "Threat",
+   "threat"
+  ],
+  [
+   "Exploit",
+   "exploit"
+  ],
+  [
+   "Defense in depth",
+   "defenseindepth"
+  ],
+  [
+   "Shifting left",
+   "shiftingleft"
+  ],
+  [
+   "OWASP Top 10",
+   "owasptop10"
+  ],
+  [
+   "Broken Access Control",
+   "brokenaccesscontrol"
+  ],
+  [
+   "Injection",
+   "injection"
+  ],
+  [
+   "Parameterized query",
+   "parameterizedquery"
+  ],
+  [
+   "Insecure Design",
+   "insecuredesign"
+  ],
+  [
+   "Weak links",
+   "weaklinks"
+  ],
+  [
+   "Software bill of materials (SBOM)",
+   "softwarebillofmaterialssbom"
+  ],
+  [
+   "SLSA",
+   "slsa"
+  ],
+  [
+   "Least privilege",
+   "leastprivilege"
+  ]
+ ],
+ "chapters/11-quality-metrics/README.md": [
+  [
+   "Metric",
+   "metric"
+  ],
+  [
+   "Attribute",
+   "attribute"
+  ],
+  [
+   "Goodhart's Law",
+   "goodhartslaw"
+  ],
+  [
+   "Goal-Question-Metric (GQM)",
+   "goalquestionmetricgqm"
+  ],
+  [
+   "Scales of measurement",
+   "scalesofmeasurement"
+  ],
+  [
+   "Defect-removal efficiency (DRE)",
+   "defectremovalefficiencydre"
+  ],
+  [
+   "Customer-found defect (CFD)",
+   "customerfounddefectcfd"
+  ],
+  [
+   "Severity",
+   "severity"
+  ],
+  [
+   "Hill chart",
+   "hillchart"
+  ],
+  [
+   "Boxplot",
+   "boxplot"
+  ],
+  [
+   "Histogram",
+   "histogram"
+  ],
+  [
+   "Standard deviation",
+   "standarddeviation"
+  ],
+  [
+   "Confidence interval",
+   "confidenceinterval"
+  ],
+  [
+   "Ordinary least squares (OLS)",
+   "ordinaryleastsquaresols"
+  ],
+  [
+   "Coefficient of determination (R-squared)",
+   "coefficientofdeterminationrsquared"
+  ]
+ ],
+ "chapters/12-ai-across-the-lifecycle/README.md": [
+  [
+   "Coding agents",
+   "codingagents"
+  ],
+  [
+   "Ladder of assistance",
+   "ladderofassistance"
+  ],
+  [
+   "Productivity paradox",
+   "productivityparadox"
+  ],
+  [
+   "Hallucinated requirements",
+   "hallucinatedrequirements"
+  ],
+  [
+   "Architecture Decision Records (ADRs)",
+   "architecturedecisionrecordsadrs"
+  ],
+  [
+   "SWE-bench",
+   "swebench"
+  ],
+  [
+   "SWT-bench",
+   "swtbench"
+  ],
+  [
+   "Oracle problem",
+   "oracleproblem"
+  ],
+  [
+   "Outcome Engineering (o16g manifesto)",
+   "outcomeengineeringo16gmanifesto"
+  ]
+ ],
+ "chapters/13-delivery/README.md": [
+  [
+   "DevOps",
+   "devops"
+  ],
+  [
+   "Software as a service (SaaS)",
+   "softwareasaservicesaas"
+  ],
+  [
+   "Multi-tenancy",
+   "multitenancy"
+  ],
+  [
+   "Horizontal scaling",
+   "horizontalscaling"
+  ],
+  [
+   "Container",
+   "container"
+  ],
+  [
+   "CAP theorem",
+   "captheorem"
+  ],
+  [
+   "Trunk-based development",
+   "trunkbaseddevelopment"
+  ],
+  [
+   "Continuous deployment",
+   "continuousdeployment"
+  ],
+  [
+   "Feature flag",
+   "featureflag"
+  ],
+  [
+   "Canary deployment",
+   "canarydeployment"
+  ],
+  [
+   "DORA four keys",
+   "dorafourkeys"
+  ],
+  [
+   "Legacy code",
+   "legacycode"
+  ],
+  [
+   "Characterization test",
+   "characterizationtest"
+  ],
+  [
+   "Technical debt",
+   "technicaldebt"
+  ],
+  [
+   "Strangler fig",
+   "stranglerfig"
+  ]
+ ],
+ "chapters/appendix-a-team-project/README.md": [
+  [
+   "Walking skeleton",
+   "walkingskeleton"
+  ],
+  [
+   "Skeletal system",
+   "skeletalsystem"
+  ],
+  [
+   "Viable system",
+   "viablesystem"
+  ],
+  [
+   "Psychological safety",
+   "psychologicalsafety"
+  ],
+  [
+   "Vulnerability-based trust",
+   "vulnerabilitybasedtrust"
+  ],
+  [
+   "Proposal",
+   "proposal"
+  ],
+  [
+   "Status report",
+   "statusreport"
+  ],
+  [
+   "Backlog",
+   "backlog"
+  ]
+ ]
+}

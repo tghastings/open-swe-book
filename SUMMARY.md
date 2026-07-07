@@ -1,6 +1,7 @@
 # Summary
 
 [Introduction to the Book](README.md)
+[Copyright](copyright.md)
 
 ---
 

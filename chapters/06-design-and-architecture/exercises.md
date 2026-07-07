@@ -24,13 +24,34 @@ Mermaid block is fine — the thinking is what is graded.
 
 ## Analysis
 
-5. **[analysis]** You are handed a module named `Utilities` containing: `formatCurrency`,
-   `parseCsvFile`, `sendEmail`, `retryWithBackoff`, and `MAX_UPLOAD_SIZE`. Diagnose its
+5. **[analysis]** You are handed a module named `Utilities` containing: `sendEmail`,
+   `formatCurrency`, `retryWithBackoff`, `parseCsvFile`, and `MAX_UPLOAD_SIZE`. Diagnose its
    cohesion (name the type), explain the specific maintenance problems this module will
    cause, and propose a re-decomposition into cohesive modules. State the responsibility of
    each new module in a single "and"-free sentence.
 
 6. **[analysis]** Read the following code and critique its coupling and cohesion.
+
+   ```generic
+   last_total <- 0.0                      // global, read by Checkout and Receipt
+
+   function compute(cart, is_b2b)
+     sort cart.items ascending by qty    // reaches into Cart's internals
+     total <- 0.0
+     for each item in cart.items
+       if is_b2b then
+         total <- total + item.wholesale * item.qty * 0.9
+       else
+         total <- total + item.retail * item.qty
+       end if
+     end for
+     last_total <- total                  // writes shared global
+   end function
+
+   function render_receipt()
+     return "Total: $" + format(last_total, 2)   // still reads the global
+   end function
+   ```
 
    ```go
    var lastTotal = 0.0 // read by Checkout and Receipt

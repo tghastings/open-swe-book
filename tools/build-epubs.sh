@@ -21,27 +21,51 @@ export CHROME_BIN="$CHROME"
 export RASTER_DIR="$OUT/.raster"   # diagram PNG cache shared across editions
 
 run_pandoc() {  # run_pandoc <in-html> <out-epub> <edition-description> <title> <cover>
+  # Split "Main: Subtitle" into a proper EPUB 3 main-title / subtitle pair, so
+  # Kindle and library catalogs record a real Title + Subtitle rather than one
+  # long string. Pandoc emits the title-type refinements from a structured
+  # `title` in a metadata file (a flat --metadata title= cannot express it).
+  local maintitle="${4%%: *}" subtitle="${4#*: }"
+  local metafile="$OUT/.title-$2.yaml"
+  local srchtml="$OUT/.notitle-$2.html"
+  # A document <title> overrides --metadata-file in pandoc, so strip it; the
+  # structured title below then becomes the EPUB's main-title + subtitle.
+  python3 -c 'import sys,re; t=open(sys.argv[1],encoding="utf-8").read(); open(sys.argv[2],"w",encoding="utf-8").write(re.sub(r"<title>.*?</title>","",t,flags=re.S|re.I))' "$OUT/$1" "$srchtml"
+  cat > "$metafile" <<YML
+---
+title:
+- type: main
+  text: "$maintitle"
+- type: subtitle
+  text: "$subtitle"
+---
+YML
   local args=(-f html+tex_math_dollars --mathml
-    --metadata title="$4" --metadata identifier="org.swebook.$2.$VERSION"
+    --metadata identifier="org.swebook.$2.$VERSION"
     --metadata lang=en
     --metadata rights="CC BY-SA 4.0 (prose); MIT (code)"
     --metadata description="$3" --toc --toc-depth=2 --split-level=1)
   if command -v pandoc >/dev/null; then
-    pandoc "$OUT/$1" -o "$OUT/$2" "${args[@]}" \
+    pandoc "$srchtml" -o "$OUT/$2" "${args[@]}" \
+      --metadata-file "$metafile" \
       --resource-path "$OUT" \
       --epub-metadata tools/epub-metadata.xml \
       --css tools/epub.css --highlight-style tools/onelight.theme \
+      --syntax-definition tools/generic.xml \
       --epub-cover-image "$5" \
       --epub-embed-font fonts/Inconsolata-latin.woff2
   else
     docker run --rm --user "$(id -u):$(id -g)" -v "$OUT:/data" -v "$BOOK_DIR:/book" pandoc/core \
-      "/data/$1" -o "/data/$2" "${args[@]}" \
+      "/data/.notitle-$2.html" -o "/data/$2" "${args[@]}" \
+      --metadata-file "/data/.title-$2.yaml" \
       --resource-path /data \
       --epub-metadata /book/tools/epub-metadata.xml \
       --css /book/tools/epub.css --highlight-style /book/tools/onelight.theme \
+      --syntax-definition /book/tools/generic.xml \
       --epub-cover-image "/book/$5" \
       --epub-embed-font /book/fonts/Inconsolata-latin.woff2
   fi
+  rm -f "$metafile" "$srchtml"
 }
 
 # 1. Build the site and render print.html with JS (mermaid -> SVG).
@@ -86,22 +110,27 @@ echo "diagrams rendered: $rendered/$expected_diagrams"
 rm -f "$OUT/light-print.html" "$OUT/chrome.log"
 
 # 2. Covers (regenerated every run: they carry the version).
-LANGS="${1:-python java javascript go ruby typescript}"
+LANGS="${1:-python java javascript go ruby typescript generic}"
 for lang in $LANGS; do
   [ "$lang" = all ] || bash tools/make-covers.sh covers "$lang"
 done
 
 # 3. Per-language filter + pandoc.
 TITLE="Software Engineering: Standing on the Shoulders of Giants"
-declare -A PRETTY=([python]=Python [java]=Java [javascript]=JavaScript [go]=Go [ruby]=Ruby [typescript]=TypeScript)
+declare -A PRETTY=([python]=Python [java]=Java [javascript]=JavaScript [go]=Go [ruby]=Ruby [typescript]=TypeScript [generic]=Generic)
 for lang in $LANGS; do
   python3 tools/epub-lang-filter.py "$OUT/rendered.html" "$lang" "$VERSION" > "$OUT/filtered-$lang.html"
   if [ "$lang" = all ]; then
     name="swebook.epub"; edition="First Edition, all languages"
     title="$TITLE"; cover="tools/covers/cover-python.png"
+  elif [ "$lang" = generic ]; then
+    # The generic/pseudocode edition (for Amazon KDP) carries the PLAIN title —
+    # no "— X Edition" suffix — and a cover with no language badge.
+    name="swebook-generic.epub"; edition="First Edition, generic pseudocode ($VERSION)"
+    title="$TITLE"; cover="tools/covers/cover-generic.png"
   else
     name="swebook-$lang.epub"; edition="First Edition, ${PRETTY[$lang]} code examples ($VERSION)"
-    title="$TITLE (${PRETTY[$lang]} Edition)"; cover="tools/covers/cover-$lang.png"
+    title="$TITLE — ${PRETTY[$lang]} Edition"; cover="tools/covers/cover-$lang.png"
   fi
   run_pandoc "filtered-$lang.html" "$name" "$edition" "$title" "$cover"
   python3 - "$OUT/$name" <<'PY'
@@ -123,7 +152,7 @@ z = zipfile.ZipFile(path)
 x = "".join(z.read(n).decode("utf-8", "ignore")
             for n in z.namelist() if n.endswith(".xhtml"))
 langs = set(re.findall(r'class="sourceCode (\w+)"', x))
-extra = langs - {lang, "bash", "gherkin", "bibtex", "text"}
+extra = langs - {lang, "bash", "gherkin", "bibtex", "text", "dockerfile", "yaml"}
 if extra:
     sys.exit(f"PURITY FAILURE in {path}: found {sorted(extra)}")
 media = [n for n in z.namelist() if "/media/" in n]
@@ -145,14 +174,14 @@ PY
     pandoc "$OUT/filtered-$lang.html" -o "$html" -s -f html+tex_math_dollars --mathml \
       --resource-path "$OUT" \
       --metadata title="$title" --toc --toc-depth=2 \
-      --highlight-style tools/onelight.theme \
+      --highlight-style tools/onelight.theme --syntax-definition tools/generic.xml \
       --css "file://$BOOK_DIR/tools/epub.css" --css "file://$BOOK_DIR/tools/pdf.css"
   else
     docker run --rm --user "$(id -u):$(id -g)" -v "$OUT:/data" -v "$BOOK_DIR:/book" pandoc/core \
       "/data/filtered-$lang.html" -o "/data/pdf-$lang.html" -s \
       -f html+tex_math_dollars --mathml \
       --metadata title="$title" --toc --toc-depth=2 \
-      --highlight-style /book/tools/onelight.theme \
+      --highlight-style /book/tools/onelight.theme --syntax-definition /book/tools/generic.xml \
       --css "file://$BOOK_DIR/tools/epub.css" --css "file://$BOOK_DIR/tools/pdf.css"
   fi
   python3 - "$html" "$BOOK_DIR/$cover" "$BOOK_DIR" <<'PY'

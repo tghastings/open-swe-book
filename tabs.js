@@ -1,17 +1,17 @@
 // Language tabs for multi-language code examples.
 //
 // Authoring convention: write 2-5 CONSECUTIVE fenced code blocks in the canonical
-// (alphabetical) order go, java, javascript, python, ruby, typescript (any subset, no other blocks between
+// (alphabetical) order generic, go, java, javascript, python, ruby, typescript (any subset, no other blocks between
 // them). At page load this script groups such runs into a tabbed widget. On
 // print.html (and therefore in the EPUB pipeline, which renders that page) the
 // blocks stay stacked in order, so every language remains visible in print.
 (() => {
     if (/print[^/]*\.html$/.test(window.location.pathname)) return;
 
-    const LANGS = ['go', 'java', 'javascript', 'python', 'ruby', 'typescript'];
+    const LANGS = ['generic', 'go', 'java', 'javascript', 'python', 'ruby', 'typescript'];
     const NAME = {
         python: 'Python', java: 'Java', javascript: 'JavaScript',
-        go: 'Go', ruby: 'Ruby', typescript: 'TypeScript',
+        go: 'Go', ruby: 'Ruby', typescript: 'TypeScript', generic: 'Generic',
     };
     const KEY = 'swebook-lang';
 
@@ -115,6 +115,46 @@
 // The gutter is a sibling of <code>, so copy buttons and text selection of
 // the code itself stay clean. print.html is excluded by the guard above,
 // which also keeps the EPUB pipeline free of number columns.
+
+// Syntax highlighting for the `generic` (pseudocode) tab. mdBook's highlight.js
+// has no pseudocode grammar, so we tokenize our small, fixed pseudocode
+// vocabulary ourselves and emit the SAME hljs-* classes the other languages
+// use — the Radical (dark) and One Light (light) palettes then color it for
+// free. Runs on `load`, after highlight.js has processed the page (the EPUB
+// gets its own highlighting from a skylighting definition, not this).
+const G_KW = new Set(['function', 'end', 'return', 'if', 'then', 'else', 'for',
+    'each', 'in', 'while', 'do', 'raise', 'new', 'step', 'repeat', 'until',
+    'break', 'continue', 'and', 'or', 'not', 'is', 'to', 'with', 'of']);
+const G_LIT = new Set(['true', 'false', 'nil', 'null', 'nothing', 'none', 'empty', 'missing']);
+const G_BI = new Set(['print', 'assert', 'append', 'sort', 'length', 'count']);
+const gEsc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const G_RE = /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*")|(\b\d+(?:\.\d+)?\b)|(<-|<=|>=|!=|[-+*/=<>])|([A-Za-z_]\w*)/g;
+const highlightGeneric = (code) => {
+    const src = code.textContent;
+    let out = '', last = 0, m, prev = null;
+    while ((m = G_RE.exec(src))) {
+        out += gEsc(src.slice(last, m.index));
+        last = G_RE.lastIndex;
+        if (m[1]) { out += `<span class="hljs-comment">${gEsc(m[1])}</span>`; prev = null; }
+        else if (m[2]) { out += `<span class="hljs-string">${gEsc(m[2])}</span>`; prev = null; }
+        else if (m[3]) { out += `<span class="hljs-number">${gEsc(m[3])}</span>`; prev = null; }
+        else if (m[4]) { out += `<span class="hljs-operator">${gEsc(m[4])}</span>`; prev = null; }
+        else {
+            const w = m[5], lw = w.toLowerCase();
+            const cls = G_KW.has(lw) ? 'hljs-keyword' : G_LIT.has(lw) ? 'hljs-literal'
+                : G_BI.has(lw) ? 'hljs-built_in' : (prev === 'function' ? 'hljs-title function_' : null);
+            out += cls ? `<span class="${cls}">${gEsc(w)}</span>` : gEsc(w);
+            prev = lw;
+        }
+    }
+    out += gEsc(src.slice(last));
+    code.innerHTML = out;
+    code.classList.add('hljs');
+};
+window.addEventListener('load', () => {
+    document.querySelectorAll('main pre > code.language-generic').forEach(highlightGeneric);
+});
+
 document.querySelectorAll('main pre:not(.mermaid) > code').forEach((code) => {
     const pre = code.parentElement;
     if (pre.querySelector('.code-ln')) return;

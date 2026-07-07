@@ -20,9 +20,9 @@ import subprocess
 import sys
 import tempfile
 
-LANGS = ["go", "java", "javascript", "python", "ruby", "typescript"]
+LANGS = ["generic", "go", "java", "javascript", "python", "ruby", "typescript"]
 NAME = {"python": "Python", "java": "Java", "javascript": "JavaScript",
-        "go": "Go", "ruby": "Ruby", "typescript": "TypeScript"}
+        "go": "Go", "ruby": "Ruby", "typescript": "TypeScript", "generic": "Generic"}
 
 
 def fix_svg_xml(svg: str) -> str:

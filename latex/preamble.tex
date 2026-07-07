@@ -1,0 +1,101 @@
+\PassOptionsToPackage{hidelinks}{hyperref}
+% ---- Fonts (xelatex + Amazon Endure) ----
+\usepackage{fontspec}
+\setmainfont{AmazonEndure-Book.otf}[
+  Path=../fonts/,
+  BoldFont=AmazonEndure-SemiBold.otf,
+  ItalicFont=AmazonEndure-BookItalic.otf,
+  BoldItalicFont=AmazonEndure-SemiBoldItalic.otf]
+\setmonofont{DejaVu Sans Mono}[Scale=0.80,HyphenChar=None]
+
+% ---- 7x10 print geometry ----
+\usepackage[paperwidth=7in,paperheight=10in,
+  inner=0.875in,outer=0.75in,top=0.9in,bottom=0.9in,
+  headsep=12pt,footskip=26pt]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[section]{placeins}
+\raggedbottom
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true}
+
+% ---- Running heads: book title (verso) / chapter (recto), folio at foot ----
+\usepackage[automark,headsepline]{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[chapter]{chapter}
+\ohead{\small\itshape\headmark}
+\cfoot*{\small\thepage}
+\renewcommand*{\chaptermarkformat}{}
+
+% ---- Callout boxes (Principle / Pitfall / Definition / ...) ----
+\usepackage[most]{tcolorbox}
+\newtcolorbox{callout}[1]{
+  enhanced, colback=black!3, colframe=black!45,
+  boxrule=0.4pt, arc=1.5pt, left=9pt, right=9pt, top=7pt, bottom=7pt,
+  fonttitle=\bfseries\small, coltitle=black, title={#1}, before skip=8pt, after skip=8pt}
+
+% ---- Headings (scrbook) ----
+\setkomafont{chapter}{\normalfont\bfseries\LARGE}
+\renewcommand*{\chapterformat}{\thechapter\quad}
+\setkomafont{section}{\normalfont\bfseries\large}
+\setkomafont{subsection}{\normalfont\bfseries\normalsize}
+\RedeclareSectionCommand[beforeskip=-1.5ex,afterskip=1ex]{section}
+
+% caption label reads "Figure 4.1." not "Figure 4.1.:"
+\renewcommand*{\captionformat}{\ }
+% figures a touch tighter
+\setlength{\intextsep}{10pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+
+% ---- glossary with page references ----
+\usepackage[toc,nopostdot,nogroupskip,style=altlist]{glossaries}
+\makeglossaries
+\input{glossary-defs.tex}
+
+% ---- URL line-breaking (long Further-Reading URLs) ----
+\usepackage{refcount}
+\usepackage{xurl}
+\Urlmuskip=0mu\relax     % no inter-character stretch (kills letterspaced URLs)
+\makeatletter\g@addto@macro\UrlNoBreaks{\do\:}\makeatother  % no break after "https:"
+% ---- Unicode glyph fallbacks (absent from Amazon Endure) ----
+\usepackage{amssymb}
+\usepackage{newunicodechar}
+\newunicodechar{✓}{\ensuremath{\checkmark}}
+\newunicodechar{✗}{\ensuremath{\times}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
+\newunicodechar{⟸}{\ensuremath{\Longleftarrow}}
+\newunicodechar{⊃}{\ensuremath{\supset}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{⊇}{\ensuremath{\supseteq}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∉}{\ensuremath{\notin}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{∑}{\ensuremath{\sum}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{∨}{\ensuremath{\vee}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+
+% ---- shrink wide tables to fit the text block ----
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+% ---- keep code blocks whole: never split a listing across a page break ----
+\BeforeBeginEnvironment{Shaded}{\par\noindent\begin{minipage}{\linewidth}}
+\AfterEndEnvironment{Shaded}{\end{minipage}\par}
+
+% two-digit chapter/section numbers need wider TOC number boxes
+\DeclareTOCStyleEntries[dynnumwidth]{tocline}{chapter,section,subsection}

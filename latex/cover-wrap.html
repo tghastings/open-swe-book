@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            /* KDP case-laminate 7x10, 400pp: overall 16.665in x 11.417in, spine 1.090in,
+     wrap ~0.7875in sides / ~0.7085in top-bottom. All units in inches. */
+            html,
+            body {
+                width: 16.78in;
+                height: 11.417in;
+            }
+            body {
+                background: #0b0d16;
+                background-image:
+                    radial-gradient(
+                        ellipse 9in 6in at 88% 22%,
+                        #ff2d781f,
+                        transparent 70%
+                    ),
+                    radial-gradient(
+                        ellipse 8in 7in at 8% 70%,
+                        rgba(97, 84, 190, 0.14),
+                        transparent 72%
+                    );
+                color: #eef1f8;
+                font-family: Georgia, "Liberation Serif", serif;
+                position: relative;
+                overflow: hidden;
+            }
+            .field {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .field path {
+                fill: none;
+                stroke: #ff2d78;
+                stroke-width: 0.02in;
+            }
+            .panel {
+                position: absolute;
+                top: 0.7085in;
+                height: 10in;
+            }
+            .back {
+                left: 0.7885in;
+                width: 7in;
+            }
+            .spine {
+                left: 7.7885in;
+                width: 1.203in;
+                top: 0;
+                height: 11.417in;
+            }
+            .front {
+                left: 8.9915in;
+                width: 7in;
+            }
+
+            /* ---------- FRONT ---------- */
+            .front {
+                padding: 0.85in 0.7in;
+                display: flex;
+                flex-direction: column;
+            }
+            .front h1 {
+                font-size: 0.86in;
+                line-height: 1.05;
+                font-weight: normal;
+                color: #f5f7ff;
+            }
+            .front .sub {
+                margin-top: 0.28in;
+                font-size: 0.32in;
+                font-style: italic;
+                color: #aeb8dd;
+            }
+            .front .rule {
+                margin-top: 0.45in;
+                width: 2.6in;
+                height: 0.03in;
+                background: linear-gradient(90deg, #ff2d78, transparent);
+                box-shadow: 0 0 0.12in #ff2d7866;
+            }
+            .front .spacer {
+                flex: 1;
+            }
+            .front .badge {
+                align-self: flex-start;
+                font-family: "DejaVu Sans Mono", monospace;
+                font-size: 0.2in;
+                font-weight: bold;
+                color: #0b0d16;
+                background: #ff2d78;
+                padding: 0.09in 0.28in;
+                border-radius: 0.25in;
+                margin-bottom: 0.5in;
+            }
+            .front .author {
+                border-top: 0.02in solid rgba(174, 184, 221, 0.35);
+                padding-top: 0.26in;
+                font-size: 0.3in;
+                color: #f0f3ff;
+            }
+            .front .ed {
+                margin-top: 0.1in;
+                font-size: 0.19in;
+                color: #8f99c0;
+            }
+
+            /* ---------- SPINE (avoid hinge ~0.28in each edge) ---------- */
+            .spine {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .spine .txt {
+                writing-mode: vertical-rl;
+                transform: rotate(180deg);
+                text-align: center;
+                white-space: nowrap;
+                height: 9in;
+                display: flex;
+                align-items: center;
+                gap: 0.5in;
+                font-size: 0.24in;
+                color: #f0f3ff;
+                letter-spacing: 0.01in;
+            }
+            .spine .txt .t {
+                font-weight: normal;
+            }
+            .spine .txt .a {
+                color: #aeb8dd;
+                font-style: italic;
+            }
+            .spine .dot {
+                position: absolute;
+                bottom: 0.9in;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0.14in;
+                height: 0.14in;
+                border-radius: 50%;
+                background: #ff2d78;
+            }
+            .spine .edition {
+                position: absolute;
+                top: 1.15in;
+                left: 50%;
+                transform: translateX(-50%);
+                font-family: "DejaVu Sans Mono", monospace;
+                font-size: 0.24in;
+                font-weight: bold;
+                color: #ff2d78;
+                letter-spacing: 0.005in;
+            }
+
+            /* ---------- BACK ---------- */
+            .back {
+                padding: 0.95in 0.72in 1.9in;
+                display: flex;
+                flex-direction: column;
+            }
+            .back .hook h2 {
+                font-size: 0.46in;
+                font-weight: normal;
+                color: #f7f8ff;
+                line-height: 1.06;
+                letter-spacing: 0.003in;
+            }
+            .back .krule {
+                margin-top: 0.2in;
+                width: 1.5in;
+                height: 0.03in;
+                background: linear-gradient(90deg, #ff2d78, transparent);
+                box-shadow: 0 0 0.12in #ff2d7855;
+            }
+            .back .lead {
+                margin-top: 0.36in;
+                font-size: 0.2in;
+                line-height: 1.42;
+                color: #f4f6fc;
+                text-align: left;
+                margin-bottom: 0.22in;
+            }
+            .back p {
+                font-size: 0.166in;
+                line-height: 1.5;
+                color: #cfd4e8;
+                margin-bottom: 0.15in;
+                text-align: justify;
+            }
+            .back .close {
+                color: #f4f6fc;
+                font-style: italic;
+                text-align: left;
+            }
+            .back i {
+                font-style: italic;
+            }
+            .back .biosep {
+                width: 100%;
+                height: 0.014in;
+                background: rgba(174, 184, 221, 0.22);
+                margin: 0.28in 0 0.17in;
+            }
+            .back .authlabel {
+                font-family: "DejaVu Sans Mono", monospace;
+                font-size: 0.125in;
+                letter-spacing: 0.04in;
+                text-transform: uppercase;
+                color: #ff5c93;
+                margin-bottom: 0.12in;
+            }
+            .back .bio {
+                font-size: 0.148in;
+                line-height: 1.44;
+                color: #aeb8dd;
+                text-align: justify;
+                margin: 0;
+            }
+            .back .bio b {
+                color: #eaedf6;
+                font-weight: normal;
+            }
+            .back .spacer {
+                flex: 1;
+            }
+            /* KDP prints the barcode here — keep it clear (white). 2.0 x 1.2 in, lower-center. */
+            .back .barcode {
+                width: 2in;
+                height: 1.2in;
+                background: #fff;
+                align-self: center;
+                margin-top: 0.2in;
+            }
+        </style>
+    </head>
+    <body>
+        <svg class="field" viewBox="0 0 1666 1141" preserveAspectRatio="none">
+            <path
+                d="M0 250 L300 235 L600 260 L900 232 L1200 258 L1666 244"
+                opacity="0.05"
+            />
+            <path
+                d="M0 520 L300 470 L600 545 L900 500 L1200 470 L1666 560"
+                opacity="0.10"
+            />
+            <path
+                d="M0 800 L300 830 L600 792 L900 815 L1200 786 L1666 812"
+                opacity="0.09"
+            />
+            <path
+                d="M0 1050 L300 1030 L600 1060 L900 1032 L1200 1058 L1666 1040"
+                opacity="0.06"
+            />
+        </svg>
+
+        <!-- BACK -->
+        <section class="panel back">
+            <div class="hook">
+                <h2>The craft behind<br />the code.</h2>
+                <div class="krule"></div>
+            </div>
+            <p class="lead">
+                Software engineering is more than software development; it is
+                the discipline of turning ideas into reliable and maintainable
+                systems through informed judgment, effective collaboration, and
+                careful attention to detail.
+            </p>
+            <p>
+                <i>Software Engineering: Standing on the Shoulders of Giants</i>
+                offers a practical introduction to contemporary software
+                development principles and practices. The text examines the full
+                software development lifecycle, with an emphasis on
+                maintainable, deployable code, compelling use cases, and the
+                growing importance of AI-assisted development.
+            </p>
+            <p>
+                Intended for students, instructors, and self‑learners, this book
+                connects foundational concepts to authentic engineering
+                tradeoffs. It centers on real, project‑based work — planning,
+                building, evaluating, and refining software the way a team does
+                — presenting the discipline as a hands‑on craft you learn by
+                doing.
+            </p>
+            <div class="spacer"></div>
+            <div class="biosep"></div>
+            <div class="authlabel">About the Author</div>
+            <p class="bio">
+                <b>Thomas Hastings, Ph.D.,</b> brings over twenty years of
+                experience designing and developing software applications. He
+                teaches software engineering at the University of Colorado
+                Colorado Springs and, as a reservist, at the United States Air
+                Force Academy, and works as a software engineer at Amazon Web
+                Services. He holds a Ph.D. in Engineering and an M.Eng. in
+                Software Engineering from UCCS, and his research focuses on
+                open‑source software security and software supply chains.
+            </p>
+        </section>
+
+        <!-- SPINE -->
+        <section class="panel spine">
+            <div class="txt">
+                <span class="t"
+                    >Software Engineering&nbsp;&nbsp;·&nbsp;&nbsp;Standing on
+                    the Shoulders of Giants</span
+                ><span class="a">Hastings</span>
+            </div>
+            <div class="edition">1β</div>
+            <div class="dot"></div>
+        </section>
+
+        <!-- FRONT -->
+        <section class="panel front">
+            <h1>Software<br />Engineering</h1>
+            <div class="sub">Standing on the Shoulders of Giants</div>
+            <div class="rule"></div>
+            <div class="spacer"></div>
+            <div class="badge">1st Beta</div>
+            <div class="author">Thomas Hastings, Ph.D.</div>
+        </section>
+    </body>
+</html>

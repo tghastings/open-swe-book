@@ -126,7 +126,7 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   (OpenFeature); vendor docs free to read.*
 - 📄 **Minimum CD** — [minimumcd.org](https://minimumcd.org/). A community-maintained,
   vendor-neutral statement of the *minimum* practices that constitute continuous delivery
-  — a useful checklist for auditing your own pipeline against §13.2–13.3. *License: CC
+  — a useful checklist for auditing your own pipeline against §§13.2–13.3. *License: CC
   BY-SA 4.0.*
 - 📘 **Bryan Finster — "5-Minute DevOps" series** — free to read on
   [bdfinst.medium.com](https://bdfinst.medium.com/) and [bryanfinster.com](https://bryanfinster.com/). Short, blunt essays from a
@@ -136,12 +136,47 @@ where known. Each entry notes its license or access terms; when in doubt, check 
 - 📘 **Google — Site Reliability Engineering (the SRE book and workbook)** —
   [sre.google/books](https://sre.google/books/). Free online editions covering release
   engineering, canarying, error budgets, and postmortem culture — the operations side of
-  §13.3 and §13.5 at planetary scale. *License: CC BY-NC-ND 4.0 (free to read).*
+  §13.3 and §13.7 at planetary scale. *License: CC BY-NC-ND 4.0 (free to read).*
+
+## Deployment mechanics: containers, DNS, and TLS
+
+- 🛠 **Docker — official documentation** — [docs.docker.com](https://docs.docker.com/).
+  The Dockerfile reference, image-building guide, and *Get Started* tutorial behind
+  §13.4.1. *Access: free to read; Docker Engine is Apache-2.0.*
+- 🛠 **Docker Compose documentation** —
+  [docs.docker.com/compose](https://docs.docker.com/compose/). The Compose file reference
+  and multi-service examples used in §13.4.2. *Access: free to read.*
+- 🛠 **Docker Official Images — Postgres and Redis** —
+  [hub.docker.com/_/postgres](https://hub.docker.com/_/postgres) ·
+  [hub.docker.com/_/redis](https://hub.docker.com/_/redis). Maintained, security-patched
+  base images, with usage notes on volumes and environment configuration (§13.4.3).
+  *Access: free; images under their projects' licenses.*
+- 📘 **The Twelve-Factor App** — [12factor.net](https://12factor.net/). The widely cited
+  methodology for cloud-native services; factor III (config) is the
+  externalized-configuration rule of §13.4.4. *Access: free to read.*
+- 📄 **Cloudflare Learning Center — DNS and reverse proxies** —
+  [what is DNS?](https://www.cloudflare.com/learning/dns/what-is-dns/) ·
+  [what is a reverse proxy?](https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/).
+  Readable explainers for the DNS resolution chain (§13.5.1) and the edge-proxy model
+  (§13.5.3). *Access: free to read.*
+- 📄 **Let's Encrypt — How It Works, and ACME (RFC 8555)** —
+  [letsencrypt.org/how-it-works](https://letsencrypt.org/how-it-works/) ·
+  [rfc-editor.org/rfc/rfc8555](https://www.rfc-editor.org/rfc/rfc8555). The free, automated
+  certificate authority and the protocol behind automatic HTTPS (§13.5.2). *Access: free;
+  RFC is an IETF standard.*
+- 🛠 **Caddy — automatic-HTTPS reverse proxy** —
+  [caddyserver.com](https://caddyserver.com/). A web server that obtains and renews Let's
+  Encrypt certificates with no configuration, the simplest way to put TLS in front of a
+  container (§13.5.2). *License: Apache-2.0.*
+- 📄 **Google — HTTPS encryption on the web (Transparency Report)** —
+  [transparencyreport.google.com/https](https://transparencyreport.google.com/https/overview).
+  Ongoing measurement of the share of web traffic served over HTTPS (§13.5.2). *Access:
+  free to read.*
 
 ## DORA and delivery research
 
 - 📄 **DORA — research program, four-keys definitions, and annual State of DevOps
-  reports** — [dora.dev](https://dora.dev/). The research base for §13.5: metric
+  reports** — [dora.dev](https://dora.dev/). The research base for §13.7: metric
   definitions, performance-band data, capability catalog, and a quick check for assessing
   your own team. *Access: site content free; reports free to download.*
 - 📘 **Forsgren, Humble, Kim — *Accelerate*** (IT Revolution Press, 2018). The book-length
@@ -155,14 +190,14 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   [Source Code Analysis Tools (SAST)](https://owasp.org/www-community/Source_Code_Analysis_Tools) ·
   [Vulnerability Scanning Tools (DAST)](https://owasp.org/www-community/Vulnerability_Scanning_Tools) ·
   [Component Analysis (SCA)](https://owasp.org/www-community/Component_Analysis). The
-  community definitions behind §13.4.1's three scanner families, with maintained tool
+  community definitions behind §13.6.1's three scanner families, with maintained tool
   lists. *Free to read; OWASP content is CC BY-SA.*
 - 📄 **CISA — Software Bill of Materials (SBOM)** — [cisa.gov/sbom](https://www.cisa.gov/sbom).
-  The U.S. government's SBOM resource hub referenced in §13.4.2. *License: U.S.
+  The U.S. government's SBOM resource hub referenced in §13.6.2. *License: U.S.
   government work, public domain.*
 - 📄 **GitHub Docs — Dependabot** —
   [docs.github.com/en/code-security/dependabot](https://docs.github.com/en/code-security/dependabot).
-  Reference for the update-bot workflow of §13.4.2. *License: GitHub docs are CC BY 4.0.*
+  Reference for the update-bot workflow of §13.6.2. *License: GitHub docs are CC BY 4.0.*
 - 🛠 **OWASP Dependency-Check and Dependency-Track** —
   [owasp.org/www-project-dependency-check](https://owasp.org/www-project-dependency-check/)
   and [dependencytrack.org](https://dependencytrack.org/). Open-source SCA: the first
@@ -170,16 +205,16 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   organization. *License: Apache-2.0.*
 - 📄 **SLSA — Supply-chain Levels for Software Artifacts** — [slsa.dev](https://slsa.dev/).
   A leveled framework for build-pipeline integrity and artifact provenance — the
-  structured answer to the SolarWinds-style attacks of §13.4.2. *License: spec on GitHub
+  structured answer to the SolarWinds-style attacks of §13.6.2. *License: spec on GitHub
   under Community Specification License; site content CC BY 4.0.*
 - 📄 **CISA — Alert AA20-352A** (December 2020) —
   [cisa.gov](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a). The US
-  government advisory on the SolarWinds compromise behind §13.4.2: malicious code inserted
+  government advisory on the SolarWinds compromise behind §13.6.2: malicious code inserted
   during the software build and signed with the vendor's legitimate code-signing
   certificate. *License: U.S. government work, public domain.*
 - 📄 **npm — "kik, left-pad, and npm"** (March 2016) —
   [blog.npmjs.org](https://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm). The
-  registry's own account of §13.4.2's left-pad unpublication and the breakage that
+  registry's own account of §13.6.2's left-pad unpublication and the breakage that
   followed; The Register's contemporaneous report prints the eleven-line package in
   full — [theregister.com](https://www.theregister.com/2016/03/23/npm_left_pad_chaos/).
   *Access: both free to read.*
@@ -188,28 +223,28 @@ where known. Each entry notes its license or access terms; when in doubt, check 
 
 - 📘 **Martin Fowler — "StranglerFigApplication"** —
   [martinfowler.com/bliki/StranglerFigApplication.html](https://martinfowler.com/bliki/StranglerFigApplication.html).
-  The original naming of §13.6.5's incremental-replacement pattern, with the fig-tree
+  The original naming of §13.8.5's incremental-replacement pattern, with the fig-tree
   metaphor from its source. *Access: free to read.*
 - 📘 **Refactoring catalog** — [refactoring.com/catalog](https://refactoring.com/catalog/)
   (Fowler's official catalog of named moves and mechanics) and
   [refactoring.guru](https://refactoring.guru/refactoring) (a free-to-read tutorial
-  treatment with examples). The named, small, behavior-preserving steps of §13.6.3.
-  *Access: both free to read online; the full *Refactoring* book is commercial.*
+  treatment with examples). The named, small, behavior-preserving steps of §13.8.3.
+  *Access: both free to read online; the full Refactoring book is commercial.*
 - 📄 **Ward Cunningham — "The WyCash Portfolio Management System"** (OOPSLA 1992
   experience report) — widely mirrored, e.g. via
   [c2.com](http://c2.com/doc/oopsla92.html). The four-paragraph origin of the
-  technical-debt metaphor (§13.6.4), worth reading to see how much the original meaning —
+  technical-debt metaphor (§13.8.4), worth reading to see how much the original meaning —
   debt as *deliberate*, to be repaid with refactoring — matches this chapter's framing.
   *Access: free on the author's site.*
 - 📄 **Robert L. Glass — "Frequently Forgotten Fundamental Facts about Software
   Engineering"** (IEEE Software, 2001) —
-  [doi.org](https://doi.org/10.1109/MS.2001.922739). Source for §13.6's maintenance-cost
+  [doi.org](https://doi.org/10.1109/MS.2001.922739). Source for §13.8's maintenance-cost
   figure: maintenance typically consumes 40 to 80 percent (60 percent average) of software
   costs. *Access: paywalled at IEEE; widely assigned in courses, and author copies
   circulate.*
 - 📘 **Michael Feathers — *Working Effectively with Legacy Code*** (Prentice Hall, 2004) —
   [informit.com](https://www.informit.com/store/working-effectively-with-legacy-code-9780131177055).
-  The source of §13.6.1's tests-first definition of legacy code and the
+  The source of §13.8.1's tests-first definition of legacy code and the
   edit-and-pray/cover-and-modify distinction. *Not* openly licensed — listed here as the
   standard citation.
 

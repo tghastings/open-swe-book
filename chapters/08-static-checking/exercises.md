@@ -51,6 +51,23 @@ reason.
    one or two of these an ordinary automated linter or type checker would likely have caught on
    its own, and which require a *human* reviewer who understands intent.
 
+   ```generic
+   // Applies a discount code to a shopping cart and returns the new total.
+   function applyDiscount(cart, code)
+     total <- 0
+     for each item in cart.items
+       total <- total + item.price * item.quantity
+     end for
+     discount <- lookup code in discounts     // returns nothing if code is unknown
+     total <- total - total * discount.percent / 100
+     if total < 0 then
+       total = 0
+     end if
+     cart.total <- total
+     return total
+   end function
+   ```
+
    ```go
    // Applies a discount code to a shopping cart and returns the new total.
    func applyDiscount(cart *Cart, code string) float64 {

@@ -51,6 +51,20 @@ answer.
 
 9. **[analysis]** *Draw a CFG and give branch-coverage tests.* Consider:
 
+   ```generic
+   function fizzbuzz(n)
+     if n % 15 = 0 then
+       return "FizzBuzz"
+     else if n % 3 = 0 then
+       return "Fizz"
+     else if n % 5 = 0 then
+       return "Buzz"
+     else
+       return n as text
+     end if
+   end function
+   ```
+
    ```go
    func fizzbuzz(n int) string {
    	if n%15 == 0 {

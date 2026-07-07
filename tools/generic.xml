@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  Skylighting/Kate syntax definition for the book's `generic` (pseudocode) tab.
+  There is no standard pseudocode highlighter, and our pseudocode uses one small
+  fixed vocabulary, so we define it here. Pandoc applies it to ```generic blocks
+  in the EPUB/PDF via `--syntax-definition tools/generic.xml`; the website does
+  the equivalent in tabs.js. Keep the keyword lists in sync with tabs.js.
+-->
+<language name="generic" section="Sources" extensions="*.generic;*.pseudo"
+          version="1" kateversion="5.0" author="swebook.org" license="MIT"
+          casesensitive="1">
+  <highlighting>
+    <list name="keywords">
+      <item>function</item> <item>end</item> <item>return</item> <item>if</item>
+      <item>then</item> <item>else</item> <item>for</item> <item>each</item>
+      <item>in</item> <item>while</item> <item>do</item> <item>raise</item>
+      <item>new</item> <item>step</item> <item>repeat</item> <item>until</item>
+      <item>break</item> <item>continue</item> <item>and</item> <item>or</item>
+      <item>not</item> <item>is</item> <item>to</item> <item>with</item> <item>of</item>
+    </list>
+    <list name="literals">
+      <item>true</item> <item>false</item> <item>nil</item> <item>null</item>
+      <item>nothing</item> <item>none</item> <item>empty</item> <item>missing</item>
+    </list>
+    <list name="builtins">
+      <item>print</item> <item>assert</item> <item>append</item> <item>sort</item>
+      <item>length</item> <item>count</item>
+    </list>
+    <contexts>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <WordDetect attribute="Keyword" context="FuncDef" String="function"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Literal" context="#stay" String="literals"/>
+        <keyword attribute="Builtin" context="#stay" String="builtins"/>
+        <Detect2Chars attribute="Operator" context="#stay" char="&lt;" char1="-"/>
+        <RegExpr attribute="Number" context="#stay" String="\b[0-9]+(\.[0-9]+)?\b"/>
+        <AnyChar attribute="Operator" context="#stay" String="+-*/=&lt;&gt;"/>
+      </context>
+      <context name="FuncDef" attribute="Normal Text" lineEndContext="#pop"
+               fallthrough="true" fallthroughContext="#pop">
+        <DetectChar attribute="Normal Text" context="#stay" char=" "/>
+        <RegExpr attribute="Function" context="#pop" String="[A-Za-z_][A-Za-z_0-9]*"/>
+      </context>
+      <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
+      <context name="String" attribute="String" lineEndContext="#stay">
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Literal" defStyleNum="dsConstant"/>
+      <itemData name="Builtin" defStyleNum="dsBuiltIn"/>
+      <itemData name="Function" defStyleNum="dsFunction"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Number" defStyleNum="dsDecVal"/>
+      <itemData name="Operator" defStyleNum="dsOperator"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments><comment name="singleLine" start="//"/></comments>
+    <keywords casesensitive="1"/>
+  </general>
+</language>

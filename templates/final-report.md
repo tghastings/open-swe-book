@@ -125,7 +125,7 @@ Keep it factual._
 - **Notes on collaboration:** _how work was divided and reviewed; how conflicts or
   imbalances were handled_
 
-## 11. Appendix (optional)
+## 10. Appendix (optional)
 
 _Links to the proposal, both status reports, the backlog, and any supporting data or
 diagrams._

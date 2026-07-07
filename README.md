@@ -77,15 +77,17 @@ The chapters are organized into thematic arcs:
 ## Code examples in six languages
 
 Every code example in the book is provided in **Python, Java, JavaScript, Go, Ruby,
-and TypeScript**, behind language tabs — pick your language once and the whole site follows
+and TypeScript**, plus a language-agnostic **Generic** tab written in pseudocode, behind
+language tabs — pick your language once and the whole site follows
 (or open any page with [`?lang=go`](?lang=go) to pre-select one). Each snippet also lives in
 [`code/`](code/) as a runnable file with a test, executed by continuous integration on
 every change.
 
-The book is also available as an **EPUB and a PDF**, one edition per language —
-identical prose, published with each tagged release:
+The book is also available as an **EPUB and a PDF**, one edition per language plus a
+**Generic (pseudocode)** edition — identical prose, published with each tagged release:
 
 EPUB:
+[Generic](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-generic.epub) ·
 [Python](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-python.epub) ·
 [Java](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-java.epub) ·
 [JavaScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-javascript.epub) ·
@@ -93,6 +95,7 @@ EPUB:
 [Ruby](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-ruby.epub) ·
 [TypeScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-typescript.epub)
 &nbsp;&nbsp;PDF:
+[Generic](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-generic.pdf) ·
 [Python](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-python.pdf) ·
 [Java](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-java.pdf) ·
 [JavaScript](https://github.com/tghastings/open-swe-book/releases/latest/download/swebook-javascript.pdf) ·
@@ -234,10 +237,14 @@ with `biblatex` you can move it to a `urldate`/`addendum` field instead. If you 
 classic BibTeX style (`plain`, `plainnat`), swap `@inbook` for `@incollection` — those
 styles ignore `booktitle` inside `@inbook`.
 
-## License
+## Copyright and license
 
-Text and figures are licensed **[CC BY‑SA 4.0](LICENSE)**; any code snippets are
-**MIT**. You are free to share and adapt with attribution. See [`LICENSE`](LICENSE).
+**Copyright © 2026 Thomas Hastings.** Unless otherwise noted, the text and figures are
+licensed **[CC BY‑SA 4.0](LICENSE)**; code examples are licensed **MIT**. You are free to
+share and adapt with attribution. All trademarks, product names, and company names are the
+property of their respective owners and are used for identification and educational
+purposes only. The full notice is on the [Copyright](copyright.md) page; see also
+[`LICENSE`](LICENSE).
 
 [^1]: ACM/IEEE‑CS Joint Task Force on Computing Curricula, *Software Engineering 2014:
 Curriculum Guidelines for Undergraduate Degree Programs in Software Engineering*

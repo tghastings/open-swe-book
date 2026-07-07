@@ -295,6 +295,18 @@ One turn of this loop on the clinic app's appointment slots starts *red* — the
 function does not exist yet, so the test run fails before a single assertion is checked
 (each language reports the missing function in its own way; see the comment in the code):
 
+```generic
+function test_overlapping_slots_conflict()
+  assert slots_overlap(("09:00", "09:30"), ("09:15", "09:45"))
+end function
+
+function test_back_to_back_slots_do_not_conflict()
+  assert not slots_overlap(("09:00", "09:30"), ("09:30", "10:00"))
+end function
+
+// Red: slots_overlap does not exist yet, so the run fails before any assertion.
+```
+
 ```go
 func TestOverlappingSlotsConflict(t *testing.T) {
 	if !slotsOverlap([2]string{"09:00", "09:30"}, [2]string{"09:15", "09:45"}) {
@@ -388,6 +400,13 @@ test("back-to-back slots do not conflict", () => {
 
 The least code that makes both tests pass turns the run *green*:
 
+```generic
+function slots_overlap(a, b)
+  // slots overlap when each one starts before the other ends
+  return a[0] < b[1] and b[0] < a[1]
+end function
+```
+
 ```go
 func slotsOverlap(a, b [2]string) bool {
 	return a[0] < b[1] && b[0] < a[1]
@@ -452,7 +471,7 @@ does, instead of being frozen at the moment you understood least.
 
 This does not mean *no* thinking ahead. Architectural decisions that are expensive to reverse
 — the shape of your data, a choice of framework, a security model — still deserve deliberate
-up-front thought, a point the spiral and V models (Sections 2.5 and 2.7) take seriously. The
+up-front thought, a point the V and spiral models (Sections 2.5 and 2.7) take seriously. The
 XP claim is narrower and correct: do not *elaborate* a detailed design for requirements you
 have not yet validated.
 
@@ -538,7 +557,7 @@ because so much work has been built on top of the mistake.[^13]
 xychart-beta
     title "Relative cost to fix a defect, by phase where it is found (illustrative)"
     x-axis ["Requirements", "Design", "Implementation", "Testing", "After release"]
-    y-axis "Relative cost (multiple of a requirements-phase fix)" 0 --> 100
+    y-axis "Relative cost" 0 --> 100
     bar [1, 5, 10, 20, 100]
 ```
 
@@ -593,10 +612,10 @@ flowchart TD
     UT --> IT[Integration testing]
     IT --> ST[System testing]
     ST --> AT[Acceptance testing]
-    R -. validated by .-> AT
-    AD -. validated by .-> ST
-    DD -. validated by .-> IT
-    IMPL -. validated by .-> UT
+    R -.-> AT
+    AD -.-> ST
+    DD -.-> IT
+    IMPL -.-> UT
 ```
 
 The dashed lines carry the model's central insight: each design activity has a corresponding

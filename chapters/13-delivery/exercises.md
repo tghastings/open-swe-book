@@ -21,12 +21,12 @@ only the answer.
    pipeline is fast." Using §13.3.4, give one situation where roll-forward is genuinely the
    only option and one where an untested reliance on it would be dangerous.
 
-4. **[warm‑up]** For each scanner family in §13.4 — SAST, DAST, SCA, secrets scanning —
+4. **[warm‑up]** For each scanner family in §13.6 — SAST, DAST, SCA, secrets scanning —
    name the *earliest* pipeline stage at which it can give a correct answer, and say why it
    cannot run earlier.
 
 5. **[warm‑up]** Classify each of these as *deliberate* or *inadvertent* technical debt
-   (§13.6.4), and justify: (a) hard-coding a single currency to make a demo deadline, with
+   (§13.8.4), and justify: (a) hard-coding a single currency to make a demo deadline, with
    a backlog ticket to internationalize; (b) a data model that made sense before the
    requirements pivoted; (c) copy-pasting a function at 2 a.m. during crunch to avoid
    touching a shared module.
@@ -50,7 +50,7 @@ only the answer.
 
    Compute (a) deployment frequency (deploys per week), (b) median lead time for changes,
    (c) change failure rate, and (d) mean failed-deployment recovery time. Then (e) using
-   §13.5.3's elite benchmarks, identify which key is furthest from elite and propose the
+   §13.7.3's elite benchmarks, identify which key is furthest from elite and propose the
    single pipeline change most likely to improve it.
 
 7. **[analysis]** *Design a canary rollout.* Your team is shipping a rewritten
@@ -78,11 +78,31 @@ only the answer.
 10. **[analysis]** Goodhart's Law (§11.1.2) says any single metric target gets gamed. For
     each of the four DORA keys taken *alone*, describe a way a cynical team could improve
     the number while making delivery worse — then show which *other* key would expose each
-    cheat (§13.5.2). One key is hardest to pair with a built-in counter; identify it and
+    cheat (§13.7.2). One key is hardest to pair with a built-in counter; identify it and
     propose an external counter-metric.
 
 11. **[analysis]** *Write a characterization test.* You inherit this undocumented,
     untested function, which production code calls from several places:
+
+    ```generic
+    function norm_code(s, strict)              // strict defaults to false
+      if s is missing then
+        if strict then return nothing else return "" end if
+      end if
+      s <- remove all "-" from uppercase(trim(s))
+      if length(s) > 8 then
+        s <- first 8 characters of s
+      end if
+      // alphanumeric check is false for the empty string
+      if strict and not (s is nonempty and every character of s is alphanumeric) then
+        raise error with value s
+      end if
+      if s is empty then
+        if strict then return nothing else return "" end if
+      end if
+      return s
+    end function
+    ```
 
     ```go
     func normCode(s *string, strict bool) (*string, error) { // nil = missing input
@@ -165,18 +185,33 @@ only the answer.
     }
     ```
 
-    (a) Following §13.6.2, write a suite of characterization tests, in your language's
+    (a) Following §13.8.2, write a suite of characterization tests, in your language's
     test framework, that pins the current behavior for at least six input classes,
     including a missing value (`None`, `null`, or `nil`, whichever your tab uses),
     empty string, whitespace-only, over-length, hyphenated, and a non-alphanumeric input
     under both `strict` values. (b) Identify one behavior your probing reveals that looks
-    like a bug, and explain — citing §13.6.2 — why you should pin it rather than fix it
+    like a bug, and explain — citing §13.8.2 — why you should pin it rather than fix it
     in the same change. (c) State which single line you would be most afraid to "clean
     up" without this suite, and why.
 
 12. **[analysis]** Your organization proposes a two-year big-bang rewrite of a
-    ten-year-old billing system. Using §13.6.5 and the browser-rewrite case of §2.6.3,
+    ten-year-old billing system. Using §13.8.5 and the browser-rewrite case of §2.6.3,
     write a one-page counter-proposal for a strangler-fig migration: what the interception
     layer would be, which capability you would peel off first (and why *that* one), how
     each slice gets validated, and what the organization can do at month six under your
     plan that it cannot do under the rewrite.
+
+13. **[warm-up]** A teammate's `docker-compose.yml` writes the database password directly
+    into the `environment:` block as a literal string, and the file is committed to the
+    repository. Using §13.4.4, name two distinct things that go wrong with this, and
+    rewrite the relevant lines so the password comes from an untracked source instead.
+    Then, using §13.4.3, explain why the `db` (Postgres) service needs a `volumes:` entry
+    but the `cache` (Redis) service can safely omit one.
+
+14. **[analysis]** You are putting a small service online at `app.example.com`, running as
+    a Compose stack (app + Postgres + Redis) on a single rented virtual machine. Using
+    §13.5, write the deployment as an ordered checklist: (a) the DNS record(s) you create
+    and what each points to; (b) how the service obtains a valid HTTPS certificate; (c)
+    what placing the domain behind Cloudflare would add, and one risk it introduces; and
+    (d) one thing that could still be broken for users after all of the above is correct,
+    and how you would detect it — connecting your answer to the DORA signals of §13.7.

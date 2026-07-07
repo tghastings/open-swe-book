@@ -308,7 +308,7 @@ what a burndown hides: not how much is left, but *how much is still uncertain*.[
 each piece of work as a dot climbing and descending a hill:
 
 ```text
-                 . . . . .            <- crest: "we now know exactly what to do"
+                 . . . . .            <- crest: "we know what to do"
              .              .
           .                    .
        .                          .
@@ -521,8 +521,8 @@ that lone 23 barely nudges it. The **quartiles** split the data into four parts:
 - **Q1** (first quartile, 25th percentile) is the median of the lower half. Excluding the
   overall median, the lower half is $\{2, 4, 5, 5, 7\}$, whose median is **Q1 = 5**.
 - **Q2** is the overall median, **8**.
-- **Q3** (third quartile, 75th percentile) is the median of the upper half
-  $\{9, 10, 12, 14, 23\}$, which is **Q3 = 12**.
+- **Q3** (third quartile, 75th percentile) is the median of the upper half,
+  $\{9,\allowbreak 10,\allowbreak 12,\allowbreak 14,\allowbreak 23\}$ — so **Q3 = 12**.
 
 The **interquartile range** measures spread using the middle 50% of the data, which is
 why it too resists outliers:
@@ -601,7 +601,10 @@ We now put dispersion on a precise footing, still using the running dataset.
 The **mean** of our data is
 
 $$
-\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i = \frac{2+4+5+5+7+8+9+10+12+14+23}{11} = \frac{99}{11} = 9.
+\begin{aligned}
+\bar{x} &= \frac{1}{n}\sum_{i=1}^{n} x_i = \frac{2+4+5+5+7+8+9+10+12+14+23}{11} \\
+        &= \frac{99}{11} = 9.
+\end{aligned}
 $$
 
 The **variance** measures average squared distance from the mean. For a *sample* (data
@@ -648,6 +651,26 @@ rather than a sample, you would divide by $n = 11$ to get the population varianc
 $\sigma^2 = 342/11 \approx 31.1$.)
 
 You can check the arithmetic in code:
+
+```generic
+function standard_deviations(cfds):
+  total <- 0
+  for each x in cfds:
+    total <- total + x
+  end for
+  mean <- total / count(cfds)
+
+  ss <- 0  // sum of squared deviations from the mean
+  for each x in cfds:
+    ss <- ss + (x - mean) * (x - mean)
+  end for
+
+  s <- square_root(ss / (count(cfds) - 1))  // divides by n - 1 (Bessel)
+  sigma <- square_root(ss / count(cfds))    // divides by n
+
+  print "s     = " + round(s, 2)      // 5.85 — matches the hand computation
+  print "sigma = " + round(sigma, 2)  // 5.58
+```
 
 ```go
 package main
@@ -774,9 +797,10 @@ $$
 Its variance uses $E[X^2] - (E[X])^2$:
 
 $$
-E[X^2] = 0^2(0.5)+1^2(0.3)+2^2(0.15)+3^2(0.05) = 1.35,
-\qquad
-\operatorname{Var}(X) = 1.35 - 0.75^2 = 0.7875.
+\begin{aligned}
+E[X^2] &= 0^2(0.5)+1^2(0.3)+2^2(0.15)+3^2(0.05) = 1.35, \\
+\operatorname{Var}(X) &= 1.35 - 0.75^2 = 0.7875.
+\end{aligned}
 $$
 
 So you expect about 0.75 critical defects per release, with a standard deviation of

@@ -18,7 +18,7 @@ teaching. The engineer who internalized Chapters 1–11 is the person best posit
 
 ## 12.1 What AI Changes — and What It Doesn't
 
-### 12.1.1 Essential vs. accidental complexity, revisited
+### 12.1.1 Essential vs. Accidental Complexity, Revisited
 
 Recall from Chapter 1 the split between **essential** complexity (inherent in the problem)
 and **accidental** complexity (from our tools and toil). Generative AI is a spectacular
@@ -28,7 +28,7 @@ complexity: deciding what the system should actually do, resolving conflicting g
 choosing an architecture whose likely changes are cheap. That boundary is the single most
 important idea in this chapter. **Delegate the toil; own the essence.**
 
-### 12.1.2 The four pressures still hold
+### 12.1.2 The Four Pressures Still Hold
 
 The book's four cross-cutting pressures do not go away — AI just shifts them:
 
@@ -41,7 +41,7 @@ The book's four cross-cutting pressures do not go away — AI just shifts them:
 - **Teams need coordination.** "Teams" now include non-human members. Coordinating a
   *swarm* of agents is a new and unsolved organizational problem (see §12.4).
 
-### 12.1.3 A ladder of assistance: from autocomplete to agents
+### 12.1.3 A Ladder of Assistance: From Autocomplete to Agents
 
 "AI coding" is not one thing. It helps to name the rungs, because the engineering
 questions differ at each:
@@ -60,7 +60,7 @@ As you climb the ladder, the human's job moves from *typing* toward *specifying,
 supervising, and verifying* — and the cost of a confident-but-wrong output rises, because
 more happens between your instruction and your review.
 
-### 12.1.4 The productivity paradox
+### 12.1.4 The Productivity Paradox
 
 Does AI make developers faster? The honest answer is *it depends, and the evidence is
 mixed enough to demand humility.*
@@ -107,7 +107,7 @@ flowchart TD
     class P,R,U,D,C,T,S,M ai;
 ```
 
-### 12.2.1 Process and teamwork (Chapter 2)
+### 12.2.1 Process and Teamwork (Chapter 2)
 
 AI compresses many process activities: drafting sprint plans, summarizing standups,
 writing retro notes, triaging issues, generating first-pass estimates. Agents can now take
@@ -135,7 +135,7 @@ engineer's — produced far faster and cheaper.[^5]<!-- -->[^6]
   goal hierarchies), and *validating* that a story reflects a real need. Use AI to widen
   the net of candidate requirements; use humans to decide which are true.
 
-### 12.2.3 Estimation and analysis (Chapter 4)
+### 12.2.3 Estimation and Analysis (Chapter 4)
 
 AI can suggest story-point estimates from historical data and surface comparable past
 work. But recall *why* we estimate in Chapter 4: story points model **human uncertainty**
@@ -145,7 +145,7 @@ budget**, and is the outcome worth it?" — precisely the manifesto's *cost, not
 reframing (§12.4). MoSCoW, value/cost/risk, and Kano analysis remain the right tools; the
 "cost" axis just gets a new currency.
 
-### 12.2.4 Use cases (Chapter 5)
+### 12.2.4 Use Cases (Chapter 5)
 
 Given a goal and a happy path, models are good at enumerating **alternative flows** and
 exception cases — exactly the tedious part of use-case writing that people skip. That
@@ -155,7 +155,7 @@ pad use cases with flows no user will ever take.
 - **Human owns:** the actor–goal list (what the system is *for*) and pruning generated
   flows down to the ones that carry real risk or value.
 
-### 12.2.5 Design and architecture (Chapters 6–7)
+### 12.2.5 Design and Architecture (Chapters 6–7)
 
 This is where the human-owned layer is thickest. AI can propose class structures, generate
 **Architecture Decision Records (ADRs)**, suggest applicable patterns from Chapter 7, and
@@ -170,7 +170,7 @@ specialization to fight hallucination.[^8]<!-- -->[^9]
   changes to make cheap. Let AI *draft and compare* designs; keep the *decision* and its
   rationale human and written down.
 
-### 12.2.6 Static checking and code review (Chapter 8)
+### 12.2.6 Static Checking and Code Review (Chapter 8)
 
 AI both helps and harms here, sharply. AI reviewers and smarter static analyzers
 catch real bugs, explain them, and suggest fixes.[^10] But **a growing share
@@ -212,6 +212,21 @@ Chapter 9's discount example makes the failure concrete: suppose the billing spe
 half-cent prices round *up*, while the generated code trips a language-specific rounding
 or representation trap — named in each variant's leading comment — and the generated test
 asserts whatever the code already returns.
+
+```generic
+function apply_discount(price, percent)
+  // AI-generated: rounds the last cent half-to-even (banker's rounding)
+  return round_to_2_decimals(price * (1 - percent / 100))
+
+function test_half_off()
+  // AI-generated: asserts the code's own behavior
+  if apply_discount(10.25, 50) != "5.12" then
+    fail "testHalfOff failed"
+  end if
+
+test_half_off()                  // passes — and every line of the unit is covered
+print apply_discount(10.25, 50)  // 5.12; the billing spec says 5.13 (half up)
+```
 
 ```go
 package main
@@ -315,7 +330,7 @@ last cent rounded the wrong way — each variant's final print line shows the va
 spec required.
 
 - **Human owns:** the **oracle** — the specification of correct behavior — and the coverage
-  *criteria* that decide when testing is enough (statement/branch/MC/DC, §9.3–9.5).
+  *criteria* that decide when testing is enough (statement/branch/MC/DC, §§9.3–9.5).
   Generated tests are a starting point to be reviewed, not ground truth.
 
 **Security (Chapter 10)** is changed on both sides: AI writes vulnerabilities as fluently
@@ -324,7 +339,7 @@ pentest agents that validate findings with working exploits ([§10.3](../10-soft
 The human still owns the authorization to test, the judgment that a finding is real, and
 the secure-by-design decisions no scanner makes for you.
 
-### 12.2.8 Quality and metrics (Chapter 11)
+### 12.2.8 Quality and Metrics (Chapter 11)
 
 AI forces a reckoning with **what we measure**. Lines of code and commit counts were always
 weak proxies; when a machine emits thousands of lines on request, they become actively
@@ -338,7 +353,7 @@ replication.[^17]
   defects, DORA delivery metrics (Chapter 13), verified value delivered — rather than agent *activity*.
   This is the empirical backbone of Outcome Engineering (§12.4).
 
-### 12.2.9 The team project (Appendix A)
+### 12.2.9 The Team Project (Appendix A)
 
 In your own project, treat agents as fast, tireless, over-confident junior teammates. Let
 them scaffold, draft tests, and explain unfamiliar code — but require the same evidence you

@@ -339,6 +339,16 @@ different question. It helps to know the categories so you can assemble the righ
   for Python and JavaScript-family code. A type error caught at compile time is a failure that
   can never reach a user. Here a price arrives as a string and flows into arithmetic:
 
+  ```generic
+  function line_total(price, quantity)
+    return price * quantity
+
+  price <- "9.99"                 // read from a CSV row, still text
+  total <- line_total(price, 3)
+  print total
+  // a statically typed language rejects this: text used where a number is required
+  ```
+
   ```go
   package main
 
@@ -440,6 +450,23 @@ different question. It helps to know the categories so you can assemble the righ
   at, because they require mentally simulating every execution path — exactly what a machine
   is built to do. This exporter closes its file on the normal path but leaks it on the error
   path:
+
+  ```generic
+  function export_prices(catalog, discounts, path)
+    out <- open path for writing
+    write "item,price" to out
+    for each item, price in catalog sorted by item
+      pct <- discounts.percent_for(item)
+      if pct < 0 or pct > 100 then
+        return nothing              // error path: out is never closed
+      end if
+      final <- round(price * (1 - pct / 100), 2)
+      write item and final to out
+    end for
+    close out
+    return path
+  // an analyzer walks every path and flags the early return that skips close
+  ```
 
   ```go
   func exportPrices(catalog map[string]float64, disc *Discounts, path string) string {

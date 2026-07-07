@@ -12,7 +12,7 @@ text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are 
   Frames all of SE around three goals: *safe from bugs, easy to understand, ready for
   change.*
 - 📄 **SWEBOK Guide v4 (IEEE Computer Society)** —
-  [computer.org body of knowledge](https://www.computer.org/education/bodies-of-knowledge/software-engineering).
+  [computer.org/education/bodies-of-knowledge](https://www.computer.org/education/bodies-of-knowledge/software-engineering).
   The discipline's knowledge areas at a glance.
 - 📘 D. Farley, *Modern Software Engineering* (Addison-Wesley, 2022) —
   [informit.com](https://www.informit.com/store/modern-software-engineering-doing-what-works-to-build-9780137314911).

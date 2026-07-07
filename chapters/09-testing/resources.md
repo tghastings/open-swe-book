@@ -1,8 +1,7 @@
 # Chapter 9 — Open Resources
 
 Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
-text · 🎓 course · 📄 primary source / standard · 🎥 video. Licenses vary and are noted where
-known. Each entry notes its license or access terms; when in doubt, check the linked page.
+text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry notes its license or access terms; when in doubt, check the linked page.
 
 ## Foundations: what to test and how
 
@@ -57,7 +56,7 @@ known. Each entry notes its license or access terms; when in doubt, check the li
 - 📘 **Ammann & Offutt — "Introduction to Software Testing" companion site** —
   [cs.gmu.edu/~offutt/softwaretest](https://cs.gmu.edu/~offutt/softwaretest/). Slides,
   examples, and tools for graph coverage, logic coverage (including MC/DC), and
-  input-space partitioning — the academic backbone of §9.3–9.6. *Access: teaching
+  input-space partitioning — the academic backbone of §§9.3–9.6. *Access: teaching
   materials free on the author's site.*
 - 📄 **NASA/DOT‑FAA — "A Practical Tutorial on Modified Condition/Decision Coverage"**
   (Hayhurst, Veerhusen, Chilenski, Rierson), NASA/TM‑2001‑210876 —

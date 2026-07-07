@@ -441,6 +441,25 @@ Your BDD framework binds each scenario line to a **step definition** — a funct
 calls the clinic app and asserts what the user would see (each tab below names its
 framework in its imports or comments):
 
+```generic
+// bind each scenario line to a step definition; a BDD framework maps text to these
+
+step "a checked-in patient flagged for an interpreter":
+  patient <- check_in(interpreter = true)
+
+step "a checked-in patient with no interpreter flag":
+  patient <- check_in(interpreter = false)
+
+step "the clinician opens the visit":
+  visit <- open_visit(patient)
+
+step "an \"interpreter needed\" banner is shown":
+  assert "interpreter needed" is in visit.banners
+
+step "no interpreter banner is shown":
+  assert visit.banners is empty
+```
+
 ```go
 // godog step definitions; regexps below bind each step to a function
 var patient Patient
@@ -923,13 +942,13 @@ flowchart LR
     A[Attacker goal:<br/>read patient record<br/>without authorization] --> B[Steal a<br/>valid login]
     A --> C[Bypass<br/>access control]
     A --> D[Read data<br/>at rest]
-    B --> B1[Phish a clerk's<br/>password]
-    B --> B2[Reuse a leaked<br/>password]
-    B --> B3[Steal an unexpired<br/>session token]
-    C --> C1[Exploit missing role<br/>check on record API]
-    C --> C2["Tamper with patient<br/>ID in URL (IDOR)"]
-    D --> D1[Read unencrypted<br/>database backup]
-    D --> D2[Find PHI in<br/>application logs]
+    B --> B1[B1 · Phish a clerk's<br/>password]
+    B --> B2[B2 · Reuse a leaked<br/>password]
+    B --> B3[B3 · Steal an unexpired<br/>session token]
+    C --> C1[C1 · Exploit missing role<br/>check on record API]
+    C --> C2["C2 · Tamper with patient<br/>ID in URL (IDOR)"]
+    D --> D1[D1 · Read unencrypted<br/>database backup]
+    D --> D2[D2 · Find PHI in<br/>application logs]
     classDef root fill:#fee,stroke:#a33,color:#000;
     class A root;
 ```
@@ -1031,13 +1050,6 @@ build here.
 
 [^12]: Orlena C. Z. Gotel and Anthony C. W. Finkelstein, "An Analysis of the Requirements Traceability Problem," *Proceedings of the First International Conference on Requirements Engineering* (IEEE, 1994), pp. 94–101. [doi.org](https://doi.org/10.1109/ICRE.1994.292398).
 
----
-
-- **Key takeaways** are summarized above in §3.8.
-- Continue to the [Exercises](exercises.md).
-- Go deeper with the [Open Resources](resources.md) for this chapter.
-
-
 [^13]: Interaction Design Foundation, *What are Storyboards?* (traces storyboarding to Walt Disney Studios in the 1930s). [interaction-design.org](https://www.interaction-design.org/literature/topics/storyboards).
 
 [^14]: Axel van Lamsweerde, "Goal-Oriented Requirements Engineering: A Guided Tour," *Proceedings of RE'01* (IEEE, 2001). [author PDF](https://webperso.info.ucl.ac.be/~avl/files/RE01.pdf).
@@ -1045,3 +1057,9 @@ build here.
 [^15]: Bruce Schneier, "Attack Trees," *Dr. Dobb's Journal* (1999). [schneier.com](https://www.schneier.com/academic/archives/1999/12/attack_trees.html).
 
 [^16]: Microsoft, *The STRIDE model* (Microsoft Threat Modeling Tool documentation). [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats).
+
+---
+
+- **Key takeaways** are summarized above in §3.8.
+- Continue to the [Exercises](exercises.md).
+- Go deeper with the [Open Resources](resources.md) for this chapter.

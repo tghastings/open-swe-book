@@ -14,9 +14,10 @@ Thumbs.db
 scratch/
 *.local.md
 
-# Local EPUB builds (CI builds these into book-output/epub/)
+# Local EPUB / print site builds (stray root-owned output from one-shot builds)
 epubs/
 .epub-build/
+.print-build/
 tools/covers/
 
 # One-shot verification builds (mdbook build -d .verify)
@@ -24,3 +25,15 @@ tools/covers/
 
 # TypeScript type-check deps (installed by code/run-all.sh)
 code/node_modules/
+
+# No generated PDFs in the repo (interior, cover, epub-embedded — all regenerable)
+*.pdf
+
+# LaTeX print build (outputs are regenerable via latex/book-build.sh)
+latex/bookbuild/
+latex/cover-wrap.png
+# regenerated deterministically by latex/make-references.py
+latex/references.tex
+latex/citation-map.json
+# Amazon Endure is licensed for KDP use, not for redistribution in a public repo
+latex/fonts/

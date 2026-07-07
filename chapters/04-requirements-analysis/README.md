@@ -145,7 +145,7 @@ If a sprint is two weeks, that is 12 weeks, and with a start date you can name a
 range. Honest teams forecast a *range*, not a point: use your slowest recent sprint (18)
 for the pessimistic case and your fastest (26) for the optimistic one.
 
-> Optimistic: 130 ÷ 26 ≈ 5.0 → **5 sprints** (10 weeks)
+> Optimistic: 130 ÷ 26 ≈ 5.0 → **5 sprints** (10 weeks)\
 > Pessimistic: 130 ÷ 18 ≈ 7.2 → **8 sprints** (16 weeks)
 
 So you tell the sponsor "10 to 16 weeks, most likely 12" — a defensible statement backed by
@@ -476,7 +476,7 @@ graph TD
     class A,P,M k;
 ```
 
-Read the diagram as three curves on the same axes: the horizontal axis is *how well the
+Picture the three categories as curves on shared axes: the horizontal axis is *how well the
 feature is delivered* (absent → fully present), the vertical axis is *customer satisfaction*
 (dissatisfied → delighted). **Must-be** features trace a curve that starts deep in
 dissatisfaction and merely rises to neutral — you can never make a customer happy with them,
@@ -555,7 +555,7 @@ building identical widgets, where bigger batches get cheaper per unit, bigger so
 software exhibits diseconomies of scale — is the reason "just add more code" and "just add
 more people" both disappoint.
 
-### 4.6.2 The Cocomo Family of Estimation Models
+### 4.6.2 The COCOMO Family of Estimation Models
 
 The best-known plan-driven model is **COCOMO** (the COnstructive COst MOdel), published by
 Barry Boehm in 1981[^7] and revised as **COCOMO II** in the 1990s.[^16] It is a family of power-law
@@ -576,22 +576,37 @@ scheduling app. Suppose your design suggests roughly **20,000 lines of code**, i
 **KLOC = 20**, and it is a straightforward business app with a small experienced team —
 **organic** (a = 2.4, b = 1.05):
 
-> Effort = 2.4 × 20^1.05
-> 20^1.05 = 20 × 20^0.05. Now 20^0.05 = e^(0.05 × ln 20) = e^(0.05 × 3.00) = e^0.150 ≈ 1.16.
-> So 20^1.05 ≈ 20 × 1.16 = 23.2.
+> Effort = 2.4 × 20^1.05\
+> 20^1.05 = 20 × 20^0.05. Now 20^0.05 = e^(0.05 × ln 20) = e^(0.05 × 3.00) = e^0.150 ≈ 1.16.\
+> So 20^1.05 ≈ 20 × 1.16 = 23.2.\
 > **Effort ≈ 2.4 × 23.2 ≈ 55.7 person-months.**
 
 Now watch the diseconomy of scale bite. Double the size to **KLOC = 40**:
 
-> Effort = 2.4 × 40^1.05
-> 40^1.05 = 40 × 40^0.05 = 40 × e^(0.05 × ln 40)
-> = 40 × e^(0.05 × 3.69) = 40 × e^0.184 ≈ 40 × 1.202 = 48.1.
+> Effort = 2.4 × 40^1.05\
+> 40^1.05 = 40 × 40^0.05 = 40 × e^(0.05 × ln 40)\
+> = 40 × e^(0.05 × 3.69) = 40 × e^0.184 ≈ 40 × 1.202 = 48.1.\
 > **Effort ≈ 2.4 × 48.1 ≈ 115.4 person-months.**
 
 The code redoes the arithmetic at full precision:
 
+```generic
+// full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
+function effort(kloc)   // Basic COCOMO, organic
+  return 2.4 * (kloc raised to the power 1.05)
+
+function schedule(e)    // calendar months
+  return 2.5 * (e raised to the power 0.38)
+
+e20 <- effort(20)
+e40 <- effort(40)
+print "20 KLOC:", e20, "person-months,", schedule(e20), "months"
+print "40 KLOC:", e40, "person-months,", schedule(e40), "months"
+print "doubling factor:", e40 / e20
+```
+
 ```go
-// full precision: the hand math rounded 20^0.05 to 1.16, so its 55.7 prints as 55.8
+// full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
 package main
 
 import (
@@ -611,7 +626,7 @@ func main() {
 ```
 
 ```java
-// full precision: the hand math rounded 20^0.05 to 1.16, so its 55.7 prints as 55.8
+// full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
 public class CocomoBasic {
   static double effort(double kloc) {          // Basic COCOMO, organic
     return 2.4 * Math.pow(kloc, 1.05);
@@ -631,7 +646,7 @@ public class CocomoBasic {
 ```
 
 ```javascript
-// full precision: the hand math rounded 20^0.05 to 1.16, so its 55.7 prints as 55.8
+// full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
 const effort = (kloc, a = 2.4, b = 1.05) => a * kloc ** b; // Basic COCOMO, organic
 const schedule = (e) => 2.5 * e ** 0.38;                   // calendar months
 
@@ -646,7 +661,7 @@ console.log(`doubling factor: ${(e40 / e20).toFixed(2)}`);
 ```
 
 ```python
-# full precision: the hand math rounded 20^0.05 to 1.16, so its 55.7 prints as 55.8
+# full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
 def effort(kloc, a=2.4, b=1.05):          # Basic COCOMO, organic
   return a * kloc ** b
 
@@ -660,7 +675,7 @@ print(f"doubling factor: {e40 / e20:.2f}")
 ```
 
 ```ruby
-# full precision: the hand math rounded 20^0.05 to 1.16, so its 55.7 prints as 55.8
+# full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
 def effort(kloc, a: 2.4, b: 1.05) # Basic COCOMO, organic
   a * kloc**b
 end
@@ -676,7 +691,7 @@ puts format('doubling factor: %.2f', e40 / e20)
 ```
 
 ```typescript
-// full precision: the hand math rounded 20^0.05 to 1.16, so its 55.7 prints as 55.8
+// full precision: the hand math rounded 20^0.05 to 1.16, so the 55.7 above prints here as 55.8
 const effort = (kloc: number, a = 2.4, b = 1.05): number => a * kloc ** b; // organic
 const schedule = (e: number): number => 2.5 * e ** 0.38;   // calendar months
 

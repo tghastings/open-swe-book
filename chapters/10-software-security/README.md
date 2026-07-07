@@ -208,6 +208,21 @@ same mechanism, a different interpreter (the browser).
 Picture the clinic scheduler looking up a patient's appointments by name. The natural,
 disastrous way to build the query is to paste the name straight into the SQL text:
 
+```generic
+// UNSAFE: the name is concatenated into the SQL text, so an input like
+//   Robert'); DROP TABLE appointments; --  is parsed as SQL, not as a name.
+function find_unsafe(db, name)
+  query <- "SELECT * FROM appointments WHERE patient_name = '" + name + "'"
+  return db.execute(query)  // A05:2025 Injection
+end function
+
+// SAFE: the ? placeholder binds the name as a parameter; the database never
+// parses it as SQL, so the same malicious input is just an unmatched name.
+function find_safe(db, name)
+  return db.execute("SELECT * FROM appointments WHERE patient_name = ?", name)
+end function
+```
+
 ```go
 // UNSAFE: the name is concatenated into the SQL text, so an input like
 //   Robert'); DROP TABLE appointments; --  is parsed as SQL, not as a name.
@@ -362,7 +377,7 @@ Chapter 9 taught, aimed at security.
 
 Knowing the categories, how do you find *your* instances of them? Chapter 13 will introduce the
 three scanner families that automate the search
-([§13.4.1](../13-delivery/#1341-sast-dast-and-sca)); this section previews them briefly and
+([§13.6.1](../13-delivery/#1361-sast-dast-and-sca)); this section previews them briefly and
 then turns to what is genuinely new — security tools that use large language models to find,
 confirm, and even fix vulnerabilities on their own.
 
@@ -517,7 +532,7 @@ obligations."*[^23] The site is a joke; the pressure it names is not. If firms c
 launder away the reciprocity that open source runs on — taking the value while shedding the
 obligation — the volunteers who maintain the world's dependencies would have even less
 reason to keep doing unpaid, thankless work, and the pool of overextended maintainers you
-just met in the xz story would only thin further. Security tooling can verify a component's
+will meet in the xz story (§10.4.3) would only thin further. Security tooling can verify a component's
 provenance; it cannot, by itself, sustain the human ecosystem that produces components worth
 verifying. That sustainability is a supply-chain security concern too.
 
@@ -695,7 +710,7 @@ was, at heart, an *insecure* default. **Least privilege**: every user, service, 
 gets the minimum access it needs and no more, so that a compromise of one part cannot reach
 the whole. **Secrets management**: credentials belong in a secrets manager or injected
 configuration, never in source — the secrets-scanning gate of Chapter 13
-([§13.4.3](../13-delivery/#1343-secrets-and-gate-placement)) exists because a key committed
+([§13.6.3](../13-delivery/#1363-secrets-and-gate-placement)) exists because a key committed
 to git history must be treated as compromised the moment it lands.
 
 Finally, assume you will be attacked anyway, and instrument for it. **A09:2025 Security
@@ -785,12 +800,6 @@ an adversary only has to find the one weak link you forgot to check.**
 
 [^23]: MALUS — *"Finally, liberation from open source license obligations"* (satirical site). [malus.sh](https://malus.sh/). A parody of AI "clean-room" services claiming to launder open-source licensing obligations; accessed 2026.
 
----
-
-- **Key takeaways** are summarized above in §10.6.
-- Continue to the [Exercises](exercises.md).
-- Go deeper with the [Open Resources](resources.md) for this chapter.
-
 [^24]: NIST National Vulnerability Database, *CVE-2021-44228* (Log4Shell; CVSS 3.1 base score 10.0; published December 10, 2021). [nvd.nist.gov](https://nvd.nist.gov/vuln/detail/CVE-2021-44228).
 
 [^25]: Cybersecurity and Infrastructure Security Agency (CISA), *Known Exploited Vulnerabilities Catalog* — Log4Shell (CVE-2021-44228) was added under Binding Operational Directive 22-01 with a remediation due date of December 24, 2021. [cisa.gov](https://www.cisa.gov/known-exploited-vulnerabilities-catalog).
@@ -828,3 +837,9 @@ an adversary only has to find the one weak link you forgot to check.**
 [^41]: OWASP, *A09:2025 — Security Logging and Alerting Failures*. [owasp.org](https://owasp.org/Top10/2025/A09_2025-Security_Logging_and_Alerting_Failures/).
 
 [^42]: OWASP, *A10:2025 — Mishandling of Exceptional Conditions*. [owasp.org](https://owasp.org/Top10/2025/A10_2025-Mishandling_of_Exceptional_Conditions/).
+
+---
+
+- **Key takeaways** are summarized above in §10.6.
+- Continue to the [Exercises](exercises.md).
+- Go deeper with the [Open Resources](resources.md) for this chapter.

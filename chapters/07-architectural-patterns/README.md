@@ -217,6 +217,25 @@ flowchart LR
 In the clinic scheduler, the waiting-room display must redraw when an appointment's
 status changes:
 
+```generic
+type Appointment
+  status
+  observers   // list of notification callbacks
+
+function subscribe(appointment, observer)
+  append observer to appointment.observers
+
+function set_status(appointment, new_status)
+  appointment.status <- new_status
+  for each notify in appointment.observers do   // any subscriber will do
+    notify(appointment)
+  end for
+
+appt <- new Appointment with status "booked"
+subscribe(appt, function(a) print "display: appointment is now " + a.status)
+set_status(appt, "arrived")   // prints: display: appointment is now arrived
+```
+
 ```go
 type Observer func(*Appointment)
 
@@ -500,6 +519,15 @@ should show — moves it back under test.
 In the clinic app's invoice list, a fat view buries the overdue rule where no unit test
 reaches it:
 
+```generic
+function render(invoice, today)
+  text <- invoice.patient_name
+  if not invoice.paid and days_between(invoice.sent_on, today) > 30 then
+    text <- text + " — OVERDUE"   // a business rule, trapped on screen
+  end if
+  return text
+```
+
 ```go
 type InvoiceWidget struct{}
 
@@ -580,6 +608,20 @@ class InvoiceWidget {
 ```
 
 The humble version moves the rule into a view-model and leaves the view nothing to decide:
+
+```generic
+// the rule, extracted where tests reach it
+function is_overdue(invoice, today)
+  return not invoice.paid and days_between(invoice.sent_on, today) > 30
+
+function invoice_view_model(invoice, today)
+  if is_overdue(invoice, today) then badge <- " — OVERDUE" else badge <- ""
+  return view model with text = invoice.patient_name + badge
+
+// the view maps a precomputed field to a widget
+function render(vm)
+  return vm.text
+```
 
 ```go
 // the rule, extracted where tests reach it
@@ -691,6 +733,12 @@ class InvoiceWidget {
 ```
 
 The extracted rule now tests in a few short lines, with no widget in sight:
+
+```generic
+function test_unpaid_31_days_is_overdue()
+  ana <- Invoice with name "Ana", sent_on 2026-06-01, paid false
+  assert is_overdue(ana, 2026-07-02)   // unpaid, sent 31 days ago
+```
 
 ```go
 func TestUnpaid31DaysIsOverdue(t *testing.T) {
@@ -970,6 +1018,25 @@ specific responses, simulate errors and timeouts, and record what the client sen
 lets you test client behavior that is nearly impossible to trigger against the real
 thing, such as "what does the UI do when the server returns a 500?" A short stub built
 from nothing but the standard library answers that question for the clinic client:
+
+```generic
+// a stub server programmed to always fail
+function always_fail(request)
+  respond with status 500 and body "boom"
+
+function fetch_appointments(base_url)
+  response <- http_get(base_url + "/appointments")
+  if response failed or response.status >= 400 then
+    return empty list   // fallback: empty schedule, not a crash
+  end if
+  return response.body
+
+stub <- start server serving always_fail on a free port
+if fetch_appointments(stub.url) != empty list then
+  fail "client should fall back to an empty schedule on 500"
+end if
+stop stub
+```
 
 ```go
 package main
@@ -1379,12 +1446,6 @@ is how you learn to *combine* them, and combining them well is what architecture
 
 [^3]: Frank Buschmann, Regine Meunier, Hans Rohnert, Peter Sommerlad, and Michael Stal, *Pattern-Oriented Software Architecture, Volume 1: A System of Patterns* (Wiley, 1996) — which files recurring structures into three levels: architectural patterns, design patterns, and idioms. [wiley.com](https://www.wiley.com/en-us/Pattern+Oriented+Software+Architecture,+Volume+1,+A+System+of+Patterns-p-9780471958697).
 
----
-
-- **Key takeaways** are summarized above in §7.7.
-- Continue to the [Exercises](exercises.md).
-- Go deeper with the [Open Resources](resources.md) for this chapter.
-
 [^4]: ISO/IEC, *ISO/IEC 7498-1:1994 — Open Systems Interconnection — Basic Reference Model* (1994). [iso.org](https://www.iso.org/standard/20269.html).
 
 [^5]: Redux project, *Three Principles*, Redux documentation (accessed 2026). [redux.js.org](https://redux.js.org/understanding/thinking-in-redux/three-principles).
@@ -1393,7 +1454,7 @@ is how you learn to *combine* them, and combining them well is what architecture
 
 [^7]: Microsoft, *Publisher-Subscriber Pattern*, Azure Architecture Center (accessed 2026). [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/architecture/patterns/publisher-subscriber).
 
-[^8]: Trygve Reenskaug, *MVC: Xerox PARC 1978–79* (1979; the inventor's notes). [folk.universitetetioslo.no](https://folk.universitetetioslo.no/trygver/themes/mvc/mvc-index.html).
+[^8]: Trygve Reenskaug, *MVC: Xerox PARC 1978–79* (1979; the inventor's notes). [folk.uio.no](https://folk.uio.no/trygver/themes/mvc/mvc-index.html).
 
 [^9]: Martin Fowler, *GUI Architectures* (2006). [martinfowler.com](https://martinfowler.com/eaaDev/uiArchs.html).
 
@@ -1428,3 +1489,9 @@ is how you learn to *combine* them, and combining them well is what architecture
 [^24]: Kyo C. Kang, Sholom G. Cohen, James A. Hess, William E. Novak & A. Spencer Peterson, *Feature-Oriented Domain Analysis (FODA) Feasibility Study*, CMU/SEI-90-TR-021 (1990). [sei.cmu.edu](https://www.sei.cmu.edu/library/feature-oriented-domain-analysis-foda-feasibility-study/).
 
 [^25]: Klaus Pohl, Günter Böckle & Frank van der Linden, *Software Product Line Engineering: Foundations, Principles and Techniques* (2005). [link.springer.com](https://link.springer.com/book/10.1007/3-540-28901-1).
+
+---
+
+- **Key takeaways** are summarized above in §7.7.
+- Continue to the [Exercises](exercises.md).
+- Go deeper with the [Open Resources](resources.md) for this chapter.

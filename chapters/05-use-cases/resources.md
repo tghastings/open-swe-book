@@ -43,7 +43,7 @@ known.
   [omg.org/spec/UML](https://www.omg.org/spec/UML/). The authoritative, openly published
   standard. See the *Use Cases* clause for the formal definitions of actor, use case,
   extend, include, and extension point. Dense, but the source of truth when tools disagree.
-- 🎥 **Mermaid live editor** — [mermaid.live](https://mermaid.live/). Paste and render the
+- 🛠 **Mermaid live editor** — [mermaid.live](https://mermaid.live/). Paste and render the
   diagrams in this chapter, or draft your own use-case maps. Mermaid is MIT-licensed.
 
 ## Templates and practice

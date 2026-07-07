@@ -28,7 +28,7 @@ pace.
 | 10 | Ch. 9 — Testing (coverage) | Test plan; coverage targets | MIT 6.031 testing; Ammann/Offutt |
 | 11 | Ch. 9 — Testing (MC/DC, combinatorial) | **Status Report 2** (viable system) | NIST combinatorial |
 | 12 | Ch. 10 — Software Security (OWASP Top 10, SAST/DAST/SCA, supply chain) | Threat‑model the project; add dependency scanning | OWASP Top 10; PortSwigger; OpenSSF Scorecard |
-| 13 | Ch. 11 — Metrics (quality, defects, statistics); DORA (§13.5) | Defect tracking; measure & analyze project data | OpenIntro Stats; DORA |
+| 13 | Ch. 11 — Metrics (quality, defects, statistics); DORA (§13.7) | Defect tracking; measure & analyze project data | OpenIntro Stats; DORA |
 | 14 | Ch. 12 — SE in the Age of AI; Ch. 13 — CD, evolution + review | **Comprehensive Final Report** (A.5) | METR study; o16g manifesto; SEC 34‑70694 |
 | 15 | Final presentations / demos | Ship & retrospective | — |
 
@@ -56,15 +56,15 @@ progressive engineering-hardening arc (CI → CD → lint/dependency scans → d
 | 2 | Ch. 3 — User Requirements; Shape Up (§2.8, §4.2.4) | — |
 | 3 | Ch. 2 — Processes & types of agile | Teams form; **Sprint 0‑0**: idea pitches |
 | 4 | Ch. 6 — Design principles | **Sprint 0‑1**: pitch swap + proposal with customer |
-| 5 | Ch. 7 — Architectures + REST (§7.5.4); idea presentations | **Sprint 0‑2**: user stories + lo‑fi UI/storyboards (§3.4–3.5) |
-| 6 | Ch. 9 — Testing; CI pipelines (§13.2); DORA (§13.5) | **Sprint 0‑3**: initial view, deployed |
+| 5 | Ch. 7 — Architectures + REST (§7.5.4); idea presentations | **Sprint 0‑2**: user stories + lo‑fi UI/storyboards (§§3.4–3.5) |
+| 6 | Ch. 9 — Testing; CI pipelines (§13.2); DORA (§13.7) | **Sprint 0‑3**: initial view, deployed |
 | 7 | Demo Day; sprints & iterations (§2.2) | **Sprint 1** begins; team review #0 |
 | 8 | *Test 1* | — |
 | 9 | Continuous deployment (§13.3: Knight Capital, CrowdStrike) | Sprint 1 due → Demo Day; **Sprint 2**; review #1 |
 | 10 | *Spring break* | — |
 | 11 | Ch. 8 — Static checking; risk | Sprint 2 continues |
-| 12 | Ch. 10 — Software Security (OWASP Top 10, SAST/DAST/SCA, supply chain); security pipelines (§13.4) | Sprint 2 due → Demo Day; **Sprint 3**; review #2 |
-| 13 | Legacy code & refactoring (§13.6); Ch. 12 AI readings | Sprint 3 continues |
+| 12 | Ch. 10 — Software Security (OWASP Top 10, SAST/DAST/SCA, supply chain); security pipelines (§13.6) | Sprint 2 due → Demo Day; **Sprint 3**; review #2 |
+| 13 | Legacy code & refactoring (§13.8); Ch. 12 AI readings | Sprint 3 continues |
 | 14 | Work days; Ch. 11 metrics in practice | Sprint 3 due → Demo Day; **Sprint 4**; review #3 |
 | 15 | *Test 2* | Sprint 4 due |
 | 16 | Final presentations | Individual write‑ups; review #4 |

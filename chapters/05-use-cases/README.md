@@ -317,6 +317,29 @@ error handling and your tests will have to enforce.
 The failure guarantee is testable before any real bank or dispenser exists — drop the
 authorization link at step 8 and check the postcondition, word for word:
 
+```generic
+// the fake bank's link drops at step 8, so authorize always fails
+function authorize(bank, amount)
+  fail "link lost"
+function dispense(atm, amount)
+  atm.dispensed <- atm.dispensed + amount
+
+function withdraw(atm, bank, amount)          // steps 8–11
+  try
+    authorize(bank, amount)
+  on failure
+    return                                     // B1 — cancel, return the card
+  dispense(atm, amount)
+  append amount to bank.debits
+
+atm <- new Atm with dispensed <- 0
+bank <- new LostLinkBank with debits <- empty list
+withdraw(atm, bank, 200)
+// the failure postcondition, verbatim
+if atm.dispensed != 0 or bank.debits is not empty then
+  fail "failure postcondition violated"
+```
+
 ```go
 package main
 

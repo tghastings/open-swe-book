@@ -14,13 +14,14 @@
 Delivery used to be an afterthought — a thing operations people did after engineering was
 "done." Two shifts ended that. First, software moved to the cloud, where releasing stopped
 being a rare, ceremonial event and became something a team might do dozens of times a day.
-Second, a body of research (§13.5) showed that *how* a team delivers predicts its
+Second, a body of research (§13.7) showed that *how* a team delivers predicts its
 performance better than almost anything else it does. The umbrella term for the resulting
 culture is **DevOps**: the idea that developing software and operating it are one
 discipline, practiced by one team, with shared tools and shared accountability. This
 chapter walks the pipeline from commit to production, studies two of the most instructive
-deployment disasters on the public record, and closes with the fate that awaits all
-successful code — becoming legacy.
+deployment disasters on the public record, shows concretely how a service is packaged and
+put online — containers, a database, a domain, a certificate, and the edge — and closes
+with the fate that awaits all successful code: becoming legacy.
 
 > **Principle.** Undeployed code is inventory, not value. Every practice in this chapter
 > exists to shrink the time and the risk between *writing* a change and *learning* what it
@@ -352,7 +353,7 @@ commit goes to production, then there is no such thing as a "safe to merge but n
 to ship" change without a flag, no manual pre-release checklist to lean on, and no
 batching of changes into a big release whose failures cannot be attributed. Every safety
 property must be automated, because automation is all there is. Teams that adopt it report
-a paradoxical result that §13.5 will make precise: deploying *more often* makes each
+a paradoxical result that §13.7 will make precise: deploying *more often* makes each
 deployment *less* risky, because each one is smaller, better attributed, and easier to
 undo.
 
@@ -412,6 +413,23 @@ deployment's progressive-exposure idea (§13.3.2) implemented in code, with no s
 environment to pay for.
 
 In the clinic scheduler, both are one conditional — only the predicate changes:
+
+```generic
+function scheduler_page(user_id, flags)
+  if flags.new_scheduler then          // release flag: one bit, everyone
+    return render_new(user_id)
+  end if
+  return render_old(user_id)
+end function
+
+function scheduler_page_rollout(user_id, flags)  // same conditional, new predicate
+  // hash user_id to a stable bucket 0..99; each language picks its own hash
+  if hash(user_id) mod 100 < flags.new_scheduler_pct then  // stable bucket 0..99
+    return render_new(user_id)
+  end if
+  return render_old(user_id)
+end function
+```
 
 ```go
 type Flags struct {
@@ -566,7 +584,7 @@ states of any flag that will live past a sprint, and at least pairwise across fl
 interact. And flags demand hygiene *because* they are so easy to add: every
 flag needs an owner, an intended lifespan, and a removal date, and a retired flag's code
 — both the dead branch and the conditional — must be deleted promptly. Stale flags are
-technical debt (§13.6) of an unusually dangerous kind: dormant behavior sitting in
+technical debt (§13.8) of an unusually dangerous kind: dormant behavior sitting in
 production, waiting for someone to trip it. The first case study below turned that danger
 from hypothetical to historical.
 
@@ -684,14 +702,336 @@ forty-five minutes for Knight's loss, about eighty minutes from CrowdStrike's pu
 reversion.[^24] Automation sets the *speed* of your outcomes; only progressive exposure and tested
 recovery decide their *sign*.
 
-## 13.4 Continuous Security Pipelines
+## 13.4 Packaging and Running a Service: Docker and Compose
+
+Section 13.1.5 named the container as the unit of cloud deployment, and §13.3 covered
+*when* and *how often* to release. This section closes the gap between them: the concrete
+mechanics of turning a program that runs on your laptop into a service that runs on a
+server. You will build a container image, run an application together with the database and
+cache it depends on, and keep the whole stack reproducible. The tools are Docker and Docker
+Compose; the ideas they embody — immutable images, declared dependencies, externalized
+configuration, persistent volumes — outlast any particular tool.
+
+### 13.4.1 From Dockerfile to Image
+
+A container **image** (§13.1.5) is built from a **Dockerfile**: a text file of ordered
+instructions describing, step by step, how to assemble the environment your application
+needs.[^25] Each instruction adds a **layer**, a cached filesystem diff, so a rebuild that
+changes only your source reuses the earlier layers that installed the runtime and
+dependencies and finishes in seconds. Here is a Dockerfile for a small Python web service:
+
+```dockerfile
+# Start from a minimal, versioned base image. Pin the tag; never use "latest".
+FROM python:3.12-slim
+
+# Do the work inside a dedicated directory in the image.
+WORKDIR /app
+
+# Copy dependency manifests first, so "pip install" is cached until they change.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the application source last, because it changes most often.
+COPY . .
+
+# Document the listening port and the command that starts the app.
+EXPOSE 8000
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
+```
+
+Two ordering choices there are deliberate. Copying `requirements.txt` and installing
+dependencies *before* copying the source means editing a source file does not invalidate
+the dependency layer, so most rebuilds skip it entirely. Pinning the base image to
+`python:3.12-slim` rather than `python:latest` makes the build reproducible, because
+"latest" is a moving target that can change the runtime under you between two builds. You
+build the image once and run it as many times as you like:
+
+```bash
+docker build -t clinic-app:1.4.0 .        # build, tag with a version
+docker run -p 8000:8000 clinic-app:1.4.0  # run, mapping host port to container port
+```
+
+> **Principle.** Build once, run anywhere. The image your CI pipeline (§13.2) builds is the
+> exact artifact that runs in test and in production, byte for byte. A bug seen in
+> production can be reproduced on your laptop by running the same tagged image, and that
+> reproducibility is what makes the container's overhead worth paying.
+
+A **`.dockerignore`** file keeps the build small and secrets out of the image: list `.git`,
+`node_modules`, `.env`, and local build output so they are never copied into a layer. For a
+compiled language, a **multi-stage build** compiles in a fat builder image and copies only
+the finished binary into a tiny runtime image, so the shipped image carries no compiler and
+no source.
+
+### 13.4.2 Composing a Stack with Docker Compose
+
+A real service is rarely one container. A typical web application is at least three: the
+app itself, a database that holds its state, and often a cache. Starting these by hand,
+creating a network and passing connection strings between them, is tedious and easy to get
+wrong. **Docker Compose** replaces that with one declarative file that describes the whole
+stack and brings it up with a single command.[^26]
+
+```yaml
+# docker-compose.yml — an app, a database, and a cache as one stack.
+services:
+  app:
+    build: .                      # build from the Dockerfile in this directory
+    ports:
+      - "8000:8000"               # publish the app to the host
+    environment:
+      DATABASE_URL: postgres://clinic:${DB_PASSWORD}@db:5432/clinic
+      REDIS_URL: redis://cache:6379
+    depends_on:
+      db: { condition: service_healthy }
+      cache: { condition: service_started }
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: clinic
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: clinic
+    volumes:
+      - db-data:/var/lib/postgresql/data   # persist data across restarts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clinic"]
+      interval: 5s
+      retries: 5
+
+  cache:
+    image: redis:7
+
+volumes:
+  db-data:                        # a named volume, managed by Docker
+```
+
+`docker compose up` reads this file, creates a private network so the containers can reach
+one another by name, and starts them. Look at the connection strings: the app reaches the
+database at the host `db` and the cache at `cache`. Compose resolves those service names to
+the right containers on the shared network, so the app never needs to know their IP
+addresses. The `depends_on` health condition makes the app wait until Postgres is actually
+ready to accept connections, not merely started, which removes a whole class of
+start-order race conditions.
+
+### 13.4.3 Stateful Services: Postgres and Redis
+
+Two of those services deserve a closer look, because they hold **state**, and state is
+where deployment gets hard. A container is **ephemeral**: stop it and everything written
+inside its writable layer is gone. That is exactly what you want for the stateless app
+container, which you replace wholesale on every deploy, and exactly what you must prevent
+for a database. The fix is a **volume**: storage that lives outside any container's
+lifecycle and is mounted into one. In the file above, `db-data:/var/lib/postgresql/data`
+mounts a Docker-managed volume at the directory where Postgres keeps its files, so the data
+survives `docker compose down` and the next deploy.
+
+The two data services play different roles, and the difference is a direct instance of the
+CAP trade-off (§13.1.6) and the shared-data pattern (§7.2.1):
+
+- **PostgreSQL** is the **system of record**: a relational database offering transactions,
+  constraints, and durability. When correctness matters — a patient record, a payment, an
+  appointment — the data goes here, and Postgres guarantees a committed write is not lost.
+  It is the authoritative store §7.2.1 told you to design around.
+- **Redis** is an **in-memory cache and data-structure store**: it keeps data in RAM, so
+  reads and writes are very fast, and it holds work that tolerates loss — session tokens,
+  rate-limit counters, computed results you can recompute, a queue of background jobs.
+  Putting a cache in front of Postgres is the usual way to make a read-heavy service fast,
+  and it is safe precisely because the cache is disposable: if Redis loses its data, the
+  system reads from Postgres and refills it.
+
+> **Pitfall.** Treating the cache as a source of truth. The moment your system *cannot*
+> rebuild Redis's contents from the database, you have quietly made an in-memory store your
+> system of record, and Redis by default has promised you no such durability. Keep the
+> authoritative copy in the durable store and let the cache stay something you can throw
+> away and rebuild at any time.
+
+Both Postgres and Redis ship as **official images** on the public registry, maintained and
+security-patched by the wider community, which is why the Compose file pulls `postgres:16`
+and `redis:7` instead of installing and configuring database servers by hand.[^27] Pin the
+major version, as with any dependency (§13.6.2), so an unattended pull cannot upgrade your
+database engine underneath you.
+
+### 13.4.4 Configuration and Secrets
+
+Notice what the Compose file did *not* contain: no password written into the image, no
+connection string hard-coded in the source. They arrive as **environment variables**
+(`${DB_PASSWORD}`), read from an untracked `.env` file or injected by the deployment
+platform. This is the externalized-configuration rule of the twelve-factor model: one image
+runs in every environment, and what differs between environments — credentials, hostnames,
+feature toggles — lives in configuration outside the image.[^28]
+
+The rule earns its keep twice. It keeps a single image promotable from test to production
+without a rebuild, and it keeps secrets out of the image and out of version control, where
+§13.6.3 shows they cause real breaches once leaked. A committed `.env` file is one of the
+most common ways a live credential ends up in a public repository.
+
+> **Principle.** One image, many environments. If moving a build from staging to production
+> requires rebuilding it, the build was never really the artifact; its configuration was.
+> Externalize what changes between environments so the thing you tested is exactly the thing
+> you ship.
+
+## 13.5 Reaching Users: DNS, TLS, and the Edge
+
+You now have a stack running on a server. That server has an IP address like
+`203.0.113.10`, but no user will type that, and no browser will trust it without a padlock.
+Two pieces of internet infrastructure bridge the distance between "a container is running
+somewhere" and "anyone can reach it safely at `https://clinic.example.com`": the **Domain
+Name System**, which turns a name into an address, and **TLS**, which encrypts and
+authenticates the connection. This section explains both, adds the layer most real
+deployments put in front of everything else, and closes with a complete deployment from
+start to finish.
+
+### 13.5.1 How a Name Becomes an Address
+
+The **Domain Name System (DNS)** is the internet's directory: a globally distributed
+database that maps human-readable names like `clinic.example.com` to the numeric IP
+addresses machines actually route to.[^29] Every web request begins with a DNS lookup, and
+understanding the pieces clears up what is otherwise the most common source of "it works
+locally but not in production."
+
+You obtain a domain from a **registrar**, the company you buy `example.com` from. The
+registrar records which **nameservers** are authoritative for your domain — the servers
+that hold the real answers. When someone visits your site, their computer asks a
+**resolver** (usually run by their ISP, or a public one like `1.1.1.1`), which walks the
+hierarchy: it asks a **root** server who handles `.com`, asks that **TLD** server who is
+authoritative for `example.com`, and finally asks your authoritative nameserver for the
+specific record. Each answer is cached along the way for a period set by the record's
+**TTL** (time to live), which is why a DNS change is not instant: older cached answers
+linger until their TTL expires. The authoritative nameserver holds **records**, each a
+typed mapping. The handful you actually set for a deployment:
+
+| Record | Maps a name to | Example use |
+|--------|----------------|-------------|
+| **A** | an IPv4 address | `clinic.example.com` → `203.0.113.10` |
+| **AAAA** | an IPv6 address | `clinic.example.com` → `2001:db8::10` |
+| **CNAME** | another name (an alias) | `www.example.com` → `clinic.example.com` |
+| **MX** | a mail server | routes email addressed to the domain |
+| **TXT** | arbitrary text | domain verification, email (SPF/DKIM) policy |
+
+To point a domain at your running server, you create an **A record** from your name to the
+server's IP address. That is the whole mechanism: a name, a type, a value, and a TTL.
+
+> **Pitfall.** Blaming the code for a DNS TTL. You repoint an A record to a new server, test
+> from your own machine, and it works — yet users keep hitting the old server for minutes or
+> hours, because their resolvers cached the previous answer for its TTL. Before a planned
+> migration, lower the record's TTL well in advance so the cutover is quick, then raise it
+> again afterward to cut lookup load.
+
+### 13.5.2 HTTPS and TLS Certificates
+
+A DNS lookup gets a browser to your server; **TLS** (Transport Layer Security, the protocol
+behind the `s` in `https`) makes the connection between them private and trustworthy. It
+does two things at once: it **encrypts** the traffic so no one on the network path can read
+or alter it, and it **authenticates** the server so the browser knows it is really talking
+to `clinic.example.com` and not an impostor. Modern browsers now treat plain HTTP as a
+defect, labeling it "Not Secure," and the large majority of page loads happen over
+HTTPS.[^30] For a real deployment, TLS is not a nicety to add later.
+
+Authentication rests on a **certificate**: a file, issued by a **Certificate Authority
+(CA)**, that binds your domain name to a cryptographic key and carries the signature of an
+authority the browser already trusts. When a browser connects, the server presents its
+certificate; the browser checks the CA's signature and that the name matches, then
+negotiates an encrypted session. A certificate for a name you do not control cannot be
+obtained from a trusted CA, which is what stops an attacker from impersonating your site.
+
+Certificates were once a paid, manual chore. **Let's Encrypt** changed that: a nonprofit CA
+that issues certificates for free and fully automatically over the **ACME** protocol, which
+lets a program prove it controls a domain and receive a certificate with no human in the
+loop.[^31] Let's Encrypt now secures over 700 million sites and issues on the order of ten
+million certificates a day.[^32] Its certificates are deliberately **short-lived** and
+**auto-renewed**: a program renews them well before they expire, so a forgotten manual
+renewal can no longer take a site down. In practice you rarely touch a certificate directly
+— a **reverse proxy** such as nginx or Caddy sits in front of your app container, obtains
+and renews the certificate, terminates TLS, and forwards plain HTTP to the app over the
+private network.
+
+### 13.5.3 The Edge: CDNs and Cloudflare
+
+That reverse-proxy idea generalizes into one of the most important pieces of modern
+deployment: a layer at the **edge**, between your users and your server, that handles
+concerns you would rather not build yourself. The dominant provider is **Cloudflare**, and
+the mechanism is a small DNS change. Instead of pointing your domain straight at your
+server, you point it at Cloudflare, which **proxies** each request to your origin server
+behind the scenes.[^33] Your server's real address is hidden, and every request flows
+through Cloudflare first. Sitting in that position lets the edge do several jobs:
+
+- **Content delivery (CDN).** Cloudflare runs servers in hundreds of cities and caches your
+  static content close to users, so a visitor in Sydney is served from Sydney rather than
+  waiting on a round trip to your origin. This cuts latency and offloads your server.
+- **TLS termination.** The edge presents the HTTPS certificate and encrypts the user
+  connection, so you get valid TLS without configuring it on the origin at all.
+- **Security.** Because all traffic passes through it, the edge can absorb **distributed
+  denial-of-service (DDoS)** attacks — floods of traffic meant to exhaust your server — and
+  filter malicious requests with a **web application firewall (WAF)** before they reach you.
+
+The scale is what makes this remarkable. Cloudflare sits in front of roughly **one in five
+of all websites** and carries well over 20% of global web request traffic, so a large share
+of the internet is proxied through this one network.[^34] That scale is the source of both
+its value, because it sees enough traffic to recognize new attacks quickly, and a real
+concern: when a service this central has an outage, a visible slice of the web goes down
+with it. The concentration is worth weighing when you decide how much of your delivery to
+place behind a single provider.
+
+> **Pitfall.** Assuming the edge makes your origin safe to ignore. Cloudflare hides and
+> protects your origin only if the origin is not *also* reachable at its real IP address. If
+> an attacker finds the origin IP and your server still accepts direct connections, they
+> bypass the edge entirely. Configure the origin to accept traffic only from the edge, so
+> the protection cannot be stepped around.
+
+### 13.5.4 A Full Deployment, End to End
+
+The pieces now assemble into one picture. Here is the whole path a request travels, and the
+sequence a team follows to put a first real service online:
+
+```mermaid
+flowchart LR
+    U["User's browser"] -->|1 · DNS lookup| DNS[("DNS<br/>clinic.example.com")]
+    DNS -->|2 · edge address| U
+    U -->|3 · HTTPS request| CF["Cloudflare edge<br/>TLS · CDN · WAF"]
+    CF -->|4 · proxied HTTP| A
+    subgraph O ["Origin server (Compose stack)"]
+      A["App container"] -->|reads/writes| P[("Postgres<br/>system of record")]
+      A -->|cache| R[("Redis<br/>cache")]
+    end
+    classDef n fill:#eef,stroke:#66a,color:#000;
+    class U,DNS,CF,A,P,R n;
+```
+
+Walking the deployment in order:
+
+1. **Build the image.** Your CI pipeline (§13.2) builds the container image from the
+   Dockerfile, tags it with the commit's version, and pushes it to an image registry.
+2. **Run the stack.** On a host — a rented virtual machine, or a platform-as-a-service that
+   runs containers for you — you bring up the Compose stack: the app image plus
+   `postgres:16` and `redis:7`, with a volume for the database and configuration supplied
+   through environment variables.
+3. **Point the domain.** In DNS you create a record for `clinic.example.com`. Behind
+   Cloudflare, it points at Cloudflare and Cloudflare proxies to your origin; otherwise it
+   is an A record straight to the origin's IP.
+4. **Get a certificate.** A reverse proxy on the origin obtains a Let's Encrypt certificate
+   over ACME, or Cloudflare terminates TLS at the edge, so the site serves valid HTTPS.
+5. **Release safely.** You roll the new version out with a strategy from §13.3 — behind a
+   feature flag, or as a canary to a slice of traffic — and watch the DORA signals of §13.7:
+   when deployment frequency is high and change-fail rate stays low, the machinery is sound.
+
+None of these steps is exotic, and a small team can stand up this entire stack in an
+afternoon. The chapter's argument is that doing it *repeatably* — an image built once by a
+pipeline, configuration externalized, the database on a durable volume, the release
+automated and progressively exposed, the whole path observed — is what separates a demo that
+happens to be online from a service a team can operate, and keep operating, as it changes.
+
+> **Principle.** A deployment is a system, not an event. The domain, the certificate, the
+> container, the database volume, and the release strategy are parts that must fit together
+> and keep working without you watching. Automate each one so that shipping a change is
+> boring, because boring, as this chapter has insisted throughout, is what you want
+> production to be.
+
+## 13.6 Continuous Security Pipelines
 
 Chapter 8 taught static analysis as a practice; the pipeline is where it becomes policy.
 Modern teams extend the CI pipeline of §13.2 into a **continuous security pipeline** —
 a set of automated gates that check not just whether the code works, but whether it is
 safe to expose to an adversarial world. Three scanner families divide the work.
 
-### 13.4.1 SAST, DAST, and SCA
+### 13.6.1 SAST, DAST, and SCA
 
 **Static application security testing (SAST)** is the security-focused end of the static
 analysis you met in [§8.4](../08-static-checking/#84-automated-static-analysis): tools
@@ -705,7 +1045,7 @@ outside, the way an adversary would: probing endpoints with malformed inputs, in
 payloads, and authentication bypasses, knowing nothing about the source. SAST and DAST
 are complementary the way white-box and black-box testing were in Chapter 9: SAST sees
 code paths DAST may never reach; DAST sees emergent, deployed behavior — server
-configuration, header mistakes, the composition of services — that no source scan can.[^25]
+configuration, header mistakes, the composition of services — that no source scan can.[^35]
 
 **Software composition analysis (SCA)** examines neither your code nor your running app
 but your *dependency manifest*: the inventory of third-party packages your build pulls
@@ -714,13 +1054,13 @@ uncomfortable arithmetic: in a typical modern application, code you wrote is a t
 atop orders of magnitude more code you imported. You ship your dependencies. Their
 vulnerabilities are your vulnerabilities, and no review of *your* code will find them.
 
-### 13.4.2 Dependencies and the Supply Chain
+### 13.6.2 Dependencies and the Supply Chain
 
 Because dependencies drift out of date on their own — vulnerabilities are discovered in
 versions you already ship — SCA cannot be a one-time gate; it must run continuously. The
 practical pattern is the **automated update bot** (GitHub's Dependabot is the archetype):
 a service that watches vulnerability databases and your manifests, and when a dependency
-needs bumping, *opens a pull request* that updates it.[^26] The elegance is in what happens
+needs bumping, *opens a pull request* that updates it.[^36] The elegance is in what happens
 next: your CI pipeline runs on that PR like any other, so the same suite that protects
 you from your own mistakes now proves the upgrade is safe to merge. The stronger your
 pipeline, the cheaper staying current becomes — one more return on the investment of
@@ -731,18 +1071,18 @@ it downloads. Attackers have learned to poison the well — **typosquatting** pa
 whose names are one keystroke from a popular library, or compromising a legitimate
 package's maintainer account and publishing a malicious release. The 2020 SolarWinds
 attack planted malicious code inside a vendor's *build process*, so customers received a
-compromised product signed with authentic signatures;[^27] the 2016 left-pad incident
+compromised product signed with authentic signatures;[^37] the 2016 left-pad incident
 showed the fragility side, when the removal of an eleven-line package briefly broke
-builds across the industry.[^28]<!-- -->[^29] Defenses are accumulating — lockfiles that pin exact versions,
-cryptographic signing and provenance attestation for artifacts (the SLSA framework),[^30]
-and a **software bill of materials (SBOM)** enumerating everything inside a release[^31] — but the
+builds across the industry.[^38]<!-- -->[^39] Defenses are accumulating — lockfiles that pin exact versions,
+cryptographic signing and provenance attestation for artifacts (the SLSA framework),[^40]
+and a **software bill of materials (SBOM)** enumerating everything inside a release[^41] — but the
 first defense is the cultural one: treat adding a dependency as an engineering decision
 with a threat model, not a free lunch. [Chapter 10](../10-software-security/) develops
 this into a full treatment of supply-chain security — the Log4Shell and xz-utils case
 studies, and a framework for continuously verifying the open-source components you depend
 on.
 
-### 13.4.3 Secrets and Gate Placement
+### 13.6.3 Secrets and Gate Placement
 
 One more scanner belongs in every pipeline: **secrets scanning**, which searches
 commits for credentials — API keys, tokens, passwords, private keys — before they enter
@@ -760,16 +1100,16 @@ staging deployment, after the artifact exists. The result is defense in depth th
 pipeline itself: by the time an artifact reaches production, it has been examined as
 source, as a composition, and as a running target.
 
-## 13.5 DORA Metrics
+## 13.7 DORA Metrics
 
-### 13.5.1 The Four Keys
+### 13.7.1 The Four Keys
 
 How would you know whether any of this is working? Chapter 11 warned that most metrics
 programs fail by measuring what is easy instead of what matters. The delivery world has an
 unusually good answer, produced by the **DORA** research program (DevOps Research and
 Assessment) — a multi-year academic effort, surveying tens of thousands of professionals,
 published in the annual *State of DevOps* reports and the book *Accelerate* (Forsgren,
-Humble, and Kim).[^32]<!-- -->[^33] Its core finding is a set of four outcome measures — the **four keys** —
+Humble, and Kim).[^42]<!-- -->[^43] Its core finding is a set of four outcome measures — the **four keys** —
 that jointly predict software-delivery performance:
 
 1. **Deployment frequency** — how often your team deploys to production.
@@ -777,13 +1117,13 @@ that jointly predict software-delivery performance:
 3. **Change failure rate** — what fraction of deployments cause a failure in production
    (an incident, a rollback, a hotfix).
 4. **Failed-deployment recovery time** — when a deployment does cause a failure, how long
-   restoring service takes.[^34]
+   restoring service takes.[^44]
 
 Notice the shape: the first two measure **throughput** (how fast value moves), the second
 two measure **stability** (how safely it moves). All four are *outcomes* of your whole
 delivery system, not activities within it — which is what makes them worth watching.
 
-### 13.5.2 Why Paired Metrics Resist Gaming
+### 13.7.2 Why Paired Metrics Resist Gaming
 
 Chapter 11 introduced Goodhart's Law
 ([§11.1.2](../11-quality-metrics/#1112-selecting-useful-metrics)): when a measure becomes
@@ -797,7 +1137,7 @@ four *together* by actually getting better at delivery: smaller changes, stronge
 pipelines, faster recovery. There is no cheap move that improves the whole dashboard,
 which is the property §11.1.2 said to look for.
 
-### 13.5.3 What the Research Found
+### 13.7.3 What the Research Found
 
 Two findings from the DORA research deserve to reshape your intuitions. First, the spread
 between the best and the rest is not incremental — it is multiplicative. Across survey
@@ -805,17 +1145,17 @@ years, **elite** performers deploy on demand (many times per day) where **low** 
 deploy between once a month and once every six months; elite lead times are under a day
 against months; elite recovery times are under an hour against a week or more — differences
 of orders of magnitude on the throughput measures, with change failure rates
-lower as well.[^32]
+lower as well.[^42]
 
 Second — and this is the finding that overturned decades of folklore — **speed and
-stability correlate positively**.[^32] The traditional assumption was a trade-off: move fast
+stability correlate positively**.[^42] The traditional assumption was a trade-off: move fast
 *or* be careful. The data say the teams that deploy most often are *also* the teams that
 break production least and recover fastest. The mechanism should be familiar by now: high
 frequency forces small changes; small changes are easier to review
 (Chapter 8), test (Chapter 9), and attribute; attribution makes recovery fast; and fast,
 safe recovery removes the fear that drives batching. Slow, careful, big-batch releases are the risky choice wearing caution's clothes.
 
-### 13.5.4 Measuring Your Own Four Keys
+### 13.7.4 Measuring Your Own Four Keys
 
 A student team can measure all four keys with data it already has, and the exercise is
 worth doing because the numbers will be humbler than the elite benchmarks.
@@ -830,7 +1170,7 @@ retrospective, and resist the urge to set targets — use them, in GQM fashion (
 11), to ask *why* lead time is three days and *which* stage of your pipeline the time
 hides in.
 
-## 13.6 Legacy Code, Refactoring, and Technical Debt
+## 13.8 Legacy Code, Refactoring, and Technical Debt
 
 Deployment begins the longest phase of a successful system's life. Most professional
 effort goes into **evolving** systems that have been in production for years, not into
@@ -843,11 +1183,11 @@ deprecated API, a new regulation — where the code did nothing wrong but the wo
 system for. And **preventative maintenance** — refactoring, debt paydown — improves
 structure now so that all the other kinds stay affordable later. The standard industry
 rule of thumb is that maintenance, taken together, consumes roughly 60 percent of a
-system's lifetime cost.[^35] Read that number again: the phase this book spent eleven chapters
+system's lifetime cost.[^45] Read that number again: the phase this book spent eleven chapters
 preparing you for is the *minority* of the money, which is reason enough to treat evolving
 code as the main event of an engineering career rather than the cleanup after it.
 
-### 13.6.1 What Makes Code Legacy
+### 13.8.1 What Makes Code Legacy
 
 Colloquially, "legacy" means old. The working definition that matters is different:
 **legacy code is code without tests** — or, in its more visceral form, *code you are
@@ -862,7 +1202,7 @@ everyone is being careful. Breaking that spiral is a skill, and it starts with a
 inversion of the testing you learned in Chapter 9.
 
 The tests-first definition comes from Michael Feathers, whose *Working Effectively with
-Legacy Code* also names the only two ways there are to change legacy code.[^36] **Edit and
+Legacy Code* also names the only two ways there are to change legacy code.[^46] **Edit and
 pray**: study the code, make the change, look around manually for anything you broke,
 deploy, and hope. **Cover and modify**: first build tests that cover the code you must
 touch, then make the change and let the tests detect any behavior you altered without
@@ -872,7 +1212,7 @@ the specific places in the code where your change must actually land — because
 the places the test coverage has to grip before you touch anything. The next two
 subsections are cover-and-modify in practice.
 
-### 13.6.2 Characterization Tests
+### 13.8.2 Characterization Tests
 
 Chapter 9's tests were built from a *specification*: the oracle
 ([§9.1.4](../09-testing/#914-test-oracles-evaluating-the-response-to-a-test)) told you
@@ -897,6 +1237,26 @@ step. One commit should refactor *or* fix, never ambiguously both.
 
 Applied to a fee-code lookup inherited with the clinic scheduler, the loop leaves this
 trail:
+
+```generic
+function legacy_fee_code(visit_type)   // inherited: no docs, no tests
+  codes <- { "exam": "E10", "lab": "L20", "vaccine": "V30" }
+  if visit_type is a key in codes then
+    return codes[visit_type]
+  end if
+  return "E10"                          // default when the type is unknown
+end function
+
+test probe_unknown_type
+  assert legacy_fee_code("phone") = "XXX"    // deliberately wrong
+// FAILED: legacy_fee_code("phone") = "E10", not "XXX"
+
+test unknown_type_bills_as_exam              // observed value, promoted
+  assert legacy_fee_code("phone") = "E10"
+
+test empty_type_bills_as_exam                // edge probe: pinned, bug or not
+  assert legacy_fee_code("") = "E10"
+```
 
 ```go
 func legacyFeeCode(visitType string) string { // inherited: no docs, no tests
@@ -1050,7 +1410,7 @@ fixture copy of the database, before touching anything: a system you cannot run 
 system you cannot characterize. Only then write characterization tests at your intended
 change points, and begin.
 
-### 13.6.3 Refactoring Under Green Tests
+### 13.8.3 Refactoring Under Green Tests
 
 With behavior pinned, you can refactor. Chapter 2 introduced **refactoring** inside the
 red–green–refactor loop
@@ -1064,7 +1424,7 @@ running the suite after every step. If the bar goes red, the *last* step is the 
 undo it and take a smaller one. Named, cataloged refactoring moves (Fowler's catalog is
 the standard reference) matter because each has known mechanics and known traps; a
 sequence of safe moves composes into a transformation you would never dare attempt as one
-leap.[^37]
+leap.[^47]
 
 Where should you aim the moves? **Code smells** are surface symptoms that *suggest* — not
 prove — a deeper design problem: a long method, a large class that does too many things, a
@@ -1090,6 +1450,24 @@ one well-named method; and **introduce parameter object**, bundling arguments th
 travel together into a single type that can then attract the behavior that uses it.
 
 The clinic scheduler's booking check shows two of those smells at once:
+
+```generic
+function can_book(patient, slot, booked_today)
+  if patient is present then
+    if slot.open then
+      if booked_today < 8 then      // magic number: daily booking cap
+        return true
+      else
+        return false
+      end if
+    else
+      return false
+    end if
+  else
+    return false
+  end if
+end function
+```
 
 ```go
 func canBook(patient *Patient, slot Slot, bookedToday int) bool {
@@ -1202,6 +1580,16 @@ function canBook(patient: string | null, slot: Slot, bookedToday: number): boole
 Replace the magic `8` with a named constant, run the suite, flatten the nesting with
 guard clauses, run it again — the tests stay green after each move:
 
+```generic
+MAX_DAILY_BOOKINGS <- 8
+
+function can_book(patient, slot, booked_today)
+  if patient is absent then return false
+  if not slot.open then return false
+  return booked_today < MAX_DAILY_BOOKINGS
+end function
+```
+
 ```go
 const maxDailyBookings = 8
 
@@ -1274,12 +1662,12 @@ low-risk *enabling* changes — introduce a parameter, extract an interface for 
 dependency so a test double (Chapter 9) can stand in — done with extreme care, exactly to
 the point where a test can grip, and no further.
 
-### 13.6.4 Technical Debt
+### 13.8.4 Technical Debt
 
 The economics underneath all of this has a name. **Technical debt** is the metaphor for
 the future cost incurred when you take a shortcut today: like financial debt, it lets you
 move faster *now* in exchange for **interest** — and the interest is that *every future
-change to that code costs more* than it would have.[^38] The metaphor's precision is its
+change to that code costs more* than it would have.[^48] The metaphor's precision is its
 virtue. Debt is a *deal*, not simply "bad code" — and sometimes the deal is a good one.
 **Deliberate debt** is a conscious trade — "we hard-code the tax rule to make the pilot;
 we log a ticket to generalize it" — the engineering equivalent of a startup loan, rational
@@ -1294,10 +1682,10 @@ longer, which raises pressure, which invites new shortcuts, which raises interes
 The management is not "never borrow" — it is to borrow knowingly, keep the debts visible
 (a debt register in the backlog, reviewed like any other work), and pay down principal
 where you actually pay interest: the high-churn code you touch weekly, not the ugly module
-nobody has opened in years. Refactoring (§13.6.3) is the repayment mechanism, and the
+nobody has opened in years. Refactoring (§13.8.3) is the repayment mechanism, and the
 pipeline (§13.2) is what makes repayment safe enough to do continuously.
 
-### 13.6.5 Strangler Fig versus Big-Bang Rewrite
+### 13.8.5 Strangler Fig versus Big-Bang Rewrite
 
 What about a system so far gone that the team wants to start over? Chapter 2's troubled
 browser rewrite
@@ -1306,7 +1694,7 @@ browser rewrite
 code that handles a thousand edge cases, you run two systems (one frozen, one imaginary)
 for the duration, and the new system's first real validation comes at the end, all at
 once. The delivery-era alternative is the **strangler fig** pattern, named for the fig
-that grows around a host tree, roots itself, and gradually replaces the host it envelops.[^39]
+that grows around a host tree, roots itself, and gradually replaces the host it envelops.[^49]
 You place an interception layer — a routing facade — in front of the legacy system, then
 peel off one capability at a time: build the new implementation, route that slice of
 traffic to it, verify it in production (a canary, §13.3.2, at the granularity of a
@@ -1326,18 +1714,21 @@ verification discipline of Chapter 12 still governs — an AI's *account* of leg
 is a hypothesis, and the running system remains the only oracle — but as a hypothesis
 generator for code no living person understands, it removes a real bottleneck.
 
-## 13.7 Conclusion
+## 13.9 Conclusion
 
 Delivery is the connective tissue of everything this book has taught. The CI pipeline of
 §13.2 is Chapters 8 and 9 made *mandatory*: reviews, static analysis, and tests by level,
 converted from practices a diligent team performs into gates no change can bypass. The
-DORA four keys of §13.5 are Chapter 11 made *honest*: outcome metrics, paired against
+DORA four keys of §13.7 are Chapter 11 made *honest*: outcome metrics, paired against
 their own counter-metrics, measuring the whole system rather than rewarding activity.
 Continuous deployment of §13.3 is Chapter 2's short-cycle bet made *physical*: the same
 argument that favored small iterations over big-bang phases favors small deployments over
 big releases, with Knight Capital and CrowdStrike as the permanent record of what happens
-at either failed extreme — no automation, and automation without staging. And the
-evolution practices of §13.6 are where Chapter 6's "design for change" either pays its
+at either failed extreme — no automation, and automation without staging. The packaging and
+networking of §§13.4–13.5 are that same pipeline made *tangible*: an image built once, a
+database on a durable volume, a name, a certificate, and an edge in front, so the artifact a
+pipeline produces actually becomes a service a user can reach. And the
+evolution practices of §13.8 are where Chapter 6's "design for change" either pays its
 dividend or collects its debt: systems built with seams, interfaces, and tests bend under
 years of change; systems without them become the legacy code someone else must
 characterize, strangle, and replace.
@@ -1352,50 +1743,108 @@ to change for longer than anyone who built it expects.
 ### Sources
 
 [^1]: Synergy Research Group, *Cloud Market Share Trends — Big Three Together Hold 63%* (2025). [srgresearch.com](https://www.srgresearch.com/articles/cloud-market-share-trends-big-three-together-hold-63-while-oracle-and-the-neoclouds-inch-higher).
+
 [^2]: Amazon Web Services, *Shared Responsibility Model*. [aws.amazon.com](https://aws.amazon.com/compliance/shared-responsibility-model/).
+
 [^3]: David Heinemeier Hansson (37signals), *Why we're leaving the cloud* (2022). [world.hey.com/dhh](https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0).
+
 [^4]: David Heinemeier Hansson (37signals), *We have left the cloud* (2023). [world.hey.com/dhh](https://world.hey.com/dhh/we-have-left-the-cloud-251760fb).
+
 [^5]: Marcin Kolny (Prime Video Tech), *Scaling up the Prime Video audio/video monitoring service and reducing costs by 90%* (2023). [web.archive.org](https://web.archive.org/web/20230504060528/https://www.primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90) (original post now offline).
+
 [^6]: Amazon Web Services, *What's the Difference Between Containers and Virtual Machines?* [aws.amazon.com](https://aws.amazon.com/compare/the-difference-between-containers-and-virtual-machines/).
+
 [^7]: Cloud Native Computing Foundation, *CNCF Annual Survey 2023* (2023). [cncf.io](https://www.cncf.io/reports/cncf-annual-survey-2023/).
+
 [^8]: Eric Brewer, *Towards Robust Distributed Systems* (PODC keynote, 2000). [people.eecs.berkeley.edu](https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf).
+
 [^9]: Seth Gilbert and Nancy Lynch, *Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services* (ACM SIGACT News, 2002). [doi.org](https://doi.org/10.1145/564585.564601).
+
 [^10]: Martin Fowler, *Continuous Integration* (2006; revised 2024). [martinfowler.com](https://martinfowler.com/articles/continuousIntegration.html).
+
 [^11]: Pete Hodgson, *Feature Toggles (aka Feature Flags)* (martinfowler.com, 2017). [martinfowler.com](https://martinfowler.com/articles/feature-toggles.html).
+
 [^12]: LaunchDarkly, *A Deeper Look at LaunchDarkly Architecture* (documentation). [launchdarkly.com](https://launchdarkly.com/docs/tutorials/ld-arch-deep-dive).
+
 [^13]: Unleash, *11 best practices for building and scaling feature flag systems* (documentation). [docs.getunleash.io](https://docs.getunleash.io/guides/feature-flag-best-practices).
+
 [^14]: Ross Harmes (Flickr Engineering), *Flipping Out* (2009). [code.flickr.net](https://code.flickr.net/2009/12/02/flipping-out/).
+
 [^15]: Chuck Rossi (Facebook Engineering), *Rapid release at massive scale* (2017). [engineering.fb.com](https://engineering.fb.com/2017/08/31/web/rapid-release-at-massive-scale/).
+
 [^16]: OpenFeature, a CNCF incubating project since 2023. [openfeature.dev](https://openfeature.dev/).
+
 [^17]: U.S. Securities and Exchange Commission, *In the Matter of Knight Capital Americas LLC*, Exchange Act Release No. 34-70694 (2013). [sec.gov](https://www.sec.gov/litigation/admin/2013/34-70694.pdf).
+
 [^18]: CNNMoney, *Knight Capital in $400 million rescue agreement* (2012). [money.cnn.com](https://web.archive.org/web/2013/https://money.cnn.com/2012/08/06/investing/knight-capital-agreement/index.htm).
+
 [^19]: CrowdStrike, *External Technical Root Cause Analysis — Channel File 291* (2024). [crowdstrike.com](https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf).
+
 [^20]: David Weston (Microsoft), *Helping our customers through the CrowdStrike outage* (2024). [blogs.microsoft.com](https://blogs.microsoft.com/blog/2024/07/20/helping-our-customers-through-the-crowdstrike-outage/).
+
 [^21]: Delta Air Lines, *Form 8-K* (October 2024). [sec.gov](https://www.sec.gov/Archives/edgar/data/27904/000168316824005369/delta_8k.htm).
+
 [^22]: Parametrix, *CrowdStrike to cost Fortune 500 $5.4 billion; insured loss range of $540 million to $1.08 billion* (2024). [parametrixinsurance.com](https://www.parametrixinsurance.com/in-the-news/crowdstrike-to-cost-fortune-500-5-4-billion-insured-loss-range-of-540-million-to-1-08-billion).
+
 [^23]: CrowdStrike, *Falcon Content Update Remediation and Guidance Hub* (2024). [crowdstrike.com](https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/).
+
 [^24]: CrowdStrike, *Preliminary Post Incident Review — Falcon Content Update for Windows Hosts* (2024). [crowdstrike.com](https://www.crowdstrike.com/en-us/blog/falcon-content-update-preliminary-post-incident-report/).
-[^25]: OWASP Foundation, community references for the scanner families:
+
+[^25]: Docker, Inc., *Dockerfile reference* and *Get started*. [docs.docker.com/reference/dockerfile](https://docs.docker.com/reference/dockerfile/), [docs.docker.com/get-started](https://docs.docker.com/get-started/).
+
+[^26]: Docker, Inc., *Docker Compose* documentation. [docs.docker.com/compose](https://docs.docker.com/compose/).
+
+[^27]: Docker Official Images for *postgres* and *redis* (community-maintained, security-patched base images). [hub.docker.com/_/postgres](https://hub.docker.com/_/postgres), [hub.docker.com/_/redis](https://hub.docker.com/_/redis).
+
+[^28]: Adam Wiggins, *The Twelve-Factor App*, factor III: "Config." [12factor.net/config](https://12factor.net/config).
+
+[^29]: P. Mockapetris, *Domain Names — Concepts and Facilities*, RFC 1034 (1987); readable overview: Cloudflare, "What is DNS?" [rfc-editor.org/rfc/rfc1034](https://www.rfc-editor.org/rfc/rfc1034), [cloudflare.com/learning/dns/what-is-dns](https://www.cloudflare.com/learning/dns/what-is-dns/).
+
+[^30]: Google, *HTTPS encryption on the web* (Transparency Report), which tracks the share of page loads served over HTTPS; and Chrome's move to mark plain HTTP "Not Secure." [transparencyreport.google.com/https/overview](https://transparencyreport.google.com/https/overview).
+
+[^31]: R. Barnes, J. Hoffman-Andrews, D. McCarney, and J. Kasten, *Automatic Certificate Management Environment (ACME)*, RFC 8555 (2019); Let's Encrypt, "How It Works." [rfc-editor.org/rfc/rfc8555](https://www.rfc-editor.org/rfc/rfc8555), [letsencrypt.org/how-it-works](https://letsencrypt.org/how-it-works/).
+
+[^32]: Let's Encrypt, *Let's Encrypt Stats* and "Ten Years of Let's Encrypt" (2025), reporting hundreds of millions of sites secured and roughly ten million certificates issued per day. [letsencrypt.org/stats](https://letsencrypt.org/stats/), [letsencrypt.org/2025/12/09/10-years](https://letsencrypt.org/2025/12/09/10-years/).
+
+[^33]: Cloudflare, *How Cloudflare works* and *What is a reverse proxy?* [developers.cloudflare.com/fundamentals/concepts/how-cloudflare-works](https://developers.cloudflare.com/fundamentals/concepts/how-cloudflare-works/), [cloudflare.com/learning/cdn/glossary/reverse-proxy](https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/).
+
+[^34]: W3Techs, *Usage statistics and market share of reverse proxy services for websites*, July 2026 — Cloudflare is used as a reverse proxy by 20.4% of all websites and carries a comparable share of global web request traffic. [w3techs.com/technologies/overview/proxy](https://w3techs.com/technologies/overview/proxy/).
+
+[^35]: OWASP Foundation, community references for the scanner families:
 [Source Code Analysis Tools (SAST)](https://owasp.org/www-community/Source_Code_Analysis_Tools),
 [Vulnerability Scanning Tools (DAST)](https://owasp.org/www-community/Vulnerability_Scanning_Tools),
 and [Component Analysis (SCA)](https://owasp.org/www-community/Component_Analysis).
-[^26]: GitHub, *Dependabot documentation*. [docs.github.com](https://docs.github.com/en/code-security/dependabot).
-[^27]: CISA, *Alert AA20-352A: Advanced Persistent Threat Compromise of Government Agencies, Critical Infrastructure, and Private Sector Organizations* (2020). [cisa.gov](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a).
-[^28]: npm, *kik, left-pad, and npm* (2016). [blog.npmjs.org](https://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm).
-[^29]: The Register, *How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript* (2016). [theregister.com](https://www.theregister.com/2016/03/23/npm_left_pad_chaos/).
-[^30]: OpenSSF, *SLSA — Supply-chain Levels for Software Artifacts*. [slsa.dev](https://slsa.dev/).
-[^31]: CISA, *Software Bill of Materials (SBOM)*. [cisa.gov/sbom](https://www.cisa.gov/sbom).
-[^32]: DORA, *Accelerate State of DevOps Report 2019* (2019). [dora.dev](https://dora.dev/research/2019/dora-report/).
-[^33]: Nicole Forsgren, Jez Humble, and Gene Kim, *Accelerate: The Science of Lean Software and DevOps* (IT Revolution Press, 2018). [itrevolution.com](https://itrevolution.com/product/accelerate/).
-[^34]: DORA, *DORA's software delivery metrics: the four keys*. [dora.dev](https://dora.dev/guides/dora-metrics-four-keys/).
-[^35]: Robert L. Glass, *Frequently Forgotten Fundamental Facts about Software Engineering* (IEEE Software, 2001). [doi.org](https://doi.org/10.1109/MS.2001.922739).
-[^36]: Michael Feathers, *Working Effectively with Legacy Code* (Prentice Hall, 2004). [informit.com](https://www.informit.com/store/working-effectively-with-legacy-code-9780131177055).
-[^37]: Martin Fowler, *Catalog of Refactorings*. [refactoring.com](https://refactoring.com/catalog/).
-[^38]: Ward Cunningham, *The WyCash Portfolio Management System* (OOPSLA experience report, 1992). [c2.com](http://c2.com/doc/oopsla92.html).
-[^39]: Martin Fowler, *StranglerFigApplication* (2004). [martinfowler.com](https://martinfowler.com/bliki/StranglerFigApplication.html).
+
+[^36]: GitHub, *Dependabot documentation*. [docs.github.com](https://docs.github.com/en/code-security/dependabot).
+
+[^37]: CISA, *Alert AA20-352A: Advanced Persistent Threat Compromise of Government Agencies, Critical Infrastructure, and Private Sector Organizations* (2020). [cisa.gov](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a).
+
+[^38]: npm, *kik, left-pad, and npm* (2016). [blog.npmjs.org](https://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm).
+
+[^39]: The Register, *How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript* (2016). [theregister.com](https://www.theregister.com/2016/03/23/npm_left_pad_chaos/).
+
+[^40]: OpenSSF, *SLSA — Supply-chain Levels for Software Artifacts*. [slsa.dev](https://slsa.dev/).
+
+[^41]: CISA, *Software Bill of Materials (SBOM)*. [cisa.gov/sbom](https://www.cisa.gov/sbom).
+
+[^42]: DORA, *Accelerate State of DevOps Report 2019* (2019). [dora.dev](https://dora.dev/research/2019/dora-report/).
+
+[^43]: Nicole Forsgren, Jez Humble, and Gene Kim, *Accelerate: The Science of Lean Software and DevOps* (IT Revolution Press, 2018). [itrevolution.com](https://itrevolution.com/product/accelerate/).
+
+[^44]: DORA, *DORA's software delivery metrics: the four keys*. [dora.dev](https://dora.dev/guides/dora-metrics-four-keys/).
+
+[^45]: Robert L. Glass, *Frequently Forgotten Fundamental Facts about Software Engineering* (IEEE Software, 2001). [doi.org](https://doi.org/10.1109/MS.2001.922739).
+
+[^46]: Michael Feathers, *Working Effectively with Legacy Code* (Prentice Hall, 2004). [informit.com](https://www.informit.com/store/working-effectively-with-legacy-code-9780131177055).
+
+[^47]: Martin Fowler, *Catalog of Refactorings*. [refactoring.com](https://refactoring.com/catalog/).
+
+[^48]: Ward Cunningham, *The WyCash Portfolio Management System* (OOPSLA experience report, 1992). [c2.com](http://c2.com/doc/oopsla92.html).
+
+[^49]: Martin Fowler, *StranglerFigApplication* (2004). [martinfowler.com](https://martinfowler.com/bliki/StranglerFigApplication.html).
 
 ---
 
-- **Key takeaways** are summarized above in §13.7.
+- **Key takeaways** are summarized above in §13.9.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

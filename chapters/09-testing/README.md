@@ -34,7 +34,7 @@ Four hard problems recur every time you test anything. Name them now, because th
 the chapter is a set of answers to them.
 
 - **Selection.** The input space is astronomically large. Which handful of inputs should
-  you actually run? (§9.1.2, and all of §9.3–9.6.)
+  you actually run? (§9.1.2, and all of §§9.3–9.6.)
 - **Adequacy.** Having run some tests, how do you know whether you have run *enough*? What
   is the stopping rule? (§9.1.3.)
 - **Oracle.** For each input, how do you decide whether the observed output is *correct*?
@@ -126,6 +126,20 @@ the three cases you already thought of.
 
 With a property-based testing tool — every ecosystem has one — both properties become one
 test run against hundreds of generated lists:
+
+```generic
+// property-based test: a tool generates many non-empty lists xs
+function median(xs)
+  ys <- sort xs ascending
+  return ys[length of ys / 2]   // middle element (upper median)
+end function
+
+for each generated non-empty list xs do
+  m <- median(xs)
+  assert m = median(reverse of xs)   // order independence
+  assert xs contains m               // the median is one of the inputs
+end for
+```
 
 ```go
 // rapid generates the inputs: go get pgregory.net/rapid
@@ -265,6 +279,13 @@ the tool mutates the guard
 Rerun the suite: no test ever passes a zero price, so every test still passes and the
 mutant **survives**. The survivor names the missing test precisely:
 
+```generic
+// kills the `price <= 0` mutant: exercises a price of exactly zero
+function test_free_item_allowed()
+  assert apply_discount(0.0, 50) = 0.0
+end function
+```
+
 ```go
 func TestFreeItemAllowed(t *testing.T) { // kills the `price <= 0` mutant
 	if got, err := ApplyDiscount(0.0, 50); err != nil || got != 0.0 {
@@ -330,6 +351,20 @@ one).
 
 Each double below stands in for the `discounts` dependency of `PriceService` (§9.2.2) —
 the stub feeds the unit a canned percent and nothing more:
+
+```generic
+// a stub returns canned answers, nothing more
+function stub_catalog.price_of(item)
+  return 12.0        // every item costs 12.0
+end function
+
+function stub_discounts.percent_for(item)
+  return 25          // canned answer, whatever the item
+end function
+
+svc <- new PriceService(stub_catalog, stub_discounts)
+assert svc.quote("mug") = 9.0   // 12.0 * (1 - 0.25)
+```
 
 ```go
 type StubCatalog struct{}
@@ -412,6 +447,19 @@ assert.equal(svc.quote("mug"), 9.0);             // 12.0 * (1 - 0.25)
 ```
 
 The mock also records the interaction, so the test can assert on *how* the unit used it:
+
+```generic
+// a mock also records how it was called
+mock_discounts.calls <- empty list
+
+function mock_discounts.percent_for(item)
+  append item to mock_discounts.calls
+  return 25
+end function
+
+new PriceService(stub_catalog, mock_discounts).quote("mug")
+assert mock_discounts.calls = ["mug"]   // called exactly once, with "mug"
+```
 
 ```go
 type MockDiscounts struct{ calls []string }
@@ -502,6 +550,21 @@ assert.deepEqual(mock.calls, ["mug"]);           // called exactly once, with "m
 And the fake actually works — an in-memory table stands in for the discount database, so
 any lookup behaves the way the real component would:
 
+```generic
+// a fake is a working stand-in: an in-memory table of discounts
+function fake_discounts.percent_for(item)
+  if item in table then
+    return table[item]
+  else
+    return 0          // a missing item means no discount
+  end if
+end function
+
+svc <- new PriceService(stub_catalog, fake_discounts with table {"mug": 25})
+assert svc.quote("mug") = 9.0
+assert svc.quote("bowl") = 12.0   // unknown item: no discount
+```
+
 ```go
 // FakeDiscounts reads an in-memory table; a missing item means no discount (0).
 type FakeDiscounts struct{ table map[string]float64 }
@@ -580,6 +643,19 @@ fast because they touch no network or disk, precise because a failure points at 
 and stable because they do not break when an unrelated part of the system changes. Here is
 a unit under test and a small suite:
 
+```generic
+// reduce price by percent (0..100); reject bad input
+function apply_discount(price, percent)
+  if price < 0 then
+    error "price must be non-negative"
+  end if
+  if percent < 0 or percent > 100 then
+    error "percent must be in 0..100"
+  end if
+  return round(price * (1 - percent / 100) to 2 decimals)
+end function
+```
+
 ```go
 // ApplyDiscount reduces price by percent (0..100). Returns an error on bad input.
 func ApplyDiscount(price, percent float64) (float64, error) {
@@ -638,6 +714,22 @@ function applyDiscount(price: number, percent: number): number {
   if (percent < 0 || percent > 100) throw new RangeError("percent must be in 0..100");
   return Math.round(price * (1 - percent / 100) * 100) / 100;
 }
+```
+
+```generic
+// each case names a distinct behavior and carries its own oracle
+cases <- [
+  ("no discount",     100.0,   0, 100.0),
+  ("half off",        100.0,  50,  50.0),
+  ("rounds to cents",   9.99,  10,   8.99),
+  ("full discount",    40.0, 100,   0.0),
+]
+for each (name, price, percent, want) in cases do
+  assert apply_discount(price, percent) = want
+end for
+
+// invalid class: percent above 100 is rejected
+assert apply_discount(100.0, 150) raises an error
 ```
 
 ```go
@@ -760,6 +852,16 @@ testing** exercises the *interfaces and interactions* between units, growing the
 a pair of collaborators up toward whole subsystems. This is where mismatched assumptions,
 wrong data formats, and protocol errors surface.
 
+```generic
+// PriceService wires two collaborators together
+// catalog: name -> base price;  discounts: name -> percent off
+function PriceService.quote(item)
+  base <- catalog.price_of(item)      // unit A
+  pct <- discounts.percent_for(item)  // unit B
+  return apply_discount(base, pct)
+end function
+```
+
 ```go
 type Catalog interface{ PriceOf(item string) float64 }
 type Discounts interface{ PercentFor(item string) float64 }
@@ -859,6 +961,16 @@ class PriceService {
 A unit test of `PriceService`'s quote method would *mock* `catalog` and `discounts`. An
 **integration test** instead wires the real (or fake) catalog and discount components
 together and checks that their contract holds end to end:
+
+```generic
+// integration test: wire the real catalog and discounts together
+function test_quote_integrates_catalog_and_discounts()
+  catalog <- new Catalog with table {"mug": 12.0}
+  discounts <- new Discounts with table {"mug": 25}
+  svc <- new PriceService(catalog, discounts)
+  assert svc.quote("mug") = 9.0   // 12.0 * (1 - 0.25)
+end function
+```
 
 ```go
 func TestQuoteIntegratesCatalogAndDiscounts(t *testing.T) {
@@ -1044,6 +1156,21 @@ with two outgoing edges; a merge is a node with two incoming edges. The CFG make
 
 Consider a function that classifies a number and, for positive numbers, sums 1..n:
 
+```generic
+function classify_and_sum(n)      // node 1  (entry)
+  if n < 0 then                   // node 2  (decision)
+    return "negative"             // node 3
+  end if
+  total <- 0                       // node 4
+  i <- 1                           // node 4
+  while i <= n do                 // node 5  (decision)
+    total <- total + i             // node 6
+    i <- i + 1                     // node 6
+  end while
+  return "sum=" + total           // node 7  (exit)
+end function
+```
+
 ```go
 func ClassifyAndSum(n int) string { // node 1  (entry)
 	if n < 0 { // node 2  (decision)
@@ -1163,7 +1290,7 @@ testable code; **11–20** is moderately complex; **21–50** is risky; above **
 effectively untestable.[^12] The metric earns its keep as a *predictor*: high-complexity
 functions are where defects cluster and where the hard-to-cover branches live, which
 makes it a map of where to spend testing effort — and refactoring (Chapter 13,
-[§13.6](../13-delivery/#136-legacy-code-refactoring-and-technical-debt)) is the
+[§13.8](../13-delivery/#138-legacy-code-refactoring-and-technical-debt)) is the
 treatment for the hot spots it finds.[^13]
 
 ### 9.3.2 Control-Flow Coverage Criteria
@@ -1271,6 +1398,16 @@ The boundary values to test:
 |             | `101` | rejected (just above) |
 
 Six boundary tests. Watch them do their job. Suppose a developer wrote the guard as:
+
+```generic
+function set_volume(level)
+  // a statically typed language requires level to be an integer here
+  if level is not an integer or level < 1 or level >= 100 then  // BUG: >= should be >
+    error "level must be 1..100"
+  end if
+  apply(level)
+end function
+```
 
 ```go
 func SetVolume(level int) error {
@@ -1580,7 +1717,7 @@ among the first metrics you will report.
 [^1]: Edsger W. Dijkstra, *Notes on Structured Programming*, EWD249 (1970), §3 ("Program
     testing can be used to show the presence of bugs, but never to show their absence!");
     the aphorism also appears in the 1969 NATO *Software Engineering Techniques* report.
-    [cs.utexas.edu](https://www.cs.utexas.edu/~EWD/ewd02xx/EWD249.PDF).
+    [cs.utexas.edu](https://www.cs.utexas.edu/users/EWD/ewd02xx/EWD249.PDF).
 
 [^2]: Earl T. Barr, Mark Harman, Phil McMinn, Muzammil Shahbaz, and Shin Yoo, *The Oracle
     Problem in Software Testing: A Survey*, IEEE Transactions on Software Engineering 41(5)
