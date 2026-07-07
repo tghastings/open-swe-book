@@ -1,8 +1,8 @@
-# Chapter 13 — Delivery: CI/CD, DevOps, and Evolution
+# Chapter 14 — Delivery: CI/CD, DevOps, and Evolution
 
-> **Where we are.** Chapter 12 asked how AI changes the practice of software engineering;
+> **Where we are.** Chapter 13 asked how AI changes the practice of software engineering;
 > this final chapter asks a question the earlier
-> chapters quietly deferred. Chapters 1–11 taught you how to *build* software — process,
+> chapters quietly deferred. Chapters 1–12 taught you how to *build* software — process,
 > requirements, design, patterns — and how to *verify* it with reviews, tests, security
 > scanning, and metrics.
 > But a verified commit sitting in a repository helps no one. This chapter covers the
@@ -14,7 +14,7 @@
 Delivery used to be an afterthought — a thing operations people did after engineering was
 "done." Two shifts ended that. First, software moved to the cloud, where releasing stopped
 being a rare, ceremonial event and became something a team might do dozens of times a day.
-Second, a body of research (§13.7) showed that *how* a team delivers predicts its
+Second, a body of research (§14.7) showed that *how* a team delivers predicts its
 performance better than almost anything else it does. The umbrella term for the resulting
 culture is **DevOps**: the idea that developing software and operating it are one
 discipline, practiced by one team, with shared tools and shared accountability. This
@@ -28,9 +28,9 @@ with the fate that awaits all successful code: becoming legacy.
 > does in the hands of real users — the same short-feedback bet Chapter 2 made about
 > process, now applied to the machinery of release itself.
 
-## 13.1 SaaS and the Cloud
+## 14.1 SaaS and the Cloud
 
-### 13.1.1 From Shipped Artifact to Running Service
+### 14.1.1 From Shipped Artifact to Running Service
 
 For most of software history, delivering software meant producing an **artifact** — a
 binary on tape, a shrink-wrapped CD, an installer download — that customers took away and
@@ -65,7 +65,7 @@ prefers, because the browser never sees it. Native mobile apps are the sibling f
 trading the browser's universality for tighter platform integration; either way, the
 architecture is the same service behind a thin client.
 
-### 13.1.2 Multi-Tenancy and Horizontal Scaling
+### 14.1.2 Multi-Tenancy and Horizontal Scaling
 
 Running the software yourself raises a design question: does each customer get their own
 copy? In a **multi-tenant** design, one running instance of the system serves many
@@ -86,7 +86,7 @@ per-client session state on one server has silently welded each user to that ser
 a stateless one lets the platform treat servers as interchangeable, replaceable cattle.
 Architecture decisions from Chapter 7 are, it turns out, *delivery* decisions too.
 
-### 13.1.3 What the Cloud Does to the Iron Triangle
+### 14.1.3 What the Cloud Does to the Iron Triangle
 
 Recall the iron triangle of Chapter 1
 ([§1.5](../01-introduction/#15-balancing-constraints-the-iron-triangle)): scope, schedule,
@@ -107,9 +107,9 @@ big bang — the same pathology, at the release level, that
 diagnosed at the integration level. The rest of this chapter is the machinery that makes
 deploying early *safe* rather than merely brave.
 
-### 13.1.4 The Cloud Landscape: Providers, Components, and Responsibility
+### 14.1.4 The Cloud Landscape: Providers, Components, and Responsibility
 
-The vendor-controlled machines of §13.1.1 have to live somewhere, and today they mostly
+The vendor-controlled machines of §14.1.1 have to live somewhere, and today they mostly
 live in a **public cloud**: vast provider-owned datacenters whose capacity is rented out
 over the network, by the hour or by the request. As of 2025, the market is led by Amazon
 Web Services (AWS), Google Cloud, and Microsoft Azure, with a long tail of smaller providers —
@@ -152,7 +152,7 @@ matters more than unit cost, and when a small team has no one to spare for opera
 > *cost-and-flexibility trade*, not an axiom. Elastic, uncertain load is where renting
 > wins; steady, predictable load is where owning wins. Run the numbers, not the fashion.
 
-### 13.1.5 Containers, Clusters, and Kubernetes
+### 14.1.5 Containers, Clusters, and Kubernetes
 
 The unit of cloud deployment that has won in practice is the **container**: a package
 containing an application plus everything it needs to run — language runtime, libraries,
@@ -160,7 +160,7 @@ configuration — isolated from other software on the same machine while *sharin
 operating system's kernel*. Sharing the kernel is what distinguishes a container from a
 **virtual machine**, which carries an entire guest operating system of its own: a
 container starts in seconds rather than minutes, and a single host can run dozens of them.[^6]
-The container **image** is the immutable, versioned artifact that a CI pipeline (§13.2.2)
+The container **image** is the immutable, versioned artifact that a CI pipeline (§14.2.2)
 builds exactly once and then deploys everywhere — the same byte-for-byte thing on a
 laptop, in the test environment, and in production, which retires "works on my machine"
 as a category of excuse.
@@ -174,7 +174,7 @@ Kubernetes schedules containers onto the machines of a cluster.[^7] Around that 
 handles **ingress** (routing incoming traffic to the right containers), scaling the number
 of running copies up and down with demand, restarting containers that crash or fail health
 checks, and attaching storage to containers that need it — the operational chores of
-§13.1.2's horizontal scaling, automated.
+§14.1.2's horizontal scaling, automated.
 
 One caveat: Kubernetes earns its considerable complexity at fleet scale.
 For a small team — certainly for a class project — a single container on one host, or a
@@ -182,9 +182,9 @@ platform-as-a-service that runs your container for you, delivers most of the ben
 small fraction of the operational cost. Learn what Kubernetes is for; reach for it when
 you have the problem it solves.
 
-### 13.1.6 Distributed Trade-Offs: The CAP Theorem
+### 14.1.6 Distributed Trade-Offs: The CAP Theorem
 
-Horizontal scaling (§13.1.2) eventually reaches the data layer, and the moment state is
+Horizontal scaling (§14.1.2) eventually reaches the data layer, and the moment state is
 *replicated* — living on more than one machine — a hard theoretical limit applies. Eric
 Brewer's **CAP theorem** concerns three properties of a distributed data system:
 **consistency** (every read sees the most recent write), **availability** (every request
@@ -210,10 +210,10 @@ few seconds stale harms no one, but an unreachable feed is a product failure.
 The theorem is why architecture and delivery keep meeting in this chapter: the shared-data
 pattern ([§7.2.1](../07-architectural-patterns/#721-the-shared-data-pattern)) put one
 authoritative store at the center of a system, and scaling that store horizontally
-(§13.1.2) replicates it — at which point CAP stops being theory and becomes a decision
+(§14.1.2) replicates it — at which point CAP stops being theory and becomes a decision
 your team must make on purpose, per feature, with the requirements in hand.
 
-## 13.2 Continuous Integration Pipelines
+## 14.2 Continuous Integration Pipelines
 
 Chapter 2 introduced **continuous integration (CI)** as an XP engineering practice:
 everyone merges into a shared mainline many times a day, and an automated build-and-test
@@ -224,7 +224,7 @@ change at a time instead of all at once. This section goes deeper: what the auto
 actually consists of, what branching discipline it demands, and what social contract makes
 it work.
 
-### 13.2.1 Trunk-Based Development
+### 14.2.1 Trunk-Based Development
 
 CI is first a *branching* policy, and only second a server. In **trunk-based
 development**, the whole team commits to a single shared mainline (the *trunk*), directly
@@ -241,11 +241,11 @@ with time. Trunk-based development keeps divergence permanently small by constru
 Merging several times a day means each merge carries at most a few hours of divergence —
 small enough that conflicts are rare, and trivial when they occur. The obvious objection —
 "how do I commit work that isn't finished?" — has a standard answer you will meet in
-§13.3.3: hide unfinished work behind a **feature flag** so it can be *integrated* without
+§14.3.3: hide unfinished work behind a **feature flag** so it can be *integrated* without
 being *released*. Integration and release become independent decisions, which is one of
 the most useful separations in this whole chapter.
 
-### 13.2.2 The Stages of a Pipeline
+### 14.2.2 The Stages of a Pipeline
 
 A **CI pipeline** is the automated gauntlet every commit runs before it is declared good.
 The pipeline is where earlier chapters' verification techniques stop being activities a
@@ -255,7 +255,7 @@ runs stages in increasing order of cost, failing fast on the cheap ones:
 ```mermaid
 flowchart TD
     C["Commit pushed to trunk"] --> B["Build<br/>(compile, resolve dependencies)"]
-    B --> S["Static checks<br/>(linters, analyzers, type checks — Ch. 8)"]
+    B --> S["Static checks<br/>(linters, analyzers, type checks — Ch. 9)"]
     S --> T
     subgraph T ["Tests, in pyramid order"]
         direction LR
@@ -273,10 +273,10 @@ flowchart TD
 
 Take the stages in order. The **build** proves the change even compiles and its
 dependencies resolve — the cheapest possible check, so it runs first. **Static checks**
-run the automated analysis of Chapter 8
-([§8.4](../08-static-checking/#84-automated-static-analysis)) — linters, type checkers,
+run the automated analysis of Chapter 9
+([§9.4](../09-static-checking/#94-automated-static-analysis)) — linters, type checkers,
 style and bug-pattern analyzers — catching whole classes of defects without executing a
-line. Then the **tests by level** from Chapter 9 run in pyramid order: unit tests first
+line. Then the **tests by level** from Chapter 10 run in pyramid order: unit tests first
 because they are fast and localize failures precisely, then integration, then a thin layer
 of end-to-end tests. If everything passes, the pipeline produces a **versioned artifact**
 — a container image, a package, a binary — that is stored and never rebuilt. This last
@@ -287,9 +287,9 @@ passed the tests. Mature pipelines add one more gate on the far side of deployme
 a **smoke-test stage** — a fast is-it-alive check (does the service start, answer a
 trivial request, reach its database?) run against the newly deployed version, gating the
 rollout before real traffic widens onto it (the testing levels these stages draw on are
-[Chapter 9](../09-testing/#92-levels-of-testing)'s).
+[Chapter 10](../10-testing/#102-levels-of-testing)'s).
 
-### 13.2.3 Broken-Build Discipline
+### 14.2.3 Broken-Build Discipline
 
 A pipeline is only as good as the team's response when it turns red. The working culture
 of CI rests on a small social contract. First, **a red mainline is everyone's emergency**:
@@ -314,11 +314,11 @@ stop until it does.
 > being a heartbeat and become a slot machine, and real failures start slipping through on
 > the same shrug. Quarantine flaky tests immediately, fix or delete them promptly, and
 > treat their existence as a defect in the suite.
-> [§9.2.4](../09-testing/#924-case-study-test-early-and-often--the-testing-pyramid)
+> [§10.2.4](../10-testing/#1024-case-study-test-early-and-often--the-testing-pyramid)
 > catalogs the usual causes — races, shared state, order dependence, unstable externals —
 > and their fixes.
 
-### 13.2.4 Keeping Pipelines Fast
+### 14.2.4 Keeping Pipelines Fast
 
 Pipeline speed is a hard constraint, not a convenience. Developers are supposed to merge
 several times a day and to *wait for green* before moving on. If the pipeline takes an
@@ -327,7 +327,7 @@ which re-creates the large, risky merges CI exists to eliminate. A useful
 target is roughly ten minutes from push to verdict for the merge-blocking stages.[^10]
 
 Achieving that is the testing pyramid of
-[§9.2.4](../09-testing/#924-case-study-test-early-and-often--the-testing-pyramid) applied
+[§10.2.4](../10-testing/#1024-case-study-test-early-and-often--the-testing-pyramid) applied
 as an engineering budget: push checks *down* the pyramid, where they are fast, and keep
 the slow end-to-end layer thin. Beyond that, run independent stages in parallel, cache
 dependencies and build outputs so unchanged parts are not rebuilt, and split the pipeline
@@ -336,9 +336,9 @@ tests, long fuzzing) that run continuously against the trunk without holding up 
 Treat a slow pipeline as a process defect that changes how your team behaves, not as a
 tooling annoyance to live with.
 
-## 13.3 Continuous Deployment
+## 14.3 Continuous Deployment
 
-### 13.3.1 Delivery versus Deployment
+### 14.3.1 Delivery versus Deployment
 
 Two similar terms name genuinely different commitments. **Continuous delivery** means
 every change that passes the pipeline yields an artifact that is *proven deployable* —
@@ -353,15 +353,15 @@ commit goes to production, then there is no such thing as a "safe to merge but n
 to ship" change without a flag, no manual pre-release checklist to lean on, and no
 batching of changes into a big release whose failures cannot be attributed. Every safety
 property must be automated, because automation is all there is. Teams that adopt it report
-a paradoxical result that §13.7 will make precise: deploying *more often* makes each
+a paradoxical result that §14.7 will make precise: deploying *more often* makes each
 deployment *less* risky, because each one is smaller, better attributed, and easier to
 undo.
 
-### 13.3.2 Deployment Strategies
+### 14.3.2 Deployment Strategies
 
 However often you deploy, *how* you swap new code into a live system determines the blast
 radius when something is wrong. Two infrastructure-level strategies dominate practice; a
-third approach moves the switch into code, and it gets its own section (§13.3.3).
+third approach moves the switch into code, and it gets its own section (§14.3.3).
 
 **Blue-green deployment** runs two identical production environments. At any moment one
 (say, *blue*) serves all traffic while the other (*green*) sits idle. To release, you
@@ -382,7 +382,7 @@ with automated health checks gating each promotion and halting the rollout on re
 The essential idea is *progressive exposure*: no change reaches everyone until it has
 demonstrably survived contact with someone.
 
-### 13.3.3 Feature Flags: Decoupling Deploy from Release
+### 14.3.3 Feature Flags: Decoupling Deploy from Release
 
 Blue-green and canary deployments control exposure with *infrastructure* — routers,
 server pools, traffic slices. A **feature flag** (or *feature toggle*) moves the same
@@ -390,10 +390,10 @@ control into *code*: a runtime conditional that turns a code path on or off with
 redeploying.[^11] Deploying and releasing become fully independent acts. A feature's code
 can sit in production for weeks, dark and disabled, while the team keeps merging; when
 the moment comes, "releasing" it is a configuration change that takes effect in seconds,
-and un-releasing it is the same change in reverse. This is the endpoint of §13.1.3's
+and un-releasing it is the same change in reverse. This is the endpoint of §14.1.3's
 argument: release is no longer even a deployment decision — it is a bit you flip.
 
-Flags are also the standard answer to §13.2.1's objection ("how do I commit work that
+Flags are also the standard answer to §14.2.1's objection ("how do I commit work that
 isn't finished?"): unfinished work merges to trunk dark and disabled, so integration
 stays continuous while release waits. In practice flags come in a few kinds with very
 different lifespans, and confusing them is where trouble starts:
@@ -404,12 +404,12 @@ different lifespans, and confusing them is where trouble starts:
   operator can disable a misbehaving feature instantly, without a deploy. These are
   deliberately long-lived, few in number, and tested like the safety equipment they are.
 - **Experiment flags** split traffic between variants so you can *measure* a change
-  (the A/B tests your metrics chapter made honest — §11.5). They live exactly as long
+  (the A/B tests your metrics chapter made honest — §12.5). They live exactly as long
   as the experiment.
 
 Targeting is what makes flags more than an on/off switch: a flag can be on for one user,
 one tenant, or three percent of traffic — a **percentage rollout**, which is canary
-deployment's progressive-exposure idea (§13.3.2) implemented in code, with no second
+deployment's progressive-exposure idea (§14.3.2) implemented in code, with no second
 environment to pay for.
 
 In the clinic scheduler, both are one conditional — only the predicate changes:
@@ -579,27 +579,27 @@ has graduated from house hack to shared infrastructure — **OpenFeature**, a
 vendor-neutral flag API, is now a CNCF incubating project.[^16]
 
 None of this is free. Every long-lived flag doubles the configuration space your tests
-must consider — Chapter 9's combinatorial lesson (§9.6) applies directly, so test both
+must consider — Chapter 10's combinatorial lesson (§10.6) applies directly, so test both
 states of any flag that will live past a sprint, and at least pairwise across flags that
 interact. And flags demand hygiene *because* they are so easy to add: every
 flag needs an owner, an intended lifespan, and a removal date, and a retired flag's code
 — both the dead branch and the conditional — must be deleted promptly. Stale flags are
-technical debt (§13.8) of an unusually dangerous kind: dormant behavior sitting in
+technical debt (§14.8) of an unusually dangerous kind: dormant behavior sitting in
 production, waiting for someone to trip it. The first case study below turned that danger
 from hypothetical to historical.
 
 > **Pitfall.** Never repurpose an existing flag to control new behavior. The old name
 > still points at whatever code the flag used to trigger, and that code is often dormant
-> rather than deleted — Knight Capital's repurposed Power Peg flag (§13.3.5) is the
+> rather than deleted — Knight Capital's repurposed Power Peg flag (§14.3.5) is the
 > canonical demonstration of what happens when it runs again. Retire the old flag, delete
 > its dead code, and mint a new one; flag names are cheap, and the alternative was not.
 
-### 13.3.4 Rollback versus Roll-Forward
+### 14.3.4 Rollback versus Roll-Forward
 
 When a deployment goes wrong, you have two exits. **Rollback** returns production to the
 previous version; **roll-forward** ships a new fix on top of the broken state. Rollback is
 usually faster and requires no new (unverified) code, so mature teams treat it as the
-default reflex. But a rollback path is a *mechanism*, and Chapter 9's lesson applies to
+default reflex. But a rollback path is a *mechanism*, and Chapter 10's lesson applies to
 mechanisms too: an untested rollback is a rumor, not a capability. Version skew can make
 the old code unable to read data the new code wrote; a config change may have accompanied
 the code; the "previous artifact" may no longer exist. Teams that take this seriously
@@ -609,7 +609,7 @@ crisis. And some changes cannot be rolled back at all (an irreversible data migr
 security fix you must not un-ship), which is why roll-forward speed — how fast your
 pipeline can carry a one-line fix to production — is itself a safety property.
 
-### 13.3.5 When Deployment Goes Wrong: Two Case Studies
+### 14.3.5 When Deployment Goes Wrong: Two Case Studies
 
 The two case studies below are, respectively, the strongest argument on record *for*
 deployment automation and the strongest argument that automation *alone* is not safety.
@@ -688,7 +688,7 @@ They are worth studying closely, and honestly, from the primary sources.
 > staging, and progressive rollout as a code change, no matter how routine its format. A
 > fully automated pipeline without progressive exposure is not safety — it is a machine
 > for shipping a defect to every user on Earth at once. Validators are code too, with
-> false negatives of their own ([§8.4.2](../08-static-checking/#842-false-positives-and-false-negatives));
+> false negatives of their own ([§9.4.2](../09-static-checking/#942-false-positives-and-false-negatives));
 > a gate you never test is a gate you cannot trust. Design for a bounded blast radius
 > *before* you need one. And recovery paths must be designed for the worst case — a fix
 > pushed over the network is useless to a machine that cannot boot to receive it.
@@ -702,9 +702,9 @@ forty-five minutes for Knight's loss, about eighty minutes from CrowdStrike's pu
 reversion.[^24] Automation sets the *speed* of your outcomes; only progressive exposure and tested
 recovery decide their *sign*.
 
-## 13.4 Packaging and Running a Service: Docker and Compose
+## 14.4 Packaging and Running a Service: Docker and Compose
 
-Section 13.1.5 named the container as the unit of cloud deployment, and §13.3 covered
+Section 13.1.5 named the container as the unit of cloud deployment, and §14.3 covered
 *when* and *how often* to release. This section closes the gap between them: the concrete
 mechanics of turning a program that runs on your laptop into a service that runs on a
 server. You will build a container image, run an application together with the database and
@@ -712,9 +712,9 @@ cache it depends on, and keep the whole stack reproducible. The tools are Docker
 Compose; the ideas they embody — immutable images, declared dependencies, externalized
 configuration, persistent volumes — outlast any particular tool.
 
-### 13.4.1 From Dockerfile to Image
+### 14.4.1 From Dockerfile to Image
 
-A container **image** (§13.1.5) is built from a **Dockerfile**: a text file of ordered
+A container **image** (§14.1.5) is built from a **Dockerfile**: a text file of ordered
 instructions describing, step by step, how to assemble the environment your application
 needs.[^25] Each instruction adds a **layer**, a cached filesystem diff, so a rebuild that
 changes only your source reuses the earlier layers that installed the runtime and
@@ -751,7 +751,7 @@ docker build -t clinic-app:1.4.0 .        # build, tag with a version
 docker run -p 8000:8000 clinic-app:1.4.0  # run, mapping host port to container port
 ```
 
-> **Principle.** Build once, run anywhere. The image your CI pipeline (§13.2) builds is the
+> **Principle.** Build once, run anywhere. The image your CI pipeline (§14.2) builds is the
 > exact artifact that runs in test and in production, byte for byte. A bug seen in
 > production can be reproduced on your laptop by running the same tagged image, and that
 > reproducibility is what makes the container's overhead worth paying.
@@ -762,7 +762,7 @@ compiled language, a **multi-stage build** compiles in a fat builder image and c
 the finished binary into a tiny runtime image, so the shipped image carries no compiler and
 no source.
 
-### 13.4.2 Composing a Stack with Docker Compose
+### 14.4.2 Composing a Stack with Docker Compose
 
 A real service is rarely one container. A typical web application is at least three: the
 app itself, a database that holds its state, and often a cache. Starting these by hand,
@@ -812,7 +812,7 @@ addresses. The `depends_on` health condition makes the app wait until Postgres i
 ready to accept connections, not merely started, which removes a whole class of
 start-order race conditions.
 
-### 13.4.3 Stateful Services: Postgres and Redis
+### 14.4.3 Stateful Services: Postgres and Redis
 
 Two of those services deserve a closer look, because they hold **state**, and state is
 where deployment gets hard. A container is **ephemeral**: stop it and everything written
@@ -824,7 +824,7 @@ mounts a Docker-managed volume at the directory where Postgres keeps its files, 
 survives `docker compose down` and the next deploy.
 
 The two data services play different roles, and the difference is a direct instance of the
-CAP trade-off (§13.1.6) and the shared-data pattern (§7.2.1):
+CAP trade-off (§14.1.6) and the shared-data pattern (§7.2.1):
 
 - **PostgreSQL** is the **system of record**: a relational database offering transactions,
   constraints, and durability. When correctness matters — a patient record, a payment, an
@@ -846,10 +846,10 @@ CAP trade-off (§13.1.6) and the shared-data pattern (§7.2.1):
 Both Postgres and Redis ship as **official images** on the public registry, maintained and
 security-patched by the wider community, which is why the Compose file pulls `postgres:16`
 and `redis:7` instead of installing and configuring database servers by hand.[^27] Pin the
-major version, as with any dependency (§13.6.2), so an unattended pull cannot upgrade your
+major version, as with any dependency (§14.6.2), so an unattended pull cannot upgrade your
 database engine underneath you.
 
-### 13.4.4 Configuration and Secrets
+### 14.4.4 Configuration and Secrets
 
 Notice what the Compose file did *not* contain: no password written into the image, no
 connection string hard-coded in the source. They arrive as **environment variables**
@@ -860,7 +860,7 @@ feature toggles — lives in configuration outside the image.[^28]
 
 The rule earns its keep twice. It keeps a single image promotable from test to production
 without a rebuild, and it keeps secrets out of the image and out of version control, where
-§13.6.3 shows they cause real breaches once leaked. A committed `.env` file is one of the
+§14.6.3 shows they cause real breaches once leaked. A committed `.env` file is one of the
 most common ways a live credential ends up in a public repository.
 
 > **Principle.** One image, many environments. If moving a build from staging to production
@@ -868,7 +868,7 @@ most common ways a live credential ends up in a public repository.
 > Externalize what changes between environments so the thing you tested is exactly the thing
 > you ship.
 
-## 13.5 Reaching Users: DNS, TLS, and the Edge
+## 14.5 Reaching Users: DNS, TLS, and the Edge
 
 You now have a stack running on a server. That server has an IP address like
 `203.0.113.10`, but no user will type that, and no browser will trust it without a padlock.
@@ -879,7 +879,7 @@ authenticates the connection. This section explains both, adds the layer most re
 deployments put in front of everything else, and closes with a complete deployment from
 start to finish.
 
-### 13.5.1 How a Name Becomes an Address
+### 14.5.1 How a Name Becomes an Address
 
 The **Domain Name System (DNS)** is the internet's directory: a globally distributed
 database that maps human-readable names like `clinic.example.com` to the numeric IP
@@ -915,7 +915,7 @@ server's IP address. That is the whole mechanism: a name, a type, a value, and a
 > migration, lower the record's TTL well in advance so the cutover is quick, then raise it
 > again afterward to cut lookup load.
 
-### 13.5.2 HTTPS and TLS Certificates
+### 14.5.2 HTTPS and TLS Certificates
 
 A DNS lookup gets a browser to your server; **TLS** (Transport Layer Security, the protocol
 behind the `s` in `https`) makes the connection between them private and trustworthy. It
@@ -943,7 +943,7 @@ renewal can no longer take a site down. In practice you rarely touch a certifica
 and renews the certificate, terminates TLS, and forwards plain HTTP to the app over the
 private network.
 
-### 13.5.3 The Edge: CDNs and Cloudflare
+### 14.5.3 The Edge: CDNs and Cloudflare
 
 That reverse-proxy idea generalizes into one of the most important pieces of modern
 deployment: a layer at the **edge**, between your users and your server, that handles
@@ -976,7 +976,7 @@ place behind a single provider.
 > bypass the edge entirely. Configure the origin to accept traffic only from the edge, so
 > the protection cannot be stepped around.
 
-### 13.5.4 A Full Deployment, End to End
+### 14.5.4 A Full Deployment, End to End
 
 The pieces now assemble into one picture. Here is the whole path a request travels, and the
 sequence a team follows to put a first real service online:
@@ -997,7 +997,7 @@ flowchart LR
 
 Walking the deployment in order:
 
-1. **Build the image.** Your CI pipeline (§13.2) builds the container image from the
+1. **Build the image.** Your CI pipeline (§14.2) builds the container image from the
    Dockerfile, tags it with the commit's version, and pushes it to an image registry.
 2. **Run the stack.** On a host — a rented virtual machine, or a platform-as-a-service that
    runs containers for you — you bring up the Compose stack: the app image plus
@@ -1008,8 +1008,8 @@ Walking the deployment in order:
    is an A record straight to the origin's IP.
 4. **Get a certificate.** A reverse proxy on the origin obtains a Let's Encrypt certificate
    over ACME, or Cloudflare terminates TLS at the edge, so the site serves valid HTTPS.
-5. **Release safely.** You roll the new version out with a strategy from §13.3 — behind a
-   feature flag, or as a canary to a slice of traffic — and watch the DORA signals of §13.7:
+5. **Release safely.** You roll the new version out with a strategy from §14.3 — behind a
+   feature flag, or as a canary to a slice of traffic — and watch the DORA signals of §14.7:
    when deployment frequency is high and change-fail rate stays low, the machinery is sound.
 
 None of these steps is exotic, and a small team can stand up this entire stack in an
@@ -1024,26 +1024,26 @@ happens to be online from a service a team can operate, and keep operating, as i
 > boring, because boring, as this chapter has insisted throughout, is what you want
 > production to be.
 
-## 13.6 Continuous Security Pipelines
+## 14.6 Continuous Security Pipelines
 
-Chapter 8 taught static analysis as a practice; the pipeline is where it becomes policy.
-Modern teams extend the CI pipeline of §13.2 into a **continuous security pipeline** —
+Chapter 9 taught static analysis as a practice; the pipeline is where it becomes policy.
+Modern teams extend the CI pipeline of §14.2 into a **continuous security pipeline** —
 a set of automated gates that check not just whether the code works, but whether it is
 safe to expose to an adversarial world. Three scanner families divide the work.
 
-### 13.6.1 SAST, DAST, and SCA
+### 14.6.1 SAST, DAST, and SCA
 
 **Static application security testing (SAST)** is the security-focused end of the static
-analysis you met in [§8.4](../08-static-checking/#84-automated-static-analysis): tools
+analysis you met in [§9.4](../09-static-checking/#94-automated-static-analysis): tools
 that examine source code without running it, hunting injection flaws, unsafe
-deserialization, buffer misuse, and other vulnerable *patterns*. Everything Chapter 8 said
+deserialization, buffer misuse, and other vulnerable *patterns*. Everything Chapter 9 said
 about false positives and false negatives applies with interest — a noisy SAST gate
 that developers learn to rubber-stamp protects no one.
 
 **Dynamic application security testing (DAST)** attacks the *running* application from
 outside, the way an adversary would: probing endpoints with malformed inputs, injection
 payloads, and authentication bypasses, knowing nothing about the source. SAST and DAST
-are complementary the way white-box and black-box testing were in Chapter 9: SAST sees
+are complementary the way white-box and black-box testing were in Chapter 10: SAST sees
 code paths DAST may never reach; DAST sees emergent, deployed behavior — server
 configuration, header mistakes, the composition of services — that no source scan can.[^35]
 
@@ -1054,7 +1054,7 @@ uncomfortable arithmetic: in a typical modern application, code you wrote is a t
 atop orders of magnitude more code you imported. You ship your dependencies. Their
 vulnerabilities are your vulnerabilities, and no review of *your* code will find them.
 
-### 13.6.2 Dependencies and the Supply Chain
+### 14.6.2 Dependencies and the Supply Chain
 
 Because dependencies drift out of date on their own — vulnerabilities are discovered in
 versions you already ship — SCA cannot be a one-time gate; it must run continuously. The
@@ -1064,7 +1064,7 @@ needs bumping, *opens a pull request* that updates it.[^36] The elegance is in w
 next: your CI pipeline runs on that PR like any other, so the same suite that protects
 you from your own mistakes now proves the upgrade is safe to merge. The stronger your
 pipeline, the cheaper staying current becomes — one more return on the investment of
-§13.2.
+§14.2.
 
 The wider issue is **supply-chain risk**: your build is only as trustworthy as everything
 it downloads. Attackers have learned to poison the well — **typosquatting** packages
@@ -1077,12 +1077,12 @@ builds across the industry.[^38]<!-- -->[^39] Defenses are accumulating — lock
 cryptographic signing and provenance attestation for artifacts (the SLSA framework),[^40]
 and a **software bill of materials (SBOM)** enumerating everything inside a release[^41] — but the
 first defense is the cultural one: treat adding a dependency as an engineering decision
-with a threat model, not a free lunch. [Chapter 10](../10-software-security/) develops
+with a threat model, not a free lunch. [Chapter 11](../11-software-security/) develops
 this into a full treatment of supply-chain security — the Log4Shell and xz-utils case
 studies, and a framework for continuously verifying the open-source components you depend
 on.
 
-### 13.6.3 Secrets and Gate Placement
+### 14.6.3 Secrets and Gate Placement
 
 One more scanner belongs in every pipeline: **secrets scanning**, which searches
 commits for credentials — API keys, tokens, passwords, private keys — before they enter
@@ -1100,11 +1100,11 @@ staging deployment, after the artifact exists. The result is defense in depth th
 pipeline itself: by the time an artifact reaches production, it has been examined as
 source, as a composition, and as a running target.
 
-## 13.7 DORA Metrics
+## 14.7 DORA Metrics
 
-### 13.7.1 The Four Keys
+### 14.7.1 The Four Keys
 
-How would you know whether any of this is working? Chapter 11 warned that most metrics
+How would you know whether any of this is working? Chapter 12 warned that most metrics
 programs fail by measuring what is easy instead of what matters. The delivery world has an
 unusually good answer, produced by the **DORA** research program (DevOps Research and
 Assessment) — a multi-year academic effort, surveying tens of thousands of professionals,
@@ -1123,10 +1123,10 @@ Notice the shape: the first two measure **throughput** (how fast value moves), t
 two measure **stability** (how safely it moves). All four are *outcomes* of your whole
 delivery system, not activities within it — which is what makes them worth watching.
 
-### 13.7.2 Why Paired Metrics Resist Gaming
+### 14.7.2 Why Paired Metrics Resist Gaming
 
-Chapter 11 introduced Goodhart's Law
-([§11.1.2](../11-quality-metrics/#1112-selecting-useful-metrics)): when a measure becomes
+Chapter 12 introduced Goodhart's Law
+([§12.1.2](../12-quality-metrics/#1212-selecting-useful-metrics)): when a measure becomes
 a target, people optimize the measure rather than the goal, and the chapter's advice was
 to pair each metric with a counter-metric that degrades when someone cheats. The four
 keys are that advice, institutionalized. Try to game throughput — deploy half-baked
@@ -1135,9 +1135,9 @@ deploy once a quarter after months of manual checking — and deployment frequen
 time collapse. Each pair is the other pair's counter-metric. A team can only improve all
 four *together* by actually getting better at delivery: smaller changes, stronger
 pipelines, faster recovery. There is no cheap move that improves the whole dashboard,
-which is the property §11.1.2 said to look for.
+which is the property §12.1.2 said to look for.
 
-### 13.7.3 What the Research Found
+### 14.7.3 What the Research Found
 
 Two findings from the DORA research deserve to reshape your intuitions. First, the spread
 between the best and the rest is not incremental — it is multiplicative. Across survey
@@ -1152,10 +1152,10 @@ stability correlate positively**.[^42] The traditional assumption was a trade-of
 *or* be careful. The data say the teams that deploy most often are *also* the teams that
 break production least and recover fastest. The mechanism should be familiar by now: high
 frequency forces small changes; small changes are easier to review
-(Chapter 8), test (Chapter 9), and attribute; attribution makes recovery fast; and fast,
+(Chapter 9), test (Chapter 10), and attribute; attribution makes recovery fast; and fast,
 safe recovery removes the fear that drives batching. Slow, careful, big-batch releases are the risky choice wearing caution's clothes.
 
-### 13.7.4 Measuring Your Own Four Keys
+### 14.7.4 Measuring Your Own Four Keys
 
 A student team can measure all four keys with data it already has, and the exercise is
 worth doing because the numbers will be humbler than the elite benchmarks.
@@ -1170,7 +1170,7 @@ retrospective, and resist the urge to set targets — use them, in GQM fashion (
 11), to ask *why* lead time is three days and *which* stage of your pipeline the time
 hides in.
 
-## 13.8 Legacy Code, Refactoring, and Technical Debt
+## 14.8 Legacy Code, Refactoring, and Technical Debt
 
 Deployment begins the longest phase of a successful system's life. Most professional
 effort goes into **evolving** systems that have been in production for years, not into
@@ -1187,7 +1187,7 @@ system's lifetime cost.[^45] Read that number again: the phase this book spent e
 preparing you for is the *minority* of the money, which is reason enough to treat evolving
 code as the main event of an engineering career rather than the cleanup after it.
 
-### 13.8.1 What Makes Code Legacy
+### 14.8.1 What Makes Code Legacy
 
 Colloquially, "legacy" means old. The working definition that matters is different:
 **legacy code is code without tests** — or, in its more visceral form, *code you are
@@ -1199,7 +1199,7 @@ so any change might break something, you cannot know what, and you cannot know c
 Fear sets in, fear breeds avoidance, avoidance means changes are bolted on in the least
 invasive (and least clean) way possible, and the code gets worse precisely because
 everyone is being careful. Breaking that spiral is a skill, and it starts with an
-inversion of the testing you learned in Chapter 9.
+inversion of the testing you learned in Chapter 10.
 
 The tests-first definition comes from Michael Feathers, whose *Working Effectively with
 Legacy Code* also names the only two ways there are to change legacy code.[^46] **Edit and
@@ -1212,10 +1212,10 @@ the specific places in the code where your change must actually land — because
 the places the test coverage has to grip before you touch anything. The next two
 subsections are cover-and-modify in practice.
 
-### 13.8.2 Characterization Tests
+### 14.8.2 Characterization Tests
 
-Chapter 9's tests were built from a *specification*: the oracle
-([§9.1.4](../09-testing/#914-test-oracles-evaluating-the-response-to-a-test)) told you
+Chapter 10's tests were built from a *specification*: the oracle
+([§10.1.4](../10-testing/#1014-test-oracles-evaluating-the-response-to-a-test)) told you
 what the right answer *should* be. Legacy code has no trustworthy spec — the comments
 lie, the documentation describes version 2, and the original requirements are three
 pivots old. So you flip the direction of inference. A **characterization test** documents
@@ -1410,7 +1410,7 @@ fixture copy of the database, before touching anything: a system you cannot run 
 system you cannot characterize. Only then write characterization tests at your intended
 change points, and begin.
 
-### 13.8.3 Refactoring Under Green Tests
+### 14.8.3 Refactoring Under Green Tests
 
 With behavior pinned, you can refactor. Chapter 2 introduced **refactoring** inside the
 red–green–refactor loop
@@ -1435,7 +1435,7 @@ write that logic. For functions in particular, a compact health checklist is **S
 keep each function **S**hort, doing **O**ne thing, taking **F**ew arguments, and written
 at a single level of **A**bstraction. Some smells can even be measured: cyclomatic
 complexity counts the independent decision paths through a function — built on the
-control-flow analysis of [Chapter 9](../09-testing/#931-control-flow-graphs) — turning
+control-flow analysis of [Chapter 10](../10-testing/#1031-control-flow-graphs) — turning
 "this method feels tangled"
 into a number a pipeline can watch.
 
@@ -1659,10 +1659,10 @@ Legacy code adds a chicken-and-egg problem the catalog alone cannot solve: the w
 cannot be tested without refactoring (dependencies are hard-wired, everything talks to the
 database) and cannot be safely refactored without tests. The escape is a minimal set of
 low-risk *enabling* changes — introduce a parameter, extract an interface for a hard-wired
-dependency so a test double (Chapter 9) can stand in — done with extreme care, exactly to
+dependency so a test double (Chapter 10) can stand in — done with extreme care, exactly to
 the point where a test can grip, and no further.
 
-### 13.8.4 Technical Debt
+### 14.8.4 Technical Debt
 
 The economics underneath all of this has a name. **Technical debt** is the metaphor for
 the future cost incurred when you take a shortcut today: like financial debt, it lets you
@@ -1682,10 +1682,10 @@ longer, which raises pressure, which invites new shortcuts, which raises interes
 The management is not "never borrow" — it is to borrow knowingly, keep the debts visible
 (a debt register in the backlog, reviewed like any other work), and pay down principal
 where you actually pay interest: the high-churn code you touch weekly, not the ugly module
-nobody has opened in years. Refactoring (§13.8.3) is the repayment mechanism, and the
-pipeline (§13.2) is what makes repayment safe enough to do continuously.
+nobody has opened in years. Refactoring (§14.8.3) is the repayment mechanism, and the
+pipeline (§14.2) is what makes repayment safe enough to do continuously.
 
-### 13.8.5 Strangler Fig versus Big-Bang Rewrite
+### 14.8.5 Strangler Fig versus Big-Bang Rewrite
 
 What about a system so far gone that the team wants to start over? Chapter 2's troubled
 browser rewrite
@@ -1697,7 +1697,7 @@ once. The delivery-era alternative is the **strangler fig** pattern, named for t
 that grows around a host tree, roots itself, and gradually replaces the host it envelops.[^49]
 You place an interception layer — a routing facade — in front of the legacy system, then
 peel off one capability at a time: build the new implementation, route that slice of
-traffic to it, verify it in production (a canary, §13.3.2, at the granularity of a
+traffic to it, verify it in production (a canary, §14.3.2, at the granularity of a
 feature), and retire the old code path. At every moment, you have one *working* system —
 part old, part new — and every increment of the rewrite is validated by real use within
 weeks of being written. The rewrite becomes a sequence of small, reversible deployments
@@ -1707,28 +1707,28 @@ biggest change a team ever makes.
 Modern tooling has also shifted the *comprehension* half of legacy work. Understanding
 what a gnarly function actually does — the prerequisite for characterizing it — has always
 been the slowest, loneliest part of the job. AI assistants
-([§12.2](../12-ai-across-the-lifecycle/#122-ai-across-the-lifecycle)) are genuinely strong
+([§13.2](../13-ai-across-the-lifecycle/#132-ai-across-the-lifecycle)) are genuinely strong
 here: summarizing an unfamiliar module, proposing what a function's edge cases might be,
 drafting candidate characterization tests for you to verify against the running code. The
-verification discipline of Chapter 12 still governs — an AI's *account* of legacy behavior
+verification discipline of Chapter 13 still governs — an AI's *account* of legacy behavior
 is a hypothesis, and the running system remains the only oracle — but as a hypothesis
 generator for code no living person understands, it removes a real bottleneck.
 
-## 13.9 Conclusion
+## 14.9 Conclusion
 
 Delivery is the connective tissue of everything this book has taught. The CI pipeline of
-§13.2 is Chapters 8 and 9 made *mandatory*: reviews, static analysis, and tests by level,
+§14.2 is Chapters 9 and 9 made *mandatory*: reviews, static analysis, and tests by level,
 converted from practices a diligent team performs into gates no change can bypass. The
-DORA four keys of §13.7 are Chapter 11 made *honest*: outcome metrics, paired against
+DORA four keys of §14.7 are Chapter 12 made *honest*: outcome metrics, paired against
 their own counter-metrics, measuring the whole system rather than rewarding activity.
-Continuous deployment of §13.3 is Chapter 2's short-cycle bet made *physical*: the same
+Continuous deployment of §14.3 is Chapter 2's short-cycle bet made *physical*: the same
 argument that favored small iterations over big-bang phases favors small deployments over
 big releases, with Knight Capital and CrowdStrike as the permanent record of what happens
 at either failed extreme — no automation, and automation without staging. The packaging and
-networking of §§13.4–13.5 are that same pipeline made *tangible*: an image built once, a
+networking of §§14.4–14.5 are that same pipeline made *tangible*: an image built once, a
 database on a durable volume, a name, a certificate, and an edge in front, so the artifact a
 pipeline produces actually becomes a service a user can reach. And the
-evolution practices of §13.8 are where Chapter 6's "design for change" either pays its
+evolution practices of §14.8 are where Chapter 6's "design for change" either pays its
 dividend or collects its debt: systems built with seams, interfaces, and tests bend under
 years of change; systems without them become the legacy code someone else must
 characterize, strangle, and replace.
@@ -1845,6 +1845,6 @@ and [Component Analysis (SCA)](https://owasp.org/www-community/Component_Analysi
 
 ---
 
-- **Key takeaways** are summarized above in §13.9.
+- **Key takeaways** are summarized above in §14.9.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

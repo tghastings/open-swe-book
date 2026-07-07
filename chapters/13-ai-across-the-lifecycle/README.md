@@ -1,4 +1,4 @@
-# Chapter 12 — Software Engineering in the Age of AI
+# Chapter 13 — Software Engineering in the Age of AI
 
 > **Where we are.** Every previous chapter described a durable engineering discipline —
 > process, requirements, design, checking, testing, metrics, teamwork. This chapter asks
@@ -13,12 +13,12 @@ The headline claim of the moment is that AI writes the code now. The more useful
 this: **AI changes where the hard part lives.** For decades the bottleneck was *producing*
 correct code fast enough. As producing gets cheap, the bottleneck moves to *deciding what
 to build* and *proving it works* — which are the very activities this book has been
-teaching. The engineer who internalized Chapters 1–11 is the person best positioned to
+teaching. The engineer who internalized Chapters 1–12 is the person best positioned to
 *direct* the agents.
 
-## 12.1 What AI Changes — and What It Doesn't
+## 13.1 What AI Changes — and What It Doesn't
 
-### 12.1.1 Essential vs. Accidental Complexity, Revisited
+### 13.1.1 Essential vs. Accidental Complexity, Revisited
 
 Recall from Chapter 1 the split between **essential** complexity (inherent in the problem)
 and **accidental** complexity (from our tools and toil). Generative AI is a spectacular
@@ -28,7 +28,7 @@ complexity: deciding what the system should actually do, resolving conflicting g
 choosing an architecture whose likely changes are cheap. That boundary is the single most
 important idea in this chapter. **Delegate the toil; own the essence.**
 
-### 12.1.2 The Four Pressures Still Hold
+### 13.1.2 The Four Pressures Still Hold
 
 The book's four cross-cutting pressures do not go away — AI just shifts them:
 
@@ -37,11 +37,11 @@ The book's four cross-cutting pressures do not go away — AI just shifts them:
 - **Requirements change.** AI lowers the cost of *responding* to change, which raises the
   premium on knowing *which* change is worth making (Chapters 3–4).
 - **Defects are inevitable.** AI produces plausible-looking defects at scale. Reviews,
-  static checking, and tests (Chapters 8–9) become the load-bearing walls.
+  static checking, and tests (Chapters 9–10) become the load-bearing walls.
 - **Teams need coordination.** "Teams" now include non-human members. Coordinating a
-  *swarm* of agents is a new and unsolved organizational problem (see §12.4).
+  *swarm* of agents is a new and unsolved organizational problem (see §13.4).
 
-### 12.1.3 A Ladder of Assistance: From Autocomplete to Agents
+### 13.1.3 A Ladder of Assistance: From Autocomplete to Agents
 
 "AI coding" is not one thing. It helps to name the rungs, because the engineering
 questions differ at each:
@@ -60,7 +60,7 @@ As you climb the ladder, the human's job moves from *typing* toward *specifying,
 supervising, and verifying* — and the cost of a confident-but-wrong output rises, because
 more happens between your instruction and your review.
 
-### 12.1.4 The Productivity Paradox
+### 13.1.4 The Productivity Paradox
 
 Does AI make developers faster? The honest answer is *it depends, and the evidence is
 mixed enough to demand humility.*
@@ -85,9 +85,9 @@ mixed enough to demand humility.*
 The lesson is not "AI is useless" — gains are real for boilerplate, unfamiliar APIs,
 greenfield prototypes, and well-specified narrow tasks. The lesson is that **leverage
 scales with the operator's judgment**, and that you must *measure* impact rather than trust
-the feeling of speed (a direct application of Chapter 11).
+the feeling of speed (a direct application of Chapter 12).
 
-## 12.2 AI Across the Lifecycle
+## 13.2 AI Across the Lifecycle
 
 Here we walk the lifecycle, mapping AI's role onto each chapter's discipline. For each
 stage: *what AI does well now*, *where it fails*, and *what fundamental the human still
@@ -107,7 +107,7 @@ flowchart TD
     class P,R,U,D,C,T,S,M ai;
 ```
 
-### 12.2.1 Process and Teamwork (Chapter 2)
+### 13.2.1 Process and Teamwork (Chapter 2)
 
 AI compresses many process activities: drafting sprint plans, summarizing standups,
 writing retro notes, triaging issues, generating first-pass estimates. Agents can now take
@@ -118,9 +118,9 @@ a ticket and open a pull request unattended, which strains the assumptions of Sc
   team; owning accountability for what ships.
 - **Human owns:** the definition of done, the choice of what to build next, and
   responsibility. The agile principle "working software is the primary measure of progress"
-  gets *sharper*, not softer — see the manifesto's "verified reality" in §12.4.[^4]
+  gets *sharper*, not softer — see the manifesto's "verified reality" in §13.4.[^4]
 
-### 12.2.2 Requirements (Chapter 3)
+### 13.2.2 Requirements (Chapter 3)
 
 Large language models are genuinely useful for **elicitation and drafting**: turning
 interview notes, tickets, and support logs into candidate user stories, acceptance
@@ -135,17 +135,17 @@ engineer's — produced far faster and cheaper.[^5]<!-- -->[^6]
   goal hierarchies), and *validating* that a story reflects a real need. Use AI to widen
   the net of candidate requirements; use humans to decide which are true.
 
-### 12.2.3 Estimation and Analysis (Chapter 4)
+### 13.2.3 Estimation and Analysis (Chapter 4)
 
 AI can suggest story-point estimates from historical data and surface comparable past
 work. But recall *why* we estimate in Chapter 4: story points model **human uncertainty**
 and drive **prioritization**, not stopwatch time. When agents do the building, the
 estimation question shifts from "how many engineer-hours?" toward "how much **compute/
 budget**, and is the outcome worth it?" — precisely the manifesto's *cost, not time*
-reframing (§12.4). MoSCoW, value/cost/risk, and Kano analysis remain the right tools; the
+reframing (§13.4). MoSCoW, value/cost/risk, and Kano analysis remain the right tools; the
 "cost" axis just gets a new currency.
 
-### 12.2.4 Use Cases (Chapter 5)
+### 13.2.4 Use Cases (Chapter 5)
 
 Given a goal and a happy path, models are good at enumerating **alternative flows** and
 exception cases — exactly the tedious part of use-case writing that people skip. That
@@ -155,7 +155,7 @@ pad use cases with flows no user will ever take.
 - **Human owns:** the actor–goal list (what the system is *for*) and pruning generated
   flows down to the ones that carry real risk or value.
 
-### 12.2.5 Design and Architecture (Chapters 6–7)
+### 13.2.5 Design and Architecture (Chapters 6–7)
 
 This is where the human-owned layer is thickest. AI can propose class structures, generate
 **Architecture Decision Records (ADRs)**, suggest applicable patterns from Chapter 7, and
@@ -170,13 +170,13 @@ specialization to fight hallucination.[^8]<!-- -->[^9]
   changes to make cheap. Let AI *draft and compare* designs; keep the *decision* and its
   rationale human and written down.
 
-### 12.2.6 Static Checking and Code Review (Chapter 8)
+### 13.2.6 Static Checking and Code Review (Chapter 9)
 
 AI both helps and harms here, sharply. AI reviewers and smarter static analyzers
 catch real bugs, explain them, and suggest fixes.[^10] But **a growing share
 of code under review is now itself AI-generated** — by late 2024 Google reported more than
 a quarter of its new code was — which inverts the problem from
-Chapter 8: the scarce resource, *reviewer trust and attention*, is now spent on machine
+Chapter 9: the scarce resource, *reviewer trust and attention*, is now spent on machine
 output produced faster than humans can vet it.[^11]
 
 > **Pitfall.** A 2023 controlled study found developers with an AI assistant wrote
@@ -187,9 +187,9 @@ output produced faster than humans can vet it.[^11]
 
 - **Human owns:** deciding *intent and trust* (does this change do what we meant?), and
   keeping review standards from eroding under volume. Precision/recall trade-offs for
-  analyzers (Chapter 8) matter more as more code flows through them.
+  analyzers (Chapter 9) matter more as more code flows through them.
 
-### 12.2.7 Testing (Chapter 9)
+### 13.2.7 Testing (Chapter 10)
 
 Testing is where agentic AI has advanced most measurably. Benchmarks like **SWE-bench**
 (fix a real GitHub issue) and **SWT-bench** (generate a bug-reproducing test) have driven
@@ -200,7 +200,7 @@ studies of SWE-bench-style evaluation have found patches that pass the benchmark
 while failing developer-written tests or behaving differently from the true fix, so weak
 or incomplete test suites can inflate reported resolution rates (the **oracle problem**
 again, wearing a benchmark's clothes).[^15] Models are also strong at
-generating unit tests, property-based tests, and boundary cases (Chapter 9's black-box
+generating unit tests, property-based tests, and boundary cases (Chapter 10's black-box
 techniques).[^16]
 
 But the deepest problem in testing survives untouched: the **oracle problem**. A generated
@@ -208,7 +208,7 @@ test encodes *what the model thinks correct behavior is* — which may simply mi
 misunderstanding also baked into the generated code. Coverage numbers can look great while
 the tests assert the wrong thing.
 
-Chapter 9's discount example makes the failure concrete: suppose the billing spec says
+Chapter 10's discount example makes the failure concrete: suppose the billing spec says
 half-cent prices round *up*, while the generated code trips a language-specific rounding
 or representation trap — named in each variant's leading comment — and the generated test
 asserts whatever the code already returns.
@@ -330,16 +330,16 @@ last cent rounded the wrong way — each variant's final print line shows the va
 spec required.
 
 - **Human owns:** the **oracle** — the specification of correct behavior — and the coverage
-  *criteria* that decide when testing is enough (statement/branch/MC/DC, §§9.3–9.5).
+  *criteria* that decide when testing is enough (statement/branch/MC/DC, §§10.3–10.5).
   Generated tests are a starting point to be reviewed, not ground truth.
 
-**Security (Chapter 10)** is changed on both sides: AI writes vulnerabilities as fluently
+**Security (Chapter 11)** is changed on both sides: AI writes vulnerabilities as fluently
 as it writes features, and AI-driven tools now hunt for them — autonomous
-pentest agents that validate findings with working exploits ([§10.3](../10-software-security/#103-finding-vulnerabilities-from-manual-to-autonomous)).
+pentest agents that validate findings with working exploits ([§11.3](../11-software-security/#113-finding-vulnerabilities-from-manual-to-autonomous)).
 The human still owns the authorization to test, the judgment that a finding is real, and
 the secure-by-design decisions no scanner makes for you.
 
-### 12.2.8 Quality and Metrics (Chapter 11)
+### 13.2.8 Quality and Metrics (Chapter 12)
 
 AI forces a reckoning with **what we measure**. Lines of code and commit counts were always
 weak proxies; when a machine emits thousands of lines on request, they become actively
@@ -348,12 +348,12 @@ share of **duplicated/cloned** code rose while **refactoring** fell — a mainta
 warning sign that raw output volume hides, though it awaits independent academic
 replication.[^17]
 
-- **Human owns:** choosing metrics that resist gaming (Chapter 11's Goodhart's-Law
+- **Human owns:** choosing metrics that resist gaming (Chapter 12's Goodhart's-Law
   discipline) and that measure **outcomes** — defect-removal efficiency, customer-found
-  defects, DORA delivery metrics (Chapter 13), verified value delivered — rather than agent *activity*.
-  This is the empirical backbone of Outcome Engineering (§12.4).
+  defects, DORA delivery metrics (Chapter 14), verified value delivered — rather than agent *activity*.
+  This is the empirical backbone of Outcome Engineering (§13.4).
 
-### 12.2.9 The Team Project (Appendix A)
+### 13.2.9 The Team Project (Appendix A)
 
 In your own project, treat agents as fast, tireless, over-confident junior teammates. Let
 them scaffold, draft tests, and explain unfamiliar code — but require the same evidence you
@@ -361,7 +361,7 @@ would from a human: a green test suite, a passing review, and a metric that move
 *where* you used AI and *how you verified it*; that provenance is part of honest
 engineering (and of your final report).
 
-## 12.3 The Evidence: Productivity, Quality, Security
+## 13.3 The Evidence: Productivity, Quality, Security
 
 A balanced reading of the current research:
 
@@ -381,7 +381,7 @@ multiplier. Without those disciplines, it multiplies *output* while quietly degr
 > metrics prove it in production. That layer is what turns fast generation into trustworthy
 > software.
 
-## 12.4 Outcome Engineering: The o16g Manifesto
+## 13.4 Outcome Engineering: The o16g Manifesto
 
 In 2026, Cory Ondrejka (co-creator of Second Life; former engineering leader at Google and
 Meta; CTO of Onebrief) published the **o16g manifesto** — *Outcome Engineering* — arguing
@@ -409,7 +409,7 @@ not vibes.*[^19]
    Don't abdicate vision to the machine. *(This book: requirements and goals, Ch. 3.)*
 2. **The Truth — Verified Reality is the Only Truth.** Code is a vanity metric; grade agents
    on the verified rate of positive change delivered, not lines written. *(Testing &
-   metrics, Ch. 9, 11.)*
+   metrics, Ch. 10, 11.)*
 3. **The Teamwork — No More Single Player Mode.** Outcome engineering is a team sport;
    define explicit protocols for debate, decision, and delivery. *(Process, Ch. 2.)*
 4. **The Liberation — The Backlog is Dead.** Never reject an idea for lack of *time*, only
@@ -441,9 +441,9 @@ not vibes.*[^19]
     spend compute on the post-mortem and inoculate against recurrence. *(Process
     improvement & metrics, Ch. 2, 11.)*
 15. **The Gate — Risk Stops the Line.** Make risk a *blocking* function; if risk is unknown
-    or unmitigated, the line stops. *(Static checking as a quality gate, Ch. 8.)*
+    or unmitigated, the line stops. *(Static checking as a quality gate, Ch. 9.)*
 16. **The Validation — Audit the Outcomes.** Trust is a vulnerability; models drift, so
-    continuously audit agents against the domain. *(Test adequacy & monitoring, Ch. 9–10.)*
+    continuously audit agents against the domain. *(Test adequacy & monitoring, Ch. 10–11.)*
 
 ### A reading: what's strong, what's open
 
@@ -451,17 +451,17 @@ not vibes.*[^19]
 metrics*, *outcomes over activity*, *encode intent explicitly*, *make risk a blocking
 gate*, *audit continuously* — is essentially this book's quality philosophy, restated for a
 world where a machine writes the first draft. Principles 2, 10, 14, 15, and 16 are almost a
-summary of Chapters 8–11. That convergence is the point: **when generation is cheap,
+summary of Chapters 9–12. That convergence is the point: **when generation is cheap,
 specification and verification become the whole game.**
 
 **What's open to challenge.** Treat it as a provocation, not gospel:
 
 - *"The backlog is dead / cost not capacity"* assumes compute is cheap and value is easy to
   price. Prioritization under scarcity (Chapter 4) does not vanish; its currency changes.
-- *"Certainty, not vibes"* is a high bar. The oracle problem (§12.2.7) means some outcomes
+- *"Certainty, not vibes"* is a high bar. The oracle problem (§13.2.7) means some outcomes
   remain expensive or impossible to verify automatically; "verified reality" has real
   limits.
-- The **productivity paradox** (§12.1.4) cautions against assuming agents are a pure
+- The **productivity paradox** (§13.1.4) cautions against assuming agents are a pure
   accelerator; the verification bottleneck can dominate.
 - **Deskilling risk:** if engineers stop writing and reviewing code closely, who retains the
   judgment to *audit the outcomes*? The manifesto's own Principle 16 depends on expertise it
@@ -471,7 +471,7 @@ Held critically, Outcome Engineering is a useful lens: it names the shift from *
 software to *directing and verifying* its production — which is exactly the shift this
 chapter has been describing.
 
-## 12.5 Principles for the AI-Augmented Engineer
+## 13.5 Principles for the AI-Augmented Engineer
 
 Synthesizing the evidence and the manifesto into working advice:
 
@@ -487,7 +487,7 @@ Synthesizing the evidence and the manifesto into working advice:
 5. **Measure outcomes, not activity.** Judge yourself and your agents by verified value
    delivered and defects escaped — never by lines or PR counts.
 
-## 12.6 Conclusion
+## 13.6 Conclusion
 
 AI does not repeal the four pressures of software engineering; it *relocates* their weight.
 Producing code gets cheaper, so **deciding what to build and proving it works** — the
@@ -529,6 +529,6 @@ less engineering. It is *more* of the hardest, most human parts of it.
 
 ---
 
-- **Key takeaways** are summarized above in §12.6.
+- **Key takeaways** are summarized above in §13.6.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

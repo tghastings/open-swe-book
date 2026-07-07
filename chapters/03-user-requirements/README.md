@@ -397,7 +397,7 @@ story is:
 > bureaucratic gate.
 
 Attach **acceptance criteria** to each story — concrete conditions that must hold for the
-story to count as done. These are the seed of the tests you will write (Chapter 9) and the
+story to count as done. These are the seed of the tests you will write (Chapter 10) and the
 answer to "how will we know?"
 
 #### Given / When / Then: writing acceptance criteria as scenarios
@@ -435,7 +435,7 @@ Feature: Interpreter alerts
 > automated test. Every mainstream language has a BDD framework — the Cucumber family,
 > among others — that maps each `Given`/`When`/`Then` step to code, turning the
 > scenario into an **executable specification**.[^11] Write the scenarios with the customer,
-> and they double as your **acceptance tests** (Chapter 9, [§9.2.3](../09-testing/#923-functional-system-and-acceptance-testing)).
+> and they double as your **acceptance tests** (Chapter 10, [§10.2.3](../10-testing/#1023-functional-system-and-acceptance-testing)).
 
 Your BDD framework binds each scenario line to a **step definition** — a function that
 calls the clinic app and asserts what the user would see (each tab below names its
@@ -683,12 +683,12 @@ when it enters the backlog, and the rest is discipline about references:
 |-----------------------------|---------------------------------|-------------------------------|
 | Story `STORY-17`            | the backlog                     | — (the anchor)                |
 | Acceptance criteria         | `interpreter_alerts.feature`    | story key in the feature file |
-| Step definitions and tests  | the test suite (Chapter 9)      | they execute the criteria     |
+| Step definitions and tests  | the test suite (Chapter 10)      | they execute the criteria     |
 | Commits and pull requests   | version control                 | `STORY-17` in the message     |
 
 Each direction pays differently. Forward traceability turns "are we done?" into a
 checkable claim: every *Must* in the release plan (§4.4) has at least one acceptance
-scenario, and every scenario passes in the pipeline (Chapter 13) — a requirement with no
+scenario, and every scenario passes in the pipeline (Chapter 14) — a requirement with no
 test is a promise nobody is keeping. Backward traceability pays when things change or
 break: a failing scenario names the requirement it protects, and a proposed change to a
 requirement leads you — through its key — to exactly the scenarios, tests, and code that
@@ -989,7 +989,7 @@ otherwise miss:
 > want, too. Build one attack tree per critical asset *while* you write your user stories,
 > not after your first breach.
 
-Attack trees and STRIDE are where security *requirements* begin; [Chapter 10](../10-software-security/)
+Attack trees and STRIDE are where security *requirements* begin; [Chapter 11](../11-software-security/)
 picks the thread back up on the engineering side, from the OWASP Top 10 to securing the
 open-source supply chain your system is built from.
 

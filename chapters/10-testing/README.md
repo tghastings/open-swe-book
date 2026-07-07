@@ -1,6 +1,6 @@
-# Chapter 9 — Testing
+# Chapter 10 — Testing
 
-> **Where we are.** Chapter 8 attacked defects *before* the program runs, with static
+> **Where we are.** Chapter 9 attacked defects *before* the program runs, with static
 > checking, types, and review. This chapter attacks them by *running* the program on
 > chosen inputs and comparing what it does against what it should do. Testing cannot
 > prove a program correct, but it is the single most practical net for catching the
@@ -15,7 +15,7 @@ stop. This chapter turns testing from an art into an engineering activity with
 exercised the code and its specification, and to justify — to yourself, your team, and
 sometimes a regulator — the claim that the software has been tested well enough to ship.
 
-## 9.1 Overview of Testing
+## 10.1 Overview of Testing
 
 A **test** is a triple: an *input* to the software, the *expected result*, and the
 *actual result* observed when you run it. The test **passes** when actual equals
@@ -28,17 +28,17 @@ questions the rest of this section raises.
 > exists." Everything in this chapter is about making that first statement as strong as
 > it can practically be.
 
-### 9.1.1 Issues during Testing
+### 10.1.1 Issues during Testing
 
 Four hard problems recur every time you test anything. Name them now, because the rest of
 the chapter is a set of answers to them.
 
 - **Selection.** The input space is astronomically large. Which handful of inputs should
-  you actually run? (§9.1.2, and all of §§9.3–9.6.)
+  you actually run? (§10.1.2, and all of §§10.3–10.6.)
 - **Adequacy.** Having run some tests, how do you know whether you have run *enough*? What
-  is the stopping rule? (§9.1.3.)
+  is the stopping rule? (§10.1.3.)
 - **Oracle.** For each input, how do you decide whether the observed output is *correct*?
-  Sometimes that is harder than producing the output. (§9.1.4.)
+  Sometimes that is harder than producing the output. (§10.1.4.)
 - **Automation and repeatability.** A test you cannot re-run cheaply is nearly worthless,
   because its main long-term value is catching *regressions* — old defects reintroduced by
   new changes. Manual "click around and see" testing fails this test.
@@ -47,7 +47,7 @@ Keep these four in view. A criticism like "your tests are weak" almost always re
 into one of them: you picked the wrong inputs, you stopped too early, your oracle was too
 lax, or your tests do not run automatically.
 
-### 9.1.2 Test Selection
+### 10.1.2 Test Selection
 
 Because you cannot try every input, you must *sample* the input space — and a random or
 lazy sample misses exactly the inputs most likely to break. Good selection is
@@ -57,10 +57,10 @@ chapter, and they look at the program from opposite sides:
 
 - **Black-box (specification-based)** selection reads the *spec* and ignores the code.
   You pick inputs that represent distinct required behaviors — valid and invalid classes,
-  boundaries, combinations (§9.4, §9.6). Its virtue: it finds *missing* code and survives
+  boundaries, combinations (§10.4, §10.6). Its virtue: it finds *missing* code and survives
   a rewrite.
 - **White-box (structure-based)** selection reads the *code* and picks inputs that
-  exercise its statements, branches, and paths (§9.3, §9.5). Its virtue: it finds code
+  exercise its statements, branches, and paths (§10.3, §10.5). Its virtue: it finds code
   the spec-based tests never reached, and it *measures* thoroughness precisely.
 
 Neither subsumes the other. A black-box suite can achieve 100% of every code-coverage
@@ -68,7 +68,7 @@ metric and still miss a feature that was never implemented (there is no code to 
 white-box suite can cover every branch of the code that *exists* and never notice the
 branch that *should* exist. Mature teams use both and measure with both.
 
-### 9.1.3 Test Adequacy: Deciding When to Stop
+### 10.1.3 Test Adequacy: Deciding When to Stop
 
 "We tested it" is not a stopping rule; "we covered every branch, every equivalence class,
 and every boundary, and all tests pass" is. A **test-adequacy criterion** (also called a
@@ -90,9 +90,9 @@ under any test is code you know nothing about empirically.
 > **Pitfall.** Do not manage to a coverage number for its own sake. A team told "hit 90%"
 > can write assertion-free tests that *execute* code without *checking* it, gaming the
 > metric while learning nothing. Coverage is a diagnostic, not a goal; pair it always with
-> meaningful oracles (§9.1.4).
+> meaningful oracles (§10.1.4).
 
-### 9.1.4 Test Oracles: Evaluating the Response to a Test
+### 10.1.4 Test Oracles: Evaluating the Response to a Test
 
 An **oracle** is whatever decides, for a given input, whether the actual output is
 correct. In a textbook example the oracle is obvious — you write `assert add(2, 3) == 5`,
@@ -254,10 +254,10 @@ fc.assert(
 );
 ```
 
-### 9.1.5 Mutation Testing: Grading Your Suite
+### 10.1.5 Mutation Testing: Grading Your Suite
 
 Coverage tells you what your tests *ran*; it cannot tell you what they would *catch*. The
-pitfall in §9.1.3 — assertion-free tests that execute everything and check nothing —
+pitfall in §10.1.3 — assertion-free tests that execute everything and check nothing —
 scores 100% on any coverage criterion while detecting no defects at all. **Mutation
 testing** closes that gap by testing the tests.[^3] A mutation tool takes your working code
 and plants small, deliberate defects called **mutants**: flip a `<` to `<=`, change a
@@ -273,7 +273,7 @@ The **mutation score** — mutants killed divided by mutants generated — grade
 suite's defect-detecting strength in a way coverage never can. Better, every survivor is
 *actionable*: it points at a specific line where an assertion is weak or missing.
 
-Watch it work on the discount function, the worked example you will meet in §9.2.1. Suppose
+Watch it work on the discount function, the worked example you will meet in §10.2.1. Suppose
 the tool mutates the guard
 `price < 0` into `price <= 0`, so a price of exactly zero is now (wrongly) rejected.
 Rerun the suite: no test ever passes a zero price, so every test still passes and the
@@ -324,7 +324,7 @@ test("free item allowed", () => {
 ```
 
 Add it, rerun, and the mutant dies — and, not coincidentally, you have just written the
-boundary-value test (§9.4.2) your suite was missing. Mature tools exist in every
+boundary-value test (§10.4.2) your suite was missing. Mature tools exist in every
 ecosystem: **go-mutesting** for Go, **PIT** for Java, **Stryker** for JavaScript and
 TypeScript, **mutmut** for Python, **mutant** for Ruby.
 
@@ -334,13 +334,13 @@ TypeScript, **mutmut** for Python, **mutant** for Ruby.
 > in a periodic job — and treat the survivors it reports as a curated to-do list for your
 > suite, not a number to chase.
 
-## 9.2 Levels of Testing
+## 10.2 Levels of Testing
 
 Testing happens at several *levels*, distinguished by how much of the system is under
 test at once. Each level answers a different question and catches a different class of
 defect, and the levels are complementary, not redundant.
 
-### 9.2.1 Unit Testing
+### 10.2.1 Unit Testing
 
 A **unit test** exercises the smallest independently testable piece — typically one
 function, method, or class — *in isolation* from the rest of the system. Its dependencies
@@ -349,7 +349,7 @@ additionally records how it was called and lets you assert on those calls, and a
 is a lightweight working implementation (an in-memory database standing in for the real
 one).
 
-Each double below stands in for the `discounts` dependency of `PriceService` (§9.2.2) —
+Each double below stands in for the `discounts` dependency of `PriceService` (§10.2.2) —
 the stub feeds the unit a canned percent and nothing more:
 
 ```generic
@@ -828,7 +828,7 @@ test("rejects bad percent", () => {
 
 Each test names a distinct behavior and carries its own oracle (the expected value or the
 expected exception). Notice we are already thinking about selection: 0 and 100 are the
-*boundaries* of the valid percent range (§9.4.2), and 150 is an invalid class.
+*boundaries* of the valid percent range (§10.4.2), and 150 is an invalid class.
 
 What makes a unit test *good*? The **FIRST** mnemonic names five properties worth
 enforcing on every test you write:[^4]
@@ -839,12 +839,12 @@ enforcing on every test you write:[^4]
 - **R**epeatable — the same result on every run and every machine, with no dependence on
   network, clock, or leftover environment;
 - **S**elf-validating — the test asserts its own pass or fail, carrying its oracle
-  (§9.1.4) instead of printing output for a human to eyeball;
+  (§10.1.4) instead of printing output for a human to eyeball;
 - **T**imely — written with (or before —
   [§2.3.2](../02-software-development-processes/#232-testing-make-it-central-to-development))
   the code it tests, while the design can still respond to what testing reveals.
 
-### 9.2.2 Integration Testing
+### 10.2.2 Integration Testing
 
 Units that each pass in isolation can still fail *together* — one returns meters where the
 other expects feet, one returns a null value where the other never checks. **Integration
@@ -1048,7 +1048,7 @@ If `Discounts` returned a *fraction* (0.25) while the discount function expects 
 (25), every unit test could pass while this integration test correctly fails. That
 interface mismatch is the defect class unit tests are blind to.
 
-### 9.2.3 Functional, System, and Acceptance Testing
+### 10.2.3 Functional, System, and Acceptance Testing
 
 Higher levels test the assembled product against ever-broader notions of "correct":
 
@@ -1076,7 +1076,7 @@ other.
 > `.feature` scenarios are made executable by tools like **Cucumber**, **behave**, or
 > **SpecFlow/Reqnroll**: each `Given`/`When`/`Then` step binds to code, so the customer‑readable
 > specification runs on every build. This is functional/acceptance testing whose oracle
-> (§9.1.4) is the agreed scenario itself.
+> (§10.1.4) is the agreed scenario itself.
 
 One more system-level suite gets its own name because you will run it constantly. A
 **smoke test** is a fast, shallow pass that answers a single question: *is the build
@@ -1084,11 +1084,11 @@ fundamentally alive?* The app starts, the homepage loads, a user can log in — 
 deeper. The name comes from hardware bring-up: power the board on and see whether smoke
 comes out before bothering with finer measurements.[^6] Smoke tests run immediately after a
 build or a deployment, as a *gate*: if they fail, the build is dead on arrival, no deeper
-(and more expensive) testing is worth starting, and a deploy must not proceed.[^7] Chapter 13
+(and more expensive) testing is worth starting, and a deploy must not proceed.[^7] Chapter 14
 gives them a formal home as a stage of the delivery pipeline, run right after each deploy
-([§13.2.2](../13-delivery/#1322-the-stages-of-a-pipeline)).
+([§14.2.2](../14-delivery/#1422-the-stages-of-a-pipeline)).
 
-### 9.2.4 Case Study: Test Early and Often — the Testing Pyramid
+### 10.2.4 Case Study: Test Early and Often — the Testing Pyramid
 
 The levels are not equally cheap. A unit test runs in milliseconds and never flakes; a
 full end-to-end (E2E) test may spin up a browser, a database, and three services, take
@@ -1138,15 +1138,15 @@ red-then-green trains the team to ignore the suite.
 "Test early and often" also means testing *continuously*: run the fast tests on every
 save, the full suite on every push, and treat a broken build as a stop-the-line event.
 This is the testing half of **continuous integration** (Chapter 2) — the discipline that
-keeps the "make change cheap" promise from Chapter 1 honest. Chapter 13 assembles these
-tests, with the static checks of Chapter 8, into the full delivery pipeline.
+keeps the "make change cheap" promise from Chapter 1 honest. Chapter 14 assembles these
+tests, with the static checks of Chapter 9, into the full delivery pipeline.
 
-## 9.3 Code Coverage I: White-Box Testing
+## 10.3 Code Coverage I: White-Box Testing
 
 White-box testing selects inputs by looking at the code's *structure*. To talk about
 structure precisely, we model a function as a graph.
 
-### 9.3.1 Control-Flow Graphs
+### 10.3.1 Control-Flow Graphs
 
 A **control-flow graph (CFG)** represents a function as a directed graph: **nodes** are
 basic blocks (maximal straight-line sequences of statements), and **edges** are the
@@ -1289,14 +1289,14 @@ $9 - 8 + 2 = 3$. Conventional bands for reading the number: **1–10** is simple
 testable code; **11–20** is moderately complex; **21–50** is risky; above **50** is
 effectively untestable.[^12] The metric earns its keep as a *predictor*: high-complexity
 functions are where defects cluster and where the hard-to-cover branches live, which
-makes it a map of where to spend testing effort — and refactoring (Chapter 13,
-[§13.8](../13-delivery/#138-legacy-code-refactoring-and-technical-debt)) is the
+makes it a map of where to spend testing effort — and refactoring (Chapter 14,
+[§14.8](../14-delivery/#148-legacy-code-refactoring-and-technical-debt)) is the
 treatment for the hot spots it finds.[^13]
 
-### 9.3.2 Control-Flow Coverage Criteria
+### 10.3.2 Control-Flow Coverage Criteria
 
 Three classic criteria form a hierarchy of increasing strength. We work each one on the
-classify-and-sum function from §9.3.1.
+classify-and-sum function from §10.3.1.
 
 **Statement coverage** requires every node (statement) to be executed by at least one
 test. What set of inputs runs every node? Node 3 needs `n < 0`; nodes 4–7 need `n >= 0`;
@@ -1345,15 +1345,15 @@ routines.
 The hierarchy, then: **path ⇒ branch ⇒ statement** (each implies the ones to its right).[^14]
 Strength costs test cases; the engineering choice is how far up the hierarchy a given
 piece of code justifies climbing. A checkout total merits branch coverage; an autopilot
-demands more (§9.5).
+demands more (§10.5).
 
-## 9.4 Input Coverage I: Black-Box Testing
+## 10.4 Input Coverage I: Black-Box Testing
 
 Black-box testing turns the *specification* into a set of items to cover, without looking
 at the code. The two most valuable criteria partition the input space and then probe its
 edges.
 
-### 9.4.1 Equivalence-Class Coverage
+### 10.4.1 Equivalence-Class Coverage
 
 The insight is that inputs are not all different: a program usually treats whole *classes*
 of inputs identically, so one representative of a class is (almost) as good as any other.
@@ -1378,7 +1378,7 @@ testing 1, 2, 3, …, 100 (100 tests that all exercise the same behavior C2) —
 partitioning gives you the same behavioral coverage for a fraction of the cost, and it
 forces you to remember the *invalid* classes that ad-hoc testing skips.
 
-### 9.4.2 Boundary-Value Coverage
+### 10.4.2 Boundary-Value Coverage
 
 Defects cluster at the *edges* of equivalence classes, because that is where programmers
 write the fragile comparisons: `<` versus `<=`, an off-by-one in a loop bound, `>` versus
@@ -1478,15 +1478,15 @@ of equivalence classes.
 One black-box technique abandons careful selection altogether. **Fuzz testing (fuzzing)**
 throws huge volumes of malformed, random, or mutated inputs at a program and watches for
 crashes, hangs, and memory errors — no specification, no partitions, just the implicit
-oracle (§9.1.4) that the program *must not fall over*.[^16] It is a cousin of property-based
+oracle (§10.1.4) that the program *must not fall over*.[^16] It is a cousin of property-based
 testing but adversarial in spirit: instead of checking a property on well-formed inputs,
 it hunts for the ill-formed input nobody thought to reject. That makes fuzzing a
 mainstay of security testing — buffer overflows, injection flaws, and denial-of-service
 defects are the bugs that surface when a parser meets input its author never imagined.
 Because an effective fuzzing campaign runs for hours or days, it belongs in a
-non-blocking pipeline stage (Chapter 13), not on the every-commit path.
+non-blocking pipeline stage (Chapter 14), not on the every-commit path.
 
-## 9.5 Code Coverage II: MC/DC
+## 10.5 Code Coverage II: MC/DC
 
 Branch coverage checks that each *decision* comes out true and false at least once. But a
 decision can be a **compound** boolean expression — `(A && B) || C` — and branch coverage
@@ -1496,7 +1496,7 @@ highest-criticality software (in avionics, DO-178C requires it at the most criti
 design-assurance level), we need a stronger criterion:
 **Modified Condition/Decision Coverage (MC/DC)**.[^17]
 
-### 9.5.1 Condition and Decision Coverage Are Independent
+### 10.5.1 Condition and Decision Coverage Are Independent
 
 First untangle two finer criteria:
 
@@ -1521,7 +1521,7 @@ value true — so **condition coverage is not met**. Because each criterion can 
 satisfied while the other is not, they are genuinely independent — and *neither alone*
 guarantees that every condition can actually change the result.
 
-### 9.5.2 MC/DC Pairs of Tests
+### 10.5.2 MC/DC Pairs of Tests
 
 **MC/DC** demands the strongest practical property: **every condition must be shown to
 independently affect the decision's outcome.**[^18] Concretely, for each condition you must
@@ -1622,7 +1622,7 @@ the linear-vs-exponential saving that makes MC/DC affordable at scale.
 > effect. When correctness is critical, measure MC/DC explicitly with a tool that
 > understands compound conditions.
 
-## 9.6 Input Coverage II: Combinatorial Testing
+## 10.6 Input Coverage II: Combinatorial Testing
 
 Many systems are configured by several parameters at once, and defects often lurk in
 *combinations* rather than single values. Suppose a checkout page is parameterized by
@@ -1673,7 +1673,7 @@ parameters needs fewer than twenty tests, not 59,049).
 > **ACTS** tool, or libraries in most languages — generate a minimal (or near-minimal)
 > covering array for you, and can extend from pairwise to 3-way or higher when the risk
 > justifies it. What you must supply is the *model*: the parameters, their meaningful
-> values (use equivalence classes and boundaries from §9.4 to choose them), and any
+> values (use equivalence classes and boundaries from §10.4 to choose them), and any
 > constraints ("Safari implies macOS"). Combinatorial testing composes with black-box
 > input analysis; it does not replace it.
 
@@ -1682,23 +1682,23 @@ parameters needs fewer than twenty tests, not 59,049).
 > higher-strength (3-way, 4-way) coverage for the most critical or most interaction-prone
 > subsystems, and let the empirical fault-strength data — not habit — set the level.
 
-## 9.7 Conclusion
+## 10.7 Conclusion
 
 Testing is how you earn the right to say "this software works," and this chapter turned
 that claim from a hope into an engineering argument. The through-line is **criteria**:
 every hard question about testing becomes tractable once you name a set of items to cover
 and measure the fraction you have.
 
-- The four issues — **selection, adequacy, oracles, automation** (§9.1) — are the
+- The four issues — **selection, adequacy, oracles, automation** (§10.1) — are the
   questions every testing decision answers, explicitly or by accident. Answer them on
   purpose.
 - Testing happens at **levels** — unit, integration, functional, system, acceptance
-  (§9.2) — and the **pyramid** tells you to invest most where feedback is fastest and
+  (§10.2) — and the **pyramid** tells you to invest most where feedback is fastest and
   cheapest, catching defects early where they cost the least.
-- **White-box** criteria (§9.3, §9.5) measure how thoroughly you exercised the code:
+- **White-box** criteria (§10.3, §10.5) measure how thoroughly you exercised the code:
   statement ⇐ branch ⇐ path in strength, with **MC/DC** as the linear-cost, near-rigorous
   choice for critical compound decisions.
-- **Black-box** criteria (§9.4, §9.6) measure how thoroughly you exercised the
+- **Black-box** criteria (§10.4, §10.6) measure how thoroughly you exercised the
   *specified behavior*: equivalence classes, boundary values, and pairwise combinations.
 
 No single criterion is enough, and no amount of testing proves correctness. But a suite
@@ -1706,7 +1706,7 @@ built from these criteria — black-box *and* white-box, at the right level, wit
 oracles, run automatically on every change — is the most reliable, most economical net we
 have for catching the defects Chapter 1 promised are inevitable. The next chapter turns testing's
 adversarial instinct — probing the inputs and error paths where a program misbehaves —
-toward an attacker who is *trying* to make it misbehave. Then Chapter 11 turns to measuring
+toward an attacker who is *trying* to make it misbehave. Then Chapter 12 turns to measuring
 quality across a whole project, where the coverage numbers you learned to compute here are
 among the first metrics you will report.
 
@@ -1790,6 +1790,6 @@ among the first metrics you will report.
 
 ---
 
-- **Key takeaways** are summarized above in §9.7.
+- **Key takeaways** are summarized above in §10.7.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

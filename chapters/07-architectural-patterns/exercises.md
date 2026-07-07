@@ -59,7 +59,7 @@ costs you.*
    HTTP protocol. Explain how the client-server structure lets you test the app's behavior
    for a *declined card* and a *server timeout* without ever touching the real provider.
    Then state one class of bug this test-server approach *cannot* catch, and what kind of
-   test (Chapter 9) you would add to cover it.
+   test (Chapter 10) you would add to cover it.
 
 10. **[analysis]** A team is splitting a monolith into many services and debating whether to
     let services call each other directly or route all calls through a broker. Give the two

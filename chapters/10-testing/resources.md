@@ -1,4 +1,4 @@
-# Chapter 9 — Open Resources
+# Chapter 10 — Open Resources
 
 Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
 text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry notes its license or access terms; when in doubt, check the linked page.
@@ -34,29 +34,29 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
   free author copy at the University of Maryland.*
 - 📄 **Barr, Harman, McMinn, Shahbaz & Yoo — "The Oracle Problem in Software Testing: A
   Survey"**, IEEE TSE 41(5), 2015 — [doi.org](https://doi.org/10.1109/TSE.2014.2372785).
-  The definitive survey behind §9.1.4's oracle strategies. *Access: abstract free; full
+  The definitive survey behind §10.1.4's oracle strategies. *Access: abstract free; full
   text via IEEE Xplore (paywalled); author preprints circulate freely.*
 - 📄 **DeMillo, Lipton & Sayward — "Hints on Test Data Selection: Help for the Practicing
   Programmer"**, IEEE Computer 11(4), 1978 —
   [doi.org](https://doi.org/10.1109/C-M.1978.218136). The paper that launched mutation
-  testing (§9.1.5) and the coupling effect. *Access: abstract free; full text via IEEE
+  testing (§10.1.5) and the coupling effect. *Access: abstract free; full text via IEEE
   Xplore (paywalled).*
 - 📘 **Myers — "The Art of Software Testing"** (Wiley, 1979; 3rd ed. 2011) —
   [wiley.com](https://www.wiley.com/en-us/The+Art+of+Software+Testing%2C+3rd+Edition-p-9781119202486).
   The classic source for equivalence partitioning, boundary-value analysis, and
-  multiple-condition coverage (§9.4, §9.5). *Access: commercial book; often in university
+  multiple-condition coverage (§10.4, §10.5). *Access: commercial book; often in university
   libraries.*
 - 📘 **Kaner, Bach & Pettichord — "Lessons Learned in Software Testing"** (Wiley, 2002) —
   [wiley.com](https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context+Driven+Approach-p-9780471081128).
   Context-driven testing wisdom, including the hardware origin of the "smoke test" name
-  (§9.2.3). *Access: commercial book.*
+  (§10.2.3). *Access: commercial book.*
 
 ## Coverage criteria, white-box, and MC/DC
 
 - 📘 **Ammann & Offutt — "Introduction to Software Testing" companion site** —
   [cs.gmu.edu/~offutt/softwaretest](https://cs.gmu.edu/~offutt/softwaretest/). Slides,
   examples, and tools for graph coverage, logic coverage (including MC/DC), and
-  input-space partitioning — the academic backbone of §§9.3–9.6. *Access: teaching
+  input-space partitioning — the academic backbone of §§10.3–10.6. *Access: teaching
   materials free on the author's site.*
 - 📄 **NASA/DOT‑FAA — "A Practical Tutorial on Modified Condition/Decision Coverage"**
   (Hayhurst, Veerhusen, Chilenski, Rierson), NASA/TM‑2001‑210876 —
@@ -69,7 +69,7 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
   university course pages summarize its coverage objectives for free.
 - 📄 **McCabe — "A Complexity Measure"**, IEEE TSE SE‑2(4), 1976 —
   [doi.org](https://doi.org/10.1109/TSE.1976.233837). The original cyclomatic-complexity
-  paper behind §9.3.1. *Access: abstract free; full text via IEEE Xplore (paywalled).*
+  paper behind §10.3.1. *Access: abstract free; full text via IEEE Xplore (paywalled).*
 - 📄 **NIST SP 500‑235 — "Structured Testing: A Testing Methodology Using the Cyclomatic
   Complexity Metric"** (Watson & McCabe, 1996) —
   [nvlpubs.nist.gov](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication500-235.pdf).
@@ -78,13 +78,13 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
 - 📄 **SEI — "C4 Software Technology Reference Guide" (CMU/SEI‑97‑HB‑001, 1997)** —
   [sei.cmu.edu](https://www.sei.cmu.edu/documents/1625/1997_002_001_16523.pdf). Source of
   the conventional cyclomatic-complexity risk bands (1–10, 11–20, 21–50, >50) quoted in
-  §9.3.1. *Access: free PDF from the SEI.*
+  §10.3.1. *Access: free PDF from the SEI.*
 
 ## Black-box and combinatorial testing
 
 - 📄 **NIST — Automated Combinatorial Testing for Software (ACTS) project** —
   [csrc.nist.gov/projects/automated-combinatorial-testing-for-software](https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software).
-  The empirical fault-strength data behind §9.6, plus the free **ACTS** covering-array
+  The empirical fault-strength data behind §10.6, plus the free **ACTS** covering-array
   generator and NIST Special Publication 800‑142. *License: U.S. government work, public
   domain; ACTS tool free for download.*
 - 📄 **Microsoft PICT — Pairwise Independent Combinatorial Testing tool** —
@@ -93,7 +93,7 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
 - 📄 **Kuhn, Wallace & Gallo — "Software Fault Interactions and Implications for Software
   Testing"**, IEEE TSE 30(6), 2004 —
   [csrc.nist.gov](https://csrc.nist.gov/pubs/journal/2004/06/software-fault-interactions-and-implications-for-s/final).
-  The fault-database study behind §9.6's claim that most interaction failures involve
+  The fault-database study behind §10.6's claim that most interaction failures involve
   only two or three parameters. *Access: NIST page links a free preprint.*
 - 📄 **Kuhn, Kacker & Lei — NIST SP 800‑142, "Practical Combinatorial Testing"** (2010) —
   [csrc.nist.gov](https://csrc.nist.gov/pubs/sp/800/142/final). The full how-to for
@@ -101,7 +101,7 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
   *License: U.S. government work, public domain.*
 - 📄 **Miller, Fredriksen & So — "An Empirical Study of the Reliability of UNIX
   Utilities"**, CACM 33(12), 1990 — [doi.org](https://doi.org/10.1145/96267.96279). The
-  study that coined "fuzz" testing (§9.4.2) by crashing a quarter of UNIX utilities with
+  study that coined "fuzz" testing (§10.4.2) by crashing a quarter of UNIX utilities with
   random input. *Access: abstract free; free copies via the UW–Madison fuzzing project.*
 
 ## Tools and practice
@@ -111,43 +111,43 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
   docs under MIT.*
 - 📄 **Hypothesis — property-based testing for Python** —
   [hypothesis.readthedocs.io](https://hypothesis.readthedocs.io/). Puts the property/
-  invariant oracles of §9.1.4 into practice by generating inputs for you. *License:
+  invariant oracles of §10.1.4 into practice by generating inputs for you. *License:
   MPL‑2.0.*
 - 📘 **Python `unittest.mock` — official documentation** —
   [docs.python.org/3/library/unittest.mock.html](https://docs.python.org/3/library/unittest.mock.html).
   `Mock`, `patch`, and `side_effect` — the standard-library way to build the stubs and
-  mocks of §9.2.1. *License: Python docs, PSF license (free to read and reuse).*
+  mocks of §10.2.1. *License: Python docs, PSF license (free to read and reuse).*
 - 📘 **behave — BDD for Python, documentation** —
   [behave.readthedocs.io](https://behave.readthedocs.io/). Executable Gherkin as in the
-  §9.2.3 callout: a `features/` directory of `.feature` scenarios plus a `steps/`
+  §10.2.3 callout: a `features/` directory of `.feature` scenarios plus a `steps/`
   directory whose `@given`/`@when`/`@then` functions bind each step to code. *License:
   BSD‑2‑Clause.*
 - 📄 **mutmut — mutation testing for Python** —
   [mutmut.readthedocs.io](https://mutmut.readthedocs.io/). Generates and runs the mutants
-  of §9.1.5 against a pytest suite and reports the survivors. *License: open source; see
+  of §10.1.5 against a pytest suite and reports the survivors. *License: open source; see
   the project page.*
 - 📄 **Google OSS‑Fuzz — continuous fuzzing documentation** —
   [google.github.io/oss-fuzz](https://google.github.io/oss-fuzz/). How industrial-scale
-  fuzz testing (§9.4) is run continuously against hundreds of open-source projects, with
+  fuzz testing (§10.4) is run continuously against hundreds of open-source projects, with
   guides for adding your own. *License: Apache‑2.0.*
 - 🎥 **"TDD, Where Did It All Go Wrong" — Ian Cooper** (conference talk, freely on
   YouTube). A widely-cited critique of testing implementation details instead of behavior;
   a good companion to the pyramid and oracle discussions. *Access: free to view.*
 - 📄 **McConnell — "Daily Build and Smoke Test"**, IEEE Software 13(4), 1996 —
   [stevemcconnell.com](https://stevemcconnell.com/ieeesoftware/bp04.htm). The classic
-  best-practices column on gating every build with a smoke test (§9.2.3). *Access: free
+  best-practices column on gating every build with a smoke test (§10.2.3). *Access: free
   on the author's site.*
 - 📄 **Fowler — "TestPyramid"** (martinfowler.com bliki) —
   [martinfowler.com/bliki/TestPyramid.html](https://martinfowler.com/bliki/TestPyramid.html).
   A short, free summary of the testing pyramid, crediting Mike Cohn's *Succeeding with
-  Agile* (2009), where the model appeared (§9.2.4). *Access: free to read.*
+  Agile* (2009), where the model appeared (§10.2.4). *Access: free to read.*
 - 📄 **Ottinger & Schuchert — "F.I.R.S.T." (Agile in a Flash, 2009)** —
   [agileinaflash.blogspot.com](https://agileinaflash.blogspot.com/2009/02/first.html). The
-  originators' write-up of the FIRST properties of §9.2.1, popularized in Robert C.
+  originators' write-up of the FIRST properties of §10.2.1, popularized in Robert C.
   Martin's *Clean Code* (2008), ch. 9. *Access: free blog post.*
 - 📄 **Luo, Hariri, Eloussi & Marinov — "An Empirical Analysis of Flaky Tests"**, FSE
   2014 — [doi.org](https://doi.org/10.1145/2635868.2635920). The empirical taxonomy of
-  flaky-test root causes (async waits, concurrency, order dependence) behind §9.2.4.
+  flaky-test root causes (async waits, concurrency, order dependence) behind §10.2.4.
   *Access: free author copy on the authors' Illinois pages; ACM DL paywalled.*
 
 ## License note

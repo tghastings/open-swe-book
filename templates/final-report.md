@@ -5,7 +5,7 @@
 > prompt_ with your own content. This is your capstone artifact and the main thing you are
 > assessed on — see [Appendix A, §A.5](../chapters/appendix-a-team-project/). It
 > should tie the whole course together: requirements (Ch. 3–5), architecture (Ch. 6–7),
-> process (Ch. 2), testing (Ch. 9), and metrics (Ch. 11). Reward comes from working
+> process (Ch. 2), testing (Ch. 10), and metrics (Ch. 12). Reward comes from working
 > software, real engineering evidence, and honest reflection.
 
 | Field | Value |
@@ -66,12 +66,12 @@ board, standups, and where your process adapted mid-project._
 
 ## 5. Testing and quality metrics
 
-_Your test strategy and the evidence behind your quality claims (Chapters 9–10)._
+_Your test strategy and the evidence behind your quality claims (Chapters 10–11)._
 
-- **Test strategy:** _unit / integration / end-to-end; black-box and white-box (Ch. 9)_
+- **Test strategy:** _unit / integration / end-to-end; black-box and white-box (Ch. 10)_
 - **Coverage achieved:** _target vs. actual_
 - **Defect data:** _found, fixed, open; where they clustered_
-- **Analysis:** _what the numbers mean — analyze honestly with sound statistics (Ch. 11),
+- **Analysis:** _what the numbers mean — analyze honestly with sound statistics (Ch. 12),
   don't cherry-pick a single flattering figure_
 
 | Metric | Value | What it tells us |
@@ -104,7 +104,7 @@ again, we would…". Insight is rewarded here, not spin._
 ## 8. AI use and provenance
 
 _Where and how AI assisted the work, per the running log your README kept all term
-(Chapter 12, §12.2.9): the kinds of tasks you delegated, links to the transcripts, and —
+(Chapter 13, §13.2.9): the kinds of tasks you delegated, links to the transcripts, and —
 most importantly — how each AI-assisted change was verified (tests, review) before it
 shipped. One honest paragraph plus the log link beats a list of tools._
 

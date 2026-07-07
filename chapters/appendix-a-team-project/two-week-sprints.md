@@ -72,7 +72,7 @@ with two events:
   [team review template](../../templates/team-review.md), plus peer evaluations.
 
 The build sprints also carry a deliberate **engineering-hardening arc**: each sprint adds
-one layer of the delivery pipeline from [Chapter 13](../13-delivery/), so that by the end
+one layer of the delivery pipeline from [Chapter 14](../14-delivery/), so that by the end
 of the term the team is operating a small but genuinely professional SaaS delivery
 process. The milestones overlay the cadence as before: Sprint 0-3 *is* the
 skeletal-system checkpoint (§A.3); the end of Sprint 2 should look like the viable system
@@ -110,7 +110,7 @@ The exact weeks flex with a given calendar (breaks, exams); what does not flex i
 | **0-0** | **Idea pitches — customer hat.** Every member pitches at least one project idea in Shape Up pitch form: problem, appetite, rough solution, rabbit holes, no-gos.[^4] You are writing the pitch **another team will build**; you will be its customer. | [§2.8](../02-software-development-processes/#28-shape-up-fixed-time-variable-scope) on pitches and appetite | Each [idea pitch](../../templates/idea-pitch.md) names a real, reachable user, fits on a page, and is clear enough for strangers to build from. |
 | **0-1** | **The swap + selection.** Pitches are exchanged across teams (however your course assigns them). The developer team reads its assigned pitch, meets its customer, and records scope decisions — what the first version will and won't attempt, and why ([§4.4.3](../04-requirements-analysis/#443-balancing-value-cost-and-risk)) — then completes the proposal (§A.2) *with the customer's sign-off*. | [§3.1](../03-user-requirements/#31-what-is-a-requirement) — you are now on the far side of the requirements gap | [Project proposal](../../templates/project-proposal.md) + decision notes, acknowledged by the customer team. |
 | **0-2** | **User stories + lo-fi UI — elicited, not invented.** The first backlog as INVEST-shaped stories with **Gherkin acceptance criteria** ([§3.4.1](../03-user-requirements/#341-guidelines-for-effective-user-stories)), plus storyboards of the main flows ([§3.5.3](../03-user-requirements/#353-storyboards-drawing-the-scenario)) — built from interviews with your customer team, and walked past them before it counts. | [§3.3](../03-user-requirements/#33-eliciting-user-needs) on elicitation; [§§3.4–3.5](../03-user-requirements/#34-writing-requirements-stories-and-features) | Must-have stories are testable and customer-prioritized; a stranger can follow the sketched flow. |
-| **0-3** | **Initial view, DEPLOYED.** The walking skeleton of §A.3: one thin path, end to end, live on a real URL — "get one piece done" ([§2.8](../02-software-development-processes/#28-shape-up-fixed-time-variable-scope)).[^5] | §A.3; [Chapter 13](../13-delivery/) on deployment | [Status report](../../templates/status-report.md) 1; a grader can open the URL and exercise one real path. |
+| **0-3** | **Initial view, DEPLOYED.** The walking skeleton of §A.3: one thin path, end to end, live on a real URL — "get one piece done" ([§2.8](../02-software-development-processes/#28-shape-up-fixed-time-variable-scope)).[^5] | §A.3; [Chapter 14](../14-delivery/) on deployment | [Status report](../../templates/status-report.md) 1; a grader can open the URL and exercise one real path. |
 
 ## Sprints 1–4: build cycles with a hardening arc
 
@@ -120,12 +120,12 @@ Sprint 3 team is still running everything it set up in Sprints 1 and 2.
 
 | Sprint | New engineering focus | Where the book teaches it | Milestone |
 |--------|----------------------|---------------------------|-----------|
-| **1** | **Test-driven features, coverage, CI, production deploy.** Every feature lands with unit/integration tests (TDD, and BDD with executable Gherkin scenarios); the suite holds a coverage floor (~80%); a **CI pipeline** runs the tests and reports coverage on every commit and performs automated (e.g., AI-assisted) review on every pull request; the app is live in production. | TDD/BDD: [§2.3.2](../02-software-development-processes/#232-testing-make-it-central-to-development), [§3.4.1](../03-user-requirements/#341-guidelines-for-effective-user-stories), [§9.2.3](../09-testing/#923-functional-system-and-acceptance-testing) · coverage: [§9.3](../09-testing/#93-code-coverage-i-white-box-testing) with the [§9.1.3](../09-testing/#913-test-adequacy-deciding-when-to-stop) pitfall · CI: [§13.2](../13-delivery/#132-continuous-integration-pipelines) · review on PRs: [§8.3](../08-static-checking/#83-code-reviews-check-intent-and-trust), AI review [§12.2.6](../12-ai-across-the-lifecycle/#1226-static-checking-and-code-review-chapter-8) | Velocity established |
-| **2** | **Continuous deployment.** Merging to main *is* the release: a **CD pipeline** automatically deploys every merged change to production. This is the sprint where the team feels why the pipeline's checks exist — read the two §13.3 case studies *before* wiring it up. | [§13.3](../13-delivery/#133-continuous-deployment) — delivery vs. deployment, and the Knight Capital / CrowdStrike case studies | ≈ Viable system (§A.4) |
-| **3** | **Static analysis + supply-chain security.** The pipeline gains **linting** with reports and **dependency-vulnerability scanning** (Dependabot-style); the deployment gets production polish (e.g., a real domain). Findings are triaged, not ignored — they become backlog items. | linting & analyzers: [§8.4](../08-static-checking/#84-automated-static-analysis) · supply‑chain security: [§10.4](../10-software-security/#104-the-software-supply-chain-a-world-of-weak-links), enforced as pipeline gates in [§13.6](../13-delivery/#136-continuous-security-pipelines) · triage & false positives: [§8.4.2](../08-static-checking/#842-false-positives-and-false-negatives) | Quality data flowing |
-| **4** | **Pay the debt, ship the story.** Close out: **all** open vulnerability and linter findings fixed — a real, bounded exercise in technical-debt paydown — plus a short **marketing video** that sells the product to its users, and the final demo path polished. | debt paydown & refactoring under green tests: [§13.8](../13-delivery/#138-legacy-code-refactoring-and-technical-debt) · communicating value: §A.5 | Final report & presentations |
+| **1** | **Test-driven features, coverage, CI, production deploy.** Every feature lands with unit/integration tests (TDD, and BDD with executable Gherkin scenarios); the suite holds a coverage floor (~80%); a **CI pipeline** runs the tests and reports coverage on every commit and performs automated (e.g., AI-assisted) review on every pull request; the app is live in production. | TDD/BDD: [§2.3.2](../02-software-development-processes/#232-testing-make-it-central-to-development), [§3.4.1](../03-user-requirements/#341-guidelines-for-effective-user-stories), [§10.2.3](../10-testing/#1023-functional-system-and-acceptance-testing) · coverage: [§10.3](../10-testing/#103-code-coverage-i-white-box-testing) with the [§10.1.3](../10-testing/#1013-test-adequacy-deciding-when-to-stop) pitfall · CI: [§14.2](../14-delivery/#142-continuous-integration-pipelines) · review on PRs: [§9.3](../09-static-checking/#93-code-reviews-check-intent-and-trust), AI review [§13.2.6](../13-ai-across-the-lifecycle/#1326-static-checking-and-code-review-chapter-8) | Velocity established |
+| **2** | **Continuous deployment.** Merging to main *is* the release: a **CD pipeline** automatically deploys every merged change to production. This is the sprint where the team feels why the pipeline's checks exist — read the two §14.3 case studies *before* wiring it up. | [§14.3](../14-delivery/#143-continuous-deployment) — delivery vs. deployment, and the Knight Capital / CrowdStrike case studies | ≈ Viable system (§A.4) |
+| **3** | **Static analysis + supply-chain security.** The pipeline gains **linting** with reports and **dependency-vulnerability scanning** (Dependabot-style); the deployment gets production polish (e.g., a real domain). Findings are triaged, not ignored — they become backlog items. | linting & analyzers: [§9.4](../09-static-checking/#94-automated-static-analysis) · supply‑chain security: [§11.4](../11-software-security/#114-the-software-supply-chain-a-world-of-weak-links), enforced as pipeline gates in [§14.6](../14-delivery/#146-continuous-security-pipelines) · triage & false positives: [§9.4.2](../09-static-checking/#942-false-positives-and-false-negatives) | Quality data flowing |
+| **4** | **Pay the debt, ship the story.** Close out: **all** open vulnerability and linter findings fixed — a real, bounded exercise in technical-debt paydown — plus a short **marketing video** that sells the product to its users, and the final demo path polished. | debt paydown & refactoring under green tests: [§14.8](../14-delivery/#148-legacy-code-refactoring-and-technical-debt) · communicating value: §A.5 | Final report & presentations |
 
-> **Why this order.** It is Chapter 13's argument enacted: first make the checks
+> **Why this order.** It is Chapter 14's argument enacted: first make the checks
 > automatic (CI), then make release boring (CD), then widen the net (lint, dependencies),
 > then pay down what the net caught. A team that tries to bolt all four layers on in the
 > last sprint learns the Knight Capital lesson the hard way.
@@ -146,26 +146,26 @@ These run every sprint, regardless of number — each is a book discipline in mi
   ([§2.2.3](../02-software-development-processes/#223-scrum-events) sprint planning,
   with the dual-hat customer in the product-owner conversation).
 - **Every story has an owner and tests**; features are built full-stack with unit *and*
-  integration tests ([§9.2](../09-testing/#92-levels-of-testing)), red–green–refactor
+  integration tests ([§10.2](../10-testing/#102-levels-of-testing)), red–green–refactor
   ([§2.3.2](../02-software-development-processes/#232-testing-make-it-central-to-development))
   — keeping the small tidy-as-you-go refactors of each red–green cycle every sprint,
   while *large, structural* refactoring is deliberately deferred to the end-of-term debt paydown
-  ([§13.8](../13-delivery/#138-legacy-code-refactoring-and-technical-debt)).
-- **Branches, protected main, reviewed merges.** Work on branches, merge to main
+  ([§14.8](../14-delivery/#148-legacy-code-refactoring-and-technical-debt)).
+- **Branches, protected main, reviewed merges** ([Chapter 8](../08-version-control-git/)). Work on branches, merge to main
   frequently, and let branch protection force a review of every merge — modern code
-  review as a gate ([§8.3](../08-static-checking/#83-code-reviews-check-intent-and-trust),
-  [§13.2](../13-delivery/#132-continuous-integration-pipelines)).
+  review as a gate ([§9.3](../09-static-checking/#93-code-reviews-check-intent-and-trust),
+  [§14.2](../14-delivery/#142-continuous-integration-pipelines)).
 - **Acceptance criteria live on the cards as Gherkin scenarios**
   ([§3.4.1](../03-user-requirements/#341-guidelines-for-effective-user-stories)) and are
   demoed as passing behavior at Demo Day
-  ([§9.2.3](../09-testing/#923-functional-system-and-acceptance-testing)).
+  ([§10.2.3](../10-testing/#1023-functional-system-and-acceptance-testing)).
 - **Release discipline.** Tag the repository at each sprint boundary (and push the tags);
   the tag is the auditable "what shipped this sprint."
 - **Document your AI use.** Keep a running record (e.g., in the README) of where AI
   assisted the work, with links to the transcripts — provenance and honest verification
   are part of professional AI-assisted engineering
-  ([§12.2.9](../12-ai-across-the-lifecycle/#1229-the-team-project-appendix-a) and the
-  AI-use-policy exercise in Chapter 12).
+  ([§13.2.9](../13-ai-across-the-lifecycle/#1329-the-team-project-appendix-a) and the
+  AI-use-policy exercise in Chapter 13).
 - **Peer evaluations** after every sprint — honest, specific, delivered to teammates
   (§A.1.2; recorded via the [team review](../../templates/team-review.md)).
 
@@ -179,7 +179,7 @@ Demo Day is the sprint review, and four rules keep it honest:
    ship this sprint.
 2. **Walk the work, then prove it.** Say what the application is and why it exists, walk
    the completed stories on the board, demo each in production — and show the tests that
-   back each one ([§9.2.3](../09-testing/#923-functional-system-and-acceptance-testing):
+   back each one ([§10.2.3](../10-testing/#1023-functional-system-and-acceptance-testing):
    the Gherkin scenarios *are* the acceptance evidence).
 3. **Anyone on the team can drive.** If only one person can operate the system, that is a
    bus-factor problem the demo just exposed.
@@ -217,7 +217,7 @@ cycle, actually carried out, beats five that evaporate.
 > project can align it to the same cadence: the **research topic and thesis statement**
 > are due with Sprint 0-3, so the investigation runs alongside the build sprints instead
 > of colliding with finals. For topics on AI and software engineering, the
-> [open resources for Chapter 12](../12-ai-across-the-lifecycle/resources.md) — capability
+> [open resources for Chapter 13](../13-ai-across-the-lifecycle/resources.md) — capability
 > evaluations, delivery-performance research, coding benchmarks — make a solid starter
 > bibliography.
 

@@ -1178,8 +1178,8 @@ The substitution is the network-tier echo of the layering benefit in §7.1.2: *d
 an interface, and you can swap the implementation.* The trade-off is that a test server
 is only as faithful as you make it — tests can pass against a fake that behaves
 differently from reality, so a smaller number of full **integration tests** against a
-real server remain essential (Chapter 9). The same substitution idea, scaled to
-production, powers the blue‑green and canary deployment strategies of Chapter 13.
+real server remain essential (Chapter 10). The same substitution idea, scaled to
+production, powers the blue‑green and canary deployment strategies of Chapter 14.
 
 ### 7.5.3 The Broker Pattern
 

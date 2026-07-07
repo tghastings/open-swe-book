@@ -57,7 +57,7 @@ _How the team worked this period (Chapter 2)._
 
 ## 5. Testing and quality (Report 2 emphasizes this)
 
-_See Chapters 8–9._
+_See Chapters 9–10._
 
 - **CI status:** _passing? link to the pipeline_
 - **Tests:** _how many, what kind (unit / integration / end-to-end)_
@@ -65,7 +65,7 @@ _See Chapters 8–9._
 
 ## 6. Metrics so far (Report 2)
 
-_Early numbers you are collecting for the final report (Chapter 11)._
+_Early numbers you are collecting for the final report (Chapter 12)._
 
 - **Defects:** _open / closed_
 - **Build health:** _…_

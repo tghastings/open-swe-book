@@ -43,7 +43,7 @@ completed per sprint — track it, don't spin it._
 
 ## 4. Quality
 
-_See Chapters 8–9._
+_See Chapters 9–10._
 
 - **CI status:** _passing? link to the pipeline_
 - **Coverage:** _target and current number_
@@ -63,7 +63,7 @@ _See Chapters 8–9._
 
 _Break the remaining work into scopes and place each on the hill: uphill means "still
 figuring out how," downhill means "just executing"
-([§11.3.5](../chapters/11-quality-metrics/#1135-hill-charts-displaying-uncertainty-not-just-quantity)).
+([§12.3.5](../chapters/11-quality-metrics/#1135-hill-charts-displaying-uncertainty-not-just-quantity)).
 Paste a snapshot or sketch._
 
 | Scope | Position (uphill / crest / downhill / done) | Movement since last sprint |

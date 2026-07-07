@@ -131,7 +131,7 @@ Concretely, a good architecture tends to have these properties.
   throughout — is worth more than local cleverness.[^4]
 - **It is buildable and testable.** A structure that looks elegant on a diagram but forces
   every test to spin up the entire system is a bad architecture, because it makes the
-  feedback loop that catches defects slow and expensive (Chapter 9).
+  feedback loop that catches defects slow and expensive (Chapter 10).
 
 > **Principle.** You cannot maximize all qualities at once. Good architecture is the art
 > of *trading off* consciously — buying the qualities this system needs and knowingly
@@ -167,10 +167,10 @@ For the clinic app of Chapter 3:
 
 Notice what the format buys you. Each scenario is an architecture test you can run on
 paper — walk the design and ask *where* each stimulus lands and *which* structures
-produce the response in time — and later a real test you can run in Chapter 9's sense.
+produce the response in time — and later a real test you can run in Chapter 10's sense.
 The response measure is exactly the **fit criterion** of §3.1.3 wearing its
 architectural clothes, and the same scenarios reappear as the concrete cases an
-architecture review walks through (§8.1.1). If a quality requirement matters enough to
+architecture review walks through (§9.1.1). If a quality requirement matters enough to
 influence the structure of your system, it matters enough to get a scenario; a quality
 with no scenario is an opinion, and opinions do not rule out designs.
 
@@ -923,7 +923,7 @@ on nothing below it.** The `domain-model` module — the classes from §6.3 — 
 about databases or WebSockets. That is deliberate: the domain is the most stable, most
 valuable part of the system, so it must not be dragged along when a volatile detail changes.
 The dashed "no dependency" line is a design *rule*, not an observation, and a good build
-setup enforces it (Chapter 8's static checks can fail the build if `domain-model` ever
+setup enforces it (Chapter 9's static checks can fail the build if `domain-model` ever
 imports `transport`).
 
 Second, **the interface belongs to the layer that needs it, and the implementation lives

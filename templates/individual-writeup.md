@@ -27,7 +27,7 @@ scheduling module and its integration tests (PR #41, #47)" is._
 ## 2. What I learned
 
 _Tie your experience to at least **three** concepts from the chapters, citing the section
-(for example, walking skeletons §A.3, appetite §4.2.4, coupling §6.2.2, coverage §9.3).
+(for example, walking skeletons §A.3, appetite §4.2.4, coupling §6.2.2, coverage §10.3).
 For each: what the book said, what actually happened on your project, and what you now
 believe about it._
 

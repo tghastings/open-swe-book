@@ -713,7 +713,7 @@ diagram only to map the terrain, never reaching for a mechanism you do not need.
 Use cases are the handoff from requirements work to design. Because a
 use case names its actors, its data, and its every branch, it feeds directly into the
 domain model and architecture of Chapter 6, and its alternative flows and postconditions
-become ready-made scenarios for the tests of Chapter 9. Written well, a use case is the
+become ready-made scenarios for the tests of Chapter 10. Written well, a use case is the
 same artifact that lets a bank teller confirm you understood them, lets an architect
 decompose the system, and lets a tester know when it is done — which is a great deal of
 value from one disciplined story.

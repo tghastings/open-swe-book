@@ -30,7 +30,7 @@ system that a genuine user can run and benefit from — not a demo that works on
 laptop with the right input typed carefully. "Real" is the standard because only a real
 system exposes the problems this book is about. A toy that no one depends on never forces
 you to handle bad input, never accumulates the kind of coupling that makes change
-expensive, and never generates the defect data you will analyze in Chapter 11.
+expensive, and never generates the defect data you will analyze in Chapter 12.
 
 The second goal is **to practice the disciplines deliberately**. It is entirely possible
 to ship a working system by heroics — one strong programmer, many late nights, no tests,
@@ -73,7 +73,7 @@ lightweight set of roles that maps onto the process in Chapter 2:
 - An **architecture/integration owner** who keeps the pieces fitting together and guards
   the module boundaries you agreed on (Chapters 6–7).
 - A **quality owner** who sets up CI, keeps the test suite green, and watches the metrics
-  (Chapters 8–11).
+  (Chapters 9–12).
 
 Everyone writes code and everyone tests; roles say who *worries* about a concern, not who
 is allowed to touch it. Rotate at least once mid-semester so no one graduates having only
@@ -147,7 +147,7 @@ Friday is the practice. Learning and doing reinforce each other while the stakes
 
 After the requirements are stable, the coupling loosens on purpose. The concepts track
 keeps advancing on its own schedule — design and patterns (Chapters 6–7), static checking
-and testing (Chapters 8–9), metrics (Chapter 11) — while your team iterates at whatever
+and testing (Chapters 9–10), metrics (Chapter 12) — while your team iterates at whatever
 cadence fits your process and your lives. You will pull each concept into the project as
 you need it rather than exactly the week it is lectured, which is how real engineering
 works: you learn a technique when a problem demands it. The **status reports** in weeks 7
@@ -231,7 +231,7 @@ five beautiful components in isolation and discover in week 12 that they cannot 
 together — the assumptions do not match, the interfaces do not line up, the deployment
 does not deploy. The walking skeleton forces that discovery into week 7, when it is cheap.
 It also stands up the machinery you will rely on all term: the repository, the build, the
-test harness, and continuous integration (Chapter 13) so that every commit is checked. From
+test harness, and continuous integration (Chapter 14) so that every commit is checked. From
 this point on you are *always* looking at a running system and fleshing it out, never
 assembling a pile of parts at the end and praying.
 
@@ -250,7 +250,7 @@ Use the [status report template](../../templates/status-report.md) and mark it a
 > **Tip.** Build the skeleton along the *riskiest* path first, not the easiest. If a
 > third-party integration or an unfamiliar deployment worries you, make *that* the thread
 > the skeleton walks. The whole point is to buy down risk early, so aim the skeleton at
-> the thing most likely to hurt you. Deployment itself is usually that thing — Chapter 13
+> the thing most likely to hurt you. Deployment itself is usually that thing — Chapter 14
 > shows how to make it boring.
 
 ## A.4 Viable System: Status Report 2
@@ -266,7 +266,7 @@ Getting from skeleton to viable is the main building phase, and it is where the 
 comes together. You will flesh out the modules behind the interfaces the skeleton
 established. You will apply architectural patterns (Chapter 7) where they earn their
 keep — and resist them where they do not. Above all, you will now be **testing in earnest**
-(Chapter 9): the features a user depends on need black-box tests derived from their
+(Chapter 10): the features a user depends on need black-box tests derived from their
 requirements and enough white-box coverage that you can change code without fear. A viable
 system without tests is just a demo that will break the first time you touch
 it.
@@ -274,10 +274,10 @@ it.
 Your Status Report 2 should demonstrate:
 
 - The **must-have** user stories from your backlog, working end to end for a real user.
-- A test suite with a stated **coverage** target and the current numbers (Chapter 9), run
+- A test suite with a stated **coverage** target and the current numbers (Chapter 10), run
   automatically in CI.
 - An architecture description updated to match what you actually built.
-- Early **metrics** (Chapter 11): velocity across your iterations, open/closed defect
+- Early **metrics** (Chapter 12): velocity across your iterations, open/closed defect
   counts, build health — whatever your process produces. You will analyze these more
   rigorously for the final report; start collecting now.
 - A candid gap analysis: what is left for the remaining weeks, reprioritized in light of
@@ -312,7 +312,7 @@ discipline. It should cover:
   looked like, and where your process adapted (Chapter 2).
 - **Testing and quality metrics** — your test strategy, coverage achieved, defect data, and
   what the numbers *mean*, analyzed with sound statistics rather than a single hand-picked
-  figure (Chapters 9 and 11).
+  figure (Chapters 10 and 11).
 - **Results** — what works, what does not, and how you know; measured against the goals you
   set in the proposal.
 - **Retrospective** — the honest lessons: what you would do differently, where estimates

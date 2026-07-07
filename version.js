@@ -15,15 +15,21 @@
     }
 })();
 
-// Sidebar numbering: the appendix displays as "A." and the suffix entries
-// (curriculum, contributing) carry no number, so the sidebar matches the
-// "thirteen chapters + appendix" framing rather than looking like 17 chapters.
+// Sidebar numbering: show the team-project appendix as "A." (and any further
+// appendices as "B.", "C.", …) instead of a chapter number, and drop the number
+// from suffix entries after it (curriculum, contributing), so the sidebar reads
+// as "chapters + appendix" no matter how many chapters precede it. Matches the
+// appendix by title rather than a fixed position, so adding a chapter never
+// misnumbers it.
 (() => {
-    document.querySelectorAll('#sidebar ol.chapter > li.chapter-item > a > strong')
-        .forEach((st) => {
-            const n = parseInt(st.textContent, 10);
-            if (n === 14) st.textContent = 'A.';
-            else if (n > 14) st.textContent = '';
+    let past = false;
+    document.querySelectorAll('#sidebar ol.chapter > li.chapter-item > a')
+        .forEach((a) => {
+            const st = a.querySelector(':scope > strong');
+            if (!st) return;
+            const m = (a.textContent || '').match(/\bAppendix\s+([A-Z])\b/);
+            if (m) { st.textContent = m[1] + '.'; past = true; }
+            else if (past) { st.textContent = ''; }
         });
 })();
 

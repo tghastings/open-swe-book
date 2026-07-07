@@ -1,14 +1,14 @@
-# Chapter 8 — Static Checking
+# Chapter 9 — Static Checking
 
 > **Where we are.** Chapter 1 separated *mistakes*, *faults*, and *failures*, and promised
 > that we attack defects at every stage. This chapter is about the family of techniques
 > that find faults *without running the code*: architecture reviews, formal inspections,
-> everyday code review, and automated static analysis. Chapter 9 covers the complementary
+> everyday code review, and automated static analysis. Chapter 10 covers the complementary
 > half — *testing*, which finds defects by running the code. Neither replaces the other,
 > and a mature team leans on both.
 
 There is a persistent myth that the only way to know whether software works is to run it.
-Running it certainly helps, and Chapter 9 is devoted to doing so well. But a great deal of
+Running it certainly helps, and Chapter 10 is devoted to doing so well. But a great deal of
 what is wrong with a program is visible *on the page* — a null that is never checked, a
 lock acquired but never released, an interface that two teams understand differently, an
 architecture that quietly assumes a database will never be slow. **Static checking** is the
@@ -28,7 +28,7 @@ do. The through-line of the chapter is that reviews, inspection, and static anal
 *complementary to testing, not substitutes for it*, and that they operate on a spectrum from
 slow-and-human to fast-and-automated.
 
-## 8.1 Architecture Reviews
+## 9.1 Architecture Reviews
 
 The earliest and cheapest place to catch a defect is before it is built. An **architecture
 review** is a structured examination of a system's design — its major components, their
@@ -43,7 +43,7 @@ couple two modules that should have been independent, can require months of rewo
 system is built around it. These decisions are made early, are hard to reverse, and constrain
 everything downstream — so they deserve a dedicated review before code is written.
 
-### 8.1.1 Guiding Principles for Architecture Reviews
+### 9.1.1 Guiding Principles for Architecture Reviews
 
 A few principles keep an architecture review productive rather than performative.
 
@@ -73,7 +73,7 @@ A few principles keep an architecture review productive rather than performative
 > from a *different* team, someone who has operated a similar system in production, and
 > someone who will have to *integrate* with this one.
 
-### 8.1.2 Discovery, Deep-Dive, and Retrospective Reviews
+### 9.1.2 Discovery, Deep-Dive, and Retrospective Reviews
 
 Not all architecture reviews happen at the same time or ask the same questions. It helps to
 distinguish three moments in a system's life, each with a different purpose.
@@ -116,7 +116,7 @@ The point is to know *which* review you are running, because a deep-dive that wa
 discovery loses its focus, and a discovery that demands deep-dive rigor exhausts everyone
 before the real risks are found.
 
-## 8.2 Conducting Software Inspections
+## 9.2 Conducting Software Inspections
 
 Where an architecture review examines a design, a **software inspection** examines a concrete
 work product — most often source code, but also a specification, a test plan, or a design
@@ -131,7 +131,7 @@ inspection** remains the archetype: a small group, a defined sequence of phases,
 roles, and — crucially — *measurement* of the process itself.[^3] What distinguishes an inspection
 from someone "taking a look" is that it is repeatable and its effectiveness can be quantified.
 
-### 8.2.1 The Phases of a Traditional Inspection
+### 9.2.1 The Phases of a Traditional Inspection
 
 A traditional inspection moves through six phases.[^4] The discipline is in *not skipping any of
 them*, because each guards against a specific way that informal review fails.
@@ -180,7 +180,7 @@ flowchart TD
 > meeting balloons, most participants disengage, and you cover a fraction of the material.
 > Log the defect, move on, let the author solve it in rework.
 
-### 8.2.2 Case Study: Using Data to Ensure Effectiveness
+### 9.2.2 Case Study: Using Data to Ensure Effectiveness
 
 The feature that separates inspection from informal review is that inspection *measures
 itself*. Because the process is repeatable, you can collect numbers and use them to tell
@@ -204,12 +204,12 @@ review was shallow, not that the code was clean.[^5] By recording review rates, 
 and where in the lifecycle each defect was found, a team can answer questions that opinion
 alone cannot: *Are our inspections worth the time? Which kinds of defects slip through? Should
 we inspect this class of module at all?* Measurement turns inspection from a ritual into a
-controllable process, and connects directly to Chapter 11's treatment of quality metrics.
+controllable process, and connects directly to Chapter 12's treatment of quality metrics.
 
 > **Principle.** Slow down to speed up. In inspection, a *lower* review rate finds *more*
 > defects, and finding a defect on the page is far cheaper than finding it in production.
 
-### 8.2.3 Organizing an Inspection
+### 9.2.3 Organizing an Inspection
 
 An inspection works because the participants play *distinct roles*, not because more eyeballs
 are inherently better.[^7] Assigning roles prevents the classic failure where everyone assumes
@@ -240,7 +240,7 @@ value comes from other people examining it. If your "inspection" is just the aut
 everyone through their own reasoning, you have recreated the very problem you were trying to
 escape.
 
-## 8.3 Code Reviews: Check Intent and Trust
+## 9.3 Code Reviews: Check Intent and Trust
 
 Full Fagan inspection is heavyweight, and most teams do not inspect every change that way —
 the cost is justified only for the riskiest material. What virtually every professional team
@@ -250,7 +250,7 @@ of the most widely practiced static-checking techniques in the industry, and it 
 face of everything the inspection literature discovered.[^8]
 
 Modern code review through pull requests is less about hunting for every defect (automated
-tools, §8.4, are better at the mechanical ones) and more about two human questions that no
+tools, §9.4, are better at the mechanical ones) and more about two human questions that no
 tool can answer: **intent** and **trust**.[^8] *Intent*: does this change do what the author
 *meant* it to do, and is what they meant actually the right thing? A reviewer who understands
 the system can see that a change is technically correct but solves the wrong problem, or
@@ -267,7 +267,7 @@ corrosive.
 > system, it should be approved even when the reviewer can imagine a marginally better
 > version.
 
-### 8.3.1 Invested Expert Reviewers
+### 9.3.1 Invested Expert Reviewers
 
 Not all reviewers are equal, and the difference is not raw skill — it is *investment* and
 *context*. The most valuable reviewer for a change is usually someone who knows that part of
@@ -287,7 +287,7 @@ the honest move is to say so and route it to someone who can, not to rubber-stam
 approval from someone who didn't understand the change provides trust that isn't real, which
 is worse than no approval at all.
 
-### 8.3.2 Reviewing Is Done within Hours
+### 9.3.2 Reviewing Is Done within Hours
 
 The other thing modern practice has learned is that **review latency matters enormously**, and
 the target is *hours, not days*.[^10] This surprises people who assume slower means more thorough,
@@ -307,7 +307,7 @@ minutes and turn it around the same day, whereas a 2,000-line change cannot be r
 *or* quickly — the reviewer skims, approves out of fatigue, and the review becomes theater.[^5]
 Small, frequently reviewed changes are the mechanism that makes fast, thorough review
 possible at once. This is the everyday, industrialized descendant of the inspection data in
-§8.2.2: keep the chunk small, keep the reviewer engaged, and the defects surface.
+§9.2.2: keep the chunk small, keep the reviewer engaged, and the defects surface.
 
 > **Pitfall.** The giant pull request. A change touching forty files with 1,500 lines of diff
 > cannot be reviewed with care — the reviewer's attention is exhausted long before the end, so
@@ -315,7 +315,7 @@ possible at once. This is the everyday, industrialized descendant of the inspect
 > small, independently reviewable changes. If you *receive* a giant PR, it is legitimate to
 > ask for it to be split.
 
-## 8.4 Automated Static Analysis
+## 9.4 Automated Static Analysis
 
 Human review is expensive and imperfect at mechanical checks — people are bad at reliably
 noticing that *every* code path closes a file handle, but computers are excellent at it.
@@ -326,7 +326,7 @@ boring parts — which is why they complement human review rather than competing
 Let the machine catch the mechanical faults so the humans can spend their attention on
 intent and design.
 
-### 8.4.1 A Variety of Static Checkers
+### 9.4.1 A Variety of Static Checkers
 
 "Static analysis" is an umbrella over several distinct kinds of tools, each answering a
 different question. It helps to know the categories so you can assemble the right set.
@@ -601,14 +601,14 @@ different question. It helps to know the categories so you can assemble the righ
   release. Each pattern is a mistake that has bitten enough programmers that someone wrote a
   detector for it. Security-focused variants (often called SAST tools) specialize in patterns
   that lead to vulnerabilities — the security applications of static analysis get their own
-  treatment, alongside dynamic and AI-driven testing, in [Chapter 10](../10-software-security/).
+  treatment, alongside dynamic and AI-driven testing, in [Chapter 11](../11-software-security/).
 
 Most teams run several of these together in **continuous integration** (Chapters 2 and 13), so that
 every proposed change is automatically type-checked, linted, and pattern-scanned before a
 human reviewer ever looks at it. The tools handle the mechanical layer; the humans handle
 judgment. That division of labor is the whole point.
 
-### 8.4.2 False Positives and False Negatives
+### 9.4.2 False Positives and False Negatives
 
 Static analyzers are not oracles. Because they reason about *all possible* executions without
 running any of them, they must approximate, and approximation produces two kinds of error you
@@ -659,7 +659,7 @@ warnings as worth fixing rather than as noise.[^11]
 > floor, not a ceiling — it is why static analysis complements, and never replaces, review and
 > testing.
 
-## 8.5 Conclusion
+## 9.5 Conclusion
 
 Every technique in this chapter finds defects *without running the code*, and each occupies a
 different point on a spectrum from slow-and-human to fast-and-automated. **Architecture
@@ -672,7 +672,7 @@ analysis** handles the mechanical checks tirelessly and in seconds, freeing huma
 for judgment, as long as we manage its false positives so the team keeps trusting it.
 
 These techniques are complementary to each other and, above all, complementary to *testing*
-(Chapter 9). Static checking excels at finding defects that are visible on the page, that lurk
+(Chapter 10). Static checking excels at finding defects that are visible on the page, that lurk
 on rarely executed paths, and that concern design and intent — but it cannot tell you whether
 the assembled system actually behaves correctly when it runs. Testing can, but only for the
 inputs you think to try, and only after the code exists. The mistake → fault → failure chain
@@ -699,6 +699,6 @@ why we cast several.
 
 ---
 
-- **Key takeaways** are summarized above in §8.5.
+- **Key takeaways** are summarized above in §9.5.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

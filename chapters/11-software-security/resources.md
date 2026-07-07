@@ -1,4 +1,4 @@
-# Chapter 10 — Open Resources
+# Chapter 11 — Open Resources
 
 Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
 text · 🎓 course · 📄 primary source / standard · 🎥 video · 🛠 tool. Licenses vary and are noted
@@ -40,7 +40,7 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   *Access: free.*
 - 📄 **GitHub — Copilot Autofix general availability** —
   [github.blog changelog](https://github.blog/changelog/2024-08-14-copilot-autofix-for-codeql-code-scanning-alerts-is-now-generally-available/).
-  The announcement with the CodeQL‑plus‑LLM remediation numbers cited in §10.3. *Access: free.*
+  The announcement with the CodeQL‑plus‑LLM remediation numbers cited in §11.3. *Access: free.*
 
 ## The software supply chain
 
@@ -66,7 +66,7 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   Software‑composition analysis: the first scans a build for known‑vulnerable dependencies, the
   second continuously monitors an SBOM across a whole portfolio. *License: Apache‑2.0.*
 - 📄 **SLSA — Supply‑chain Levels for Software Artifacts** — [slsa.dev](https://slsa.dev/). The
-  framework of build/source integrity levels (L0–L3) referenced in §10.4. *License: open.*
+  framework of build/source integrity levels (L0–L3) referenced in §11.4. *License: open.*
 - 🛠 **Sigstore** — [docs.sigstore.dev](https://docs.sigstore.dev/). Keyless, identity‑based signing
   of artifacts with a public transparency log — the modern answer to "who built this, and can I
   verify it?" *License: Apache‑2.0.*
@@ -75,14 +75,14 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   respectively). *License / standard: open.*
 - 🎭 **MALUS** (satire) — [malus.sh](https://malus.sh/). A deadpan parody of an AI "clean‑room"
   service that claims to launder away open‑source license and attribution obligations. The joke
-  makes the §10.4.2 point vivid: the open‑source supply chain runs on reciprocity, and eroding
+  makes the §11.4.2 point vivid: the open‑source supply chain runs on reciprocity, and eroding
   it is its own slow supply‑chain risk. *Read it, then read a real license.*
 
 ## Standards, frameworks, and courses
 
 - 📄 **NIST SP 800‑218 — Secure Software Development Framework (SSDF) v1.1** —
   [csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final). The common
-  vocabulary of secure‑development practices referenced in §10.5. *Access: U.S. government work,
+  vocabulary of secure‑development practices referenced in §11.5. *Access: U.S. government work,
   public domain.*
 - 🎓 **OpenSSF — "Developing Secure Software" (LFD121)** —
   [openssf.org/training/courses](https://openssf.org/training/courses/). A free, self‑paced online
@@ -94,7 +94,7 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   CC BY 4.0.*
 - 📄 **Hastings & Walcott, "Continuous Verification of Open Source Components in a World of Weak
   Links," ISSREW 2022** — [doi.org/10.1109/ISSREW55968.2022.00068](https://doi.org/10.1109/ISSREW55968.2022.00068).
-  The published paper behind §10.4's six‑control framework. *Access: IEEE (publisher page; author
+  The published paper behind §11.4's six‑control framework. *Access: IEEE (publisher page; author
   preprints are widely indexed).*
 
 ## License note

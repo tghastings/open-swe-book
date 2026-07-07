@@ -1,4 +1,4 @@
-# Chapter 11 — Exercises
+# Chapter 12 — Exercises
 
 Exercises are graded by depth: **[warm‑up]** checks understanding, **[analysis]** asks
 you to reason; a **[calculation]** tag marks exercises that require working the
@@ -42,7 +42,7 @@ with defects.
 8. **[analysis]** Explain the difference between DRE improving because your *product* got
    better and the customer quality metric $Q_{\text{cust}}$ falling because *usage*
    dropped. Which metric is confounded by usage and which is not? Why does Northwind track
-   both (§11.5)?
+   both (§12.5)?
 9. **[analysis]** You compute a 95% confidence interval $(5.07, 12.93)$ for a release's
    mean CFD count. A teammate says "so there's a 95% chance the true mean is between 5.07
    and 12.93." Explain precisely why this interpretation is wrong and give the correct

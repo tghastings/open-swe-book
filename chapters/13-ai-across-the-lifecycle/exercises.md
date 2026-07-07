@@ -1,4 +1,4 @@
-# Chapter 12 — Exercises
+# Chapter 13 — Exercises
 
 Tags: **[warm‑up]** checks understanding · **[analysis]** asks you to reason.
 
@@ -7,7 +7,7 @@ Tags: **[warm‑up]** checks understanding · **[analysis]** asks you to reason.
 1. **[warm‑up]** In your own words, restate the distinction between *essential* and
    *accidental* complexity (Chapter 1) and give one software task at each end that AI
    handles well or poorly. Why does the boundary predict where AI helps?
-2. **[warm‑up]** Name the five rungs of the "ladder of assistance" (§12.1.3). For each,
+2. **[warm‑up]** Name the five rungs of the "ladder of assistance" (§13.1.3). For each,
    state one thing the *human* must still do.
 3. **[warm‑up]** What is the **oracle problem**, and why does it limit AI‑generated tests
    even when coverage numbers look high?
@@ -16,15 +16,15 @@ Tags: **[warm‑up]** checks understanding · **[analysis]** asks you to reason.
 
 4. **[analysis]** The 2025 METR trial found experienced developers were ~19% *slower* with
    AI while believing they were faster. Give two plausible mechanisms for the gap, and
-   describe an experiment (using Chapter 11 methods) you could run on your own team to
+   describe an experiment (using Chapter 12 methods) you could run on your own team to
    measure *your* real speedup instead of trusting the feeling.
-5. **[analysis]** Pick any three lifecycle stages from §12.2. For each, write one sentence
+5. **[analysis]** Pick any three lifecycle stages from §13.2. For each, write one sentence
    on what AI does well and one on the specific fundamental a human still owns. Cite the
    chapter each maps to.
-6. **[analysis]** §12.2.6 says AI "inverts" the code‑review problem. Explain the inversion,
-   and propose two concrete team policies that keep reviewer trust (Chapter 8) from eroding
+6. **[analysis]** §13.2.6 says AI "inverts" the code‑review problem. Explain the inversion,
+   and propose two concrete team policies that keep reviewer trust (Chapter 9) from eroding
    when most code under review is machine‑generated.
-7. **[analysis]** The security evidence (§12.3) shows users of AI assistants writing *less*
+7. **[analysis]** The security evidence (§13.3) shows users of AI assistants writing *less*
    secure code while feeling *more* secure. Which cognitive bias from Chapter 4 does this
    resemble, and what process safeguard would you add?
 

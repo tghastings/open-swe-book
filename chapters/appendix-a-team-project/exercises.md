@@ -37,7 +37,7 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 
 7. **[project]** Reach a minimum viable product: the *Must‑haves* work for a real user.
    Submit [Status Report 2](../../templates/status-report.md) with a test‑coverage number
-   (Chapter 9) and your current defect count (Chapter 11).
+   (Chapter 10) and your current defect count (Chapter 12).
 8. **[team]** Run one retrospective (Chapter 2). Record two things to keep doing and one
    concrete change. At the next checkpoint, report whether the change stuck.
 
@@ -45,7 +45,7 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 
 9. **[project]** Complete the [final report](../../templates/final-report.md), including a
    quality‑metrics section: defect‑removal efficiency and at least one chart or confidence
-   interval from your project data (Chapter 11).
+   interval from your project data (Chapter 12).
 10. **[analysis]** Write an honest *individual contribution* statement for each member,
     then a team retrospective: what would you do differently if you started over knowing
     what you know now? Tie at least three lessons back to specific chapters.

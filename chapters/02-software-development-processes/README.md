@@ -486,7 +486,7 @@ Scrum gives the cadence — sprints, backlog, review, retrospective — and the 
 priorities and impediments owned. XP fills the sprint with the discipline that makes each
 increment genuinely done: TDD, pair or peer review, refactoring, and **continuous
 integration**, in which everyone merges into a shared mainline many times a day and an
-automated build-and-test pipeline verifies each merge.[^11] (Chapter 13 dissects that pipeline
+automated build-and-test pipeline verifies each merge.[^11] (Chapter 14 dissects that pipeline
 stage by stage and follows it all the way to production.)
 
 The combination is more than the sum of its parts. Scrum without engineering practice
@@ -576,7 +576,7 @@ Waterfall is not always the wrong choice, and when constraints force something w
 - **Prototype the risky parts first.** Build a throwaway prototype of the hardest or least
   understood piece before committing to the full design, so you learn early.
 - **Review at every phase boundary.** Since you cannot rely on late testing to catch early
-  mistakes, inspect requirements and designs rigorously before building on them (Chapter 8).
+  mistakes, inspect requirements and designs rigorously before building on them (Chapter 9).
 - **Integrate incrementally even within a plan.** You can keep the phased structure while
   still bringing components together in stages rather than all at once.
 - **Keep the phases short and iterate the whole thing.** A series of small waterfalls is much
@@ -865,7 +865,7 @@ practices are worth borrowing regardless of your process:
 - **Hill charts for progress.** Track each scope as a dot on a hill: **uphill** is
   *figuring it out* (unknowns remain), **downhill** is *just execution* (all unknowns
   solved). A dot that stops moving is a raised hand. This exposes uncertainty in a way a
-  to‑do list cannot — see [§11.3](../11-quality-metrics/#113-graphical-displays-of-data-sets).
+  to‑do list cannot — see [§12.3](../12-quality-metrics/#123-graphical-displays-of-data-sets).
 
 **The circuit breaker.** When the cycle ends, the project ships or it is *dropped* — it does
 **not** automatically get an extension. The most you can lose is one cycle. Extending is

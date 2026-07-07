@@ -1,10 +1,10 @@
-# Chapter 12 — Open Resources
+# Chapter 13 — Open Resources
 
 Free, open‑licensed, or freely accessible primary sources behind this chapter. Types: 📘 open
 text · 🎓 course · 📄 primary source/paper · 🎥 video. Licenses vary and are noted where known.
 AI moves fast — prefer primary studies over vendor blogs, and check dates.
 
-## The o16g manifesto (used in §12.4)
+## The o16g manifesto (used in §13.4)
 
 - 📄 **o16g — the Outcome Engineering manifesto**, Cory Ondrejka —
   [o16g.com/manifesto](https://o16g.com/manifesto/). The 16 principles and the "it was
@@ -13,7 +13,7 @@ AI moves fast — prefer primary studies over vendor blogs, and check dates.
   [businesswire.com](https://www.businesswire.com/news/home/20260203520166/en/Onebrief-Hires-Cory-Ondrejka-as-Chief-Technology-Officer-to-Drive-Next-Gen-Command-Operating-System).
   Background on the manifesto's author.
 
-## Productivity evidence (used in §12.1.4, §12.3)
+## Productivity evidence (used in §13.1.4, §13.3)
 
 - 📄 METR, **"Measuring the Impact of Early‑2025 AI on Experienced Open‑Source Developer
   Productivity"** (2025) — [metr.org study](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
@@ -33,7 +33,7 @@ AI moves fast — prefer primary studies over vendor blogs, and check dates.
 - 📄 **DORA / State of DevOps** reports on AI's effect on delivery —
   [dora.dev](https://dora.dev/).
 
-## Code quality & security (used in §12.3)
+## Code quality & security (used in §13.3)
 
 - 📄 GitClear, **"AI Copilot Code Quality: 2025 Research"** (rising code clones, falling
   refactoring) — [gitclear.com research](https://www.gitclear.com/ai_assistant_code_quality_2025_research).
@@ -45,7 +45,7 @@ AI moves fast — prefer primary studies over vendor blogs, and check dates.
   [research.google](https://research.google/blog/resolving-code-review-comments-with-ml/).
   ML‑suggested fixes for review comments at Google scale.
 
-## AI in requirements, design, testing (used in §12.2)
+## AI in requirements, design, testing (used in §13.2)
 
 - 📄 **"Generative AI for Requirements Engineering: A Systematic Literature Review"** —
   [arXiv 2409.06741](https://arxiv.org/pdf/2409.06741).

@@ -161,7 +161,7 @@ mistakes: tangled dependencies, unclear names, duplicated logic, leaky abstracti
 Good engineering cannot eliminate essential complexity, but it relentlessly attacks
 accidental complexity. Much of this book is about that: clear specifications
 (Chapter 6), patterns that package proven solutions (Chapter 7), reviews that catch
-needless complication (Chapter 8).
+needless complication (Chapter 9).
 
 Software is also uniquely complex among engineered artifacts for structural reasons:
 
@@ -216,7 +216,7 @@ A fault is *latent* until some execution triggers it into a failure. This chain 
 mistake → fault → failure — explains why we attack defects at every stage: better
 requirements and reviews reduce **mistakes**; static checking and inspection find
 **faults** before they run; testing provokes **failures** in a safe setting before users
-do. No single technique suffices, which is why Chapters 8 and 9 are complementary.
+do. No single technique suffices, which is why Chapters 9 and 9 are complementary.
 
 ### 1.4.2 Introduction to Testing
 
@@ -224,7 +224,7 @@ do. No single technique suffices, which is why Chapters 8 and 9 are complementar
 expect. It cannot prove the absence of defects — as Dijkstra, a pioneer in computing
 and mathematics, observed, testing shows the *presence* of bugs, never their absence[^8] —
 but a well‑designed test suite makes it *unlikely* that a serious fault survives, and 
-it makes change safe by catching regressions. Testing is important enough that Chapter 9 
+it makes change safe by catching regressions. Testing is important enough that Chapter 10 
 is devoted to it, including how to decide when you have tested *enough* (coverage).
 
 ### 1.4.3 Black‑Box and White‑Box Testing
@@ -239,7 +239,7 @@ Two complementary viewpoints run through all of testing:
   aiming to exercise its statements, branches, and paths. Its strength is finding code
   that the specification‑based tests never reach.
 
-Neither subsumes the other, and Chapter 9 shows how to combine them and how to *measure*
+Neither subsumes the other, and Chapter 10 shows how to combine them and how to *measure*
 their thoroughness with coverage criteria.
 
 ## 1.5 Balancing Constraints: The Iron Triangle
@@ -271,7 +271,7 @@ on the date, even if not everything. Plan‑driven methods more often fix scope 
 time. Chapters 2 and 4 return to this trade‑off with concrete estimation and
 prioritization techniques (story points, MoSCoW, value/cost/risk). And modern software
 increasingly ships as a **continuously updated service** rather than a boxed product —
-Chapter 13 examines how that reshapes the triangle, when releasing becomes a routine
+Chapter 14 examines how that reshapes the triangle, when releasing becomes a routine
 decision instead of a once‑a‑year event.
 
 > **Pitfall.** Silently absorbing a scope increase by working nights ("crunch") hides
@@ -342,12 +342,14 @@ those pressures:
 - **Process** (Ch. 2) coordinates the team and embraces change.
 - **Requirements** (Ch. 3–5) discover and pin down *what to build*.
 - **Design and architecture** (Ch. 6–7) tame complexity so change stays cheap.
-- **Static checking and testing** (Ch. 8–9) catch the inevitable defects early.
-- **Security** (Ch. 10) makes the software resist attack, from the code to the supply chain it is built from.
-- **Metrics** (Ch. 11) tell us, with evidence rather than opinion, how we are doing.
-- **AI across the lifecycle** (Ch. 12) re-examines every one of those disciplines as
+- **Version control** (Ch. 8) gives every change a name, a history, and an owner — the
+  substrate every later discipline builds on.
+- **Static checking and testing** (Ch. 9–10) catch the inevitable defects early.
+- **Security** (Ch. 11) makes the software resist attack, from the code to the supply chain it is built from.
+- **Metrics** (Ch. 12) tell us, with evidence rather than opinion, how we are doing.
+- **AI across the lifecycle** (Ch. 13) re-examines every one of those disciplines as
   coding agents take over more of the typing.
-- **Delivery** (Ch. 13) carries a verified change the last mile, into production, safely.
+- **Delivery** (Ch. 14) carries a verified change the last mile, into production, safely.
 - **A team project** (Appendix A) puts it all into practice.
 
 A word about the code you will meet along the way. Concepts come first in this book and
@@ -369,7 +371,7 @@ differently in pytest, JUnit, `node:test`, `go test`, and Minitest — and each 
 the language's design. Every snippet is a real program, kept as a runnable file with a
 test in the book's repository and exercised by continuous integration, so the examples
 cannot silently rot. And when an example is *supposed* to fail — a type fault the
-compiler rejects in Chapter 8 — the error message printed beside it is the compiler's
+compiler rejects in Chapter 9 — the error message printed beside it is the compiler's
 actual output, not a paraphrase.
 
 Keep the four cross‑cutting principles in view as you read: *software is complex;

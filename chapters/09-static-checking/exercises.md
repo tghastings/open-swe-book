@@ -1,4 +1,4 @@
-# Chapter 8 — Exercises
+# Chapter 9 — Exercises
 
 Exercises are graded by depth: **[warm‑up]** checks understanding, **[analysis]** asks you to
 reason.
@@ -7,7 +7,7 @@ reason.
 
 1. **[warm‑up]** In one or two sentences each, explain what makes a technique *static* rather
    than *dynamic*, and give one example of each from this book. Then state the single biggest
-   thing static checking *cannot* tell you that testing (Chapter 9) can.
+   thing static checking *cannot* tell you that testing (Chapter 10) can.
 
 2. **[warm‑up]** Name the six phases of a traditional inspection in order, and give a
    one‑sentence purpose for each. Which phase finds most of the defects, and why is it *not*
@@ -178,7 +178,7 @@ reason.
     breaks out. As the moderator, what rule is being violated, what do you say, and where does
     that redesign work properly belong? Explain *why* the meeting protects this boundary.
 
-11. **[analysis]** The §8.2.2 case study found that raising the preparation rate above ~1,000
+11. **[analysis]** The §9.2.2 case study found that raising the preparation rate above ~1,000
     lines/hour cut defect yield from ~8 to ~2 per thousand lines. A manager reads this as "great
     news — the faster reviews find fewer problems, so the code must be getting cleaner." Explain
     why this interpretation is exactly backwards, and describe the one metric you would add to

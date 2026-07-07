@@ -1,4 +1,4 @@
-# Chapter 10 — Software Security
+# Chapter 11 — Software Security
 
 > **Where we are.** Security has surfaced in almost every chapter of this book, always as
 > one concern among many. Chapter 3 had you draw **attack trees** and walk a STRIDE
@@ -7,8 +7,8 @@
 > write security as a **quality-attribute scenario**, so "the system shall be secure"
 > became something you could measure
 > ([§6.1.4](../06-design-and-architecture/#614-quality-attribute-scenarios-making-good-testable)).
-> Chapter 8's static analysis traced tainted input into a query, and Chapter 9's tests
-> probed the error paths an attacker lives on — and Chapter 13 will turn many of these
+> Chapter 9's static analysis traced tainted input into a query, and Chapter 10's tests
+> probed the error paths an attacker lives on — and Chapter 14 will turn many of these
 > checks into automated pipeline gates. Security is a **cross-cutting
 > concern** — a property of the whole lifecycle rather than a feature bolted on at the end —
 > and this chapter gathers the threads the earlier chapters left loose and ties them into
@@ -30,9 +30,9 @@ have already shipped.
 > control. The cheapest defense is the one you made impossible by design; the most
 > expensive is the one you patch after a breach.
 
-## 10.1 Security Is a Lifecycle Property
+## 11.1 Security Is a Lifecycle Property
 
-### 10.1.1 The CIA Triad
+### 11.1.1 The CIA Triad
 
 The classic way to name what security protects is the **CIA triad** — three properties
 every system holds in some measure:
@@ -43,7 +43,7 @@ every system holds in some measure:
   changes are detectable. An attacker who cannot read a record may still do real harm by
   silently *changing* it — a dosage, a balance, a build artifact.
 - **Availability** — the system is up and responsive when legitimate users need it. This is
-  the same availability Chapter 13 will trade against consistency in the CAP theorem; a
+  the same availability Chapter 14 will trade against consistency in the CAP theorem; a
   denial-of-service attack is an availability attack, and downtime you did not choose is a
   security failure as much as a reliability one.
 
@@ -52,7 +52,7 @@ confidentiality failure; a tampered firmware update is an integrity failure; a r
 lockout is an availability failure. Naming the property under threat keeps a security
 conversation concrete instead of a vague wish to "be secure."
 
-### 10.1.2 Threat, Vulnerability, Exploit
+### 11.1.2 Threat, Vulnerability, Exploit
 
 Three words get used loosely in casual talk and must be kept distinct in engineering.
 
@@ -69,7 +69,7 @@ vulnerability that no threat can reach is low risk, and a severe threat aimed at
 you have already closed is harmless. Security work is the ongoing business of shrinking the
 overlap.
 
-### 10.1.3 Defense in Depth and Shifting Left
+### 11.1.3 Defense in Depth and Shifting Left
 
 No single control is perfect, so serious systems assume each one will eventually fail and
 place several independent layers between an attacker and what matters. **Defense in depth**
@@ -94,7 +94,7 @@ flowchart TD
     class Asset core;
 ```
 
-The other structural idea is *when* security work happens. The same economics Chapter 8
+The other structural idea is *when* security work happens. The same economics Chapter 9
 gave for defects applies with force to vulnerabilities: the earlier you catch one, the
 cheaper it is to fix. A trust-boundary mistake caught in a design review costs an
 afternoon; the same mistake caught after a breach costs an incident, a disclosure, and
@@ -104,7 +104,7 @@ static and dependency scanning on every commit — instead of leaving it to a pe
 test the week before launch. Everything in this chapter is arranged along that leftward
 pull.
 
-### 10.1.4 Security as a Quality Attribute
+### 11.1.4 Security as a Quality Attribute
 
 Because security is a system property you can reason about early, it belongs in the same
 toolbox as the other quality attributes. Chapter 6 taught you to make a vague quality
@@ -119,7 +119,7 @@ adversary's half of the same practice: model the attacker's goal as a tree of su
 and each leaf is a scenario your design must answer. Threat modeling is the requirements and design work of Chapters 3
 and 6, done with an adversary in the room.
 
-## 10.2 The OWASP Top 10
+## 11.2 The OWASP Top 10
 
 Design thinking tells you *how* to reason about threats; it does not tell you *which*
 threats are actually hurting real systems right now. For that, the field's most widely used
@@ -152,12 +152,12 @@ categories are new. **A03:2025 Software Supply Chain Failures** is a broadened s
 2021's "Vulnerable and Outdated Components" — the scope now covers breakdowns anywhere in
 building, distributing, or updating software, not only components with a published CVE — and
 its promotion to third place is the clearest signal in the document that the industry's
-attention has moved to the supply chain (the subject of §10.4). **A10:2025 Mishandling of
+attention has moved to the supply chain (the subject of §11.4). **A10:2025 Mishandling of
 Exceptional Conditions** is entirely new: it names the security bugs that hide in bad error
 handling — fail-open logic, crashes, leaked stack traces — and it pairs naturally with
-Chapter 13's CrowdStrike case study, where an unhandled condition inside kernel code took
+Chapter 14's CrowdStrike case study, where an unhandled condition inside kernel code took
 down millions of machines
-([§13.3.5](../13-delivery/#1335-when-deployment-goes-wrong-two-case-studies)).
+([§14.3.5](../14-delivery/#1435-when-deployment-goes-wrong-two-case-studies)).
 
 The rest of the diff is renaming and reranking. Server-Side Request Forgery, a standalone
 category in 2021, is no longer its own entry — it now lives *inside* A01 Broken Access
@@ -177,7 +177,7 @@ prevent it by default.
 > to make sure no whole *class* of risk has been forgotten, and expect the list itself to
 > change with the next edition.
 
-### 10.2.1 A01: Broken Access Control
+### 11.2.1 A01: Broken Access Control
 
 **Access control** enforces the policy that users can only act within their intended
 permissions. When it breaks, users read, modify, or destroy data that should be beyond
@@ -194,9 +194,9 @@ the server for *every* request, and derive the acting user's identity from an au
 session rather than from any value the client can set. Access control is also the security
 attribute least visible to testing — a feature "works" perfectly while silently letting the
 wrong people use it — which is exactly why it belongs in design review and in the
-authorization scenarios of §10.1.4.
+authorization scenarios of §11.1.4.
 
-### 10.2.2 A05: Injection
+### 11.2.2 A05: Injection
 
 **Injection** is what happens when untrusted input is handed to an interpreter and part of
 that input gets executed as a command rather than treated as data.[^7] SQL injection is the
@@ -329,7 +329,7 @@ crafted name like `Robert'); DROP TABLE appointments; --` closes the quote, ends
 statement, and appends one of their own. In the second, the `?` placeholder is a
 **parameterized query**: the SQL text is fixed and compiled first, and the name is bound in
 afterward as pure data that can never change the query's structure. This is the mechanism
-Chapter 8's data-flow analyzers hunt for — tainted input flowing into a query — and the fix
+Chapter 9's data-flow analyzers hunt for — tainted input flowing into a query — and the fix
 is the same everywhere, in every language and every interpreter.
 
 > **Principle.** Never build a command by concatenating untrusted input into it. Keep code
@@ -338,7 +338,7 @@ is the same everywhere, in every language and every interpreter.
 > subprocesses. Injection is a solved problem; it survives only where someone reached for
 > string concatenation instead.
 
-### 10.2.3 A06: Insecure Design
+### 11.2.3 A06: Insecure Design
 
 Some vulnerabilities cannot be coded away, because the flaw is in the design itself. OWASP
 defines **Insecure Design** as "missing or ineffective control design" — a category for
@@ -350,11 +350,11 @@ finds this, because there is no defect on any single line to find.
 
 This is the category that binds security to the rest of software engineering. It says some
 security problems are *requirements and architecture* problems, catchable only by the threat
-modeling of Chapter 3 and the design review of Chapter 8 — before code exists. Insecure
+modeling of Chapter 3 and the design review of Chapter 9 — before code exists. Insecure
 Design is the standing argument against treating security as a coding-time concern: the
 most expensive vulnerabilities are decided at the whiteboard.
 
-### 10.2.4 Learning by Doing, for Free
+### 11.2.4 Learning by Doing, for Free
 
 Reading about vulnerabilities builds recognition; exploiting and then fixing them builds
 understanding, and the best resources for that cost nothing. **OWASP Juice Shop** is a
@@ -371,21 +371,21 @@ OWASP site, exploit it in Juice Shop or WebGoat, fix it using the matching page 
 free **OWASP Cheat Sheet Series**,[^12] and confirm your fix against a requirement from the
 **OWASP Application Security Verification Standard (ASVS)**, a free checklist of testable
 security controls.[^13] Learn, attack, defend, verify — the same red-to-green rhythm
-Chapter 9 taught, aimed at security.
+Chapter 10 taught, aimed at security.
 
-## 10.3 Finding Vulnerabilities, from Manual to Autonomous
+## 11.3 Finding Vulnerabilities, from Manual to Autonomous
 
-Knowing the categories, how do you find *your* instances of them? Chapter 13 will introduce the
+Knowing the categories, how do you find *your* instances of them? Chapter 14 will introduce the
 three scanner families that automate the search
-([§13.6.1](../13-delivery/#1361-sast-dast-and-sca)); this section previews them briefly and
+([§14.6.1](../14-delivery/#1461-sast-dast-and-sca)); this section previews them briefly and
 then turns to what is genuinely new — security tools that use large language models to find,
 confirm, and even fix vulnerabilities on their own.
 
-### 10.3.1 SAST, DAST, and SCA
+### 11.3.1 SAST, DAST, and SCA
 
 The three families divide the work by what they look at. **Static application security
-testing (SAST)** is the security-focused end of the static analysis of Chapter 8
-([§8.4](../08-static-checking/#84-automated-static-analysis)): it reads source code without
+testing (SAST)** is the security-focused end of the static analysis of Chapter 9
+([§9.4](../09-static-checking/#94-automated-static-analysis)): it reads source code without
 running it, hunting vulnerable *patterns* — injection sinks, unsafe deserialization, hard-
 coded secrets. **Dynamic application security testing (DAST)** attacks the *running*
 application from the outside, the way an adversary would, probing endpoints with hostile
@@ -394,13 +394,13 @@ neither your code nor your running app but your *dependency manifest*, checking 
 party package against databases of known vulnerabilities.
 
 The three are complementary because each sees what the others cannot, and all three carry
-Chapter 8's warning about **false positives and false negatives**
-([§8.4.2](../08-static-checking/#842-false-positives-and-false-negatives)): a scanner that
+Chapter 9's warning about **false positives and false negatives**
+([§9.4.2](../09-static-checking/#942-false-positives-and-false-negatives)): a scanner that
 floods developers with false alarms trains them to ignore it, and then its true findings are
 lost in the noise. A security scanner earns action only by keeping its signal high enough to
 be worth reading.
 
-### 10.3.2 AI Enters the Loop
+### 11.3.2 AI Enters the Loop
 
 A wave of tools now applies large language models to security, and they occupy three
 distinct points in the design space worth keeping apart.
@@ -459,10 +459,10 @@ course must name plainly.
 > vulnerability late is far more expensive than a design decision that made the bug
 > impossible; treat Strix, Big Sleep, and Autofix as authorized-testing and research tools
 > that complement threat modeling, least privilege, and input validation — never as
-> substitutes for them. Adopt any of them the way Chapter 8 said to adopt a static analyzer:
+> substitutes for them. Adopt any of them the way Chapter 9 said to adopt a static analyzer:
 > as a tool whose output you must keep trusting, which means keeping it honest.
 
-## 10.4 The Software Supply Chain: A World of Weak Links
+## 11.4 The Software Supply Chain: A World of Weak Links
 
 Every technique so far assumes the code under review is *your* code. It mostly is not. The
 single largest shift in what "your software" means is that a modern application is
@@ -471,7 +471,7 @@ are not on your team, updated on a schedule you do not control. This section is 
 intellectual center of the chapter, because it is where security stops being about the code
 you can read and becomes about the trust you extend.
 
-### 10.4.1 The Scale Problem
+### 11.4.1 The Scale Problem
 
 Start with your own habit. When you run `npm install` or `pip install`, you pull in not just
 the package you named but everything *it* depends on, and everything those depend on, down
@@ -501,7 +501,7 @@ people's, and its vulnerabilities are your vulnerabilities.
 > exact versions with a lockfile, review dependency-update pull requests like any other
 > change, and treat a new dependency as an engineering decision with a threat model attached.
 
-### 10.4.2 Weak Links
+### 11.4.2 Weak Links
 
 Why is the open-source supply chain so exposed? Because trust in it flows through people, and
 people are the weakest link. The dissertation adopts the term **weak links** from research
@@ -532,7 +532,7 @@ obligations."*[^23] The site is a joke; the pressure it names is not. If firms c
 launder away the reciprocity that open source runs on — taking the value while shedding the
 obligation — the volunteers who maintain the world's dependencies would have even less
 reason to keep doing unpaid, thankless work, and the pool of overextended maintainers you
-will meet in the xz story (§10.4.3) would only thin further. Security tooling can verify a component's
+will meet in the xz story (§11.4.3) would only thin further. Security tooling can verify a component's
 provenance; it cannot, by itself, sustain the human ecosystem that produces components worth
 verifying. That sustainability is a supply-chain security concern too.
 
@@ -542,7 +542,7 @@ verifying. That sustainability is a supply-chain security concern too.
 > bugs, upstreaming fixes, and — where you can — funding the projects you depend on are how you
 > keep the components you rely on alive and watched, not charity.
 
-### 10.4.3 Two Case Studies
+### 11.4.3 Two Case Studies
 
 > **Case study.** *Log4Shell (CVE-2021-44228), December 2021.* Apache Log4j is a logging
 > library so common that it sits, usually as a transitive dependency, inside a large fraction
@@ -561,7 +561,7 @@ verifying. That sustainability is a supply-chain security concern too.
 > behavior, 2.16.0 removed it — and the urgency was extraordinary: CISA added Log4Shell to
 > its Known Exploited Vulnerabilities catalog with a federal remediation deadline of December
 > 24, 2021,[^25] two weeks after disclosure. The lesson is that you cannot patch a dependency you
-> do not know you have — which is the argument for the software bills of materials in §10.4.5.
+> do not know you have — which is the argument for the software bills of materials in §11.4.5.
 
 > **Case study.** *The xz-utils backdoor (CVE-2024-3094), March 2024.* Where Log4Shell was an
 > accident, xz was an attack — a patient, multi-year campaign to plant a backdoor in software
@@ -597,7 +597,7 @@ verifying. That sustainability is a supply-chain security concern too.
 > code review as a security control, and observability curiosity are not soft skills here —
 > they are the controls that failed and the one that saved the day.
 
-### 10.4.4 Continuous Verification: A Framework of Six Controls
+### 11.4.4 Continuous Verification: A Framework of Six Controls
 
 The two cases motivate a repeatable way to vet a dependency *before* and *after* you adopt
 it, rather than trusting it and hoping. Hastings' dissertation — the relevant chapter of
@@ -651,7 +651,7 @@ mental model is what to carry away: **vet before you adopt (Day 0), control what
 (Day 1), monitor in production (Day 2)** — a lifecycle arc that lines up with this book's own
 progression from design through delivery to operations.
 
-### 10.4.5 The Modern Supply-Chain Toolbox
+### 11.4.5 The Modern Supply-Chain Toolbox
 
 You do not have to build C1–C6 by hand; a growing set of free tools implements pieces of it,
 and each answers a different question about an artifact.
@@ -691,7 +691,7 @@ progression that A03 spans.[^38] All of them are free, and OpenSSF even publishe
 certificate-bearing course, "Developing Secure Software" (LFD121), that a student can put on
 a résumé.[^39] Supply-chain security is an employable skill, not abstract policy.
 
-## 10.5 Building Security In
+## 11.5 Building Security In
 
 The through-line of this chapter is that security is decided long before an attacker shows
 up. The industry has codified that idea into a reference practice. The **NIST Secure Software
@@ -709,8 +709,8 @@ locked down, so that the safe configuration is the one you get by doing nothing 
 was, at heart, an *insecure* default. **Least privilege**: every user, service, and token
 gets the minimum access it needs and no more, so that a compromise of one part cannot reach
 the whole. **Secrets management**: credentials belong in a secrets manager or injected
-configuration, never in source — the secrets-scanning gate of Chapter 13
-([§13.6.3](../13-delivery/#1363-secrets-and-gate-placement)) exists because a key committed
+configuration, never in source — the secrets-scanning gate of Chapter 14
+([§14.6.3](../14-delivery/#1463-secrets-and-gate-placement)) exists because a key committed
 to git history must be treated as compromised the moment it lands.
 
 Finally, assume you will be attacked anyway, and instrument for it. **A09:2025 Security
@@ -720,7 +720,7 @@ respond in time to a breach in progress.[^41] Its neighbor, **A10:2025 Mishandli
 Exceptional Conditions**, is the everyday habit that turns into a security bug when done
 badly: fail-open logic, crashes on unexpected input, and stack traces leaked to
 users.[^42] Both connect security back to ordinary engineering discipline — an error path
-you handle carefully and a log you actually watch are security controls, and Chapter 13's
+you handle carefully and a log you actually watch are security controls, and Chapter 14's
 CrowdStrike outage is what the mishandled exceptional condition looks like at global scale.
 
 > **Principle.** Design so that the *default* path is the secure one and the *privileged*
@@ -728,12 +728,12 @@ CrowdStrike outage is what the mishandled exceptional condition looks like at gl
 > every control that is automatic — a safe default, a scoped token, a pipeline gate — holds
 > even on the day everyone is tired and shipping fast.
 
-## 10.6 Conclusion
+## 11.6 Conclusion
 
 Security is the discipline this book has been building toward without always naming it. The
 attack trees and STRIDE checklists of Chapter 3 were security work; the quality-attribute
-scenarios of Chapter 6 made "secure" measurable; the static analysis of Chapter 8 and the
-tests of Chapter 9 were catching vulnerabilities all along; and the pipeline of Chapter 13
+scenarios of Chapter 6 made "secure" measurable; the static analysis of Chapter 9 and the
+tests of Chapter 10 were catching vulnerabilities all along; and the pipeline of Chapter 14
 will turn those checks into gates no change can skip. What this chapter added is the adversarial
 frame that unifies them — the assumption that someone is actively working to make your system
 misbehave — and the recognition that most of the software you ship was written by strangers,
@@ -741,7 +741,7 @@ so trust in the supply chain is now the largest security decision your team make
 Top 10 tells you which risks are real this year; parameterized queries and secure defaults
 close whole categories by construction; AI tools like Copilot Autofix, Big Sleep, and Strix
 are beginning to find and fix bugs at machine speed, under the standing conditions of
-authorization and human validation; and the continuous-verification framework of §10.4 gives
+authorization and human validation; and the continuous-verification framework of §11.4 gives
 you a way to vet a dependency across its whole life rather than trusting it on faith. Log4Shell
 and xz-utils are the permanent record of what happens when you cannot see inside your own
 software and when a single overloaded maintainer holds up the world.
@@ -840,6 +840,6 @@ an adversary only has to find the one weak link you forgot to check.**
 
 ---
 
-- **Key takeaways** are summarized above in §10.6.
+- **Key takeaways** are summarized above in §11.6.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.
