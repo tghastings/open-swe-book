@@ -15,7 +15,7 @@ Resources are grouped as:
 - 📄 **Primary source** — the canonical spec, standard, or paper.
 - 🎥 **Video** — recorded lectures or talks.
 
-> **Coverage summary.** The book's thirteen chapters cover a first course. The four
+> **Coverage summary.** The book's fourteen chapters cover a first course. The four
 > "anchor" open courses below reinforce most of that ground; the per‑chapter tables add
 > focused resources for the rest (estimation, use‑case mechanics, architectural pattern
 > catalogs, and the statistics in Chapter 12).
@@ -24,10 +24,10 @@ Resources are grouped as:
 
 | Anchor | Covers chapters | What it is | License |
 |--------|-----------------|------------|---------|
-| **MIT 6.031 Software Construction** — [web.mit.edu/6.031](http://web.mit.edu/6.031), [OCW 6.005 (2016)](https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/) | 6, 8, 9 | Complete, polished reading notes on specs, ADTs, testing, code review, and design. | CC BY‑SA (OCW) |
-| **UC Berkeley — Engineering Software as a Service (ESaaS)** — [saasbook.info](https://saasbook.info/) | 1, 2, 3, 9 | Free book + MOOC on agile, BDD/user stories, and testing. | Free book; CC‑BY media |
-| **CMU 17‑214 / 17‑313 Software Engineering** — [17-313 course site](https://cmu-313.github.io/) | 2, 6, 8, 11 | Open slides/readings on process, design, reviews, and measurement. | Course‑open |
-| **"Software Engineering at Google"** — [free online](https://abseil.io/resources/swe-book) | 1, 8, 9, 11 | Industry practices for reviews, testing, and metrics at scale. | CC BY‑NC‑ND |
+| **MIT 6.031 Software Construction** — [web.mit.edu/6.031](http://web.mit.edu/6.031), [OCW 6.005 (2016)](https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/) | 6, 9, 10 | Complete, polished reading notes on specs, ADTs, testing, code review, and design. | CC BY‑NC‑SA (OCW) |
+| **UC Berkeley — Engineering Software as a Service (ESaaS)** — [saasbook.info](https://saasbook.info/) | 1, 2, 3, 10 | Free book + MOOC on agile, BDD/user stories, and testing. | Free book; CC‑BY media |
+| **CMU 17‑214 / 17‑313 Software Engineering** — [17-313 course site](https://cmu-313.github.io/) | 2, 6, 9, 12 | Open slides/readings on process, design, reviews, and measurement. | Course‑open |
+| **"Software Engineering at Google"** — [free online](https://abseil.io/resources/swe-book) | 1, 9, 10, 12 | Industry practices for reviews, testing, and metrics at scale. | CC BY‑NC‑ND |
 
 ---
 
@@ -50,7 +50,7 @@ iron triangle (scope/cost/time), the VW & Therac‑25 case studies, ethics.
 | Type | Resource | Notes |
 |------|----------|-------|
 | 📄 | [Manifesto for Agile Software Development](https://agilemanifesto.org/) | The four values, twelve principles. |
-| 📄 | [The Scrum Guide (2020)](https://scrumguides.org/scrum-guide.html) · [PDF](https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf) | Roles, events, artifacts — primary source. |
+| 📄 | [The Scrum Guide (2020)](https://scrumguides.org/scrum-guide.html) · [PDF](https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf) | Accountabilities, events, artifacts — primary source. |
 | 📘 | [Extreme Programming (c2 wiki / Beck summaries)](http://wiki.c2.com/?ExtremeProgramming) | XP practices and user stories. |
 | 📄 | W. Royce, ["Managing the Development of Large Software Systems"](https://www.praxisframework.org/files/royce1970.pdf) (1970) | The origin of "waterfall" (and its critique). |
 | 📄 | B. Boehm, ["A Spiral Model of Software Development and Enhancement"](https://www.cs.unc.edu/techreports/86-020.pdf) (1988) | Risk‑driven process. |
@@ -125,6 +125,20 @@ diagrams, 4+1 views, describing an architecture.
 
 Covers: layering, shared‑data, observer, publish‑subscribe, MVC, dataflow/pipelines,
 client‑server, broker, RESTful APIs, product lines.
+
+## Chapter 8 — Version Control with Git
+
+| Type | Resource | Notes |
+|------|----------|-------|
+| 📘 | [Pro Git (2nd ed.)](https://git-scm.com/book/en/v2) | The canonical Git reference; free, CC BY‑NC‑SA. |
+| 🎓 | [MIT Missing Semester — Version Control (Git)](https://missing.csail.mit.edu/2020/version-control/) | Data‑model‑first Git. |
+| 📄 | [Markdown Guide](https://www.markdownguide.org/) · [CommonMark](https://commonmark.org/) | Markdown syntax and the standard. |
+| 📄 | [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) · [Trunk‑Based Development](https://trunkbaseddevelopment.com/) | Team workflows. |
+| 📄 | [Chris Beams — How to Write a Git Commit Message](https://cbea.ms/git-commit/) | Commit hygiene. |
+| 🎥 | ["Oh Shit, Git!?!"](https://ohshitgit.com/) | A recovery cookbook for common messes. |
+
+Covers: version control and the commit graph, branching/merging/rebase, remotes and pull
+requests, merge conflicts, team workflows, and Markdown for READMEs and documentation.
 
 ## Chapter 9 — Static Checking
 

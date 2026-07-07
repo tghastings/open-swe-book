@@ -586,7 +586,7 @@ of the project (Appendix A).
 John Gruber in 2004) that a tool renders into HTML.[^35] Its whole appeal for software is that
 it is *plain text*, so it lives in the repository right beside the code, shows up as a clean
 line-by-line diff, and is reviewed in a pull request like any other change. The same
-"docs-as-code" property that Chapter 8 gives your source, Markdown gives your writing.[^36] It
+"docs-as-code" property that version control gives your source, Markdown gives your writing.[^36] It
 is the native format of READMEs, issues, pull requests, wikis, chat, and documentation sites —
 including this book, which is written in Markdown. The flavor you will actually type is
 **GitHub Flavored Markdown (GFM)**, which is what GitHub and GitLab render.[^37]

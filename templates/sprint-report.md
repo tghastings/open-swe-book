@@ -63,7 +63,7 @@ _See Chapters 9–10._
 
 _Break the remaining work into scopes and place each on the hill: uphill means "still
 figuring out how," downhill means "just executing"
-([§12.3.5](../chapters/11-quality-metrics/#1135-hill-charts-displaying-uncertainty-not-just-quantity)).
+([§12.3.5](../chapters/12-quality-metrics/#1235-hill-charts-displaying-uncertainty-not-just-quantity)).
 Paste a snapshot or sketch._
 
 | Scope | Position (uphill / crest / downhill / done) | Movement since last sprint |

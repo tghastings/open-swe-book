@@ -94,7 +94,7 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
    | Dark mode            |            3 |          2 |
    | Insurance-card scan  |            8 |         13 |
 
-   Which feature has the highest *raw* value but does **not** rank first, and what does
+   Which feature has a high *raw* value (8) yet ranks **last**, and what does
    that teach about "build the flashiest thing first"?
 
 9. **[analysis]** Take the same four features from Exercise 8 and add a **risk** rating
@@ -110,8 +110,8 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
 
    a. Compute the **weighted priority = (value + risk) ÷ cost** for each and give the new
       order.
-   b. Which feature moved *up* the most versus Exercise 8, and why does the formula
-      deliberately promote it (§4.4.3)?
+   b. Which feature does the added risk term reward most, and why does the formula
+      deliberately favor tackling risky work early (§4.4.3)?
    c. Argue for or against overriding the formula to build conflict detection first
       anyway.
 

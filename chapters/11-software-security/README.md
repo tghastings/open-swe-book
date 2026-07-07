@@ -402,8 +402,11 @@ be worth reading.
 
 ### 11.3.2 AI Enters the Loop
 
-A wave of tools now applies large language models to security, and they occupy three
-distinct points in the design space worth keeping apart.
+A wave of tools now applies large language models to security. They are beginning to help
+*find*, *explain*, and sometimes *propose fixes for* vulnerabilities — but, as the rest of
+this section stresses, their outputs still require authorization, specialist security tooling,
+and human validation rather than standing on their own. Three of them occupy distinct points
+in the design space worth keeping apart.
 
 The first *fixes* known findings. **GitHub Copilot Autofix** combines CodeQL code scanning
 with LLM-generated fix suggestions: when the scanner flags an alert, the model proposes a
@@ -604,7 +607,7 @@ it, rather than trusting it and hoping. Hastings' dissertation — the relevant 
 which was published with Walcott as "Continuous Verification of Open Source Components in a
 World of Weak Links" — proposes exactly that: a framework of six controls, C1 through C6,
 organized across **Day 0**, **Day 1**, and **Day 2** operations and mapped to the familiar
-progression of *known knowns*, *known unknowns*, and *unknown unknowns*.[^19]<!-- -->[^30]
+progression of *known knowns*, *known unknowns*, and *unknown unknowns*.[^19][^30]
 
 ```mermaid
 flowchart TD
@@ -665,7 +668,7 @@ can run it against a package you are considering for your project.
 *What is known to be wrong with my dependencies?* **OWASP Dependency-Check** is a free SCA
 tool that scans a project's dependencies for publicly disclosed vulnerabilities and runs in
 CI; **OWASP Dependency-Track** is its organization-scale companion, continuously monitoring
-supply-chain risk across a whole portfolio by analyzing bills of materials.[^32]<!-- -->[^33]
+supply-chain risk across a whole portfolio by analyzing bills of materials.[^32][^33]
 
 *What is actually inside the artifact?* A **software bill of materials (SBOM)** is a complete
 inventory of every component in a release — the answer to "do we even have Log4j?" Two open

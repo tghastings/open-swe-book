@@ -113,7 +113,7 @@ md = re.sub(r'(?m)^---[ \t]*\n\s*\n(?=\[\^)', '', md)
 # --- drop per-chapter License note (one overarching license on the copyright page) ---
 md = re.sub(r'(?ms)^##\s+License note\b.*', '', md)
 
-# --- tag glossary terms with \glsadd so the glossary shows the definition page ---
+# --- tag terms with \index for the back-of-book index (page refs, no definitions) ---
 def _norm(s):
     return re.sub(r'[^a-z0-9]', '', (s or '').lower())
 def _cands(term):
@@ -160,22 +160,39 @@ def _find(md, term):
         if h is not None:
             return h
     return None
+def _idxterm(term):                       # clean display/sort term for \index
+    t = re.sub(r'\s*\([^)]*\)', '', term).strip() or term
+    for a, b in [('\\', r'\textbackslash '), ('#', r'\#'), ('&', r'\&'),
+                 ('_', r'\_'), ('$', r'\$'), ('%', r'\%'), ('{', r'\{'),
+                 ('}', r'\}'), ('^', r'\textasciicircum{}'), ('~', r'\textasciitilde{}')]:
+        t = t.replace(a, b)
+    for c in ('"', '!', '@', '|'):        # makeindex control chars -> escape with " ('"' first)
+        t = t.replace(c, '"' + c)
+    return t
 try:
-    gmap = json.load(open("latex/gloss-map.json")).get(inp, [])
+    _gm_all = json.load(open("latex/gloss-map.json"))
+    _gm_here = _gm_all.get(inp, [])
+    _all_terms = list({t for pairs in _gm_all.values() for t, _ in pairs})
 except Exception:
-    gmap = []
-inserts, fallback = [], []
-for term, key in gmap:
+    _gm_here, _all_terms = [], []
+idx_pts = []
+for term, _ in _gm_here:                  # 1) primary occurrence — guarantees every term is indexed
     h = _find(md, term)
-    (inserts.append((h, key)) if h is not None else fallback.append(key))
-for pos, key in sorted(inserts, reverse=True):              # apply from the end
-    md = md[:pos] + '\\glsadd{' + key + '}' + md[pos:]
-if fallback:                                                # guarantee coverage: first body paragraph
-    bm = re.search(r'(?m)^[^#\n].*\S', md)
-    if bm:
-        end = md.find('\n', bm.end())
-        end = end if end != -1 else len(md)
-        md = md[:end] + ''.join('\\glsadd{' + k + '}' for k in fallback) + md[end:]
+    if h is not None:
+        idx_pts.append((h, term))
+_cn = {t: {_norm(c) for c in _cands(t) if _norm(c)} for t in _all_terms}
+for m in re.finditer(r'\*\*([^*]+)\*\*', md):   # 2) every boldface use of a known term -> extra page refs
+    cn = _norm(m.group(1))
+    if cn:
+        for t in _all_terms:
+            if cn in _cn[t]:
+                idx_pts.append((m.end(), t)); break
+_seen = set()
+for pos, term in sorted(idx_pts, key=lambda x: x[0], reverse=True):   # insert from the end
+    if (pos, term) in _seen:
+        continue
+    _seen.add((pos, term))
+    md = md[:pos] + '\\index{' + _idxterm(term) + '}' + md[pos:]
 
 # --- code fences: keep only generic ---
 md = re.sub(r'(?ms)^[ \t]*```(?:go|java|javascript|python|ruby|typescript)[ \t]*\n.*?^[ \t]*```[ \t]*$\n?', '', md)

@@ -17,10 +17,11 @@ sometimes a regulator — the claim that the software has been tested well enoug
 
 ## 10.1 Overview of Testing
 
-A **test** is a triple: an *input* to the software, the *expected result*, and the
-*actual result* observed when you run it. The test **passes** when actual equals
-expected and **fails** otherwise. A **test suite** is a collection of tests run
-together. This sounds trivial, and for one test it is; the engineering lives in the four
+At its simplest, a **test** records three things: an *input* or setup, an *expected
+property or result*, and the *actual behavior* observed when you run it. The test
+**passes** when the observed behavior matches what was expected and **fails** otherwise. A
+**test suite** is a collection of tests run together. This sounds trivial, and for one test
+it is; the engineering lives in the four
 questions the rest of this section raises.
 
 > **Principle.** Testing can reveal the *presence* of defects but never their *absence*.[^1]

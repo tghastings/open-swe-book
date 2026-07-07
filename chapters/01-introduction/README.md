@@ -216,7 +216,7 @@ A fault is *latent* until some execution triggers it into a failure. This chain 
 mistake → fault → failure — explains why we attack defects at every stage: better
 requirements and reviews reduce **mistakes**; static checking and inspection find
 **faults** before they run; testing provokes **failures** in a safe setting before users
-do. No single technique suffices, which is why Chapters 9 and 9 are complementary.
+do. No single technique suffices, which is why Chapters 9 and 10 are complementary.
 
 ### 1.4.2 Introduction to Testing
 
@@ -302,7 +302,7 @@ The profession has written norms. The **ACM Code of Ethics and Professional Cond
 and the joint **ACM/IEEE‑CS Software Engineering Code of Ethics** state, among other
 principles, that software engineers shall act in the **public interest**, produce work of
 **high quality**, be **honest** about their work and its limitations, and maintain
-**competence**.[^10]<!-- -->[^11] These are not decoration: they give an engineer a shared, citable basis
+**competence**.[^10][^11] These are not decoration: they give an engineer a shared, citable basis
 for saying *no*, and for raising concerns without it being merely personal opinion.
 
 ### 1.6.3 Case Study: The Therac‑25 Accidents

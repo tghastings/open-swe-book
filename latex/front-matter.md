@@ -118,7 +118,7 @@ supplied source material and corrections; fact-checked claims against the primar
 cited throughout the book; and edited the prose. The author has reviewed, and stands behind,
 every chapter.
 
-Chapter 12 teaches that professional AI use means disclosing the assistance, verifying the
+Chapter 13 teaches that professional AI use means disclosing the assistance, verifying the
 output, and owning the result. This note applies that standard to the book itself.
 
 </section>

@@ -145,7 +145,7 @@ matters more than unit cost, and when a small team has no one to spare for opera
 > **Case study.** *Cloud repatriation.* The trade cuts the other way, too. In 2022–23,
 > 37signals — the company behind Basecamp — publicly moved its products off the cloud and
 > onto purchased hardware, documenting seven-figure annual savings for workloads that were
-> steady and predictable rather than spiky.[^3]<!-- -->[^4] And Amazon's own Prime Video team published an
+> steady and predictable rather than spiky.[^3][^4] And Amazon's own Prime Video team published an
 > account of cutting the cost of one audio/video monitoring service by roughly 90 percent —
 > by moving it *away* from a serverless, distributed-microservices design and back into a
 > monolith-style process.[^5] None of this means the cloud is over. The cloud is a
@@ -189,8 +189,10 @@ Horizontal scaling (§14.1.2) eventually reaches the data layer, and the moment 
 Brewer's **CAP theorem** concerns three properties of a distributed data system:
 **consistency** (every read sees the most recent write), **availability** (every request
 receives a response), and **partition tolerance** (the system keeps operating when the
-network splits and some machines cannot reach others).[^8] The theorem says you cannot
-guarantee all three at once: when a partition happens, a system can preserve at most two.[^9]
+network splits and some machines cannot reach others).[^8] Its real content is narrower than
+the popular "pick two of three": in the presence of a partition, a replicated system cannot
+guarantee both strong **consistency** and **availability**, so for that data it must choose
+which of the two to weaken until the network heals.[^9]
 
 Since partitions are a fact of real networks — switches fail, cables get cut, datacenters
 lose connectivity — partition tolerance is not really optional, and the practical content
@@ -674,7 +676,7 @@ They are worth studying closely, and honestly, from the primary sources.
 >
 > The push was global and simultaneous. Within hours, roughly 8.5 million Windows
 > machines (Microsoft's estimate) were down: airlines (Delta alone canceled on the order
-> of 7,000 flights), hospitals, banks, broadcasters, emergency services.[^20]<!-- -->[^21] Damage
+> of 7,000 flights), hospitals, banks, broadcasters, emergency services.[^20][^21] Damage
 > estimates ran into the billions — direct losses for the Fortune 500 alone were estimated
 > at $5.4 billion, only a fraction of it insured.[^22] Recovery was brutal precisely
 > because the machines could not boot: in many cases a human had to start each machine in
@@ -704,7 +706,7 @@ recovery decide their *sign*.
 
 ## 14.4 Packaging and Running a Service: Docker and Compose
 
-Section 13.1.5 named the container as the unit of cloud deployment, and §14.3 covered
+Section 14.1.5 named the container as the unit of cloud deployment, and §14.3 covered
 *when* and *how often* to release. This section closes the gap between them: the concrete
 mechanics of turning a program that runs on your laptop into a service that runs on a
 server. You will build a container image, run an application together with the database and
@@ -1073,7 +1075,7 @@ package's maintainer account and publishing a malicious release. The 2020 SolarW
 attack planted malicious code inside a vendor's *build process*, so customers received a
 compromised product signed with authentic signatures;[^37] the 2016 left-pad incident
 showed the fragility side, when the removal of an eleven-line package briefly broke
-builds across the industry.[^38]<!-- -->[^39] Defenses are accumulating — lockfiles that pin exact versions,
+builds across the industry.[^38][^39] Defenses are accumulating — lockfiles that pin exact versions,
 cryptographic signing and provenance attestation for artifacts (the SLSA framework),[^40]
 and a **software bill of materials (SBOM)** enumerating everything inside a release[^41] — but the
 first defense is the cultural one: treat adding a dependency as an engineering decision
@@ -1109,7 +1111,7 @@ programs fail by measuring what is easy instead of what matters. The delivery wo
 unusually good answer, produced by the **DORA** research program (DevOps Research and
 Assessment) — a multi-year academic effort, surveying tens of thousands of professionals,
 published in the annual *State of DevOps* reports and the book *Accelerate* (Forsgren,
-Humble, and Kim).[^42]<!-- -->[^43] Its core finding is a set of four outcome measures — the **four keys** —
+Humble, and Kim).[^42][^43] Its core finding is a set of four outcome measures — the **four keys** —
 that jointly predict software-delivery performance:
 
 1. **Deployment frequency** — how often your team deploys to production.
@@ -1167,7 +1169,7 @@ failure rate** requires a log discipline: record each deploy and whether it need
 revert or hotfix; failures divided by deploys. **Recovery time** is the gap from noticing
 a bad deploy to restored service, from the same log. Review the four numbers at your
 retrospective, and resist the urge to set targets — use them, in GQM fashion (Chapter
-11), to ask *why* lead time is three days and *which* stage of your pipeline the time
+12), to ask *why* lead time is three days and *which* stage of your pipeline the time
 hides in.
 
 ## 14.8 Legacy Code, Refactoring, and Technical Debt
@@ -1717,7 +1719,7 @@ generator for code no living person understands, it removes a real bottleneck.
 ## 14.9 Conclusion
 
 Delivery is the connective tissue of everything this book has taught. The CI pipeline of
-§14.2 is Chapters 9 and 9 made *mandatory*: reviews, static analysis, and tests by level,
+§14.2 is Chapters 9 and 10 made *mandatory*: reviews, static analysis, and tests by level,
 converted from practices a diligent team performs into gates no change can bypass. The
 DORA four keys of §14.7 are Chapter 12 made *honest*: outcome metrics, paired against
 their own counter-metrics, measuring the whole system rather than rewarding activity.

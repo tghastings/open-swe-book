@@ -354,7 +354,7 @@ clinic backlog ranked:
 | SMS reminders        |            8 |          8 |     **1.00** |    3 |
 | Multi-language UI    |            5 |         13 |     **0.38** |    4 |
 
-The ranking is instructive. SMS reminders have the *highest raw value* (8), yet they place
+The ranking is instructive. SMS reminders carry a *high raw value* (8) — second only to conflict detection — yet they place
 third, because they cost as much value as they deliver. Humble PDF export, worth only 4,
 outranks them: it is cheap enough that its value-per-point is higher. **This is the core
 insight of value/cost analysis — the best next thing to build is the one with the best
@@ -395,7 +395,7 @@ row has dropped off the short list, and a new payment-integration request has ar
 Recompute carefully: conflict detection scores (9+2)/5 = **2.20**, payment (7+9)/8 = **2.00**,
 PDF (4+1)/3 = **1.67**, SMS (8+5)/8 = **1.63**. So the order becomes **conflict detection,
 payment integration, PDF export, SMS reminders.** The risky payment work leaps from the
-middle of the pack to near the top — exactly the intent. Conflict detection still leads
+bottom of the pack to near the top — exactly the intent. Conflict detection still leads
 because it is both valuable *and* cheap, but risk has promoted the payment work above two
 safer, comfier features.
 

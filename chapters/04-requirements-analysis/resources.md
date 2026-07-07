@@ -129,7 +129,7 @@ open license. Prefer these over paywalled textbooks.
 
 ## Estimation, judgment, and its limits (background)
 
-- 📘 **Steve McConnell — *Software Estimation: Demystified* companion materials / articles**
+- 📘 **Steve McConnell — *Software Estimation: Demystifying the Black Art* companion materials / articles**
   (Construx resources). Practical guidance on estimate-vs-target, ranges, and re-estimation.
   <https://www.construx.com/resources/>
   *Free to read; © Construx.*

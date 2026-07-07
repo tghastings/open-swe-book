@@ -603,7 +603,7 @@ different question. It helps to know the categories so you can assemble the righ
   that lead to vulnerabilities — the security applications of static analysis get their own
   treatment, alongside dynamic and AI-driven testing, in [Chapter 11](../11-software-security/).
 
-Most teams run several of these together in **continuous integration** (Chapters 2 and 13), so that
+Most teams run several of these together in **continuous integration** (Chapters 2 and 14), so that
 every proposed change is automatically type-checked, linted, and pattern-scanned before a
 human reviewer ever looks at it. The tools handle the mechanical layer; the humans handle
 judgment. That division of labor is the whole point.
@@ -649,7 +649,7 @@ target a false-positive rate low enough (roughly one in ten or better) that deve
 warnings as worth fixing rather than as noise.[^11]
 
 > **Principle.** For a static analyzer, *trust is the scarce resource*. A tool the team
-> believes will get acted upon; a tool the team distrusts gets suppressed, and then even its
+> trusts gets acted upon; a tool the team distrusts gets suppressed, and then even its
 > true findings are lost. High precision buys trust; chasing recall at the cost of precision
 > spends it.
 

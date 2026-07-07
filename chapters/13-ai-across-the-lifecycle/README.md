@@ -67,7 +67,7 @@ mixed enough to demand humility.*
 
 - **Perceived gains are large.** In field studies, a majority of developers report feeling
   more productive with tools like GitHub Copilot, and vendors cite eye-catching
-  numbers.[^1]<!-- -->[^2]
+  numbers.[^1][^2]
 - **Measured gains are smaller and sometimes negative.** In a 2025 randomized controlled
   trial, METR had experienced open-source developers do real tasks in repositories they
   knew well. Developers *predicted* AI would make them ~24% faster; in fact they were about
@@ -98,10 +98,10 @@ flowchart TD
     P[Process &amp; Teamwork<br/>Ch.2] --> R[Requirements<br/>Ch.3-4]
     R --> U[Use Cases<br/>Ch.5]
     U --> D[Design &amp; Architecture<br/>Ch.6-7]
-    D --> C[Code + Static Checking<br/>Ch.8]
-    C --> T[Testing<br/>Ch.9]
-    T --> S[Software Security<br/>Ch.10]
-    S --> M[Quality Metrics<br/>Ch.11]
+    D --> C[Code + Static Checking<br/>Ch.9]
+    C --> T[Testing<br/>Ch.10]
+    T --> S[Software Security<br/>Ch.11]
+    S --> M[Quality Metrics<br/>Ch.12]
     M -.feedback.-> R
     classDef ai fill:#eef,stroke:#66a,color:#000;
     class P,R,U,D,C,T,S,M ai;
@@ -126,7 +126,7 @@ Large language models are genuinely useful for **elicitation and drafting**: tur
 interview notes, tickets, and support logs into candidate user stories, acceptance
 criteria (Given/When/Then), and edge-case lists. Studies report LLM-drafted requirements
 that reviewers rate as complete, consistent first drafts — comparable to an entry-level
-engineer's — produced far faster and cheaper.[^5]<!-- -->[^6]
+engineer's — produced far faster and cheaper.[^5][^6]
 
 - **Fails at:** knowing what users actually *need* versus what is *plausible*; an LLM will
   cheerfully invent requirements that sound reasonable and are wrong (**hallucinated
@@ -161,7 +161,7 @@ This is where the human-owned layer is thickest. AI can propose class structures
 **Architecture Decision Records (ADRs)**, suggest applicable patterns from Chapter 7, and
 even prototype competing designs to compare. Research on multi-agent systems that go from
 requirements to candidate architectures is active but early, and leans on role
-specialization to fight hallucination.[^8]<!-- -->[^9]
+specialization to fight hallucination.[^8][^9]
 
 - **Fails at:** the *significant, expensive-to-change decisions* that define architecture
   (Chapter 6); it has no stake in your five-year maintenance cost and cannot feel the pain
@@ -194,7 +194,7 @@ output produced faster than humans can vet it.[^11]
 Testing is where agentic AI has advanced most measurably. Benchmarks like **SWE-bench**
 (fix a real GitHub issue) and **SWT-bench** (generate a bug-reproducing test) have driven
 rapid progress in automated **test generation** and **program repair**; as of 2025, agents
-resolve a substantial fraction of such benchmark issues end to end.[^13]<!-- -->[^14] Treat those numbers with
+resolve a substantial fraction of such benchmark issues end to end.[^13][^14] Treat those numbers with
 care, though: passing a benchmark's tests is *evidence*, not proof, of a correct fix —
 studies of SWE-bench-style evaluation have found patches that pass the benchmark suite
 while failing developer-written tests or behaving differently from the true fix, so weak
@@ -369,7 +369,7 @@ A balanced reading of the current research:
 |-----------|---------------------------|--------|
 | **Productivity** | Real gains on boilerplate, unfamiliar APIs, greenfield, narrow well-specified tasks. | On familiar, high-standards code, a 2025 RCT found a ~19% *slowdown*; perception overstates gains.[^3] |
 | **Quality** | Faster first drafts; good at tests and explanations. | Rising code duplication and falling refactoring in one industry analysis point to maintainability debt.[^17] |
-| **Security** | Analyzers + AI review can catch known bug patterns. | ~40% of AI-generated programs in one study contained vulnerabilities; users felt *more* secure while being *less* so.[^18]<!-- -->[^12] |
+| **Security** | Analyzers + AI review can catch known bug patterns. | ~40% of AI-generated programs in one study contained vulnerabilities; users felt *more* secure while being *less* so.[^18][^12] |
 
 The through-line: **AI is a power tool, and a power tool amplifies the operator.** In
 skilled hands with strong verification (specs, tests, reviews, metrics), it is a real
@@ -385,7 +385,7 @@ multiplier. Without those disciplines, it multiplies *output* while quietly degr
 
 In 2026, Cory Ondrejka (co-creator of Second Life; former engineering leader at Google and
 Meta; CTO of Onebrief) published the **o16g manifesto** — *Outcome Engineering* — arguing
-that agentic development demands a new frame.[^19]<!-- -->[^20] Its thesis: **"It was never about the
+that agentic development demands a new frame.[^19][^20] Its thesis: **"It was never about the
 code."** Code is "the incantation transforming computation into magic," a *mechanism* for
 delivering an idea. Once agents remove the constraint of human typing bandwidth, the
 manifesto argues, creation is limited by the *cost of compute*, not human capacity — and the
@@ -409,7 +409,7 @@ not vibes.*[^19]
    Don't abdicate vision to the machine. *(This book: requirements and goals, Ch. 3.)*
 2. **The Truth — Verified Reality is the Only Truth.** Code is a vanity metric; grade agents
    on the verified rate of positive change delivered, not lines written. *(Testing &
-   metrics, Ch. 10, 11.)*
+   metrics, Ch. 10, 12.)*
 3. **The Teamwork — No More Single Player Mode.** Outcome engineering is a team sport;
    define explicit protocols for debate, decision, and delivery. *(Process, Ch. 2.)*
 4. **The Liberation — The Backlog is Dead.** Never reject an idea for lack of *time*, only
@@ -421,7 +421,7 @@ not vibes.*[^19]
 7. **The Tech Island — Build It All.** When code is the cheapest resource, build to answer
    questions and test hypotheses. *(Prototyping to reduce risk, Ch. 2.)*
 8. **The Artifacts — Failures are Artifacts.** Don't just roll back; dissect the failure and
-   debug the *decision*, not only the code. *(Retrospectives & post-mortems, Ch. 2, 8.)*
+   debug the *decision*, not only the code. *(Retrospectives & post-mortems, Ch. 2, 14.)*
 
 ### Part II — The Building ("the iron price")
 
@@ -439,7 +439,7 @@ not vibes.*[^19]
     require agents to record discoveries and rejected paths. *(ADRs & rationale, Ch. 6.)*
 14. **The Immune System — Continuous Improvement.** Repeating a mistake is a system failure;
     spend compute on the post-mortem and inoculate against recurrence. *(Process
-    improvement & metrics, Ch. 2, 11.)*
+    improvement & metrics, Ch. 2, 12.)*
 15. **The Gate — Risk Stops the Line.** Make risk a *blocking* function; if risk is unknown
     or unmitigated, the line stops. *(Static checking as a quality gate, Ch. 9.)*
 16. **The Validation — Audit the Outcomes.** Trust is a vulnerability; models drift, so

@@ -70,7 +70,7 @@ not committing forever._
 _How will you work? See Chapter 2._
 
 - **Process:** _Scrum / XP / hybrid — and why_
-- **Iteration cadence:** _e.g., 1-week sprints_
+- **Iteration cadence:** _e.g., 2-week sprints_
 - **Roles:** _coordinator, customer liaison, architecture owner, quality owner_
 - **Communication:** _sync channel, async record, meeting schedule_
 

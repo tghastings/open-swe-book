@@ -409,7 +409,7 @@
    "softwareproductlineengineering"
   ]
  ],
- "chapters/08-static-checking/README.md": [
+ "chapters/09-static-checking/README.md": [
   [
    "Static checking",
    "staticchecking"
@@ -479,7 +479,7 @@
    "recall"
   ]
  ],
- "chapters/09-testing/README.md": [
+ "chapters/10-testing/README.md": [
   [
    "Test oracle",
    "testoracle"
@@ -533,7 +533,7 @@
    "modifiedconditiondecisioncoveragemcdc"
   ]
  ],
- "chapters/10-software-security/README.md": [
+ "chapters/11-software-security/README.md": [
   [
    "CIA triad",
    "ciatriad"
@@ -595,7 +595,7 @@
    "leastprivilege"
   ]
  ],
- "chapters/11-quality-metrics/README.md": [
+ "chapters/12-quality-metrics/README.md": [
   [
    "Metric",
    "metric"
@@ -657,7 +657,7 @@
    "coefficientofdeterminationrsquared"
   ]
  ],
- "chapters/12-ai-across-the-lifecycle/README.md": [
+ "chapters/13-ai-across-the-lifecycle/README.md": [
   [
    "Coding agents",
    "codingagents"
@@ -695,7 +695,7 @@
    "outcomeengineeringo16gmanifesto"
   ]
  ],
- "chapters/13-delivery/README.md": [
+ "chapters/14-delivery/README.md": [
   [
    "DevOps",
    "devops"

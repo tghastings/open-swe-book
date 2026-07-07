@@ -9,12 +9,11 @@ modern software engineering: how software is built in industry using
 agile methods, how to discover and analyze requirements, how to design and architect
 modular systems, how to check and test code, and how to measure quality with metrics.
 
-The book is structured into thirteen chapters and a team project appendix, following the topic
+The book is structured into fourteen chapters and a team project appendix, following the topic
 progression of the ACM/IEEE software‑engineering curriculum guidelines (SE2014/SEEK).[^1]
 Each chapter contains original explanatory prose rather than material copied from other textbooks
-and is accompanied by a curated map of free or openly accessible resources
-MOOCs, university courseware, primary specifications, and papers; licenses vary and are
-with licenses noted where known. The material is designed to support a complete
+and is accompanied by a curated map of free or openly accessible resources — MOOCs, university
+courseware, primary specifications, and papers — with licenses noted where known. The material is designed to support a complete
 software‑engineering course.
 
 > **An independent open educational resource.** This is a complete, standalone book.
@@ -30,9 +29,9 @@ software‑engineering course.
 ## Why this book exists
 
 Most significant software is developed by teams, under evolving requirements, and with
-inevitable defects, at a scale that exceeds the capacity of any individual to fully comprehend. A university
-A typical programming course teaches students to write individual functions, whereas a software engineering
-course instructs students in building and evolving complete systems collaboratively. The discipline
+inevitable defects, at a scale that exceeds the capacity of any individual to fully comprehend. A typical programming course teaches students to write individual
+functions, whereas a software engineering course instructs students in building and evolving
+complete systems collaboratively. The discipline
 emphasizes enduring principles over proficiency in any single programming language:
 
 1. **Software is complex** → we manage complexity with design and architecture.
@@ -51,27 +50,29 @@ The chapters are organized into thematic arcs:
 | **Getting started** | 1–2 | What is software engineering, and what process do we use? |
 | **What to build** | 3–5 | How do we discover, analyze, and specify requirements? |
 | **Design & architecture** | 6–7 | How do we structure a system to tame complexity? |
-| **Software quality** | 8–9 | How do we check and test that the system works? |
-| **Security** | 10 | How do we build software that resists attack, from the code to the supply chain? |
-| **Metrics** | 11 | How do we measure quality and track progress? |
-| **The AI shift** | 12 | How is AI reshaping every stage — and what stays the same? |
-| **Delivery** | 13 | How does code get from a merged branch to running safely in production? |
+| **Version control** | 8 | How do teams manage, review, and collaborate on a shared codebase? |
+| **Software quality** | 9–10 | How do we check and test that the system works? |
+| **Security** | 11 | How do we build software that resists attack, from the code to the supply chain? |
+| **Metrics** | 12 | How do we measure quality and track progress? |
+| **The AI shift** | 13 | How is AI reshaping every stage — and what stays the same? |
+| **Delivery** | 14 | How does code get from a merged branch to running safely in production? |
 | **Practice** | Appendix A | How do we run a real team project alongside the concepts? |
 
 ## Suggested paths through the book
 
-- **One-semester course (14–16 weeks).** Read all thirteen chapters in order, one to two
+- **One-semester course (14–16 weeks).** Read all fourteen chapters in order, one to two
   weeks each, with the Appendix A team project running in parallel from week 2. Two
   ready-made week-by-week plans (a milestone track and a two-week-sprint track) are in
   [`curriculum/course-plan.md`](curriculum/course-plan.md).
 - **One-quarter course (~10 weeks).** Keep the spine and compress: Chapters 1–2
   (week 1), 3–4 (weeks 2–3, folding Chapter 5's use-case notation into the requirements
-  work), 6–7 (weeks 4–5), 8–9 (weeks 6–7), 10–11 (week 8), and 13 (week 9), with
-  Chapter 12 read alongside each topic through its per-stage sections (§12.2). Run a
+  work), 6–8 (weeks 4–5, design, patterns, and version control), 9–10 (weeks 6–7, checking
+  and testing), 11–12 (week 8, security and metrics), and 14 (week 9, delivery), with
+  Chapter 13 (AI) read alongside each topic through its per-stage sections (§13.2). Run a
   scoped-down project: proposal, two sprints, final demo.
 - For self-study, chapters should be read sequentially. Each chapter concludes with key takeaways, exercises, and
   free resources for further study. Alternatively, readers may use the arc table above to focus on a specific
-  goal, such as Chapters 8–9 for quality practices or Chapter 13 for CI/CD. Chapters cross-reference the
+  goal, such as Chapters 9–10 for checking and testing or Chapter 14 for CI/CD. Chapters cross-reference the
   earlier ideas they depend on.
 
 ## Code examples in six languages
@@ -117,12 +118,13 @@ The sidebar provides a complete, linked table of contents, including chapters an
 5. [Use Cases](chapters/05-use-cases/) — actors & goals, basic and alternative flows, use‑case diagrams and relationships.
 6. [Design and Architecture](chapters/06-design-and-architecture/) — modularity, coupling & cohesion, UML class diagrams, 4+1 views.
 7. [Architectural Patterns](chapters/07-architectural-patterns/) — layering, shared‑data, observer, pub‑sub, MVC, dataflow, client‑server, broker, REST, product lines.
-8. [Static Checking](chapters/08-static-checking/) — architecture reviews, inspections, code reviews, automated static analysis.
-9. [Testing](chapters/09-testing/) — levels of testing, control‑flow & MC/DC coverage, black‑box coverage, combinatorial testing.
-10. [Software Security](chapters/10-software-security/) — the CIA triad and defense in depth, the OWASP Top 10:2025, SAST/DAST/SCA and AI‑assisted security testing, the open‑source supply chain (Log4Shell, xz‑utils, and continuous verification of components), and building security in.
-11. [Quality Metrics](chapters/11-quality-metrics/) — meaningful metrics, defect measures, boxplots/histograms, statistics, confidence intervals, regression.
-12. [Software Engineering in the Age of AI](chapters/12-ai-across-the-lifecycle/) — how AI reshapes every lifecycle stage, the productivity/quality/security evidence, and the o16g Outcome Engineering manifesto.
-13. [Delivery: CI/CD, DevOps, and Evolution](chapters/13-delivery/) — SaaS and the cloud, CI pipelines, continuous deployment (the Knight Capital and CrowdStrike case studies), security pipelines, DORA metrics, legacy code and technical debt.
+8. [Version Control with Git](chapters/08-version-control-git/) — the commit graph, branching/merging/rebase, remotes and pull requests, merge conflicts, team workflows, and Markdown for READMEs and documentation.
+9. [Static Checking](chapters/09-static-checking/) — architecture reviews, inspections, code reviews, automated static analysis.
+10. [Testing](chapters/10-testing/) — levels of testing, control‑flow & MC/DC coverage, black‑box coverage, combinatorial testing.
+11. [Software Security](chapters/11-software-security/) — the CIA triad and defense in depth, the OWASP Top 10:2025, SAST/DAST/SCA and AI‑assisted security testing, the open‑source supply chain (Log4Shell, xz‑utils, and continuous verification of components), and building security in.
+12. [Quality Metrics](chapters/12-quality-metrics/) — meaningful metrics, defect measures, boxplots/histograms, statistics, confidence intervals, regression.
+13. [Software Engineering in the Age of AI](chapters/13-ai-across-the-lifecycle/) — how AI reshapes every lifecycle stage, the productivity/quality/security evidence, and the o16g Outcome Engineering manifesto.
+14. [Delivery: CI/CD, DevOps, and Evolution](chapters/14-delivery/) — SaaS and the cloud, CI pipelines, continuous deployment (the Knight Capital and CrowdStrike case studies), security pipelines, DORA metrics, legacy code and technical debt.
 
 - [Appendix A: The Team Project](chapters/appendix-a-team-project/) — proposal, sprint and status reports, team reviews, and final-report templates.
 
@@ -163,7 +165,7 @@ throughout. The author has reviewed, and stands behind, every chapter. If you fi
 error, please [open an issue](https://github.com/tghastings/open-swe-book/issues),
 regardless of how it was introduced.
 
-Chapter 12 teaches that professional AI use means disclosing the assistance, verifying
+Chapter 13 teaches that professional AI use means disclosing the assistance, verifying
 the output, and owning the result. This note applies that standard to the book itself.
 
 ## About the author
@@ -221,14 +223,14 @@ Whole book:
 A single chapter (adjust `title`, `chapter`, and `url`):
 
 ```bibtex
-@inbook{hastings2026swe-ch12,
+@inbook{hastings2026swe-ch14,
   author    = {Hastings, Thomas},
   title     = {Delivery: CI/CD, DevOps, and Evolution},
   booktitle = {Software Engineering: Standing on the Shoulders of Giants},
-  chapter   = {12},
+  chapter   = {14},
   year      = {2026},
   publisher = {Self-published},
-  url       = {https://www.swebook.org/chapters/13-delivery/}
+  url       = {https://www.swebook.org/chapters/14-delivery/}
 }
 ```
 

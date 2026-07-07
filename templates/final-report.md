@@ -66,7 +66,7 @@ board, standups, and where your process adapted mid-project._
 
 ## 5. Testing and quality metrics
 
-_Your test strategy and the evidence behind your quality claims (Chapters 10–11)._
+_Your test strategy and the evidence behind your quality claims (Chapters 10 and 12)._
 
 - **Test strategy:** _unit / integration / end-to-end; black-box and white-box (Ch. 10)_
 - **Coverage achieved:** _target vs. actual_

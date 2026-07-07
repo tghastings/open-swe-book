@@ -5,7 +5,7 @@ book — **Variant A**, a 15‑week milestone track, and **Variant B**, a 16‑w
 on two‑week sprints. Both run **two parallel tracks** (as the ACM/IEEE guidelines
 recommend[^1]):
 
-- **Concepts track** — the thirteen chapters, one theme at a time.
+- **Concepts track** — the fourteen chapters, one theme at a time.
 - **Project track** — a real team project (Appendix A), started early and iterated.
 
 The two tracks are **tightly coupled at the start** (weeks 1–4, while teams form and

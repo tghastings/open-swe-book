@@ -53,10 +53,9 @@
 \setcounter{tocdepth}{2}
 
 
-% ---- glossary with page references ----
-\usepackage[toc,nopostdot,nogroupskip,style=altlist]{glossaries}
-\makeglossaries
-\input{glossary-defs.tex}
+% ---- back-of-book index (page references, no definitions) ----
+\usepackage{makeidx}
+\makeindex
 
 % ---- URL line-breaking (long Further-Reading URLs) ----
 \usepackage{refcount}

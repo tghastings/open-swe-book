@@ -173,8 +173,8 @@ gantt
     section Concepts (loosely coupled)
     Ch.5 Use cases            :4, 1
     Ch.6-7 Design & patterns  :5, 2
-    Ch.8-9 Checking & testing :8, 3
-    Ch.11 Metrics             :11, 2
+    Ch.9-10 Checking & testing :8, 3
+    Ch.12 Metrics             :11, 2
     section Project deliverables
     Proposal (A.2)            :milestone, crit, 3, 0
     Skeletal — Status 1 (A.3) :milestone, crit, 7, 0
@@ -312,7 +312,7 @@ discipline. It should cover:
   looked like, and where your process adapted (Chapter 2).
 - **Testing and quality metrics** — your test strategy, coverage achieved, defect data, and
   what the numbers *mean*, analyzed with sound statistics rather than a single hand-picked
-  figure (Chapters 10 and 11).
+  figure (Chapters 10 and 12).
 - **Results** — what works, what does not, and how you know; measured against the goals you
   set in the proposal.
 - **Retrospective** — the honest lessons: what you would do differently, where estimates

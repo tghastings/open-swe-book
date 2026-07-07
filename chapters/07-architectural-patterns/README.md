@@ -5,7 +5,7 @@
 > it tells you *what good structure looks like* without telling you *which structure to
 > reach for* when you sit down to design a real system. This chapter closes that gap. An
 > **architectural pattern** is a reusable, named arrangement of modules and connectors
-> that has repeatedly solved a recurring design problem.[^1]<!-- -->[^2] Learning the catalog means you
+> that has repeatedly solved a recurring design problem.[^1][^2] Learning the catalog means you
 > rarely start from a blank page — and, better still, that you can *reason about the
 > trade-offs* of a structure before you commit code to it.
 
@@ -181,7 +181,7 @@ accessor at once — the store's interface is now a system-wide contract. And be
 every access funnels through one place, the store can become the scalability limit and a
 single point of failure. Relational databases, blackboard systems in AI, and the Redux
 "single store" in front-end apps are all shared-data designs, and all of them live with
-this same tension between convenient centralization and dangerous centralization.[^1]<!-- -->[^5]
+this same tension between convenient centralization and dangerous centralization.[^1][^5]
 
 ### 7.2.2 Observers and Subscribers — the Observer Pattern
 
@@ -796,7 +796,7 @@ function testUnpaid31DaysIsOverdue(): void {
 > updates, the view re-renders — the same separation with a stricter update discipline.[^5]
 > Very large products run on each (Instagram on Django, Shopify on Rails, Airbnb on
 > React), which is the point: the pattern, not the framework, is the transferable
-> knowledge.[^13]<!-- -->[^14]<!-- -->[^15]
+> knowledge.[^13][^14]<!-- -->[^15]
 
 ## 7.4 Dataflow Architectures
 
@@ -814,7 +814,7 @@ body of data, and you want each transformation to be a self-contained unit you c
 test, reuse, and reorder without knowing about its neighbors. The **pipes-and-filters**
 pattern arranges the computation as a linear chain: each **filter** reads from an input
 **pipe**, transforms what it reads, and writes to an output pipe that feeds the next
-filter.[^1]<!-- -->[^2]
+filter.[^1][^2]
 
 **Structure and participants.** A **filter** is a stateless-by-default component with one
 job: consume input, produce output. A **pipe** is the connector that carries data from
@@ -1246,8 +1246,9 @@ to *any* server using the same small grammar.
   name: `/patients/123`, `/patients/123/appointments`, `/appointments/987`. Nouns, not
   verbs — the URI names a *thing*, not an *action*.
 - **A fixed set of verbs.** Instead of unlimited custom operations, HTTP's methods act on
-  resources: **GET** reads (safely, with no side effects), **POST** creates, **PUT/PATCH**
-  update, **DELETE** removes.[^21] The clinic app's "mark patient arrived" becomes
+  resources. By common convention **GET** reads (safely, with no side effects), **POST** often
+  creates, **PUT/PATCH** update, and **DELETE** removes.[^21] The clinic app's "mark patient
+  arrived" becomes
   `PATCH /appointments/987` with body `{"status": "arrived"}` — no bespoke
   `markArrived` endpoint to document or learn.
 - **Representations.** The client never touches the server's internal objects; it
@@ -1268,6 +1269,24 @@ to *any* server using the same small grammar.
 | `GET /appointments/987` | Fetch one appointment's representation |
 | `PATCH /appointments/987` | Update it (e.g., `{"status": "arrived"}`) |
 | `DELETE /appointments/987` | Cancel it |
+
+**POST, PUT, or PATCH?** The three writing verbs are the ones students confuse, and the choice
+turns on two questions. First, *who names the new resource?* Reach for **POST** when the
+*server* assigns the URL: `POST /patients/123/appointments` creates a fresh `/appointments/987`,
+and posting again makes a *second* appointment — POST is not **idempotent**. Reach for **PUT**
+when the *client* already knows the URL and wants to create or wholly *replace* what lives
+there, sending the complete representation; repeating the same `PUT /appointments/987` leaves
+the resource in the same state, so PUT *is* idempotent. Second, *full replacement or a partial
+change?* Reach for **PATCH** to alter part of an existing resource, sending only the fields
+that change — `PATCH /appointments/987` with `{"status": "arrived"}` touches nothing else. The
+one-line version: **POST** creates under a server-chosen name, **PUT** replaces in full, and
+**PATCH** changes in part.
+
+> **Pitfall.** Idempotency is not a nicety — the network will retry. If a client times out and
+> resends, an idempotent `PUT` or `DELETE` is harmless, but a resent `POST` can double-book the
+> appointment. Design writes so that the safely-repeatable verb is used wherever you can, and
+> protect the ones that cannot be (e.g., with an idempotency key) rather than assuming each
+> request arrives exactly once.
 
 **Trade-offs.** You gain **uniformity** (one grammar for every service; tooling, caching,
 and testing all get cheaper), **evolvability** (representations decouple clients from
