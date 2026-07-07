@@ -9,11 +9,8 @@ name: release-epubs
 #   https://github.com/tghastings/open-swe-book/releases/latest/download/Print.Edition.-.Generic.pdf
 #
 # The print edition is set in Amazon Endure. The .otf files are NOT in the repo
-# (licensing); the workflow decodes them from the ENDURE_FONTS_B64 repo secret.
-# Create it once from the local font dir:
-#   tar czC latex/fonts AmazonEndure-Book.otf AmazonEndure-SemiBold.otf \
-#     AmazonEndure-BookItalic.otf AmazonEndure-SemiBoldItalic.otf \
-#     | base64 -w0 | gh secret set ENDURE_FONTS_B64
+# (licensing); the workflow downloads them at build time from Amazon's public KDP
+# font page (the same files KDP ships). No secret or manual setup required.
 on:
   push:
     tags: ["v*"]
@@ -62,23 +59,31 @@ jobs:
 
       - name: Build the print interior (LaTeX / xelatex, Amazon Endure)
         env:
-          ENDURE_FONTS_B64: ${{ secrets.ENDURE_FONTS_B64 }}
           CHROME_FLAGS: --no-sandbox
           LATEX_NATIVE: "1"
+          ENDURE_URL: "https://m.media-amazon.com/images/G/01/kindle-publication/EN/Amazon_Endure_font_EN.zip"
         run: |
-          if [ -z "$ENDURE_FONTS_B64" ]; then
-            echo "::error::ENDURE_FONTS_B64 secret is not set — cannot build the Endure print edition."
-            echo "::error::Create it with: tar czC latex/fonts AmazonEndure-Book.otf AmazonEndure-SemiBold.otf AmazonEndure-BookItalic.otf AmazonEndure-SemiBoldItalic.otf | base64 -w0 | gh secret set ENDURE_FONTS_B64"
-            exit 1
-          fi
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             texlive-xetex texlive-latex-extra texlive-latex-recommended \
             texlive-fonts-recommended texlive-plain-generic texlive-bibtex-extra biber \
             librsvg2-bin fontconfig lmodern imagemagick
+          # Amazon Endure is not redistributed in this repo; fetch it at build time
+          # from Amazon's public KDP font page (the same files KDP ships).
           mkdir -p latex/fonts
-          printf '%s' "$ENDURE_FONTS_B64" | base64 -d | tar xzC latex/fonts
-          echo "fonts:"; ls latex/fonts/*.otf
+          curl -sSL --retry 3 -o /tmp/endure.zip "$ENDURE_URL"
+          unzip -j -o /tmp/endure.zip \
+            "Amazon Endure font EN/AmazonEndure-Book.otf" \
+            "Amazon Endure font EN/AmazonEndure-SemiBold.otf" \
+            "Amazon Endure font EN/AmazonEndure-BookItalic.otf" \
+            "Amazon Endure font EN/AmazonEndure-SemiBoldItalic.otf" \
+            -d latex/fonts
+          count=$(ls latex/fonts/AmazonEndure-*.otf 2>/dev/null | wc -l)
+          if [ "$count" -ne 4 ]; then
+            echo "::error::Expected 4 Endure .otf files, got $count — the Amazon font zip URL or layout may have changed ($ENDURE_URL)."
+            exit 1
+          fi
+          ls latex/fonts/*.otf
           bash latex/book-build.sh   # exits non-zero if the PDF is not produced
           echo "print interior built: $(du -h latex/swebook-interior.pdf | cut -f1)"
           mkdir -p dist
