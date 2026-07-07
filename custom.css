@@ -12,6 +12,14 @@
   text-overflow: ellipsis;
 }
 
+/* Windows renders a classic, space-taking horizontal scrollbar as soon as the
+   sidebar content is even a pixel wider than its box (macOS/Linux use overlay
+   scrollbars that stay hidden). Links already truncate with an ellipsis, so clip
+   any residual horizontal overflow — vertical scrolling is untouched. */
+#sidebar .sidebar-scrollbox {
+  overflow-x: hidden;
+}
+
 /* ------------------------------------------------------------------ *
  * Sidebar subsection navigation (injected by subsections.js)
  * Injected <li.subsection-item> live inside the chapter's own
