@@ -216,7 +216,11 @@ def mm(m):
     src = _fix_gantt(src)
     src = _fix_xychart(src)
     figs.append(src); n = len(figs)
-    fn = f'/book/{figdir}/{prefix}{n}.png'
+    # path RELATIVE to the xelatex working dir (latex/bookbuild), not an absolute
+    # /book/... which only exists when the repo is Docker-mounted there. figdir is
+    # "<bookbuild>/figs"; xelatex runs from "<bookbuild>", so "figs/..." resolves in
+    # Docker and native CI alike.
+    fn = f'{figdir.rstrip("/").rsplit("/", 1)[-1]}/{prefix}{n}.png'
     cap = r'\caption{' + texesc(caps[n - 1]) + '}' if n - 1 < len(caps) else ''
     # rasters are 3x device scale (gantt: 2x); scale to TRUE size, cap at text width —
     # a three-node diagram should not be stretched to a full page
