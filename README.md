@@ -1,6 +1,6 @@
 # Software Engineering: Standing on the Shoulders of Giants
 
-*First Edition, 1.0b3.*
+*First Edition, 1.0b4.*
 
 📖 **Read the book online at [www.swebook.org](https://www.swebook.org).**
 
