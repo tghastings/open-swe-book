@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Set the book version everywhere it is HARDCODED (not derived from the git tag).
 
-    tools/bump-version.py 1.0b2
+    tools/bump-version.py 1.0b2                  # all hardcoded spots (local / release)
+    tools/bump-version.py 1.0b2 --citation-only  # just CITATION.cff (the version-sync CI)
 
 Then rebuild the interior PDF, commit, and tag:
 
@@ -15,9 +16,11 @@ cover wrap ("1st Beta Edition" / "1β") is intentionally left alone.
 """
 import re, sys, pathlib, datetime
 
-if len(sys.argv) != 2:
+citation_only = "--citation-only" in sys.argv[1:]
+args = [a for a in sys.argv[1:] if a != "--citation-only"]
+if len(args) != 1:
     sys.exit(__doc__)
-V = sys.argv[1].lstrip("v")                      # accept "v1.0b2" or "1.0b2"
+V = args[0].lstrip("v")                           # accept "v1.0b2" or "1.0b2"
 if not re.fullmatch(r"\d+\.\d+(b\d+)?", V):
     sys.exit(f"error: {V!r} is not a version like 1.0b2 or 1.0")
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -33,6 +36,8 @@ EDITS = [
     ("latex/title.tex",r'First Edition \([^)]*\), 2026',           f'First Edition ({V}), 2026',       1),
     ("version.js",     r'const VERSION = "[^"]*"',                  f'const VERSION = "{V}"',           1),
 ]
+if citation_only:                                 # version-sync CI: CITATION.cff only
+    EDITS = [e for e in EDITS if e[0] == "CITATION.cff"]
 
 changed = []
 for rel, pat, repl, want in EDITS:

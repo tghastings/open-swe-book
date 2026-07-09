@@ -98,6 +98,28 @@ jobs:
           mkdir -p dist
           cp latex/swebook-interior.pdf "dist/Print Edition - Generic.pdf"
 
+      - name: Build & bundle the KDP print cover wrap
+        env:
+          CHROME_FLAGS: --no-sandbox
+        run: |
+          # cover-wrap.html uses Georgia (Liberation Serif fallback in CI) + DejaVu Mono.
+          # ImageMagick already installed by the interior step; ensure the fonts + allow
+          # ImageMagick to WRITE PDFs (Ubuntu's default policy blocks the PDF coder).
+          # poppler-utils + python3-pil let check-cover.py rasterize and validate geometry.
+          sudo apt-get install -y --no-install-recommends \
+            fonts-liberation fonts-dejavu-core poppler-utils python3-pil
+          POLICY="$(find /etc/ImageMagick-* -name policy.xml 2>/dev/null | head -1)"
+          [ -n "$POLICY" ] && sudo sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/' "$POLICY" || true
+          if bash latex/make-cover.sh; then
+            # Validate KDP dimensions + spine/barcode safe zones before shipping the asset.
+            python3 latex/check-cover.py latex/swebook-generic-cover-wrap.pdf \
+              || echo "::warning::cover geometry check reported issues (see log above)"
+            cp latex/swebook-generic-cover-wrap.pdf "dist/Print Cover - Generic.pdf"
+            echo "cover wrap: $(du -h latex/swebook-generic-cover-wrap.pdf | cut -f1)"
+          else
+            echo "::warning::cover wrap build failed — release will omit Print Cover - Generic.pdf"
+          fi
+
       - name: Publish as release assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -105,6 +127,6 @@ jobs:
           V="${GITHUB_REF_NAME#v}"   # release tag stays as pushed; title shows the clean version
           gh release create "$GITHUB_REF_NAME" \
             --title "Software Engineering: Standing on the Shoulders of Giants $V" \
-            --notes "EPUB and PDF editions of [swebook.org](https://www.swebook.org), one per code-example language (prose is identical across editions), plus **Print Edition - Generic.pdf**: the print-ready 7x10 interior (pseudocode edition) set in Amazon Endure." \
+            --notes "EPUB and PDF editions of [swebook.org](https://www.swebook.org), one per code-example language (prose is identical across editions), plus **Print Edition - Generic.pdf** (the print-ready 7x10 interior, pseudocode edition, Amazon Endure) and **Print Cover - Generic.pdf** (the KDP case-laminate cover wrap)." \
             --verify-tag dist/*.epub dist/*.pdf \
           || gh release upload "$GITHUB_REF_NAME" dist/*.epub dist/*.pdf --clobber

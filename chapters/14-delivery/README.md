@@ -145,7 +145,7 @@ matters more than unit cost, and when a small team has no one to spare for opera
 > **Case study.** *Cloud repatriation.* The trade cuts the other way, too. In 2022–23,
 > 37signals — the company behind Basecamp — publicly moved its products off the cloud and
 > onto purchased hardware, documenting seven-figure annual savings for workloads that were
-> steady and predictable rather than spiky.[^3][^4] And Amazon's own Prime Video team published an
+> steady and predictable rather than spiky.[^3] [^4] And Amazon's own Prime Video team published an
 > account of cutting the cost of one audio/video monitoring service by roughly 90 percent —
 > by moving it *away* from a serverless, distributed-microservices design and back into a
 > monolith-style process.[^5] None of this means the cloud is over. The cloud is a
@@ -676,7 +676,7 @@ They are worth studying closely, and honestly, from the primary sources.
 >
 > The push was global and simultaneous. Within hours, roughly 8.5 million Windows
 > machines (Microsoft's estimate) were down: airlines (Delta alone canceled on the order
-> of 7,000 flights), hospitals, banks, broadcasters, emergency services.[^20][^21] Damage
+> of 7,000 flights), hospitals, banks, broadcasters, emergency services.[^20] [^21] Damage
 > estimates ran into the billions — direct losses for the Fortune 500 alone were estimated
 > at $5.4 billion, only a fraction of it insured.[^22] Recovery was brutal precisely
 > because the machines could not boot: in many cases a human had to start each machine in
@@ -1075,7 +1075,7 @@ package's maintainer account and publishing a malicious release. The 2020 SolarW
 attack planted malicious code inside a vendor's *build process*, so customers received a
 compromised product signed with authentic signatures;[^37] the 2016 left-pad incident
 showed the fragility side, when the removal of an eleven-line package briefly broke
-builds across the industry.[^38][^39] Defenses are accumulating — lockfiles that pin exact versions,
+builds across the industry.[^38] [^39] Defenses are accumulating — lockfiles that pin exact versions,
 cryptographic signing and provenance attestation for artifacts (the SLSA framework),[^40]
 and a **software bill of materials (SBOM)** enumerating everything inside a release[^41] — but the
 first defense is the cultural one: treat adding a dependency as an engineering decision
@@ -1111,7 +1111,7 @@ programs fail by measuring what is easy instead of what matters. The delivery wo
 unusually good answer, produced by the **DORA** research program (DevOps Research and
 Assessment) — a multi-year academic effort, surveying tens of thousands of professionals,
 published in the annual *State of DevOps* reports and the book *Accelerate* (Forsgren,
-Humble, and Kim).[^42][^43] Its core finding is a set of four outcome measures — the **four keys** —
+Humble, and Kim).[^42] [^43] Its core finding is a set of four outcome measures — the **four keys** —
 that jointly predict software-delivery performance:
 
 1. **Deployment frequency** — how often your team deploys to production.

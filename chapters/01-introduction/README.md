@@ -304,7 +304,7 @@ The profession has written norms. The **ACM Code of Ethics and Professional Cond
 and the joint **ACM/IEEE-CS Software Engineering Code of Ethics** state, among other
 principles, that software engineers shall act in the **public interest**, produce work of
 **high quality**, be **honest** about their work and its limitations, and maintain
-**competence**.[^10][^11] These are not decoration: they give an engineer a shared, citable basis
+**competence**.[^10] [^11] These are not decoration: they give an engineer a shared, citable basis
 for saying *no*, and for raising concerns without it being merely personal opinion.
 
 ### 1.6.3 Case Study: The Therac-25 Accidents

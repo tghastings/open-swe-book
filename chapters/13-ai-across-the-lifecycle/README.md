@@ -69,7 +69,7 @@ mixed enough to demand humility.*
 
 - **Perceived gains are large.** In field studies, a majority of developers report feeling
   more productive with tools like GitHub Copilot, and vendors cite eye-catching
-  numbers.[^1][^2]
+  numbers.[^1] [^2]
 - **Measured gains are smaller and sometimes negative.** In a 2025 randomized controlled
   trial, METR had experienced open-source developers do real tasks in repositories they
   knew well. Developers *predicted* AI would make them ~24% faster; in fact they were about
@@ -128,7 +128,7 @@ Large language models are genuinely useful for **elicitation and drafting**: tur
 interview notes, tickets, and support logs into candidate user stories, acceptance
 criteria (Given/When/Then), and edge-case lists. Studies report LLM-drafted requirements
 that reviewers rate as complete, consistent first drafts — comparable to an entry-level
-engineer's — produced far faster and cheaper.[^5][^6]
+engineer's — produced far faster and cheaper.[^5] [^6]
 
 - **Fails at:** knowing what users actually *need* versus what is *plausible*; an LLM will
   cheerfully invent requirements that sound reasonable and are wrong (**hallucinated
@@ -163,7 +163,7 @@ This is where the human-owned layer is thickest. AI can propose class structures
 **Architecture Decision Records (ADRs)**, suggest applicable patterns from Chapter 7, and
 even prototype competing designs to compare. Research on multi-agent systems that go from
 requirements to candidate architectures is active but early, and leans on role
-specialization to fight hallucination.[^8][^9]
+specialization to fight hallucination.[^8] [^9]
 
 - **Fails at:** the *significant, expensive-to-change decisions* that define architecture
   (Chapter 6); it has no stake in your five-year maintenance cost and cannot feel the pain
@@ -196,7 +196,7 @@ output produced faster than humans can vet it.[^11]
 Testing is where agentic AI has advanced most measurably. Benchmarks like **SWE-bench**
 (fix a real GitHub issue) and **SWT-bench** (generate a bug-reproducing test) have driven
 rapid progress in automated **test generation** and **program repair**; as of 2025, agents
-resolve a substantial fraction of such benchmark issues end to end.[^13][^14] Treat those numbers with
+resolve a substantial fraction of such benchmark issues end to end.[^13] [^14] Treat those numbers with
 care, though: passing a benchmark's tests is *evidence*, not proof, of a correct fix —
 studies of SWE-bench-style evaluation have found patches that pass the benchmark suite
 while failing developer-written tests or behaving differently from the true fix, so weak
@@ -373,7 +373,7 @@ A balanced reading of the current research:
 |-----------|---------------------------|--------|
 | **Productivity** | Real gains on boilerplate, unfamiliar APIs, greenfield, narrow well-specified tasks. | On familiar, high-standards code, a 2025 RCT found a ~19% *slowdown*; perception overstates gains.[^3] |
 | **Quality** | Faster first drafts; good at tests and explanations. | Rising code duplication and falling refactoring in one industry analysis point to maintainability debt.[^17] |
-| **Security** | Analyzers + AI review can catch known bug patterns. | ~40% of AI-generated programs in one study contained vulnerabilities; users felt *more* secure while being *less* so.[^18][^12] |
+| **Security** | Analyzers + AI review can catch known bug patterns. | ~40% of AI-generated programs in one study contained vulnerabilities; users felt *more* secure while being *less* so.[^18] [^12] |
 
 The through-line: **AI is a power tool, and a power tool amplifies the operator.** In
 skilled hands with strong verification (specs, tests, reviews, metrics), it is a real
@@ -389,7 +389,7 @@ multiplier. Without those disciplines, it multiplies *output* while quietly degr
 
 In 2026, Cory Ondrejka (co-creator of Second Life; former engineering leader at Google and
 Meta; CTO of Onebrief) published the **o16g manifesto** — *Outcome Engineering* — arguing
-that agentic development demands a new frame.[^19][^20] Its thesis: **"It was never about the
+that agentic development demands a new frame.[^19] [^20] Its thesis: **"It was never about the
 code."** Code is "the incantation transforming computation into magic," a *mechanism* for
 delivering an idea. Once agents remove the constraint of human typing bandwidth, the
 manifesto argues, creation is limited by the *cost of compute*, not human capacity — and the
@@ -559,7 +559,7 @@ project is, what the rules are, where the traps are" over and over.[^23]
 
 A small standard has emerged for paying that debt down. An **agent instructions file** —
 `CLAUDE.md` for Claude Code, or the tool-neutral **`AGENTS.md`** — is a Markdown briefing
-checked into the repository and loaded at the start of every session.[^24][^25] `AGENTS.md`
+checked into the repository and loaded at the start of every session.[^24] [^25] `AGENTS.md`
 was formalized as an open specification in 2025 (led by OpenAI with Google, Cursor, and
 others) and donated to the Linux Foundation's Agentic AI Foundation in December 2025; by
 then more than 60,000 projects had adopted it and more than twenty agent tools could read
@@ -596,17 +596,17 @@ between them:
 | Agent | Instruction file(s) | Where its house guide lives |
 |---|---|---|
 | **Claude Code** (Anthropic) | `CLAUDE.md`, `.claude/skills/` | Claude Code best practices[^25] |
-| **Codex** (OpenAI) | `AGENTS.md` | Codex prompting guide[^28] |
-| **Cursor** | `.cursor/rules/*.mdc`, `AGENTS.md` | Cursor *Rules* docs[^29] |
-| **Gemini CLI** (Google) | `GEMINI.md` | Gemini CLI docs[^29] |
-| **Copilot** (GitHub) | `copilot-instructions.md` | Copilot docs[^29] |
+| **Codex** (OpenAI) | `AGENTS.md` | Codex prompting guide[^26] |
+| **Cursor** | `.cursor/rules/*.mdc`, `AGENTS.md` | Cursor *Rules* docs[^27] |
+| **Gemini CLI** (Google) | `GEMINI.md` | Gemini CLI docs[^27] |
+| **Copilot** (GitHub) | `copilot-instructions.md` | Copilot docs[^27] |
 | *portable baseline* | **`AGENTS.md`** | agents.md[^24] |
 
 The clearest example is **capitalization**. Anthropic's Claude Code guide explicitly lists it
 as a lever: "you can tune instructions by adding emphasis (e.g., `IMPORTANT` or `YOU MUST`) to
 improve adherence."[^25] OpenAI's Codex guide says nothing of the kind; it stresses instead
 that instructions be *verifiable* and *decomposed* — give the agent "a specific outcome,
-measurable target, or test criteria," and "break [work] into smaller, focused steps."[^28] So
+measurable target, or test criteria," and "break [work] into smaller, focused steps."[^26] So
 the same shouted rule that sharpens a priority for one agent is, at best, wasted characters
 for another: put colloquially, one assistant hears *emphasis* where another just hears
 *yelling*. The lesson is not that one guide is right — it is that instruction *phrasing does
@@ -733,10 +733,10 @@ Ask an agent to grade what it just produced and it tends to praise it, because t
 in which the code was written is already full of the reasons it was written that way;
 looking back, the agent sees its own justification, not the result. Anthropic's engineering
 team, building agents that code autonomously for hours, hit this directly: agents overrate
-their own output, especially on subjective work.[^26] Their fix — borrowed explicitly from
+their own output, especially on subjective work.[^28] Their fix — borrowed explicitly from
 **generative adversarial networks (GANs)** — was structural, not a matter of wording. You
 cannot reliably make an author self-critical, but you can hand the work to a *different*
-agent, with different instructions, that carries none of the first one's self-persuasion:[^26]
+agent, with different instructions, that carries none of the first one's self-persuasion:[^28]
 
 ```mermaid
 flowchart LR
@@ -752,7 +752,7 @@ Two refinements make the evaluator real. First, it should **act, not just read**
 evaluator that only reads code judges "does this look right," not "does this run right."
 Anthropic's evaluator drove the live application through browser automation — clicking,
 screenshotting, inspecting the result — and graded behavior against calibrated criteria
-rather than reading intent.[^26] Second, its default stance should be **doubt, not trust**:
+rather than reading intent.[^28] Second, its default stance should be **doubt, not trust**:
 assume the code is broken until a check proves otherwise. This is the old **maker–checker**
 principle from banking — the person entering a large transfer and the person approving it
 must differ — applied to the stop condition of a loop.
@@ -794,14 +794,14 @@ one human checkpoint where the loop pauses for a person** (against cognitive sur
 because a human will always intervene, but because the pause keeps a human *able* to.
 
 > **Case study — Stripe's "Minions."** Stripe's internal coding agents ship on the order of
-> 1,300 pull requests a week, kicked off by an emoji reaction in Slack.[^27] What makes that
+> 1,300 pull requests a week, kicked off by an emoji reaction in Slack.[^29] What makes that
 > reliable is not a stronger model — the harness is a fork of the open-source *Goose* — but
 > the *constraints* around it. A deterministic orchestrator assembles context and runs
 > hard-coded quality gates (a linter the agent cannot skip, then a commit step) before and
 > after the probabilistic model does its part; anything a rule can decide is kept out of the
 > model's hands. Every one of those PRs is still reviewed by an engineer — the humans did not
 > leave, their time moved from writing to reviewing. Reliability came from the discipline
-> around the loop, not the size of the model in it.[^27]
+> around the loop, not the size of the model in it.[^29]
 
 ### 13.7.4 Stay the Engineer
 
@@ -896,10 +896,10 @@ engineering. It is *more* of the hardest, most human parts of it.
 [^23]: Addy Osmani, *Loop Engineering* (2026). [addyo.substack.com](https://addyo.substack.com/p/loop-engineering) · overview at [O'Reilly Radar](https://www.oreilly.com/radar/loop-engineering/). The name and one-line definition, the four-layer stack, the five moves and their anti-patterns, *intent debt*, and the four silent costs (the term surfaced the same week from Peter Steinberger and Boris Cherny, June 2026).
 [^24]: *AGENTS.md — an open standard for agent instruction files*. [agents.md](https://agents.md/). Formalized as an open spec in 2025 (OpenAI with Google, Cursor, and others) and donated to the Linux Foundation's Agentic AI Foundation in December 2025; adopted by 60,000+ projects and 20+ tools.
 [^25]: Anthropic, *Manage Claude's memory* — Claude Code documentation. [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory). `CLAUDE.md` loading and the practices that make an instructions file effective (high-signal, imperative, few load-bearing rules).
-[^26]: Anthropic, *Harness design for long-running application development* (2026). [anthropic.com/engineering](https://www.anthropic.com/engineering/harness-design-long-running-apps). The generator–evaluator (and planner) architecture, its GAN inspiration, browser-driven evaluation, and the finding that agents overrate their own output.
-[^27]: Steve Kaliski (Stripe), *How Stripe built "minions" — AI coding agents that ship 1,300 PRs weekly from Slack reactions*, *How I AI* podcast (2026). [lennysnewsletter.com](https://www.lennysnewsletter.com/p/how-stripe-built-minionsai-coding) · coverage at [InfoQ](https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents/). Deterministic gates around a *Goose* fork; reliability from constraints, not model size.
-[^28]: OpenAI, *Codex — Prompting* and *Best practices* (2026). [developers.openai.com/codex/prompting](https://developers.openai.com/codex/prompting) · [/codex/learn/best-practices](https://developers.openai.com/codex/learn/best-practices). Stresses verifiable, decomposed instructions with measurable success criteria; unlike Anthropic's guide, it gives no capitalization/emphasis advice. See also Anthropic, *Best practices for Claude Code* — [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) — for the `IMPORTANT`/`YOU MUST` emphasis lever quoted in [^25].
-[^29]: Per-tool instruction conventions: Cursor, *Rules* — [cursor.com/docs/rules](https://cursor.com/docs/rules); Google, *Provide context with `GEMINI.md` files* (Gemini CLI) — [geminicli.com/docs/cli/gemini-md](https://geminicli.com/docs/cli/gemini-md/); GitHub, *Adding repository custom instructions for Copilot* — [docs.github.com](https://docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot).
+[^26]: OpenAI, *Codex — Prompting* and *Best practices* (2026). [developers.openai.com/codex/prompting](https://developers.openai.com/codex/prompting) · [/codex/learn/best-practices](https://developers.openai.com/codex/learn/best-practices). Stresses verifiable, decomposed instructions with measurable success criteria; unlike Anthropic's guide, it gives no capitalization/emphasis advice. See also Anthropic, *Best practices for Claude Code* — [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) — for the `IMPORTANT`/`YOU MUST` emphasis lever quoted in §13.6.
+[^27]: Per-tool instruction conventions: Cursor, *Rules* — [cursor.com/docs/rules](https://cursor.com/docs/rules); Google, *Provide context with `GEMINI.md` files* (Gemini CLI) — [geminicli.com/docs/cli/gemini-md](https://geminicli.com/docs/cli/gemini-md/); GitHub, *Adding repository custom instructions for Copilot* — [docs.github.com](https://docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot).
+[^28]: Anthropic, *Harness design for long-running application development* (2026). [anthropic.com/engineering](https://www.anthropic.com/engineering/harness-design-long-running-apps). The generator–evaluator (and planner) architecture, its GAN inspiration, browser-driven evaluation, and the finding that agents overrate their own output.
+[^29]: Steve Kaliski (Stripe), *How Stripe built "minions" — AI coding agents that ship 1,300 PRs weekly from Slack reactions*, *How I AI* podcast (2026). [lennysnewsletter.com](https://www.lennysnewsletter.com/p/how-stripe-built-minionsai-coding) · coverage at [InfoQ](https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents/). Deterministic gates around a *Goose* fork; reliability from constraints, not model size.
 
 ---
 

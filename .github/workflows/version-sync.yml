@@ -1,12 +1,12 @@
 name: version-sync
 
-# When you push a version tag (e.g. `git tag v1.0b2 && git push --tags`), this
-# syncs the HARDCODED version strings on `main` to that tag — the files a git tag
-# alone cannot reach: CITATION.cff (GitHub reads it straight from the repo for the
-# "Cite this repository" button), the printed PDF title page (latex/title.tex),
-# README.md, and the version.js local default. It reuses tools/bump-version.py, so
-# it is a no-op if you already ran that locally before tagging. The commit to main
-# re-triggers the Pages deploy (ci.yml), so the web landing page updates too.
+# When you push a version tag (e.g. `git tag 1.0b2 && git push --tags`), this keeps
+# ONLY CITATION.cff on `main` in sync with the tag — the one version surface a tag
+# and build-time injection cannot reach (GitHub reads CITATION.cff straight from the
+# repo for the "Cite this repository" button). The web sidebar + README landing are
+# stamped at build time by ci.yml, and the PDF/EPUB assets by release-epubs.yml, so
+# those are NOT committed here — that avoids churning main under your tags. No-op if
+# CITATION.cff already matches.
 on:
   push:
     tags: ["v*", "[0-9]*"]   # accepts v1.0b2 or a bare 1.0b2
@@ -23,16 +23,16 @@ jobs:
           ref: main          # sync main, not the tagged commit
           fetch-depth: 0
 
-      - name: Bump hardcoded version files to the tag and commit
+      - name: Sync CITATION.cff to the tag and commit
         run: |
           V="${GITHUB_REF_NAME#v}"          # v1.0b2 -> 1.0b2
-          python3 tools/bump-version.py "$V"
-          if git diff --quiet; then
-            echo "version metadata already in sync at $V"
+          python3 tools/bump-version.py "$V" --citation-only
+          if git diff --quiet -- CITATION.cff; then
+            echo "CITATION.cff already at $V"
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: sync version metadata to $V"
+          git commit -m "chore: cite $V" -- CITATION.cff
           git push origin main \
-            || echo "::warning::Could not push the version sync to main (branch protection?). Run 'tools/bump-version.py $V' locally and commit it yourself."
+            || echo "::warning::Could not push CITATION.cff to main (branch protection?). Run 'tools/bump-version.py $V --citation-only' locally and commit CITATION.cff yourself."

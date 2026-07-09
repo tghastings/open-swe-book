@@ -5,7 +5,7 @@
 > it tells you *what good structure looks like* without telling you *which structure to
 > reach for* when you sit down to design a real system. This chapter closes that gap. An
 > **architectural pattern** is a reusable, named arrangement of modules and connectors
-> that has repeatedly solved a recurring design problem.[^1][^2] Learning the catalog means you
+> that has repeatedly solved a recurring design problem.[^1] [^2] Learning the catalog means you
 > rarely start from a blank page — and, better still, that you can *reason about the
 > trade-offs* of a structure before you commit code to it.
 
@@ -181,7 +181,7 @@ accessor at once — the store's interface is now a system-wide contract. And be
 every access funnels through one place, the store can become the scalability limit and a
 single point of failure. Relational databases, blackboard systems in AI, and the Redux
 "single store" in front-end apps are all shared-data designs, and all of them live with
-this same tension between convenient centralization and dangerous centralization.[^1][^5]
+this same tension between convenient centralization and dangerous centralization.[^1] [^5]
 
 ### 7.2.2 Observers and Subscribers — the Observer Pattern
 
@@ -796,7 +796,7 @@ function testUnpaid31DaysIsOverdue(): void {
 > updates, the view re-renders — the same separation with a stricter update discipline.[^5]
 > Very large products run on each (Instagram on Django, Shopify on Rails, Airbnb on
 > React), which is the point: the pattern, not the framework, is the transferable
-> knowledge.[^13][^14]<!-- -->[^15]
+> knowledge.[^13] [^14]<!-- -->[^15]
 
 ## 7.4 Dataflow Architectures
 
@@ -814,7 +814,7 @@ body of data, and you want each transformation to be a self-contained unit you c
 test, reuse, and reorder without knowing about its neighbors. The **pipes-and-filters**
 pattern arranges the computation as a linear chain: each **filter** reads from an input
 **pipe**, transforms what it reads, and writes to an output pipe that feeds the next
-filter.[^1][^2]
+filter.[^1] [^2]
 
 **Structure and participants.** A **filter** is a stateless-by-default component with one
 job: consume input, produce output. A **pipe** is the connector that carries data from

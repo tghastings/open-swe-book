@@ -28,11 +28,16 @@ jobs:
         with:
           fetch-depth: 0   # full history so git describe sees version tags
 
-      - name: Stamp the version into the sidebar
+      - name: Stamp the version into the sidebar and README
         run: |
-          V="$(git describe --tags --always | sed 's/^v//')"   # v1.0b1 -> 1.0b1
-          echo "build version: $V"
+          # Publish the latest RELEASE tag (clean, no commit distance):
+          # v1.0b1 -> 1.0b1. Injected at build time so the deployed site always
+          # matches the tag even if the deployed commit's files are stale.
+          V="$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')"
+          V="${V:-1.0b1}"
+          echo "publishing version: $V"
           sed -i -E "s/const VERSION = \"[^\"]*\"/const VERSION = \"${V}\"/" version.js
+          sed -i -E "s/\*First Edition, [^*]*\*/*First Edition, ${V}.*/" README.md
 
       - name: Install mdBook + mdbook-mermaid
         run: |

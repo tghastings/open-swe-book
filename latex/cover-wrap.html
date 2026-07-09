@@ -3,6 +3,21 @@
     <head>
         <meta charset="utf-8" />
         <style>
+            /* Self-hosted Lora (OFL) so CI and local builds render identically
+               instead of falling back to a system serif. Upright is a variable
+               font (weights 400-700); italic is separate. */
+            @font-face {
+                font-family: "Lora";
+                font-style: normal;
+                font-weight: 400 700;
+                src: url("../fonts/Lora.woff2") format("woff2");
+            }
+            @font-face {
+                font-family: "Lora";
+                font-style: italic;
+                font-weight: 400 700;
+                src: url("../fonts/Lora-Italic.woff2") format("woff2");
+            }
             * {
                 margin: 0;
                 padding: 0;
@@ -12,7 +27,7 @@
      wrap ~0.7875in sides / ~0.7085in top-bottom. All units in inches. */
             html,
             body {
-                width: 16.78in;
+                width: 16.667in;
                 height: 11.417in;
             }
             body {
@@ -29,7 +44,7 @@
                         transparent 72%
                     );
                 color: #eef1f8;
-                font-family: Georgia, "Liberation Serif", serif;
+                font-family: "Lora", Georgia, "Liberation Serif", serif;
                 position: relative;
                 overflow: hidden;
             }
@@ -50,17 +65,17 @@
                 height: 10in;
             }
             .back {
-                left: 0.7885in;
+                left: 0.7875in;
                 width: 7in;
             }
             .spine {
-                left: 7.7885in;
-                width: 1.203in;
+                left: 7.7875in;
+                width: 1.090in;
                 top: 0;
                 height: 11.417in;
             }
             .front {
-                left: 8.9915in;
+                left: 8.8775in;
                 width: 7in;
             }
 
@@ -115,21 +130,27 @@
                 color: #8f99c0;
             }
 
-            /* ---------- SPINE (avoid hinge ~0.28in each edge) ---------- */
+            /* ---------- SPINE (avoid hinge ~0.28in each edge) ----------
+               Trim runs 0.7085..10.7085in; keep spine content ~0.2in inside that.
+               1β pins to the safe top, the dot to the safe bottom. The title + author
+               read top-to-bottom (US spine convention: no rotate, so glyphs turn 90°
+               clockwise and the main title comes first), grouped and centered between. */
             .spine {
+                display: block;
+            }
+            .spine .txt {
+                position: absolute;
+                top: 1.35in;
+                bottom: 1.05in;
+                left: 0;
+                right: 0;
+                writing-mode: vertical-rl;
+                text-align: center;
+                white-space: nowrap;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-            }
-            .spine .txt {
-                writing-mode: vertical-rl;
-                transform: rotate(180deg);
-                text-align: center;
-                white-space: nowrap;
-                height: 9in;
-                display: flex;
-                align-items: center;
-                gap: 0.5in;
+                gap: 0.45in;
                 font-size: 0.24in;
                 color: #f0f3ff;
                 letter-spacing: 0.01in;
@@ -143,7 +164,7 @@
             }
             .spine .dot {
                 position: absolute;
-                bottom: 0.9in;
+                bottom: 0.85in;
                 left: 50%;
                 transform: translateX(-50%);
                 width: 0.14in;
@@ -153,7 +174,7 @@
             }
             .spine .edition {
                 position: absolute;
-                top: 1.15in;
+                top: 0.9in;
                 left: 50%;
                 transform: translateX(-50%);
                 font-family: "DejaVu Sans Mono", monospace;
@@ -165,7 +186,7 @@
 
             /* ---------- BACK ---------- */
             .back {
-                padding: 0.95in 0.72in 1.9in;
+                padding: 0.76in 0.72in 0.6in;
                 display: flex;
                 flex-direction: column;
             }
@@ -184,18 +205,18 @@
                 box-shadow: 0 0 0.12in #ff2d7855;
             }
             .back .lead {
-                margin-top: 0.36in;
-                font-size: 0.2in;
-                line-height: 1.42;
+                margin-top: 0.22in;
+                font-size: 0.19in;
+                line-height: 1.34;
                 color: #f4f6fc;
                 text-align: left;
-                margin-bottom: 0.22in;
+                margin-bottom: 0.14in;
             }
             .back p {
                 font-size: 0.166in;
-                line-height: 1.5;
+                line-height: 1.4;
                 color: #cfd4e8;
-                margin-bottom: 0.15in;
+                margin-bottom: 0.11in;
                 text-align: justify;
             }
             .back .close {
@@ -210,7 +231,7 @@
                 width: 100%;
                 height: 0.014in;
                 background: rgba(174, 184, 221, 0.22);
-                margin: 0.28in 0 0.17in;
+                margin: 0.18in 0 0.11in;
             }
             .back .authlabel {
                 font-family: "DejaVu Sans Mono", monospace;
@@ -222,7 +243,7 @@
             }
             .back .bio {
                 font-size: 0.148in;
-                line-height: 1.44;
+                line-height: 1.36;
                 color: #aeb8dd;
                 text-align: justify;
                 margin: 0;
@@ -234,14 +255,9 @@
             .back .spacer {
                 flex: 1;
             }
-            /* KDP prints the barcode here — keep it clear (white). 2.0 x 1.2 in, lower-center. */
-            .back .barcode {
-                width: 2in;
-                height: 1.2in;
-                background: #fff;
-                align-self: center;
-                margin-top: 0.2in;
-            }
+            /* KDP prints the barcode over the lower-right of the back cover (2.0 x 1.2 in,
+               bottom edge ~0.5in above the trim). No box is drawn — the reflow above keeps
+               the bio text clear of that zone so the barcode lands on clean background. */
         </style>
     </head>
     <body>
@@ -292,7 +308,6 @@
                 — presenting the discipline as a hands‑on craft you learn by
                 doing.
             </p>
-            <div class="spacer"></div>
             <div class="biosep"></div>
             <div class="authlabel">About the Author</div>
             <p class="bio">
@@ -305,6 +320,7 @@
                 Software Engineering from UCCS, and his research focuses on
                 open‑source software security and software supply chains.
             </p>
+            <div class="spacer"></div>
         </section>
 
         <!-- SPINE -->
