@@ -12,14 +12,21 @@ body {
   padding: 0;
 }
 
-/* Full-bleed cover page (injected by build-epubs.sh). */
+/* Cover page (injected by build-epubs.sh). Constrain by HEIGHT so the whole
+   cover lands on one printed page — epub.css forces img{max-width:100%!important},
+   which alone lets a tall 1600x2560 cover render ~11.2in tall and spill onto a
+   second page. Letter content box is 8.5-2*19mm wide x 11-2*22mm ≈ 9.27in tall. */
 .pdf-cover {
   page-break-after: always;
   text-align: center;
 }
 .pdf-cover img {
-  max-width: 78%;
+  display: block;
   margin: 0 auto;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 9.2in !important;
 }
 
 h1 {
