@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: 0   # full history so git describe sees version tags
 
-      - name: Stamp build version into the sidebar
+      - name: Stamp the version into the sidebar
         run: |
           V="$(git describe --tags --always | sed 's/^v//')"   # v1.0b1 -> 1.0b1
           echo "build version: $V"

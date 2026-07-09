@@ -232,7 +232,7 @@ def main() -> None:
     body = re.sub(r'<code class="language-(\w+)[^"]*"', r'<code class="\1"', body)
     if version:
         body += ('<hr/><p><em>Software Engineering: Standing on the Shoulders of Giants'
-                 " &middot; build " + version + "</em></p>")
+                 " &middot; First Edition &middot; " + version + "</em></p>")
     print('<!DOCTYPE html><html><head><meta charset="utf-8">'
           "<title>Software Engineering: Standing on the Shoulders of Giants</title>"
           "</head><body>" + body + "</body></html>")
