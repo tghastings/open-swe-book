@@ -32,6 +32,8 @@ code/node_modules/
 # LaTeX print build (outputs are regenerable via latex/book-build.sh)
 latex/bookbuild/
 latex/cover-wrap.png
+# Generated cover-wrap PNG deliverable (regenerable via latex/make-cover.sh; also built in CI)
+latex/swebook-generic-cover-wrap.png
 # regenerated deterministically by latex/make-references.py
 latex/references.tex
 latex/citation-map.json

@@ -115,9 +115,10 @@ jobs:
             python3 latex/check-cover.py latex/swebook-generic-cover-wrap.pdf \
               || echo "::warning::cover geometry check reported issues (see log above)"
             cp latex/swebook-generic-cover-wrap.pdf "dist/Print Cover - Generic.pdf"
-            echo "cover wrap: $(du -h latex/swebook-generic-cover-wrap.pdf | cut -f1)"
+            cp latex/swebook-generic-cover-wrap.png "dist/Print Cover - Generic.png"
+            echo "cover wrap: $(du -h latex/swebook-generic-cover-wrap.pdf | cut -f1) pdf, $(du -h latex/swebook-generic-cover-wrap.png | cut -f1) png"
           else
-            echo "::warning::cover wrap build failed — release will omit Print Cover - Generic.pdf"
+            echo "::warning::cover wrap build failed — release will omit Print Cover - Generic.{pdf,png}"
           fi
 
       - name: Publish as release assets
@@ -127,6 +128,6 @@ jobs:
           V="${GITHUB_REF_NAME#v}"   # release tag stays as pushed; title shows the clean version
           gh release create "$GITHUB_REF_NAME" \
             --title "Software Engineering: Standing on the Shoulders of Giants $V" \
-            --notes "EPUB and PDF editions of [swebook.org](https://www.swebook.org), one per code-example language (prose is identical across editions), plus **Print Edition - Generic.pdf** (the print-ready 7x10 interior, pseudocode edition, Amazon Endure) and **Print Cover - Generic.pdf** (the KDP case-laminate cover wrap)." \
-            --verify-tag dist/*.epub dist/*.pdf \
-          || gh release upload "$GITHUB_REF_NAME" dist/*.epub dist/*.pdf --clobber
+            --notes "EPUB and PDF editions of [swebook.org](https://www.swebook.org), one per code-example language (prose is identical across editions), plus **Print Edition - Generic.pdf** (the print-ready 7x10 interior, pseudocode edition, Amazon Endure) and **Print Cover - Generic.pdf** / **Print Cover - Generic.png** (the KDP case-laminate cover wrap)." \
+            --verify-tag dist/*.epub dist/*.pdf dist/*.png \
+          || gh release upload "$GITHUB_REF_NAME" dist/*.epub dist/*.pdf dist/*.png --clobber
