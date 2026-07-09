@@ -2,10 +2,11 @@ name: build-and-deploy
 
 on:
   push:
-    branches: [main]
-    tags: ["v*", "[0-9]*"]   # version tags (v1.0b2 OR bare 1.0b2) redeploy the site
-  pull_request:
-    branches: [main]
+    # Tags only — the published site is a tagged deliverable, exactly like the
+    # EPUB / PDF / cover release assets. Pushing to main never deploys, so there is
+    # no branch build that can win the Pages concurrency race and deploy a stale
+    # version (the "one tag behind" bug). v1.0b2 or a bare 1.0b2 both match.
+    tags: ["v*", "[0-9]*"]
 
 permissions:
   contents: read
@@ -16,7 +17,7 @@ permissions:
 # leaving two "github-pages" artifacts behind (the cause of the
 # "Multiple artifacts named github-pages" deploy error).
 concurrency:
-  group: pages   # one group for branch AND tag builds — they must not race
+  group: pages   # serialize tag builds so two never race to deploy
   cancel-in-progress: true
 
 jobs:
@@ -25,22 +26,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # full history so git describe sees version tags
 
       - name: Stamp the version into the sidebar and README
         run: |
-          # Resolve the version to publish. A pushed tag is authoritative — use it
-          # directly (v1.0b3 -> 1.0b3). git describe is UNRELIABLE here: when two
-          # version tags land on the same commit it can return the older one, which
-          # is exactly how the site deployed 1.0b2 for a 1.0b3 tag. Branch/PR builds
-          # read the version version-sync keeps current in CITATION.cff.
-          if [ "${{ github.ref_type }}" = "tag" ]; then
-            V="${GITHUB_REF_NAME#v}"
-          else
-            V="$(sed -nE 's/^version:[[:space:]]*"?([^"[:space:]]+)"?.*/\1/p' CITATION.cff | head -1)"
-            V="${V:-$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')}"
-          fi
+          # Only tags trigger this workflow, so the pushed tag IS the version to
+          # publish: v1.0b3 -> 1.0b3. Authoritative and race-free — no branch build
+          # exists to deploy a stale version, and no git describe (whose same-commit
+          # tag ambiguity once shipped 1.0b2 for a 1.0b3 tag).
+          V="${GITHUB_REF_NAME#v}"
           V="${V:-1.0b1}"
           echo "publishing version: $V"
           sed -i -E "s/const VERSION = \"[^\"]*\"/const VERSION = \"${V}\"/" version.js
@@ -69,10 +62,10 @@ jobs:
         with:
           path: ./book-output
 
-  # Deploy the single artifact (only from main).
+  # Deploy the single artifact (tags only).
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
