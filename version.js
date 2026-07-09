@@ -34,7 +34,7 @@
 })();
 
 (() => {
-    const VERSION = "1.0b1";
+    const VERSION = "1.0b4";
     const box = document.querySelector('#sidebar .sidebar-scrollbox');
     if (!box) return;
     const div = document.createElement('div');
