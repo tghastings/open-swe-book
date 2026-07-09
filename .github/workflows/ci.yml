@@ -30,10 +30,17 @@ jobs:
 
       - name: Stamp the version into the sidebar and README
         run: |
-          # Publish the latest RELEASE tag (clean, no commit distance):
-          # v1.0b1 -> 1.0b1. Injected at build time so the deployed site always
-          # matches the tag even if the deployed commit's files are stale.
-          V="$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')"
+          # Resolve the version to publish. A pushed tag is authoritative — use it
+          # directly (v1.0b3 -> 1.0b3). git describe is UNRELIABLE here: when two
+          # version tags land on the same commit it can return the older one, which
+          # is exactly how the site deployed 1.0b2 for a 1.0b3 tag. Branch/PR builds
+          # read the version version-sync keeps current in CITATION.cff.
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            V="${GITHUB_REF_NAME#v}"
+          else
+            V="$(sed -nE 's/^version:[[:space:]]*"?([^"[:space:]]+)"?.*/\1/p' CITATION.cff | head -1)"
+            V="${V:-$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')}"
+          fi
           V="${V:-1.0b1}"
           echo "publishing version: $V"
           sed -i -E "s/const VERSION = \"[^\"]*\"/const VERSION = \"${V}\"/" version.js

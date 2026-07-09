@@ -2,7 +2,9 @@
 """Set the book version everywhere it is HARDCODED (not derived from the git tag).
 
     tools/bump-version.py 1.0b2                  # all hardcoded spots (local / release)
-    tools/bump-version.py 1.0b2 --citation-only  # just CITATION.cff (the version-sync CI)
+    tools/bump-version.py 1.0b2 --repo           # repo-facing surfaces on main
+                                                 #   (CITATION.cff + README.md) — version-sync CI
+    tools/bump-version.py 1.0b2 --citation-only  # just CITATION.cff (legacy alias)
 
 Then rebuild the interior PDF, commit, and tag:
 
@@ -17,7 +19,8 @@ cover wrap ("1st Beta Edition" / "1β") is intentionally left alone.
 import re, sys, pathlib, datetime
 
 citation_only = "--citation-only" in sys.argv[1:]
-args = [a for a in sys.argv[1:] if a != "--citation-only"]
+repo_only = "--repo" in sys.argv[1:]
+args = [a for a in sys.argv[1:] if a not in ("--citation-only", "--repo")]
 if len(args) != 1:
     sys.exit(__doc__)
 V = args[0].lstrip("v")                           # accept "v1.0b2" or "1.0b2"
@@ -36,7 +39,9 @@ EDITS = [
     ("latex/title.tex",r'First Edition \([^)]*\), 2026',           f'First Edition ({V}), 2026',       1),
     ("version.js",     r'const VERSION = "[^"]*"',                  f'const VERSION = "{V}"',           1),
 ]
-if citation_only:                                 # version-sync CI: CITATION.cff only
+if repo_only:                                     # version-sync CI: repo-facing files on main
+    EDITS = [e for e in EDITS if e[0] in ("CITATION.cff", "README.md")]
+elif citation_only:                               # legacy: CITATION.cff only
     EDITS = [e for e in EDITS if e[0] == "CITATION.cff"]
 
 changed = []
