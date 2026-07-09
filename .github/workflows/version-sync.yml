@@ -9,7 +9,7 @@ name: version-sync
 # re-triggers the Pages deploy (ci.yml), so the web landing page updates too.
 on:
   push:
-    tags: ["v*"]
+    tags: ["v*", "[0-9]*"]   # accepts v1.0b2 or a bare 1.0b2
 
 permissions:
   contents: write   # commit the version sync back to main

@@ -1,6 +1,7 @@
 name: release-epubs
 
-# Tag a version (e.g. `git tag v1.0b1 && git push --tags`) and this builds
+# Tag a version (e.g. `git tag 1.0b2 && git push --tags`, with or without a "v")
+# and this builds
 # the five per-language EPUB editions plus a PDF twin of each, AND the print-ready
 # LaTeX interior ("Print Edition - Generic.pdf"), and publishes them as release
 # assets. Stable download URLs (always the newest release):
@@ -13,7 +14,7 @@ name: release-epubs
 # font page (the same files KDP ships). No secret or manual setup required.
 on:
   push:
-    tags: ["v*"]
+    tags: ["v*", "[0-9]*"]   # accepts v1.0b2 or a bare 1.0b2
 
 permissions:
   contents: write
