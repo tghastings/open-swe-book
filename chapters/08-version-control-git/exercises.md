@@ -21,46 +21,46 @@ reason about how Git behaves and how a team should use it.
 5. **[warm‑up]** Give one example each of a file that *should* be committed to a repository and
    a file that should be listed in `.gitignore`, and say why.
 
+6. **[warm‑up]** In Markdown (§8.7), write the source for: a top-level heading, a sentence
+   with one **bold** and one *italic* word, a three-item bulleted list, a link, and a fenced
+   code block with a language tag. Explain what the blank-line rule is and give one example
+   where forgetting it breaks the output.
+
 ## Analysis
 
-6. **[analysis]** You run `git add report.py`, then edit `report.py` again, then `git commit`.
+7. **[analysis]** You run `git add report.py`, then edit `report.py` again, then `git commit`.
    Which version of `report.py` is in the commit — the one you staged or the one now in your
    working tree? Explain using the three-areas model, and say what `git status` would show
    between the second edit and the commit.
 
-7. **[analysis]** A teammate accidentally ran `git reset --hard` and believes a morning's
+8. **[analysis]** A teammate accidentally ran `git reset --hard` and believes a morning's
    committed work is gone forever. Explain why it very likely is *not* gone, name the command
    you would use to find it, and outline the recovery. Then state the one situation in which
    work genuinely is unrecoverable.
 
-8. **[analysis]** Draw (by hand or in Mermaid) the commit graph for this sequence: commit A on
+9. **[analysis]** Draw (by hand or in Mermaid) the commit graph for this sequence: commit A on
    `main`; branch `feature` off A; commit B on `feature`; switch to `main` and commit C; then
    merge `feature` into `main`. Label the merge commit and its parents, and explain why this
    is a three-way merge rather than a fast-forward.
 
-9. **[analysis]** You resolve a merge conflict, but you accidentally leave one `=======` marker
+10. **[analysis]** You resolve a merge conflict, but you accidentally leave one `=======` marker
    line in the file, run `git add`, and commit. What happens, and at which later stage
    (Chapter 9 review, Chapter 14 CI, or production) is this most likely to be caught? What
    habit would have prevented it?
 
-10. **[analysis]** Your team keeps hitting large, painful merge conflicts near every deadline.
+11. **[analysis]** Your team keeps hitting large, painful merge conflicts near every deadline.
     Using the causes of conflicts from §8.5, propose three concrete changes to how the team
     works that would make conflicts smaller and rarer, and justify each in terms of *branch
     lifetime* or *overlap*.
 
-11. **[analysis]** Explain the Golden Rule of Rebasing and construct a short scenario in which
+12. **[analysis]** Explain the Golden Rule of Rebasing and construct a short scenario in which
     breaking it damages a teammate's repository. Then describe a use of rebase that is
     perfectly safe, and say what distinguishes the two.
 
-12. **[analysis]** Your instructor requires that `main` be a protected branch. Explain what a
+13. **[analysis]** Your instructor requires that `main` be a protected branch. Explain what a
     protected branch is, list two rules a team might require before a merge is allowed, and
     connect each rule to a practice from another chapter (code review in §9.3, continuous
     integration in §14.2).
-
-13. **[warm-up]** In Markdown (§8.7), write the source for: a top-level heading, a sentence
-    with one **bold** and one *italic* word, a three-item bulleted list, a link, and a fenced
-    code block with a language tag. Explain what the blank-line rule is and give one example
-    where forgetting it breaks the output.
 
 14. **[analysis]** Draft a `README.md` for your team project that answers every field in
     §8.7.3 (name and purpose, team, setup, run locally, run tests, deployment link, known

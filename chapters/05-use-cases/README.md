@@ -165,12 +165,13 @@ Continuing the ATM example:
 >    remain.
 > 2. The system prompts for the PIN again.
 > 3. The Cardholder re-enters a PIN, and the flow resumes at **step 4**.
-> After three failed attempts, the flow continues at alternative **A2**.
+> After three failed attempts, the flow continues at alternative **A2** (*Three incorrect
+> PINs*: retain the card and end the use case — shown in the full template in §5.3.1).
 
 **A3. Insufficient funds** *(at step 8)*
 > If the account balance is below the requested amount:
 > 1. The system informs the Cardholder that the account lacks sufficient funds.
-> 2. The system re-prompts for an amount, resuming at **step 6**.
+> 2. The flow resumes at **step 6**, where the system prompts for an amount again.
 
 Notice how each alternative states its trigger step, its condition, its steps, and its
 *resumption point* — the step number where control returns to the basic flow. That
@@ -250,7 +251,7 @@ example, so you see a complete artifact rather than an empty form:[^3]
 >
 > **Primary actor:** Cardholder
 >
-> **Supporting actors:** Bank Authorization System, Cash Dispenser
+> **Supporting actors:** Bank Authorization System
 >
 > **Scope:** The ATM terminal software.
 >
@@ -289,8 +290,7 @@ example, so you see a complete artifact rather than an empty form:[^3]
 > **Alternative flows:**
 > - **A1. Incorrect PIN** *(step 4)* — inform the Cardholder, re-prompt; resume at step 4.
 > - **A2. Three incorrect PINs** *(step 4)* — retain the card, end the use case.
-> - **A3. Insufficient funds** *(step 8)* — inform the Cardholder, re-prompt; resume at
->   step 6.
+> - **A3. Insufficient funds** *(step 8)* — inform the Cardholder; resume at step 6.
 > - **A4. Amount exceeds machine cash on hand** *(step 9)* — inform the Cardholder, offer
 >   a smaller amount; resume at step 6.
 > - **B1. Authorization link lost** *(steps 4–8)* — cancel, show "out of service", return
@@ -543,10 +543,10 @@ trench coat — split it.
 
 **Pass 3 — The alternatives.** Now walk the basic flow step by step and, at each one, ask:
 *what else could happen here?* Wrong PIN at step 4. Empty account at step 8. Empty machine
-at step 9. Dead network across steps 4–8. Each answer becomes a specific, bounded, or
-extended alternative flow (§5.2). This pass is where the use case becomes trustworthy,
-because it is a systematic sweep for failure rather than a hope that you thought of
-everything.
+at step 9. Dead network across steps 4–8. Each answer becomes a specific alternative
+flow, a bounded alternative flow, or behavior attached at an extension point (§5.2). This
+pass is where the use case becomes trustworthy, because it is a systematic sweep for
+failure rather than a hope that you thought of everything.
 
 This order is not arbitrary. It moves from *breadth* (all goals) to *depth on one goal*
 (the spine) to *robustness* (every deviation) — and at each pass you have something
@@ -602,10 +602,11 @@ flowchart LR
 ```
 
 Read that diagram as an index, not a specification. It tells you the `Cardholder` has
-three goals (`Deposit Funds`, the fourth goal in §5.1.1's actor–goal list, is omitted
-here to keep the diagram readable), that `Withdraw Cash` and `Check Balance` both depend on `Authenticate
-Cardholder` (the dashed `«include»` arrows), and that `Assess Withdrawal Fee` optionally
-attaches to `Withdraw Cash` (the `«extend»` arrow). It does *not* tell you what happens on
+three goals (`Deposit Funds`, the third goal in §5.1.1's actor–goal list, is omitted here
+to keep the diagram readable, as is the Bank Employee's `Retrieve captured cards`), that
+`Withdraw Cash` and `Check Balance` both depend on `Authenticate Cardholder` (the dashed
+`«include»` arrows), and that `Assess Withdrawal Fee` optionally attaches to `Withdraw
+Cash` (the `«extend»` arrow). It does *not* tell you what happens on
 a wrong PIN — for that you read the text. A common and costly mistake is to encode control
 flow, loops, and conditions into the diagram with dozens of arrows; the result is an
 unreadable tangle that says less than the plain list of use cases it replaced.

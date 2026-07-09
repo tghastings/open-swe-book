@@ -1,6 +1,6 @@
 # Chapter 6 — Open Resources
 
-Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
+Free, open-licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
 text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are noted where known; when a
 resource is free to read but not openly relicensable, it is marked *free to read*.
 
@@ -10,7 +10,7 @@ resource is free to read but not openly relicensable, it is marked *free to read
   [web.mit.edu/6.031](http://web.mit.edu/6.031/). The readings on *specifications*,
   *abstract data types*, and *abstraction functions & rep invariants* are the best free
   treatment of information hiding and interface design anywhere. *License:* course
-  materials under **CC BY‑SA** (see the site footer).
+  materials under **CC BY-SA** (see the site footer).
 - 📘 **Software Engineering at Google** — [abseil.io/resources/swe-book](https://abseil.io/resources/swe-book).
   Especially the chapters on *dependencies*, *large-scale change*, and *deprecation*, which
   show coupling, modularity, and "design for change" at industrial scale. *License:* free to
@@ -33,9 +33,10 @@ resource is free to read but not openly relicensable, it is marked *free to read
   Clear, illustrated explanations of coupling smells and the principles behind low
   coupling / high cohesion. *License:* free to read; content is the site's own (not openly
   relicensable).
-- 📘 **MIT 6.005/6.031 "Reading: Designing specifications / Abstraction"** covers cohesion
-  and coupling implicitly through spec strength and representation independence. *License:*
-  **CC BY‑SA**.
+- 📘 **MIT 6.005/6.031 "Reading: Designing specifications / Abstraction"** —
+  [web.mit.edu/6.031](http://web.mit.edu/6.031/) (see the *Specifications* and
+  *Abstraction Functions & Rep Invariants* readings). Covers cohesion and coupling
+  implicitly through spec strength and representation independence. *License:* **CC BY-SA**.
 - 📄 **W. P. Stevens, G. J. Myers, and L. L. Constantine, "Structured Design"**, *IBM
   Systems Journal* 13(2), 1974 — the paper that introduced coupling and cohesion (§6.2.2).
   Official page: [dl.acm.org/doi/10.1147/sj.132.0115](https://dl.acm.org/doi/10.1147/sj.132.0115).
@@ -65,7 +66,7 @@ resource is free to read but not openly relicensable, it is marked *free to read
 
 ## Class diagrams and UML notation
 
-- 📘 **UML‑diagrams.org — Class Diagrams** —
+- 📘 **UML-diagrams.org — Class Diagrams** —
   [uml-diagrams.org/class-diagrams-overview.html](https://www.uml-diagrams.org/class-diagrams-overview.html).
   A precise, example-rich reference for association, aggregation, composition,
   generalization, dependency, and multiplicity notation. *License:* free to read
@@ -85,8 +86,8 @@ resource is free to read but not openly relicensable, it is marked *free to read
 - 📄 **P. Kruchten, "Architectural Blueprints — The 4+1 View Model of Software
   Architecture"**, *IEEE Software*, 1995 —
   [PDF](https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf). The primary
-  source for §6.4; short and very readable. *License:* IEEE copyright, *free to read* via the
-  author's university page.
+  source for §6.4; short and very readable. *License:* IEEE copyright, *free to read* via a
+  university course page.
 - 📄 **ISO/IEC/IEEE 42010 — Architecture description** — the standard behind "views,"
   "viewpoints," and "concerns." Overview and definitions at
   [archived overview site](https://web.archive.org/web/2023/http://www.iso-architecture.org/42010/) (original site now offline); official catalog
@@ -103,20 +104,20 @@ resource is free to read but not openly relicensable, it is marked *free to read
   commercial; SEI reports are free to download (U.S. government–funded FFRDC reports).
 - 📘 **"Shape Up," Ryan Singer (Basecamp), chs. "Principles of Shaping" and "Find the
   Elements"** — shaped work as rough / solved / bounded, breadboarding
-  (places/affordances/connections), fat‑marker sketches, and designing at the right
+  (places/affordances/connections), fat-marker sketches, and designing at the right
   fidelity (used in §6.1.2). <https://basecamp.com/shapeup/1.1-chapter-02> ·
   <https://basecamp.com/shapeup/1.3-chapter-04> · *Free to read online; © Basecamp.*
 
 ## Quality-attribute scenarios
 
 - 📘 **"Software Architecture in Practice" (4th ed.), Bass, Clements & Kazman** — the
-  standard treatment of quality-attribute scenarios (§6.1.4) and architecture evaluation;
-  sample chapters and companion material are on the publisher and SEI sites.
-  <https://www.informit.com/store/software-architecture-in-practice-9780136886099> ·
-  Publisher page.
+  standard treatment of quality-attribute scenarios (§6.1.4) and architecture evaluation.
+  <https://www.informit.com/store/software-architecture-in-practice-9780136886099>.
+  *License:* commercial book; the sample chapters and companion material on the publisher
+  and SEI sites are *free to read*.
 
 ## License note
 
 Linked resources remain under their own licenses; where a resource is only *free to read*
 rather than openly licensed, treat its text as read-only and cite it rather than copying it.
-This page itself is licensed **CC BY‑SA 4.0**.
+This page itself is licensed **CC BY-SA 4.0**.

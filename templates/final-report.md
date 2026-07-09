@@ -104,7 +104,7 @@ again, we would…". Insight is rewarded here, not spin._
 ## 8. AI use and provenance
 
 _Where and how AI assisted the work, per the running log your README kept all term
-(Chapter 13, §13.2.9): the kinds of tasks you delegated, links to the transcripts, and —
+(Chapter 13, §13.2.10): the kinds of tasks you delegated, links to the transcripts, and —
 most importantly — how each AI-assisted change was verified (tests, review) before it
 shipped. One honest paragraph plus the log link beats a list of tools._
 

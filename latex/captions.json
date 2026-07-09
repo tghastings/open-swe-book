@@ -64,7 +64,11 @@
  ],
  "chapters/13-ai-across-the-lifecycle/README.md": [
   "A ladder of AI coding assistance, from autocomplete up to multi-agent swarms.",
-  "AI's role mapped onto each discipline of the software lifecycle."
+  "AI's role mapped onto each discipline of the software lifecycle.",
+  "The spec-driven development pipeline: each phase is gated by human approval, and a failed check sends the work back to the specification.",
+  "The four layers of working with agents, from prompting a single exchange up to a loop that runs the harness on its own.",
+  "The five moves of one loop turn; scheduling closes the cycle so the next turn begins on its own.",
+  "The generator–evaluator split: a separate agent that assumes the code is broken checks the generator's work and returns reasons to fix."
  ],
  "chapters/14-delivery/README.md": [
   "Stages of a CI pipeline, ordered cheapest-first from build to versioned artifact.",

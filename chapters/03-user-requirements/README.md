@@ -6,7 +6,7 @@
 > real people need, how you write it down so a team can act on it, and how you keep those
 > written needs honest as understanding shifts. Everything downstream — design, tests,
 > metrics — inherits the quality of the requirements you produce here. Get this wrong and
-> you will build a beautiful, well‑tested answer to the wrong question.
+> you will build a beautiful, well-tested answer to the wrong question.
 
 A **requirement** is the bridge between a person with a problem and a team with the skill
 to solve it. That bridge is where most projects quietly succeed or fail. You can recover
@@ -60,12 +60,12 @@ flowchart TD
 Notice two things about this diagram. First, the loop never terminates during an active
 project; it merely *slows* as understanding stabilizes. Second, **Build** feeds back into
 **Elicit**. Users learn what they want by using something, so the most powerful
-requirements‑elicitation tool you own is often a working (or even fake) version of the
+requirements-elicitation tool you own is often a working (or even fake) version of the
 product. This is why Chapter 2's iterative process and this chapter's requirements work are
 the same activity viewed at two zoom levels: each iteration is one trip around this cycle.
 
 > **Principle.** Requirements are *discovered*, not *collected*. You do not walk into a
-> room and receive a complete list; you co‑create understanding with stakeholders over
+> room and receive a complete list; you co-create understanding with stakeholders over
 > time, and the earliest versions are always partly wrong. Plan for that, don't resent it.
 
 ### 3.1.2 Requirements Challenges
@@ -106,9 +106,9 @@ notifies the assigned clinician." You can usually test a functional requirement 
 concrete example: given this input, expect this output. Most user stories (§3.4) capture
 functional requirements.
 
-A **non‑functional requirement** — better called a **quality requirement** — describes a
+A **non-functional requirement** — better called a **quality requirement** — describes a
 *property* the system must have while it behaves: how fast, how secure, how available, how
-usable, how maintainable. "Check‑in must complete in under one second for 95% of requests
+usable, how maintainable. "Check-in must complete in under one second for 95% of requests
 when 200 clinics are active." Quality requirements are the ones teams most often botch,
 because they are easy to state vaguely ("it should be fast") and hard to state testably
 ("p95 latency under 1s at 200 concurrent clinics"). The discipline is to attach a
@@ -122,7 +122,7 @@ flowchart LR
     F --> F1["'Mark appointment<br/>arrived'"]
     F --> F2["'Send reminder<br/>24h before'"]
     Q --> Q1["Performance:<br/>p95 < 1s"]
-    Q --> Q2["Security:<br/>no PHI in logs"]
+    Q --> Q2["Security: no patient<br/>data in logs"]
     Q --> Q3["Usability:<br/>check-in in 3 taps"]
     Q --> Q4["Availability:<br/>99.9% uptime"]
     classDef f fill:#efe,stroke:#6a6,color:#000;
@@ -139,7 +139,7 @@ flowchart LR
 ## 3.2 Developing Requirements and Software
 
 How you handle requirements depends on how you build software, and the two dominant
-philosophies — agile and plan‑driven — take genuinely different stances. Neither is
+philosophies — agile and plan-driven — take genuinely different stances. Neither is
 universally right. Understanding *why* each makes sense in its context lets you choose
 deliberately rather than by fashion.
 
@@ -161,7 +161,7 @@ ceremony without the substance.
 ### 3.2.2 An Agile Emphasis on Requirements
 
 A common misreading is that agile means "no requirements." The opposite is true. Agile
-teams do *more* requirements work than plan‑driven teams — they just do it in small,
+teams do *more* requirements work than plan-driven teams — they just do it in small,
 continuous doses rather than one large batch. Every iteration begins with refining and
 selecting requirements (the backlog), and ends with validating them against a running
 system. Requirements conversations happen constantly, at the moment they are needed, with
@@ -171,7 +171,7 @@ The agile move is to shift requirements from a *document* to a *conversation plu
 written reminder*. A user story (§3.4) is deliberately too short to be a full
 specification; it is a **promise to have a conversation** later, when the team is about to
 build it and knows the most it will ever know.[^2] This defers the detailed decisions to the
-last responsible moment, when they are cheapest and best‑informed.
+last responsible moment, when they are cheapest and best-informed.
 
 > **Principle.** In agile work, the written requirement is a placeholder for a
 > conversation, not a substitute for it. The story reminds you *what* to talk about; the
@@ -180,19 +180,19 @@ last responsible moment, when they are cheapest and best‑informed.
 
 ### 3.2.3 Plan-Driven Methods Validate a Specification
 
-Plan‑driven (sometimes called "specification‑first" or, historically, "waterfall")
+Plan-driven (sometimes called "specification-first" or, historically, "waterfall")
 methods invest heavily in writing a complete, precise, agreed specification *before*
-significant building begins. Validation happens against the *document*: reviews, sign‑offs,
+significant building begins. Validation happens against the *document*: reviews, sign-offs,
 and traceability checks confirm that the specification is complete and consistent, and
 later that the built system matches it.
 
-This looks old‑fashioned next to agile, and for a scheduling app it usually is. But there
+This looks old-fashioned next to agile, and for a scheduling app it usually is. But there
 are domains where it is exactly right. When the cost of a late change is enormous or the
-system is safety‑critical — avionics, medical devices, spacecraft, systems bound by a
+system is safety-critical — avionics, medical devices, spacecraft, systems bound by a
 regulatory certification — you *cannot* "ship and see." You must reason carefully about the
 requirements up front, because a failure in the field is catastrophic and a change after
 certification is ruinously expensive. In those worlds, a rigorous specification is the
-cheapest place to catch a life‑threatening mistake.
+cheapest place to catch a life-threatening mistake.
 
 Most real projects blend the two: a stable, carefully specified core (the things that must
 not be wrong) surrounded by an agile, iterative shell (the things you will learn by trying).
@@ -209,11 +209,11 @@ know but had not stated.
 ### 3.3.1 A Classification of Needs
 
 Not all needs are equal, and it helps to classify them by how the user relates to them.
-A useful three‑way split:
+A useful three-way split:
 
 - **Stated needs** — what the user explicitly asks for. "I want to search appointments by
   patient name." These are the easiest to collect and the most likely to be
-  half‑solutions.
+  half-solutions.
 - **Implied needs** — what the user assumes without saying, because it is obvious to them.
   "Of course the search shouldn't show patients from other clinics." Miss these and users
   feel the system is broken even though it does everything they *said*.
@@ -237,7 +237,7 @@ spot:
   they do and what they *do* often differ.
 - **Observation (contextual inquiry).**[^4] Watch users do the real task in their real
   environment. Superb for tacit and implied needs — you see the sticky note on the monitor,
-  the workaround, the double‑entry no one mentioned. Weakness: expensive, and observation
+  the workaround, the double-entry no one mentioned. Weakness: expensive, and observation
   can change behavior.
 - **Surveys.** Cheap at scale; good for prioritizing among *known* options and quantifying
   how common a need is. Weakness: useless for discovering needs you did not already think
@@ -267,7 +267,7 @@ The lesson is to *combine* methods rather than pick a single "best" one, so that
 covers another's weakness: interview to form hypotheses, observe to correct them, prototype
 to discover what you missed, and survey to prioritize what you found.
 
-> **Case study.** A team building the clinic scheduler interviewed front‑desk staff, who
+> **Case study.** A team building the clinic scheduler interviewed front-desk staff, who
 > asked for faster search. Only when the team *watched* a morning rush did they see the
 > real problem: staff kept a paper list of "difficult" patients beside the keyboard because
 > the system had no way to flag them. No interview surfaced this — it was too normal to
@@ -283,8 +283,8 @@ sharpen that:
   they keep a paper list beside the keyboard"), it both proves the problem is real and
   becomes the reference for judging any solution: a fix only has to beat the baseline, not
   reach perfection.
-- A **grab‑bag** is the anti‑pattern — a vague mandate ("do something about scheduling")
-  with no driving problem, so no one can tell where it starts or ends. Grab‑bags are how
+- A **grab-bag** is the anti-pattern — a vague mandate ("do something about scheduling")
+  with no driving problem, so no one can tell where it starts or ends. Grab-bags are how
   scope explodes; the cure is to narrow to one concrete pain point before designing.
 
 > **Pitfall.** A requirement phrased as a solution smuggles in an unexamined assumption
@@ -313,7 +313,7 @@ useful mental model here — the **Kano model**,[^6] developed fully in
 [§4.5](../04-requirements-analysis/#45-customer-satisfiers-and-dissatisfiers) —
 distinguishes categories of features by how user satisfaction responds to them:
 
-- **Must‑be features** (basic expectations). Their presence is unnoticed; their absence is
+- **Must-be features** (basic expectations). Their presence is unnoticed; their absence is
   a dealbreaker. A scheduler that loses appointments has failed no matter how pretty it is.
   These map to *implied* needs. You get no credit for them, but you cannot skip them.
 - **Performance features** (the more, the better). Satisfaction scales with how well you do
@@ -321,7 +321,7 @@ distinguishes categories of features by how user satisfaction responds to them:
   users compare products, so doing them well matters.
 - **Delighters** (unexpected value). Their absence is not missed, because no one expected
   them — but their presence produces disproportionate delight. These map to *latent* needs.
-  The patient‑confirmation flag above is a delighter.
+  The patient-confirmation flag above is a delighter.
 
 ```mermaid
 flowchart LR
@@ -339,10 +339,10 @@ flowchart LR
 
 > **Pitfall.** Delighters decay into expectations. The first scheduler with automatic
 > reminders delighted users; today a scheduler *without* reminders feels broken. What was a
-> delighter becomes a must‑be. This is why elicitation never stops: the bar keeps rising,
+> delighter becomes a must-be. This is why elicitation never stops: the bar keeps rising,
 > and yesterday's magic is today's baseline.
 
-Two practical consequences. First, spend your must‑be budget ruthlessly but seek no glory
+Two practical consequences. First, spend your must-be budget ruthlessly but seek no glory
 there — just don't fail. Second, invest deliberately in one or two delighters per release,
 because they are where love and loyalty are earned, and they are precisely the needs your
 competitors also failed to ask about.
@@ -350,7 +350,7 @@ competitors also failed to ask about.
 ## 3.4 Writing Requirements: Stories and Features
 
 Having elicited needs, you must write them down in a form the whole team can act on.
-Two complementary formats dominate modern practice: **user stories** (small, user‑centered,
+Two complementary formats dominate modern practice: **user stories** (small, user-centered,
 conversational) and **system features** (larger capabilities that group related stories).
 
 ### 3.4.1 Guidelines for Effective User Stories
@@ -363,7 +363,7 @@ often called the **Connextra format** after the company where it originated,[^7]
 
 For example:
 
-> *As a* front‑desk clerk, *I want* to flag a patient as "needs interpreter," *so that*
+> *As a* front-desk clerk, *I want* to flag a patient as "needs interpreter," *so that*
 > the clinician is prepared before the visit begins.
 
 Each clause has a job. The **role** keeps you honest about *who* benefits, and forces
@@ -382,7 +382,7 @@ story is:
 - **N — Negotiable.** It is a starting point for a conversation, not a fixed contract. The
   details are worked out with the customer, not dictated by the card.
 - **V — Valuable.** It delivers something a user or customer can perceive as valuable.
-  "Refactor the database layer" is real work but is not a user story — it has no user‑facing
+  "Refactor the database layer" is real work but is not a user story — it has no user-facing
   value on its own.
 - **E — Estimable.** The team can roughly size it. If they can't, the story hides too much
   uncertainty and needs to be split or researched first (a *spike*).
@@ -407,11 +407,11 @@ you name the starting context (**Given**), the action or event (**When**), and t
 expected, observable outcome (**Then**). Each such triple is a **scenario** — one concrete
 example of the story working:
 
-> **Given** a checked‑in patient flagged for an interpreter,
+> **Given** a checked-in patient flagged for an interpreter,
 > **When** the clinician opens the visit,
-> **Then** an interpreter‑needed banner is shown.
+> **Then** an interpreter-needed banner is shown.
 
-This structured‑English format is called **Gherkin**,[^9] and it comes from **Behavior‑Driven
+This structured-English format is called **Gherkin**,[^9] and it comes from **Behavior-Driven
 Development (BDD)** — an approach that writes requirements as concrete examples of
 behavior, in language a customer can read.[^10] In a BDD workflow the scenarios live in plain
 `.feature` files and look like this:
@@ -631,16 +631,16 @@ executives, marketers, and users can talk about.
 
 Good features share several properties:
 
-- **User‑meaningful.** A feature names something a stakeholder cares about, not an internal
+- **User-meaningful.** A feature names something a stakeholder cares about, not an internal
   component. "Caching layer" is not a feature; "instant search" might be.
 - **Independently valuable.** Shipping the feature (even partially) delivers value on its
   own, so it can be prioritized against other features honestly.
-- **Decomposable into stories.** A feature that cannot be broken into small, INVEST‑able
+- **Decomposable into stories.** A feature that cannot be broken into small, INVEST-able
   stories is probably too vague to plan.
 - **Traceable to a goal.** Every feature should map to a stakeholder goal (§3.6). A feature
   with no goal behind it is a candidate for the cut list.
 
-Features and stories form a two‑level hierarchy: features answer "what capabilities does the
+Features and stories form a two-level hierarchy: features answer "what capabilities does the
 product have?" for planning and communication, while stories answer "what do we build this
 week?" for execution. Keeping both views lets you zoom between the roadmap and the sprint
 without losing either.
@@ -652,16 +652,16 @@ A story is deliberately incomplete — that is its virtue for conversation and i
 anything requiring precision. Stories are excellent for the flexible, discoverable parts of
 a system. They are *poor* at capturing:
 
-- **Cross‑cutting quality requirements.** "The system shall never log patient identifiers"
+- **Cross-cutting quality requirements.** "The system shall never log patient identifiers"
   does not fit "as a…I want…so that." Quality requirements often need their own explicit
   statements with fit criteria (§3.1.3).
-- **Complex flows.** A multi‑step interaction with branches and error cases overflows a
+- **Complex flows.** A multi-step interaction with branches and error cases overflows a
   story card. That is what **scenarios** (§3.5) are for.
 - **Regulatory or contractual precision.** When wording is legally binding, a
   conversational placeholder is not enough; you need a specification (§3.2.3).
 
 The mature view is that stories are one instrument in an ensemble. Reach for them when the
-need is user‑facing, discoverable, and best refined by conversation. Reach for features
+need is user-facing, discoverable, and best refined by conversation. Reach for features
 when you need a roadmap, scenarios when you need to show a flow, explicit quality
 requirements when you need a testable property, and a specification when the cost of
 ambiguity is unacceptable. Using the right form for each need is itself a skill.
@@ -709,25 +709,25 @@ gives you the two answers that matter.
 ## 3.5 Writing User-Experience Scenarios
 
 A **scenario** tells a concrete story of a specific person using the system to accomplish a
-goal, step by step, in a specific situation. Where a user story is a one‑line promise, a
+goal, step by step, in a specific situation. Where a user story is a one-line promise, a
 scenario is a narrative — and that narrative form exposes the gaps, branches, and human
 realities that terse formats hide.
 
 ### 3.5.1 Guidelines for User-Experience Scenarios
 
 Scenarios earn their keep because they are *concrete*. Abstract requirements ("the system
-supports check‑in") let everyone imagine a different thing; a scenario with a named person,
+supports check-in") let everyone imagine a different thing; a scenario with a named person,
 a real goal, and specific steps forces the vagueness into the open, where you can argue
 about it productively. Good scenarios follow a few guidelines:
 
 - **Use a concrete persona, not "the user."** Give them a name, a role, a level of skill,
-  and a motivation. "Dana, a new front‑desk clerk two weeks into the job" behaves very
+  and a motivation. "Dana, a new front-desk clerk two weeks into the job" behaves very
   differently from "an experienced office manager," and the difference drives design.
 - **Start from a trigger and a goal.** What situation begins the scenario, and what is the
-  person trying to achieve? A scenario without a goal is just a click‑by‑click script.
+  person trying to achieve? A scenario without a goal is just a click-by-click script.
 - **Walk the happy path first, then the exceptions.** Write the smooth case, then
   deliberately branch: what if the patient isn't in the system? what if the network drops
-  mid‑check‑in? Exceptions are where most requirements are missing.
+  mid-check-in? Exceptions are where most requirements are missing.
 - **Stay in the problem, mostly.** A scenario should describe the *experience* and the
   *need*, leaning away from prescribing exact UI. Some interface detail is unavoidable and
   useful, but a scenario dictating pixel positions has stopped being a requirement and
@@ -737,7 +737,7 @@ about it productively. Good scenarios follow a few guidelines:
   interaction must be fast and forgiving under stress.
 
 Scenarios pair naturally with stories: a scenario reveals the *flow* and the missing steps;
-each step then becomes one or more INVEST‑able stories to build. Together they give you both
+each step then becomes one or more INVEST-able stories to build. Together they give you both
 the narrative whole and the buildable parts.
 
 ### 3.5.2 A Medical Scenario Example
@@ -746,7 +746,7 @@ Here is a scenario for the clinic scheduler, written to the guidelines above:
 
 > **Scenario: Priya checks in an arriving patient during the morning rush.**
 >
-> Priya is an experienced front‑desk clerk. It is 8:55 a.m., the waiting room is filling,
+> Priya is an experienced front-desk clerk. It is 8:55 a.m., the waiting room is filling,
 > and she has a line of five patients. Her goal is to check each one in quickly and make
 > sure the clinician has what they need before the visit.
 >
@@ -754,27 +754,27 @@ Here is a scenario for the clinic scheduler, written to the guidelines above:
 > Two Alvarezes appear; she confirms the date of birth and selects the right one. The
 > system shows his appointment and a reminder that his insurance verification is *pending*.
 > With one tap she marks him *arrived*; the assigned clinician's screen updates, and the
-> pending‑insurance flag is passed along so the clinician isn't surprised. Total time: under
+> pending-insurance flag is passed along so the clinician isn't surprised. Total time: under
 > fifteen seconds. Priya moves to the next patient.
 >
 > **Exception A — patient not found.** The next arrival, Ms. Okafor, does not appear in
 > search. She has an appointment but her name was misspelled at booking. Priya needs to find
-> her by phone number and correct the record without leaving the check‑in flow, because the
+> her by phone number and correct the record without leaving the check-in flow, because the
 > line is growing.
 >
 > **Exception B — patient needs an interpreter.** Behind her, a patient is flagged
-> *needs‑interpreter*. The system must surface this prominently at check‑in *and* on the
+> *needs-interpreter*. The system must surface this prominently at check-in *and* on the
 > clinician's screen, early enough that an interpreter can be arranged before the visit
 > starts, not discovered inside the exam room.
 
 Read what this one scenario produced. The happy path yields stories about search,
-disambiguation by date of birth, one‑tap arrival, and clinician notification. Exception A
-reveals a whole missing capability — *correcting a mis‑booked record inline* — that no
-one had put in the backlog. Exception B surfaces a cross‑cutting need (interpreter flags
+disambiguation by date of birth, one-tap arrival, and clinician notification. Exception A
+reveals a whole missing capability — *correcting a mis-booked record inline* — that no
+one had put in the backlog. Exception B surfaces a cross-cutting need (interpreter flags
 that travel with the patient) and a quality requirement (surfaced *early enough* to act).
-And the context — the growing line, the fifteen‑second budget — is a performance requirement
+And the context — the growing line, the fifteen-second budget — is a performance requirement
 stated as human reality rather than as a number, which you then make testable. A single
-well‑written scenario routinely uncovers more real requirements than a day of abstract
+well-written scenario routinely uncovers more real requirements than a day of abstract
 brainstorming, because it refuses to let anything stay vague.
 
 ### 3.5.3 Storyboards: Drawing the Scenario
@@ -783,23 +783,23 @@ A scenario is a story told in prose; a **storyboard** is the same story told in 
 a short sequence of rough sketches, one frame per step, showing what the user sees and
 does at each moment. Borrowed from film,[^13] storyboarding earns its place in requirements
 work because a drawing forces decisions that a sentence lets you dodge: what is actually
-*on* the screen when Priya searches? Where does the *pending‑insurance* flag appear? What
+*on* the screen when Priya searches? Where does the *pending-insurance* flag appear? What
 does she tap? If you cannot draw the frame, you have not yet imagined the requirement.
 
-Storyboards at this stage are **lo‑fi** (low fidelity) on purpose: boxes, arrows, stick
+Storyboards at this stage are **lo-fi** (low fidelity) on purpose: boxes, arrows, stick
 figures, and hand lettering, drawn in minutes on paper or a whiteboard. The roughness is a
 feature twice over. It keeps *you* from sliding into visual design when the question is
 still *what happens*, and it signals to stakeholders that everything is still changeable —
 people freely correct a scribble but hesitate to criticize something that looks finished.
-This is the same right‑fidelity discipline as the fat‑marker sketches and breadboards of
+This is the same right-fidelity discipline as the fat-marker sketches and breadboards of
 [§6.1.2](../06-design-and-architecture/#612-design-includes-architecture); a storyboard is
 essentially a breadboard with time running left to right.
 
 > **Technique — storyboard an exception.** Storyboard the *unhappy* paths, not just the
 > demo path. Drawing §3.5.2's Exception A frame by frame — Ms. Okafor at the desk, the
-> empty search result, Priya switching to phone‑number lookup, the inline correction, the
+> empty search result, Priya switching to phone-number lookup, the inline correction, the
 > line still moving — immediately raises the questions that matter: where does the
-> correction happen? does Priya lose her place in check‑in? what does the system show the
+> correction happen? does Priya lose her place in check-in? what does the system show the
 > *next* patient while she fixes it? Each frame you cannot draw is a requirement you have
 > not discovered yet.
 
@@ -812,7 +812,7 @@ against them for the rest of the project.
 ## 3.6 Clarifying User Goals
 
 Beneath every feature and story lies a **goal** — a state of the world a stakeholder wants
-to bring about. "Reduce patient no‑shows," "protect patient privacy," "get patients seen
+to bring about. "Reduce patient no-shows," "protect patient privacy," "get patients seen
 faster." Goals are the *why* that stories' "so that" clauses gesture at, and working
 explicitly with goals is how you keep a backlog coherent, spot conflicts early, and know
 what to cut. If requirements are the bridge, goals are the far bank you are trying to reach.
@@ -822,13 +822,13 @@ what to cut. If requirements are the bridge, goals are the far bank you are tryi
 Good goals share properties that make them useful for reasoning:
 
 - **A goal describes an end, not a means.** "Send SMS reminders" is a means; "reduce
-  no‑shows" is the end. Stating the end keeps your options open — maybe email or a phone
+  no-shows" is the end. Stating the end keeps your options open — maybe email or a phone
   call serves the goal better for some patients.
 - **A goal can be satisfied to a degree.** Unlike a functional requirement (done or not),
   many goals — especially quality goals like "fast" or "secure" — are matters of *more or
   less*. These are sometimes called **soft goals**, and you satisfy them by argument and
   measurement, not by a checkbox.[^14]
-- **A goal is measurable, at least in principle.** "Reduce no‑shows to under 8%" can be
+- **A goal is measurable, at least in principle.** "Reduce no-shows to under 8%" can be
   checked against reality. A goal you cannot measure even in principle is a slogan, and it
   will not help you decide anything.
 - **A goal has an owner.** Someone cares about it and can speak for it. Ownerless goals
@@ -841,10 +841,10 @@ their mouth. A few reliable moves:
 
 - **Ask "why?" to go up.** "Why do you want SMS reminders?" → "So fewer patients miss
   appointments." Now you have the real goal, and reminders are just one candidate solution.
-- **Ask "how?" to go down.** "How would we reduce no‑shows?" → reminders, overbooking,
-  waitlists, deposits. Now you have candidate sub‑goals and features.
+- **Ask "how?" to go down.** "How would we reduce no-shows?" → reminders, overbooking,
+  waitlists, deposits. Now you have candidate sub-goals and features.
 - **Ask "how much?" to make it measurable.** "How much would count as success?" turns
-  "faster check‑in" into "under fifteen seconds per patient."
+  "faster check-in" into "under fifteen seconds per patient."
 - **Ask "for whom?" and "when?"** to expose hidden context. "Fast — for the experienced
   clerk or the new one? During the morning rush or midday?"
 - **Ask "what would go wrong if we didn't?"** to test whether the goal is real. If nothing
@@ -857,7 +857,7 @@ hierarchy of the next section.
 
 Asking "why" moves you toward broader goals; asking "how" moves you toward narrower ones.
 Do this systematically and goals organize into a **goal hierarchy** (or goal tree): a
-high‑level goal at the top, refined downward into sub‑goals, and finally into concrete
+high-level goal at the top, refined downward into sub-goals, and finally into concrete
 features and stories at the leaves.[^14] The tree makes the *rationale* of your backlog visible
 — every leaf traces up to a goal someone owns, and every goal traces down to work that
 serves it.
@@ -890,11 +890,11 @@ story by story.
 The hierarchy above is tidy, but real goals interact, and the interactions are where the
 hard decisions live. Two relationships matter most:
 
-- **Contribution.** One goal *helps* another. A waitlist both reduces no‑shows' impact
+- **Contribution.** One goal *helps* another. A waitlist both reduces no-shows' impact
   (empty slots get filled) *and* speeds throughput. Features that serve multiple goals are
-  high‑value and should rise in priority — you get more for the same cost.
-- **Conflict.** One goal *works against* another. "Speed up check‑in" pushes toward fewer
-  confirmation steps; "protect patient privacy" and "avoid mis‑identification" push toward
+  high-value and should rise in priority — you get more for the same cost.
+- **Conflict.** One goal *works against* another. "Speed up check-in" pushes toward fewer
+  confirmation steps; "protect patient privacy" and "avoid mis-identification" push toward
   *more* verification. You cannot maximize both. The tension is real — the stakeholders
   live with it — and the analysis has done its job by making it visible.
 
@@ -908,16 +908,16 @@ flowchart LR
     linkStyle 2,3 stroke:#3a3,stroke-width:2px;
 ```
 
-The value of naming conflicts is that it turns an implicit, unwinnable tug‑of‑war into an
-explicit *trade‑off decision* that the right person can make on the record. "We will require
-date‑of‑birth confirmation even though it adds three seconds, because a mis‑identified
+The value of naming conflicts is that it turns an implicit, unwinnable tug-of-war into an
+explicit *trade-off decision* that the right person can make on the record. "We will require
+date-of-birth confirmation even though it adds three seconds, because a mis-identified
 patient is a safety event and the sponsor accepts the speed cost." That sentence — a goal
 conflict, resolved deliberately, with an owner and a rationale — is worth more than any
 amount of vague agreement. Unresolved conflicts do not disappear; they get resolved by
 accident, in code, by whoever happens to write the feature, usually badly.
 
 > **Principle.** Surface goal conflicts *before* you build, and resolve them *explicitly*
-> with the stakeholder who owns the trade‑off. A conflict resolved on purpose is a decision;
+> with the stakeholder who owns the trade-off. A conflict resolved on purpose is a decision;
 > a conflict resolved by default is a bug with a backstory.
 
 ## 3.7 Identifying Security Attacks
@@ -948,14 +948,14 @@ flowchart LR
     C --> C1[C1 · Exploit missing role<br/>check on record API]
     C --> C2["C2 · Tamper with patient<br/>ID in URL (IDOR)"]
     D --> D1[D1 · Read unencrypted<br/>database backup]
-    D --> D2[D2 · Find PHI in<br/>application logs]
+    D --> D2[D2 · Find patient data in<br/>application logs]
     classDef root fill:#fee,stroke:#a33,color:#000;
     class A root;
 ```
 
-Read the leaves as a to‑do list of defenses. Each one becomes a security requirement:
-enforce multi‑factor auth (defeats B1/B2), expire and bind session tokens (B3), check
-authorization on *every* record access server‑side (C1/C2), encrypt backups (D1), and keep
+Read the leaves as a to-do list of defenses. Each one becomes a security requirement:
+enforce multi-factor auth (defeats B1/B2), expire and bind session tokens (B3), check
+authorization on *every* record access server-side (C1/C2), encrypt backups (D1), and keep
 identifiers out of logs (D2 — which you may recognize as a quality requirement from §3.1.3,
 now justified by a concrete threat). The tree connects each defense to the attack it stops,
 which is exactly the justification a skeptical sponsor asks for when you request time to
@@ -968,8 +968,8 @@ otherwise miss:
 
 - **Enumerate the assets.** What is worth stealing, corrupting, or denying? Patient records,
   credentials, availability of the system itself. Each valuable asset is the root of a tree.
-- **Walk the trust boundaries.** Every place data crosses from less‑trusted to
-  more‑trusted — a browser to your API, a third‑party integration, an admin console — is a
+- **Walk the trust boundaries.** Every place data crosses from less-trusted to
+  more-trusted — a browser to your API, a third-party integration, an admin console — is a
   place to attack. Draw them and ask what could cross that shouldn't.
 - **Use a threat checklist.** A common one groups threats as **STRIDE**: *Spoofing*
   (pretending to be someone), *Tampering* (altering data), *Repudiation* (denying an
@@ -977,8 +977,8 @@ otherwise miss:
   and *Elevation of privilege* (gaining rights you shouldn't have).[^16] Walking each category
   against each asset surfaces branches brainstorming misses.
 - **Attack the humans and the process, not just the code.** The cheapest attack is often a
-  convincing phone call to the front desk. Social engineering, weak password‑reset flows,
-  and over‑broad admin rights are attack branches too.
+  convincing phone call to the front desk. Social engineering, weak password-reset flows,
+  and over-broad admin rights are attack branches too.
 - **Prune by feasibility, then defend the rest.** Not every leaf is worth defending equally.
   Estimate each attack's *cost to the attacker* and *damage to you*, and invest where cheap
   attacks meet high damage first.
@@ -1007,10 +1007,10 @@ The techniques compound. You **classify** needs (stated, implied, latent) and **
 them by triangulating interviews, observation, prototypes, and data — because each method
 reaches needs the others cannot. You **write** them in the right form for each job: user
 stories with the *as a…I want…so that* template and the INVEST qualities for discoverable,
-user‑facing behavior; features for the roadmap; scenarios when a concrete narrative is the
+user-facing behavior; features for the roadmap; scenarios when a concrete narrative is the
 only thing that exposes the missing steps; explicit, measurable statements for quality
 requirements. You **clarify** the *why* by building goal hierarchies, and — crucially — you
-surface **conflicting goals** so the right owner resolves the trade‑off on purpose rather
+surface **conflicting goals** so the right owner resolves the trade-off on purpose rather
 than by accident in the code. And you **invert** the whole exercise for security, using
 attack trees to ask what an adversary wants, because cooperative users will never tell you.
 

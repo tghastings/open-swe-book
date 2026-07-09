@@ -88,22 +88,22 @@ the drawn one. Good teams keep the two aligned by writing the architecture down 
 by reviewing changes against it.
 
 **Designing at the right fidelity.** If design is a continuum, one recurring mistake is
-working at the *wrong* level of detail for the decision at hand. Jump to pixel‑perfect
-mockups or fully fleshed‑out classes too early and you make expensive commitments before
+working at the *wrong* level of detail for the decision at hand. Jump to pixel-perfect
+mockups or fully fleshed-out classes too early and you make expensive commitments before
 you understand the problem — and you rob the people downstream of the judgment that is
 their job. Stay too vague ("redesign the reports section") and there is no shared object to
 reason about, so scope balloons unnoticed. Basecamp's *Shape Up* names a useful target
 between these failures: a design should be **rough** (visibly unfinished, so it invites
-change), **solved** (the main elements and their connections are worked out, not hand‑waved),
+change), **solved** (the main elements and their connections are worked out, not hand-waved),
 and **bounded** (it states what is explicitly *out* of scope).[^2]
 
-> **Technique — breadboards and fat‑marker sketches.** To design at that level, work in
-> deliberately low‑fidelity forms. A **breadboard** (borrowed from electronics) captures
+> **Technique — breadboards and fat-marker sketches.** To design at that level, work in
+> deliberately low-fidelity forms. A **breadboard** (borrowed from electronics) captures
 > only *places* (screens, states), *affordances* (things a user can act on — a button, a
 > field), and *connection lines* between them — the functional wiring, with no visual
-> styling. A **fat‑marker sketch** is drawn with strokes so thick that fine detail is
+> styling. A **fat-marker sketch** is drawn with strokes so thick that fine detail is
 > *impossible*, which forces attention onto layout and relationships rather than polish.[^3]
-> The same instinct applies to system design: a boxes‑and‑arrows component sketch (§6.4)
+> The same instinct applies to system design: a boxes-and-arrows component sketch (§6.4)
 > is the architectural breadboard — enough to reason about structure, not so much that you
 > have secretly written the code in a diagram.
 

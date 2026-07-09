@@ -10,9 +10,10 @@ open license. Prefer these over paywalled textbooks.
 
 ## Relative estimation, story points, and velocity
 
-- 📘 **Mike Cohn — "Story Points" and estimation articles** (Mountain Goat Software blog).
-  The most widely cited practitioner writing on story points, velocity, and relative sizing.
-  <https://www.mountaingoatsoftware.com/blog>
+- 📘 **Mike Cohn — "What Are Story Points?" and related estimation articles** (Mountain
+  Goat Software blog). The most widely cited practitioner writing on story points,
+  velocity, and relative sizing.
+  <https://www.mountaingoatsoftware.com/blog/what-are-story-points>
   *Free to read; © Mountain Goat Software. Concepts are freely reusable; do not copy text.*
 
 - 📘 **Mike Cohn — main blog** (agile planning, splitting stories, release forecasting).
@@ -24,8 +25,8 @@ open license. Prefer these over paywalled textbooks.
   <https://www.mountaingoatsoftware.com/books/agile-estimating-and-planning>
   *Commercial book; official page free to read. Check your library for the full text.*
 
-- 🎓 **Atlassian Agile Coach — "Estimation" and "Sprints/Velocity" guides.** Clear, vendor-
-  neutral tutorials with worked examples of forecasting from velocity.
+- 🎓 **Atlassian Agile Coach — "Estimation" and "Sprints/Velocity" guides.** Clear,
+  vendor-neutral tutorials with worked examples of forecasting from velocity.
   <https://www.atlassian.com/agile/project-management/estimation>
   *Free to read; © Atlassian.*
 
@@ -153,14 +154,13 @@ open license. Prefer these over paywalled textbooks.
 
 ## Appetite: fixed time, variable scope
 
-- 📘 **"Shape Up," Ryan Singer (Basecamp)** — the free online book behind §4.2.4: *appetite*
-  vs. estimate, fixed‑time/variable‑scope, the circuit breaker, scope hammering, and judging
-  against the baseline. See especially the Introduction and "Bets, Not Backlogs."
-  <https://basecamp.com/shapeup> · *Free to read online; © Basecamp.*
+- 📘 **Ryan Singer — *Shape Up: Stop Running in Circles and Ship Work that Matters*
+  (Basecamp, 2019).** The free online book behind §4.2.4: *appetite* vs. estimate,
+  fixed-time/variable-scope, the circuit breaker, scope hammering, and judging against the
+  baseline. See especially the Introduction and "Bets, Not Backlogs."
+  <https://basecamp.com/shapeup>
+  *Free to read online; © Basecamp.*
 
----
+## License note
 
-> **License.** This resource list is part of an open textbook released under
-> **Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)**. You may share and adapt
-> it with attribution under the same license. Linked third-party materials remain under
-> their own licenses, noted above; check each before reuse.
+Linked resources remain under their own licenses; this page is CC BY-SA 4.0.

@@ -1,7 +1,7 @@
 // Build-version line at the bottom of the sidebar index. VERSION is
-// overwritten at deploy time by CI (git describe --tags, i.e. the v2026.MM.N
-// tag scheme, plus commit distance for untagged builds); "dev" appears only
-// in local previews.
+// overwritten at deploy time by CI (git describe --tags with the leading "v"
+// stripped, i.e. the v1.0bN beta tag scheme plus commit distance for untagged
+// builds); the "1.0b1" default appears only in local previews.
 // The print icon leads to the per-language PDF/EPUB downloads instead of
 // print.html: a printout should come from a single-language edition, not the
 // all-languages print page.
@@ -34,7 +34,7 @@
 })();
 
 (() => {
-    const VERSION = "dev";
+    const VERSION = "1.0b1";
     const box = document.querySelector('#sidebar .sidebar-scrollbox');
     if (!box) return;
     const div = document.createElement('div');
@@ -43,7 +43,7 @@
     link.href = 'https://github.com/tghastings/open-swe-book/releases';
     link.textContent = VERSION;
     link.title = 'Release history';
-    div.append('build ');
+    div.append('First Edition · ');
     div.appendChild(link);
     box.appendChild(div);
 })();

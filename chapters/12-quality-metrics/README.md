@@ -328,8 +328,8 @@ stops moving is a raised hand**: it flags a stuck piece before a missed deadline
 it, and without interrogating anyone. Second, its language is about the work, not the
 person — "what would get this scope *over the hill*?" depersonalizes a status conversation
 that "why isn't this done?" would sour. Used well, teams push the *novel, risky* work
-uphill first and leave routine "screw‑tightening" for last, so uncertainty falls fastest
-early — the same risk‑first instinct behind the spiral model
+uphill first and leave routine "screw-tightening" for last, so uncertainty falls fastest
+early — the same risk-first instinct behind the spiral model
 ([§2.7](../02-software-development-processes/#27-risk-reduction-the-spiral-framework))
 and Shape Up's building phase
 ([§2.8](../02-software-development-processes/#28-shape-up-fixed-time-variable-scope)).

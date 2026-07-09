@@ -12,7 +12,9 @@ BOOK_DIR="$PWD"
 OUT="${EPUB_OUT:-$PWD/epubs}"
 BUILD=".epub-build"
 mkdir -p "$OUT"
-VERSION="${SWEBOOK_VERSION:-$(git describe --tags --always 2>/dev/null || echo dev)}"
+VERSION="${SWEBOOK_VERSION:-$(git describe --tags --always 2>/dev/null)}"
+VERSION="${VERSION#v}"        # strip leading v: v1.0b1 -> 1.0b1 (tag name or env)
+VERSION="${VERSION:-1.0b1}"   # fall back when not in a git repo / no tags yet
 export SWEBOOK_VERSION="$VERSION"
 
 CHROME="${CHROME_BIN:-$(command -v google-chrome-stable || command -v google-chrome \

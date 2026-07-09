@@ -10,7 +10,7 @@ reason.
    thing static checking *cannot* tell you that testing (Chapter 10) can.
 
 2. **[warm‑up]** Name the six phases of a traditional inspection in order, and give a
-   one‑sentence purpose for each. Which phase finds most of the defects, and why is it *not*
+   one-sentence purpose for each. Which phase finds most of the defects, and why is it *not*
    the meeting?
 
 3. **[warm‑up]** List the five inspection roles (author, reviewer, reader, moderator, scribe)
@@ -18,21 +18,21 @@ reason.
    author must never also be the moderator or reader of their own code.
 
 4. **[warm‑up]** Define *false positive* and *false negative* for a static analyzer in your
-   own words, and give a concrete one‑line example of each. Which one gives you *false
+   own words, and give a concrete one-line example of each. Which one gives you *false
    reassurance*, and why is that the more dangerous error?
 
-5. **[warm‑up]** Distinguish a *discovery* review from a *deep‑dive* review from a
+5. **[warm‑up]** Distinguish a *discovery* review from a *deep-dive* review from a
    *retrospective* review by when each happens and what question it answers.
 
 ## Analysis
 
 6. **[analysis]** A teammate proposes replacing your team's code reviews entirely with an
    aggressive static analyzer, arguing "the tool never gets tired and never misses a null
-   check." Using the ideas of *intent*, *trust*, and *false negatives*, write a ~150‑word
+   check." Using the ideas of *intent*, *trust*, and *false negatives*, write a ~150-word
    response explaining what the tool would catch, what it would miss, and why review and
    analysis are complementary rather than substitutes.
 
-7. **[analysis]** Your team's static analyzer has 95% recall but a 55% false‑positive rate;
+7. **[analysis]** Your team's static analyzer has 95% recall but a 55% false-positive rate;
    developers have started dismissing its warnings without reading them. Explain, using
    precision/recall, why the *high recall* is now worthless in practice, and describe two
    concrete changes you would make to restore the team's trust in the tool. Would you accept
@@ -174,7 +174,7 @@ reason.
    ```
 
 10. **[analysis]** In an inspection meeting, a reviewer starts sketching, on the whiteboard, a
-    better algorithm to replace the one under inspection, and a fifteen‑minute design debate
+    better algorithm to replace the one under inspection, and a fifteen-minute design debate
     breaks out. As the moderator, what rule is being violated, what do you say, and where does
     that redesign work properly belong? Explain *why* the meeting protects this boundary.
 

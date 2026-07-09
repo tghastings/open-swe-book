@@ -805,13 +805,13 @@ people *shape* the work: they set an **appetite** — the fixed time the problem
 — and design a solution that is deliberately **rough** (leaves room for the builders'
 judgment), **solved** (the main elements are worked out, not vague), and **bounded** (it
 says explicitly what is *out* of scope). The output is a **pitch**: problem, appetite,
-solution sketch, rabbit holes to avoid, and no‑gos. Shaping is where **rabbit holes** —
+solution sketch, rabbit holes to avoid, and no-gos. Shaping is where **rabbit holes** —
 unsolved design problems or untested technical assumptions — get found and removed *before*
 anyone commits.[^18]
 
 Appetites come in two standard batch sizes. A **small batch** is a designer and one or two
 programmers for one to two weeks; a **big batch** is that same small team for the full
-six‑week cycle. An idea that will not fit even a big batch is not given more time — it is
+six-week cycle. An idea that will not fit even a big batch is not given more time — it is
 narrowed until it fits, because the appetite, not the idea, is fixed.[^18]
 
 Shaping itself follows four steps, in order:
@@ -822,33 +822,33 @@ Shaping itself follows four steps, in order:
    fast and exploring alternatives while the drawing is still cheap.
 3. **Find risks and rabbit holes.** Hunt for holes and unanswered questions, then amend
    the solution and spell out the tricky spots before they can swallow a team.
-4. **Write the pitch.** A formal write‑up of problem, appetite, solution, rabbit holes,
-   and no‑gos, ready for the betting table.
+4. **Write the pitch.** A formal write-up of problem, appetite, solution, rabbit holes,
+   and no-gos, ready for the betting table.
 
 Who does this work? A **shaper** is a technically literate generalist doing strategic
 design work. They need not be the team's best programmer — they may not write production
 code at all — but they must know what is cheap and what is expensive to build, or their
 sketches will make promises the appetite cannot keep.
 
-**Betting (deciding, without a backlog).** During the two‑week **cool‑down** between
+**Betting (deciding, without a backlog).** During the two-week **cool-down** between
 cycles, a small **betting table** of senior people reviews the shaped pitches and *bets* on
 a few for the next cycle. A **bet** commits one team to one project for the whole cycle,
 uninterrupted, with the expectation of finishing.[^19]
 
 > **Principle — bets, not backlogs.** Shape Up keeps *no backlog*. Unchosen ideas simply
-> lapse; if one really matters, it comes back and gets re‑pitched. This trades the comfort
+> lapse; if one really matters, it comes back and gets re-pitched. This trades the comfort
 > of a tracked list for freedom from the "always behind" guilt and the grooming overhead of
 > a backlog that only ever grows.
 
 No backlog also implies an etiquette for new **raw ideas**. The default answer to any raw
-idea is a soft *"interesting — maybe someday,"* never an on‑the‑spot yes or no, because
+idea is a soft *"interesting — maybe someday,"* never an on-the-spot yes or no, because
 the real gate is not approval but *shaping*: only shaped work can be bet on, and a raw
 idea has not yet earned that. Do not shut down an idea you do not understand, and keep a
 poker face even about ideas you love — visible enthusiasm commits you before anyone has
 checked for rabbit holes. Bugs get no privileged lane either; Shape Up handles them three
-ways: fix them during cool‑down (that slack time exists partly for this), pitch a big
+ways: fix them during cool-down (that slack time exists partly for this), pitch a big
 bug at the betting table like any other project, or run an occasional dedicated
-**bug‑smash** cycle where the whole team pays down accumulated defects.[^19]
+**bug-smash** cycle where the whole team pays down accumulated defects.[^19]
 
 **Building (hand over the whole problem).** The team gets the pitch, *not* a task
 breakdown — "splitting the project into tasks up front is like putting the pitch through a
@@ -865,17 +865,17 @@ practices are worth borrowing regardless of your process:
 - **Hill charts for progress.** Track each scope as a dot on a hill: **uphill** is
   *figuring it out* (unknowns remain), **downhill** is *just execution* (all unknowns
   solved). A dot that stops moving is a raised hand. This exposes uncertainty in a way a
-  to‑do list cannot — see [§12.3](../12-quality-metrics/#123-graphical-displays-of-data-sets).
+  to-do list cannot — see [§12.3](../12-quality-metrics/#123-graphical-displays-of-data-sets).
 
 **The circuit breaker.** When the cycle ends, the project ships or it is *dropped* — it does
 **not** automatically get an extension. The most you can lose is one cycle. Extending is
-allowed only if what remains is genuine must‑have work that is *entirely downhill*; any
+allowed only if what remains is genuine must-have work that is *entirely downhill*; any
 remaining uphill work means the shaping was wrong, so the project goes back to shaping
 rather than dragging on.[^21]
 
-**Shape Up vs. Scrum.** The contrast sharpens both. Scrum re‑plans every 1–4‑week sprint
-and rolls unfinished stories forward on a *backlog*; Shape Up makes a *one‑shot bet* over a
-longer six‑week cycle with *no* backlog and *no* auto‑extension. Scrum layers daily
+**Shape Up vs. Scrum.** The contrast sharpens both. Scrum re-plans every 1–4-week sprint
+and rolls unfinished stories forward on a *backlog*; Shape Up makes a *one-shot bet* over a
+longer six-week cycle with *no* backlog and *no* auto-extension. Scrum layers daily
 standups, reviews, and retrospectives; Shape Up gives one integrated team full autonomy for
 the whole cycle and reads status from hill charts instead of ceremonies. Neither is
 universally right — but Shape Up is a clean demonstration of this chapter's theme that a

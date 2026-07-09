@@ -78,7 +78,7 @@ on a plane with no network, and there is no single machine everyone must be able
 to get work done.
 
 Git was written in a hurry for a serious job. In early 2005 the Linux kernel project lost
-free use of BitKeeper, the proprietary distributed system it had relied on, after a licence
+free use of BitKeeper, the proprietary distributed system it had relied on, after a license
 dispute.[^5] Linus Torvalds started writing a replacement on 3 April 2005, announced it on
 the 6th, had it hosting its own source the next day, and used it to manage the Linux kernel
 2.6.12 release that June; he handed maintenance to Junio Hamano — still the maintainer
@@ -686,6 +686,8 @@ codebase for a semester (Appendix A). Set up your repository, protect `main`, ke
 branches short, and commit like someone will read it — because someone will, and often that
 someone is you.
 
+---
+
 ### Sources
 
 [^1]: Stack Overflow, *Annual Developer Survey* (version-control usage), summarized in *Beyond Git: the other version control systems developers use* (2023). [stackoverflow.blog](https://stackoverflow.blog/2023/01/09/beyond-git-the-other-version-control-systems-developers-use/).
@@ -696,7 +698,7 @@ someone is you.
 
 [^4]: Scott Chacon & Ben Straub, *Pro Git*, §1.1 — local, centralized, and distributed version control. [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
 
-[^5]: *Git* — origin, the BitKeeper licence dispute, and the 2005 development timeline. [en.wikipedia.org](https://en.wikipedia.org/wiki/Git).
+[^5]: *Git* — origin, the BitKeeper license dispute, and the 2005 development timeline. [en.wikipedia.org](https://en.wikipedia.org/wiki/Git).
 
 [^6]: Scott Chacon & Ben Straub, *Pro Git*, §1.3 "What is Git?" — snapshots not differences, and integrity by checksum. [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F).
 

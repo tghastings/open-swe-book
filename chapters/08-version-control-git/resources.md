@@ -1,6 +1,6 @@
 # Chapter 8 — Open Resources
 
-Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
+Free, open-licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
 text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are noted where known.
 
 ## Foundations: what Git is and how it works (used in §8.1)
@@ -9,10 +9,10 @@ text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are 
   [git-scm.com/book](https://git-scm.com/book/en/v2). The canonical, complete reference and the
   primary source for most of this chapter: version control (§1.1), the snapshot model (§1.3),
   Git objects (§10.2), branching and merging (§3), and undoing things (§2.4, §7.7).
-  *License: Creative Commons BY‑NC‑SA 3.0 — free to read and reuse.*
+  *License: Creative Commons BY-NC-SA 3.0 — free to read and reuse.*
 - 🎓 **MIT "The Missing Semester of Your CS Education" — Version Control (Git)** —
   [missing.csail.mit.edu](https://missing.csail.mit.edu/2020/version-control/). Teaches Git
-  data-model-first, the same approach this chapter takes. *License: CC BY‑NC‑SA 4.0.*
+  data-model-first, the same approach this chapter takes. *License: CC BY-NC-SA 4.0.*
 - 📄 **Linus Torvalds — Git origin and the 2005 timeline (Wikipedia summary)** —
   [en.wikipedia.org/wiki/Git](https://en.wikipedia.org/wiki/Git). The BitKeeper dispute, the
   design goals, and how Git came to manage the Linux kernel. *Access: free.*
@@ -42,7 +42,7 @@ text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are 
   mechanics of branches, [pull requests](https://docs.github.com/en/pull-requests), and
   [protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
   *Access: free.*
-- 🎥 **"Oh Shit, Git!?!"** — [ohshitgit.com](https://ohshitgit.com/) (and the PG‑rated
+- 🎥 **"Oh Shit, Git!?!"** — [ohshitgit.com](https://ohshitgit.com/) (and the PG-rated
   [dangitgit.com](https://dangitgit.com/)). A recovery cookbook for the specific messes
   beginners create; keep it open next to your terminal. *Access: free.*
 

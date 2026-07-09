@@ -171,7 +171,7 @@ flowchart LR
 ### 4.2.4 Appetite: Fixed Time, Variable Scope
 
 Everything so far *estimates* work: you look at a feature and ask "how big is this?" There
-is a provocative alternative from **Shape Up** (Basecamp's product‑development method):
+is a provocative alternative from **Shape Up** (Basecamp's product-development method):
 don't estimate at all — set an **appetite**.[^6]
 
 An estimate and an appetite point in opposite directions:
@@ -185,7 +185,7 @@ An appetite is a **budget, not a prediction.** It flips the iron triangle (Chapt
 instead of fixing scope and letting time flex, you **fix time and let scope flex**. The
 deadline is a **circuit breaker** — when the budget runs out, you ship what you have or
 drop the project; you do *not* automatically extend it.[^6] That hard stop is what forces the
-important trade‑offs to happen *early* instead of in a panic at the end.
+important trade-offs to happen *early* instead of in a panic at the end.
 
 > **Principle.** Fixed time, variable scope. A budget you cannot exceed turns "how long
 > will it take?" into the far more useful question "what is the best thing we can build in
@@ -195,9 +195,9 @@ Making that work requires two disciplines:
 
 - **Scope hammering.** Because time is fixed, you continually attack scope: for each use
   case and each piece of implementation, ask *is this essential? can we ship without it?
-  is this a pre‑existing problem we don't have to solve now?* This is sharper than the
+  is this a pre-existing problem we don't have to solve now?* This is sharper than the
   passive "cut if we have time" — you go looking for things to cut. Mark genuinely
-  optional work as **nice‑to‑haves** (Shape Up prefixes them with a "~") and let them fall
+  optional work as **nice-to-haves** (Shape Up prefixes them with a "~") and let them fall
   off the edge of the budget without guilt.[^6] It connects directly to MoSCoW
   prioritization (§4.4.1): the appetite is the box, and MoSCoW decides what goes in it.
 - **Judge against the baseline, not the ideal.** "Is it good enough to ship?" has no
@@ -208,17 +208,17 @@ Making that work requires two disciplines:
 
 **Appetite and risk.** An appetite is only trustworthy if the work reliably *fits* it.
 Shape Up's insight is to reduce the *variance* of a project before committing: a
-well‑understood project has a **thin‑tailed** duration (it lands near its appetite),
+well-understood project has a **thin-tailed** duration (it lands near its appetite),
 while one hiding an unsolved design problem or an untested technical assumption — a
-**rabbit hole** — has a **fat tail** (it can run 3× over).[^6] You de‑risk *before* betting by
+**rabbit hole** — has a **fat tail** (it can run 3× over).[^6] You de-risk *before* betting by
 finding those rabbit holes and either solving them or ruling them out of scope. (This is
 the shaping work discussed as a process in Chapter 2, [§2.8](../02-software-development-processes/#28-shape-up-fixed-time-variable-scope).)
 
 **When appetites fit — and when they don't.** Appetites shine for **discretionary,
 shapeable** features where "how good?" is negotiable and you'd rather have *something*
 valuable on a known date. They fit poorly where scope is essentially fixed and
-non‑negotiable — a tax calculation must be *complete and correct*, not "80% of it by
-Friday." Much real work is discretionary, which is why fixed‑time/variable‑scope is a
+non-negotiable — a tax calculation must be *complete and correct*, not "80% of it by
+Friday." Much real work is discretionary, which is why fixed-time/variable-scope is a
 powerful default; the estimation techniques earlier in this chapter remain the right tool
 when scope truly cannot flex.
 

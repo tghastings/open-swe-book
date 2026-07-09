@@ -386,12 +386,12 @@ confirm, and even fix vulnerabilities on their own.
 The three families divide the work by what they look at. **Static application security
 testing (SAST)** is the security-focused end of the static analysis of Chapter 9
 ([§9.4](../09-static-checking/#94-automated-static-analysis)): it reads source code without
-running it, hunting vulnerable *patterns* — injection sinks, unsafe deserialization, hard-
-coded secrets. **Dynamic application security testing (DAST)** attacks the *running*
+running it, hunting vulnerable *patterns* — injection sinks, unsafe deserialization,
+hard-coded secrets. **Dynamic application security testing (DAST)** attacks the *running*
 application from the outside, the way an adversary would, probing endpoints with hostile
 inputs and knowing nothing of the source. **Software composition analysis (SCA)** examines
-neither your code nor your running app but your *dependency manifest*, checking every third-
-party package against databases of known vulnerabilities.
+neither your code nor your running app but your *dependency manifest*, checking every
+third-party package against databases of known vulnerabilities.
 
 The three are complementary because each sees what the others cannot, and all three carry
 Chapter 9's warning about **false positives and false negatives**
@@ -415,8 +415,8 @@ GitHub reported that it produced fixes for more than 90% of alert types across J
 TypeScript, Java, and Python, and that during the beta developers using it remediated
 vulnerabilities roughly three times faster overall — about seven times faster for cross-site
 scripting and twelve times faster for SQL injection — than by hand. It runs on all public
-repositories on GitHub.com without a separate subscription; private repositories need a code-
-security license.[^14] Autofix does not *find* new classes of bug; it shortens the distance
+repositories on GitHub.com without a separate subscription; private repositories need a
+code-security license.[^14] Autofix does not *find* new classes of bug; it shortens the distance
 from a known alert to a merged fix.
 
 The second *hunts* for unknown bugs. **Big Sleep**, a collaboration between Google Project
@@ -438,15 +438,15 @@ software-engineering course. Strix runs a *multi-agent* architecture — special
 work different targets in parallel and share what they find — and it arms those agents with
 real tooling: an HTTP interception proxy, browser automation for client-side attacks, shell
 and Python environments for building exploits, plus static and dynamic analysis. It is
-*model-agnostic*, driving whichever LLM provider you configure, and it ships as a pip-
-installable command-line tool that sandboxes agent execution in Docker containers, with a
+*model-agnostic*, driving whichever LLM provider you configure, and it ships as a
+pip-installable command-line tool that sandboxes agent execution in Docker containers, with a
 mode that scopes a scan to the diff in a pull request so it can run inside CI.[^17] Help Net
 Security's coverage corroborated the graph-based multi-agent design when the project drew
 attention in late 2025.[^18]
 
 The critical design difference from a static linter is *validation*. A SAST tool reports a
-"possible SQL injection"; Strix tries to actually exploit it and reports a working proof-of-
-concept or nothing. That closes the false-positive gap from the other side — a confirmed
+"possible SQL injection"; Strix tries to actually exploit it and reports a working
+proof-of-concept or nothing. That closes the false-positive gap from the other side — a confirmed
 exploit is evidence, not a guess. It also opens a different set of hazards that a first
 course must name plainly.
 
@@ -495,8 +495,8 @@ The reframe for a student is immediate: the package manifest at the root of your
 project is a *trust decision*, not a convenience. Most of the code you ship is other
 people's, and its vulnerabilities are your vulnerabilities.
 
-> **Pitfall.** *Automatic updates are a supply-chain attack vector.* The same **semantic-
-> versioning** ranges you learn as good practice — accept any compatible patch or minor
+> **Pitfall.** *Automatic updates are a supply-chain attack vector.* The same
+> **semantic-versioning** ranges you learn as good practice — accept any compatible patch or minor
 > release — mean your build silently pulls a poisoned version the moment an attacker
 > publishes one, disguised as a routine patch. As Hastings' dissertation puts the inversion:
 > "It used to be patch on a Friday to prevent a breach on Monday. Now, it is patch on Friday
@@ -594,8 +594,8 @@ verifying. That sustainability is a supply-chain security concern too.
 > Read as a pair, the cases bracket the problem. Log4Shell is an *accidental* vulnerability in
 > a ubiquitous dependency — a design failure. xz is a *deliberate* backdoor inserted through a
 > trust-and-process failure aimed squarely at a burned-out solo maintainer. Same blast radius,
-> opposite root causes — which is why the defenses must include both scanners that find known-
-> bad code *and* controls that constrain how you extend trust in the first place. It also ties
+> opposite root causes — which is why the defenses must include both scanners that find
+> known-bad code *and* controls that constrain how you extend trust in the first place. It also ties
 > supply-chain security straight to this book's themes of sustainable teamwork: bus factor,
 > code review as a security control, and observability curiosity are not soft skills here —
 > they are the controls that failed and the one that saved the day.

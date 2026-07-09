@@ -1,7 +1,8 @@
 # Chapter 1 — Open Resources
 
-Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
-text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are noted where known.
+Free, open-licensed, or freely accessible materials that reinforce this chapter. Types:
+📘 book/book chapter · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are noted
+where known.
 
 ## What software engineering is
 
@@ -41,19 +42,19 @@ text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are 
 - 📄 F. Brooks, *No Silver Bullet* (essence vs. accident), *IEEE Computer* 20(4), 1987 —
   [doi.org](https://doi.org/10.1109/MC.1987.1663532) (official abstract page); also widely
   available as a PDF via library and university course pages.
-- 📄 E. W. Dijkstra, **"Notes on Structured Programming"** (EWD249, 1969) —
+- 📄 E. W. Dijkstra, **"Notes on Structured Programming"** (EWD249, 1970) —
   [cs.utexas.edu EWD archive](https://www.cs.utexas.edu/users/EWD/ewd02xx/EWD249.PDF).
   Source of "testing shows the presence of bugs, never their absence" (p. 7). Free to read.
 - 📘 **MIT 6.031** readings on *static checking* and *testing* develop the
-  fault‑vs‑failure and black‑box‑vs‑white‑box distinctions used here.
+  fault-vs-failure and black-box-vs-white-box distinctions used here.
 
 ## Professional responsibility (used in §1.6)
 
 - 📄 **ACM Code of Ethics and Professional Conduct** —
   [acm.org/code-of-ethics](https://www.acm.org/code-of-ethics).
-- 📄 **Software Engineering Code of Ethics (ACM/IEEE‑CS)** —
+- 📄 **Software Engineering Code of Ethics (ACM/IEEE-CS)** —
   [computer.org/education/code-of-ethics](https://www.computer.org/education/code-of-ethics).
-- 📄 N. Leveson & C. Turner, **"An Investigation of the Therac‑25 Accidents"**, *IEEE
+- 📄 N. Leveson & C. Turner, **"An Investigation of the Therac-25 Accidents"**, *IEEE
   Computer* 26(7), 1993 —
   [PDF](https://web.stanford.edu/class/cs240/old/sp2014/readings/therac-25.pdf). The
   definitive account.
@@ -62,4 +63,4 @@ text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are 
 
 ## License note
 
-Linked resources remain under their own licenses; this page is CC BY‑SA 4.0.
+Linked resources remain under their own licenses; this page is CC BY-SA 4.0.

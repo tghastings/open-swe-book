@@ -2,8 +2,8 @@
 
 > **Where we are.** This opening chapter introduces the ideas that thread through the book.
 These include the definition of software engineering, the challenges associated with requirements,
-the inherent complexity of software, the inevitability of defects, and the trade-offs among project 
-scope, cost, and time. Additionally, the chapter addresses the importance of social responsibility 
+the inherent complexity of software, the inevitability of defects, and the trade-offs among project
+scope, cost, and time. Additionally, the chapter addresses the importance of social responsibility
 for software professionals. Subsequent chapters each address one or more of these foundational challenges.
 
 Writing a program that works once, on your machine, for input you chose yourself, is
@@ -19,25 +19,26 @@ head. Understanding the gap between those two activities is the subject of this 
 > **Definition.** *Software engineering* is the disciplined application of principles,
 > methods, and tools to build and evolve software systems that are useful, correct
 > enough, and economical to change — usually by a **team**, usually under **changing
-> requirements**, usually at a **scale** that defeats ad‑hoc effort.
+> requirements**, usually at a **scale** that defeats ad-hoc effort.
 
 Three words in that definition carry a lot of weight:
 
 - **Team.** Almost all real software is built by groups. Coordination, communication,
-  and shared understanding become first‑class engineering concerns, not afterthoughts.
+  and shared understanding become first-class engineering concerns, not afterthoughts.
   This is why Chapter 2 is about *process* and why an entire team project runs alongside
   the concepts (Appendix A).
 - **Changing.** Requirements are discovered, not handed down. They shift as users learn
   what they actually want. Methods that assume a frozen specification tend to fail; this
   is why the industry moved toward *iterative, agile* methods (Chapters 2–4).
-- **Scale.** Beyond a few thousand lines, no one understands the whole system in detail.
-  We manage that with **design and architecture** (Chapters 6–7): dividing the system so
-  each part can be understood, changed, and tested in relative isolation.
+- **Scale.** Beyond a few tens of thousands of lines, no one understands the whole
+  system in detail. We manage that with **design and architecture** (Chapters 6–7):
+  dividing the system so each part can be understood, changed, and tested in relative
+  isolation.
 
 What separates software engineering from mere coding is the focus on the **why**
 behind the **how**. Any competent developer can be told "use dependency injection here."
 An engineer understands *what problem it solves* (coupling), *when it helps*, and *when
-it is overkill* along with the tradeoffs — and can make the call on a design they have never
+it is overkill* along with the trade-offs — and can make the call on a design they have never
 seen before.
 
 ### 1.1.2 A Tale of Two Companies
@@ -47,7 +48,7 @@ Consider two startups building the same product — a scheduling app for clinics
 **Company A** hires strong programmers and tells them to "just ship." They skip written
 requirements ("we all know what a calendar does"), skip tests ("we'll test by using
 it"), and let the architecture emerge by accretion. For three months they look *faster*
-than anyone: demos appear weekly. Then the trouble starts. A change to time‑zone
+than anyone: demos appear weekly. Then the trouble starts. A change to time-zone
 handling breaks appointment reminders in a way no one notices for two weeks. Onboarding
 a fourth engineer takes a month because only one person understands the booking logic.
 Every new feature has a chance of resurrecting an old bug. Velocity collapses under the
@@ -66,13 +67,14 @@ Company B — and an honest account of when each is worth its cost.
 
 ### 1.1.3 Where the Discipline Came From
 
-The phrase "software engineering" was not coined by a standards committee. In the 1960s,
-**Margaret Hamilton** led the team at the MIT Instrumentation Laboratory that wrote the
-flight software for the **Apollo Guidance Computer** — the code that flew astronauts to
-the Moon.[^1] At the time, programming was widely seen as a clerical afterthought to the
-"real" engineering of hardware. Hamilton pushed the term **software engineering** into
-use deliberately, to insist that building flight software deserved — and required — the
-same rigor and respect as the aerospace engineering around it.[^2]
+The phrase "software engineering" owes its early currency to practitioners, not to a
+standards committee. In the 1960s, **Margaret Hamilton** led the team at the MIT
+Instrumentation Laboratory that wrote the flight software for the **Apollo Guidance
+Computer** — the code that flew astronauts to the Moon.[^1] At the time, programming was
+widely seen as a clerical afterthought to the "real" engineering of hardware. Hamilton
+pushed the term **software engineering** into use deliberately, to insist that building
+flight software deserved — and required — the same rigor and respect as the aerospace
+engineering around it.[^2]
 
 Her team's discipline paid off in the most public way imaginable. Minutes before the
 Apollo 11 lunar landing, the guidance computer was flooded with unexpected input and
@@ -80,8 +82,8 @@ began running out of capacity, throwing alarms. Because the software had been en
 with **priority scheduling** — the ability to shed low-priority work and keep the tasks
 that mattered most for landing — it recovered instead of crashing, and the landing
 proceeded.[^3] A design decision made long before launch, against a failure no one could
-fully predict, saved the mission. It remains one of the clearest early proofs that
-disciplined software design is critical for project success.
+fully predict, saved the mission. It remains one of the clearest early demonstrations of
+what disciplined software design can do for a project.
 
 The rest of the industry was learning similar lessons. Through the 1960s,
 hardware performance improved on the exponential curves we now describe with Moore's
@@ -107,9 +109,9 @@ measure, and adjust cycle.
 ## 1.2 The Requirements Challenge
 
 The hardest part of many projects is not building the system right, but figuring out
-**which system to build**. Fred Brooks, the author of "The Mythical Man-Month,"
-famously argued that the hardest single part of software work is deciding precisely 
-what to build, because it is the one part whose mistakes most cripple the result and 
+**which system to build**. Fred Brooks, the author of *The Mythical Man-Month*,
+famously argued that the hardest single part of software work is deciding precisely
+what to build, because it is the one part whose mistakes most cripple the result and
 are hardest to fix later.[^7]
 
 ### 1.2.1 Identifying Users and Requirements
@@ -123,10 +125,10 @@ requested solution to the underlying problem.
 
 Requirements also come from more than the obvious end user. A clinic scheduling app has:
 
-- **End users** (front‑desk staff) who book appointments,
+- **End users** (front-desk staff) who book appointments,
 - **Secondary users** (clinicians) who view schedules,
 - **Sponsors** who pay and care about cost and compliance,
-- **Regulators** whose rules (privacy, accessibility) are non‑negotiable constraints.
+- **Regulators** whose rules (privacy, accessibility) are non-negotiable constraints.
 
 Chapter 3 gives concrete techniques — user stories, features, scenarios, and goal
 hierarchies — for eliciting and recording what all of these stakeholders actually need.
@@ -139,10 +141,10 @@ prevent change?" but "how do we build so that change is cheap?"
 
 Two broad answers appear throughout the book:
 
-1. **Process‑level:** work in short iterations so that a change costs at most one
+1. **Process-level:** work in short iterations so that a change costs at most one
    iteration of rework, and so that you are always adapting to the *latest*
    understanding rather than a stale specification (Chapter 2).
-2. **Design‑level:** structure the system so that a likely change touches one module,
+2. **Design-level:** structure the system so that a likely change touches one module,
    not twenty (Chapter 6).
 
 > **Principle.** The cost of a change should be proportional to the *size* of the
@@ -153,7 +155,7 @@ Two broad answers appear throughout the book:
 
 ### 1.3.1 Sources of Complexity
 
-Some complexity is **essential** — it is inherent in the problem. A tax‑preparation
+Some complexity is **essential** — it is inherent in the problem. A tax-preparation
 program is complicated because tax law is complicated; no cleverness removes that.
 Other complexity is **accidental** — it comes from our tools, our choices, and our
 mistakes: tangled dependencies, unclear names, duplicated logic, leaky abstractions.[^7]
@@ -163,10 +165,10 @@ accidental complexity. Much of this book is about that: clear specifications
 (Chapter 6), patterns that package proven solutions (Chapter 7), reviews that catch
 needless complication (Chapter 9).
 
-Software is also uniquely complex among engineered artifacts for structural reasons:
+Software is also unusually complex among engineered artifacts for structural reasons:
 
 - It is **invisible** — you cannot see its shape, so you rely on models and diagrams.[^7]
-- It is **discrete** — a one‑character change can flip behavior completely; there is no
+- It is **discrete** — a one-character change can flip behavior completely; there is no
   "small error → small effect" safety net that continuous physical systems enjoy.
 - It is **changed constantly** — a bridge is designed once; software is redesigned every
   sprint.
@@ -174,7 +176,7 @@ Software is also uniquely complex among engineered artifacts for structural reas
 ### 1.3.2 Architecture: Dealing with Program Complexity
 
 The primary weapon against complexity is **decomposition**: split the system into parts
-small enough to understand, with **well‑defined interfaces** between them, so that you
+small enough to understand, with **well-defined interfaces** between them, so that you
 can reason about one part without holding the others in your head. When the parts and
 their connections are chosen deliberately, we call the result the system's
 **architecture** (Chapters 6–7).
@@ -208,7 +210,7 @@ It helps to separate three ideas that everyday speech blurs into "bug":
 - A **mistake** (or *error*) is a human action that produces an incorrect result — a
   developer misreads a spec.
 - A **fault** (the "defect" in the code) is the resulting flaw in the software — an
-  off‑by‑one in a loop.
+  off-by-one in a loop.
 - A **failure** is the observable event when the running system deviates from correct
   behavior — the report prints the wrong total.
 
@@ -223,21 +225,21 @@ do. No single technique suffices, which is why Chapters 9 and 10 are complementa
 **Testing** runs the software on chosen inputs and checks the outputs against what we
 expect. It cannot prove the absence of defects — as Dijkstra, a pioneer in computing
 and mathematics, observed, testing shows the *presence* of bugs, never their absence[^8] —
-but a well‑designed test suite makes it *unlikely* that a serious fault survives, and 
-it makes change safe by catching regressions. Testing is important enough that Chapter 10 
+but a well-designed test suite makes it *unlikely* that a serious fault survives, and
+it makes change safe by catching regressions. Testing is important enough that Chapter 10
 is devoted to it, including how to decide when you have tested *enough* (coverage).
 
-### 1.4.3 Black‑Box and White‑Box Testing
+### 1.4.3 Black-Box and White-Box Testing
 
 Two complementary viewpoints run through all of testing:
 
-- **Black‑box (specification‑based)** testing chooses inputs from the *specification*,
+- **Black-box (specification-based)** testing chooses inputs from the *specification*,
   ignoring the code. You test *what the system should do*: valid and invalid inputs,
   boundaries, and equivalence classes of behavior. Its strength is that it finds *missing*
   logic and stays valid when the code is rewritten.
-- **White‑box (structure‑based)** testing chooses inputs by looking at the *code*,
+- **White-box (structure-based)** testing chooses inputs by looking at the *code*,
   aiming to exercise its statements, branches, and paths. Its strength is finding code
-  that the specification‑based tests never reach.
+  that the specification-based tests never reach.
 
 Neither subsumes the other, and Chapter 10 shows how to combine them and how to *measure*
 their thoroughness with coverage criteria.
@@ -265,17 +267,17 @@ cost? Cut **scope**. The classic quip — *"good, fast, cheap: pick two"* — ca
 reality that **quality is not free**, and that a manager who demands more scope, sooner,
 for less is mistaking innumeracy for ambition.
 
-Agile methods make a deliberate choice here: they **fix time and cost** (a fixed‑length
+Agile methods make a deliberate choice here: they **fix time and cost** (a fixed-length
 iteration with a fixed team) and let **scope flex** — you always ship *something* valuable
-on the date, even if not everything. Plan‑driven methods more often fix scope and flex
-time. Chapters 2 and 4 return to this trade‑off with concrete estimation and
+on the date, even if not everything. Plan-driven methods more often fix scope and flex
+time. Chapters 2 and 4 return to this trade-off with concrete estimation and
 prioritization techniques (story points, MoSCoW, value/cost/risk). And modern software
 increasingly ships as a **continuously updated service** rather than a boxed product —
 Chapter 14 examines how that reshapes the triangle, when releasing becomes a routine
-decision instead of a once‑a‑year event.
+decision instead of a once-a-year event.
 
 > **Pitfall.** Silently absorbing a scope increase by working nights ("crunch") hides
-> the trade‑off instead of resolving it. It borrows against future quality — the debt is
+> the trade-off instead of resolving it. It borrows against future quality — the debt is
 > repaid, with interest, as defects and burnout.
 
 ## 1.6 Social Responsibility
@@ -287,8 +289,8 @@ not a defense. This section grounds that claim in three cases.
 ### 1.6.1 Case Study: The Volkswagen Emissions Scandal
 
 In 2015, regulators discovered that Volkswagen diesel vehicles contained a **defeat
-device**: software that detected when the car was being emissions‑tested (from steering,
-speed, and time patterns) and switched to a cleaner, lower‑performance mode *only during
+device**: software that detected when the car was being emissions-tested (from steering,
+speed, and time patterns) and switched to a cleaner, lower-performance mode *only during
 the test*. On the road, the cars emitted many times the legal limit of nitrogen oxides.[^9]
 
 The software worked *exactly as designed* — and that is the problem. This was no mere testing failure — it was a *requirement* that should never have
@@ -299,15 +301,15 @@ build.
 ### 1.6.2 The ACM Code
 
 The profession has written norms. The **ACM Code of Ethics and Professional Conduct**
-and the joint **ACM/IEEE‑CS Software Engineering Code of Ethics** state, among other
+and the joint **ACM/IEEE-CS Software Engineering Code of Ethics** state, among other
 principles, that software engineers shall act in the **public interest**, produce work of
 **high quality**, be **honest** about their work and its limitations, and maintain
 **competence**.[^10][^11] These are not decoration: they give an engineer a shared, citable basis
 for saying *no*, and for raising concerns without it being merely personal opinion.
 
-### 1.6.3 Case Study: The Therac‑25 Accidents
+### 1.6.3 Case Study: The Therac-25 Accidents
 
-Between 1985 and 1987, a radiation‑therapy machine, the **Therac‑25**, delivered
+Between 1985 and 1987, a radiation-therapy machine, the **Therac-25**, delivered
 massive radiation overdoses to at least six patients, several fatally.[^12] The causes were
 a textbook of engineering failures: a **race condition** in concurrent control software
 that surfaced only when an operator typed quickly; **removal of the hardware interlocks**
@@ -316,7 +318,7 @@ that earlier models used as a safety backstop, leaving software as the sole safe
 development culture that assumed the software was correct and dismissed early field
 reports.[^12]
 
-The Therac‑25 is the canonical warning that in safety‑critical systems, software defects
+The Therac-25 is the canonical warning that in safety-critical systems, software defects
 kill, and that **process, testing, and honest incident response are matters of life and
 death** — not bureaucratic overhead.
 
@@ -361,8 +363,9 @@ behind a row of tabs. Pick your language once and every
 example on every page follows; you can also open any page with [`?lang=go`](?lang=go)
 (or [`java`](?lang=java), [`javascript`](?lang=javascript), [`python`](?lang=python),
 [`ruby`](?lang=ruby), [`typescript`](?lang=typescript), [`generic`](?lang=generic)) to pre-select one.
-The tabs run alphabetically, so **Generic** leads the row, with Ruby shown until you choose
-otherwise — and the examples are written to read cleanly even in a language you have never used.
+The tabs run alphabetically, so **Generic** leads the row; the **Ruby** tab is selected by
+default until you pick another — and the examples are written to read cleanly even in a
+language you have never used.
 
 The others are worth your attention even so, because some lessons only appear in the
 contrast: information hiding looks different as a Java interface, a Go implicit
@@ -374,7 +377,7 @@ cannot silently rot. And when an example is *supposed* to fail — a type fault 
 compiler rejects in Chapter 9 — the error message printed beside it is the compiler's
 actual output, not a paraphrase.
 
-Keep the four cross‑cutting principles in view as you read: *software is complex;
+Keep the four cross-cutting principles in view as you read: *software is complex;
 requirements change; defects are inevitable; teams need coordination.* Nearly every
 technique in this book earns its place by answering one of them.
 

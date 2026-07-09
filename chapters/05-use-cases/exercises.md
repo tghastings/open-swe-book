@@ -42,8 +42,9 @@ you to reason.
    (one specific, one bounded), and both success and failure postconditions.
 10. **[analysis]** Write a use case from scratch for **"Book a Clinic Appointment"** by an
     online patient. Produce the actor–goal list first (Pass 1), then the basic flow
-    (Pass 2), then at least three alternative flows (Pass 3), labeling each as specific,
-    bounded, or extended. Note explicitly which step each alternative branches from.
+    (Pass 2), then at least three deviations from the happy path (Pass 3), labeling each
+    as a specific alternative, a bounded alternative, or behavior attached at an
+    extension point. Note explicitly which step each deviation branches from.
 11. **[analysis]** Take your answer to Exercise 10 and identify one stretch of behavior it
     shares with a second plausible use case for the same clinic system (e.g., *Reschedule
     Appointment*). Factor that shared behavior into an `«include»`d use case, and show the

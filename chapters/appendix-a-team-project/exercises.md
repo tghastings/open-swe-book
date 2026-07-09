@@ -8,7 +8,7 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 
 ## Weeks 1–2 — Team and idea
 
-1. **[team]** Write a one‑paragraph *team charter*: how you will communicate, how often
+1. **[team]** Write a one-paragraph *team charter*: how you will communicate, how often
    you will meet, how you will make decisions, and how you will handle a member who
    falls behind. Commit it to your repository's README.
 2. **[team]** Brainstorm five project ideas. For each, note the primary user and the one
@@ -18,7 +18,7 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 ## Weeks 3–4 — Proposal
 
 3. **[project]** Fill in the [project proposal template](../../templates/project-proposal.md).
-   Your backlog must use MoSCoW (Chapter 4) and contain at least one *Won't‑have‑this‑time*
+   Your backlog must use MoSCoW (Chapter 4) and contain at least one *Won't-have-this-time*
    item to prove you have scoped realistically.
 4. **[analysis]** Identify your project's single riskiest assumption (technical, user, or
    team). Describe the cheapest experiment that would tell you within one week whether it
@@ -26,7 +26,7 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 
 ## Weeks 5–7 — Skeletal system (Status Report 1)
 
-5. **[project]** Build a *walking skeleton*: a thin slice that runs end‑to‑end through
+5. **[project]** Build a *walking skeleton*: a thin slice that runs end-to-end through
    every architectural layer (Chapters 6–7) even if each part is trivial. Submit
    [Status Report 1](../../templates/status-report.md).
 6. **[analysis]** Draw your system's architecture as it actually is now (not as planned),
@@ -35,8 +35,8 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 
 ## Weeks 8–11 — Viable system (Status Report 2)
 
-7. **[project]** Reach a minimum viable product: the *Must‑haves* work for a real user.
-   Submit [Status Report 2](../../templates/status-report.md) with a test‑coverage number
+7. **[project]** Reach a minimum viable product: the *Must-haves* work for a real user.
+   Submit [Status Report 2](../../templates/status-report.md) with a test-coverage number
    (Chapter 10) and your current defect count (Chapter 12).
 8. **[team]** Run one retrospective (Chapter 2). Record two things to keep doing and one
    concrete change. At the next checkpoint, report whether the change stuck.
@@ -44,7 +44,7 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 ## Weeks 12–15 — Final report and demo
 
 9. **[project]** Complete the [final report](../../templates/final-report.md), including a
-   quality‑metrics section: defect‑removal efficiency and at least one chart or confidence
+   quality-metrics section: defect-removal efficiency and at least one chart or confidence
    interval from your project data (Chapter 12).
 10. **[analysis]** Write an honest *individual contribution* statement for each member,
     then a team retrospective: what would you do differently if you started over knowing

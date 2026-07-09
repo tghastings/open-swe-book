@@ -1,6 +1,6 @@
 # Chapter 2 — Open Resources
 
-Free, open‑licensed, or freely accessible material for going deeper on software
+Free, open-licensed, or freely accessible material for going deeper on software
 development processes. Legend: 📘 book/book chapter · 🎓 course/courseware · 📄 paper or
 standard · 🎥 video/talk. Licenses vary and are noted where known.
 
@@ -11,8 +11,8 @@ standard · 🎥 video/talk. Licenses vary and are noted where known.
   <https://agilemanifesto.org/> · Free to read; the manifesto text is freely reproducible with
   attribution to its authors.
 
-- 📄 **The Scrum Guide (2020)**, Ken Schwaber and Jeff Sutherland — the definitive, vendor-
-  neutral 13-page definition of Scrum's accountabilities, events, and artifacts; the site's
+- 📄 **The Scrum Guide (2020)**, Ken Schwaber and Jeff Sutherland — the definitive,
+  vendor-neutral 13-page definition of Scrum's accountabilities, events, and artifacts; the site's
   revision history documents the changes from earlier editions.
   <https://scrumguides.org/scrum-guide.html> · Released under Creative Commons
   Attribution-ShareAlike (CC BY-SA 4.0).
@@ -89,23 +89,25 @@ standard · 🎥 video/talk. Licenses vary and are noted where known.
 ## Course material
 
 - 📘🎓 **Engineering Software as a Service (ESaaS)**, Armando Fox and David Patterson, UC
-  Berkeley — Chapter 7 covers agile, Scrum, and process in depth alongside a running project.
+  Berkeley — Chapter 1 surveys agile versus plan-and-document lifecycles, and Chapter 10
+  covers Scrum, pairing, and project management in depth alongside a running project.
   Companion site with free materials, slides, and MOOC links. <https://www.saasbook.info/> ·
   Free companion materials; MOOCs offered free to audit on edX.
 
-- 🎓 **MIT OpenCourseWare, 6.005 / 6.031 "Software Construction"** — open readings and
-  problem sets on test-first development, specifications, and designing for change that
-  complement this chapter's engineering practices. <https://ocw.mit.edu/> · Creative Commons
+- 🎓 **MIT OpenCourseWare, 6.005 "Software Construction"** — open readings and problem
+  sets on test-first development, specifications, and designing for change that complement
+  this chapter's engineering practices; the successor course 6.031's readings are openly
+  available at <https://web.mit.edu/6.031/>. <https://ocw.mit.edu/> · Creative Commons
   Attribution-NonCommercial-ShareAlike.
 
 - 🎥 **"Agile Product Ownership in a Nutshell"**, Henrik Kniberg — a widely used 15-minute
-  whiteboard talk explaining backlogs, prioritization, and the Product Owner role.
+  whiteboard talk explaining backlogs, prioritization, and the Product Owner accountability.
   Searchable on YouTube. · Free to view.
 
 - 📘 **"Shape Up," Ryan Singer (Basecamp)** — the free online book behind §2.8: shaping,
-  six‑week cycles plus a two‑week cool‑down, betting instead of backlogs, the circuit
+  six-week cycles plus a two-week cool-down, betting instead of backlogs, the circuit
   breaker, and hill charts. <https://basecamp.com/shapeup> · Free to read online.
 
----
+## License note
 
 Linked resources remain under their own licenses; this page is CC BY-SA 4.0.

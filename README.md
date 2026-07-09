@@ -1,6 +1,6 @@
 # Software Engineering: Standing on the Shoulders of Giants
 
-*First Edition, July 2026.*
+*First Edition, 1.0b1.*
 
 📖 **Read the book online at [www.swebook.org](https://www.swebook.org).**
 

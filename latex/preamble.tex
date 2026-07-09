@@ -22,30 +22,99 @@
 \usepackage{fvextra}
 \fvset{breaklines=true,breakanywhere=true}
 
-% ---- Running heads: book title (verso) / chapter (recto), folio at foot ----
+% ---- Grayscale palette (interior prints B&W; two grays do the "color" work) ----
+% {gray}{x} model so the PDF carries true single-channel gray, never rich black.
+\usepackage{xcolor}
+\definecolor{chapnum}{gray}{0.62}   % oversized chapter numeral (faded, SICP-style)
+\definecolor{secnum}{gray}{0.55}    % hanging section / subsection numbers
+\definecolor{chaprule}{gray}{0.12}  % chapter-opener rule (near-black)
+\definecolor{headrule}{gray}{0.60}  % running-head + section-underline hairlines
+
+% ---- Running heads: chapter (verso) / section (recto), folio at foot ----
 \usepackage[automark,headsepline]{scrlayer-scrpage}
 \clearpairofpagestyles
-\automark[chapter]{chapter}
-\ohead{\small\itshape\headmark}
-\cfoot*{\small\thepage}
+\automark[section]{chapter}
+\setkomafont{pagehead}{\normalfont\scshape\small}
+\setkomafont{pagenumber}{\normalfont\small}
+\setkomafont{headsepline}{\color{headrule}}
+\ohead{\headmark}
+\cfoot*{\thepage}
 \renewcommand*{\chaptermarkformat}{}
 
-% ---- Callout boxes (Principle / Pitfall / Definition / ...) ----
+% ---- Callout boxes: left rule, NO fill (Principle / Pitfall / Case study / ...) ----
+% Grayscale only (interior prints B&W). A single thin vertical rule at the left
+% marks the callout — no gray fill, no box — under a bold small-caps label. The
+% type is named by the label; #1 (style key from callouts.lua) is reserved for
+% future per-type variation but currently unused so every callout reads uniform.
 \usepackage[most]{tcolorbox}
-\newtcolorbox{callout}[1]{
-  enhanced, colback=black!3, colframe=black!45,
-  boxrule=0.4pt, arc=1.5pt, left=9pt, right=9pt, top=7pt, bottom=7pt,
-  fonttitle=\bfseries\small, coltitle=black, title={#1}, before skip=8pt, after skip=8pt}
+% unbreakable: a callout stays whole and moves to the next page rather than
+% splitting mid-sentence at a page boundary (short admonitions read as artifacts
+% when broken). All callouts here are far shorter than a text column.
+\newtcolorbox{callout}[2]{%
+  enhanced, unbreakable,
+  colback=white, colframe=white, boxrule=0pt, boxsep=0pt,
+  left=13pt, right=0pt, top=1pt, bottom=1pt,
+  before skip=10pt, after skip=10pt,
+  borderline west={1.6pt}{0pt}{black!72},
+  fonttitle=\normalfont\bfseries\scshape, coltitle=black, colbacktitle=white,
+  titlerule=0pt, bottomtitle=3pt, title={#2}}
 
-% ---- Headings (scrbook) ----
-\setkomafont{chapter}{\normalfont\bfseries\LARGE}
-\renewcommand*{\chapterformat}{\thechapter\quad}
-\setkomafont{section}{\normalfont\bfseries\large}
-\setkomafont{subsection}{\normalfont\bfseries\normalsize}
-\RedeclareSectionCommand[beforeskip=-1.5ex,afterskip=1ex]{section}
+% ---- Headings (scrbook, KOMA-native; grayscale) ----
+% Chapter opener: SICP-style giant faded-gray numeral flush right, a hairline,
+% then the title flush left. \IfArgIsEmpty gives \chapter* (Preface) a clean
+% title-only head. \RedeclareSectionCommand{chapter} RESETS the vskip macros, so
+% it MUST precede the two \renewcommand vskip lines below.
+\setkomafont{chapter}{\normalfont\bfseries\huge}
+\newcommand*{\chapnumfont}{\normalfont\bfseries\fontsize{60}{60}\selectfont\color{chapnum}}
+\renewcommand*{\chapterformat}{\thechapter}
+\renewcommand*{\raggedchapter}{\raggedright}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=0pt,afterindent=false]{chapter}
+\renewcommand*{\chapterheadstartvskip}{\vspace*{2.0\baselineskip}}
+\renewcommand*{\chapterheadendvskip}{\vspace{2.6\baselineskip}}
+\renewcommand*{\chapterlinesformat}[3]{%
+  \IfArgIsEmpty{#2}{%
+    \noindent #3%
+  }{%
+    \noindent\makebox[\linewidth][r]{\chapnumfont #2}\par\nobreak
+    \vskip 0.15\baselineskip
+    \noindent{\color{chaprule}\rule{\linewidth}{0.7pt}}\par\nobreak
+    \vskip 0.95\baselineskip
+    \noindent #3%
+  }%
+}
+% Section / subsection heads: small caps section, gray hanging numbers, and a
+% hairline under \section titles only (KOMA-native 4-arg \sectionlinesformat).
+\setkomafont{section}{\normalfont\Large\scshape}
+\setkomafont{subsection}{\normalfont\large\bfseries}
+\setkomafont{subsubsection}{\normalfont\normalsize\bfseries}
+\renewcommand*{\raggedsection}{\raggedright}
+\renewcommand*{\sectionformat}{\textcolor{secnum}{\thesection}\enskip}
+\renewcommand*{\subsectionformat}{\textcolor{secnum}{\thesubsection}\enskip}
+\RedeclareSectionCommand[beforeskip=2.6ex plus 1ex minus .2ex,afterskip=1.1ex plus .2ex,afterindent=false]{section}
+\RedeclareSectionCommand[beforeskip=2.0ex plus .8ex minus .2ex,afterskip=0.9ex plus .2ex,afterindent=false]{subsection}
+\RedeclareSectionCommand[beforeskip=1.6ex plus .6ex minus .2ex,afterskip=0.7ex plus .2ex,afterindent=false]{subsubsection}
+\makeatletter
+\renewcommand*{\sectionlinesformat}[4]{%
+  \Ifstr{#1}{section}{%
+    \parbox[t]{\linewidth}{%
+      \raggedsection\@hangfrom{\hskip #2#3}{#4}\par
+      \vskip 0.35ex
+      {\color{headrule}\rule{\linewidth}{0.4pt}}%
+    }%
+  }{%
+    \@hangfrom{\hskip #2#3}{#4}%
+  }%
+}
+\makeatother
 
-% caption label reads "Figure 4.1." not "Figure 4.1.:"
-\renewcommand*{\captionformat}{\ }
+% ---- Captions: image centered; small-caps label on its OWN line, caption text
+% centered on the line beneath it (labelsep=newline). ----
+\usepackage{caption}
+% format=plain is required for labelsep=newline (KOMA's caption compat defaults
+% to format=hang, which rejects newline). Label ("FIGURE 1.1") sits on its own
+% centered line; caption text is centered on the line(s) beneath.
+\captionsetup{format=plain, justification=centering, singlelinecheck=false,
+  labelfont={sc}, textfont={it}, labelsep=newline, font=small, skip=8pt}
 % figures a touch tighter
 \setlength{\intextsep}{10pt}
 
@@ -98,3 +167,6 @@
 
 % two-digit chapter/section numbers need wider TOC number boxes
 \DeclareTOCStyleEntries[dynnumwidth]{tocline}{chapter,section,subsection}
+% chapter TOC entries in small caps to echo the heads
+\setkomafont{chapterentry}{\scshape}
+\setkomafont{chapterentrypagenumber}{\normalfont}

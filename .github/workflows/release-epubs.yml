@@ -1,6 +1,6 @@
 name: release-epubs
 
-# Tag a version (e.g. `git tag v2026.07.1 && git push --tags`) and this builds
+# Tag a version (e.g. `git tag v1.0b1 && git push --tags`) and this builds
 # the five per-language EPUB editions plus a PDF twin of each, AND the print-ready
 # LaTeX interior ("Print Edition - Generic.pdf"), and publishes them as release
 # assets. Stable download URLs (always the newest release):
@@ -23,6 +23,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Stamp the tag version into the hardcoded files (title page, README, etc.)
+      # in the workspace so the release PDF/EPUB assets carry it — the tagged
+      # commit predates the version-sync commit on main, so inject at build time.
+      - name: Sync version to the tag (workspace, for the built assets)
+        run: |
+          python3 tools/bump-version.py "${GITHUB_REF_NAME#v}" \
+            || echo "::warning::version bump skipped for ${GITHUB_REF_NAME} (unexpected tag format?)"
 
       - name: Install mdBook + mdbook-mermaid
         run: |

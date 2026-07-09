@@ -2,14 +2,14 @@
 
 These exercises build the judgment behind requirements analysis: sizing work, forecasting
 from data, and ranking by value, cost, and risk. Tags indicate the kind of effort:
-**[warm-up]** checks understanding, **[analysis]** asks you to reason or compute. Several
+**[warm‑up]** checks understanding, **[analysis]** asks you to reason or compute. Several
 exercises require real arithmetic — do the math, and show your work.
 
 Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
 
 ## Concepts
 
-1. **[warm-up]** For each vague requirement below, rewrite it so it passes the §4.1
+1. **[warm‑up]** For each vague requirement below, rewrite it so it passes the §4.1
    checklist — in particular, give it a concrete **acceptance test** and name at least one
    dependency.
 
@@ -19,11 +19,11 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
 
    Then explain, in one sentence each, why the original wording could not be estimated.
 
-2. **[warm-up]** A teammate says, "Let's just call one story point one day of work, so
+2. **[warm‑up]** A teammate says, "Let's just call one story point one day of work, so
    5 points = 5 days." Explain two concrete problems this creates, referring to
    *anchoring* (§4.2.1) and to the reason points are deliberately *relative* (§4.2.2).
 
-3. **[warm-up]** Read this exchange:
+3. **[warm‑up]** Read this exchange:
 
    > **Lead:** "The export feature is trivial — maybe half a day?"
    > **Junior dev:** "Yeah, that sounds about right, half a day."
@@ -90,7 +90,7 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
    | Feature              | Value (1–10) | Cost (pts) |
    |----------------------|-------------:|-----------:|
    | Waitlist auto-promote|            7 |          8 |
-   | Conflict detection   |            9 |          4 |
+   | Conflict detection   |            9 |          5 |
    | Dark mode            |            3 |          2 |
    | Insurance-card scan  |            8 |         13 |
 
@@ -104,16 +104,19 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
    | Feature              | Value | Risk | Cost |
    |----------------------|------:|-----:|-----:|
    | Waitlist auto-promote|     7 |    6 |    8 |
-   | Conflict detection   |     9 |    2 |    4 |
+   | Conflict detection   |     9 |    2 |    5 |
    | Dark mode            |     3 |    1 |    2 |
    | Insurance-card scan  |     8 |    9 |   13 |
 
    a. Compute the **weighted priority = (value + risk) ÷ cost** for each and give the new
       order.
-   b. Which feature does the added risk term reward most, and why does the formula
-      deliberately favor tackling risky work early (§4.4.3)?
-   c. Argue for or against overriding the formula to build conflict detection first
-      anyway.
+   b. Compute how much each feature's score changed from Exercise 8 (both the difference
+      and the ratio). Notice that the *order* did not change — explain how the
+      insurance-card scan's large cost denominator swamps even a risk of 9, and why the
+      formula nevertheless encodes "tackle risky work early" (§4.4.3).
+   c. The formula still ranks the two genuinely risky features last. Argue for or against
+      overriding it to pull the insurance-card scan forward anyway — for example, spending
+      one sprint on an OCR spike purely to retire its risk.
 
 10. **[analysis]** For each feature, decide its Kano category (**Must-be / Performance /
     Attractive / Indifferent**) and justify it using the functional/dysfunctional question
@@ -143,8 +146,8 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
        Name the property of software this demonstrates (§4.6.1).
 
 12. **[analysis]** *Triangulate three estimates.* For one real feature, you now have three
-    independent estimates: Planning Poker says **8 points** (which, at your velocity of
-    ~4 points/person-week, implies ~2 person-weeks); COCOMO, from a KLOC guess, says
+    independent estimates: Planning Poker says **8 points** (which your team's history
+    suggests is about 2 person-weeks of work); COCOMO, from a KLOC guess, says
     **3 person-weeks**; a senior developer's gut says **1 person-week**. They disagree
     by 3×.
 

@@ -1,6 +1,6 @@
 # Chapter 12 — Open Resources
 
-Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
+Free, open-licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
 text · 🎓 course · 📄 primary source / standard · 🎥 video. Licenses vary and are noted where
 known; linked resources remain under their own terms.
 
@@ -10,13 +10,13 @@ known; linked resources remain under their own terms.
   A complete, rigorous, free introductory statistics text. Covers scales of data,
   boxplots and quartiles, variance and standard deviation, the normal and t
   distributions, confidence intervals, and least-squares regression — the exact toolkit
-  of §§12.6–12.9, with worked examples. **License: CC BY‑SA 3.0** (PDF free; print
+  of §§12.6–12.9, with worked examples. **License: CC BY-SA 3.0** (PDF free; print
   available at cost).
-- 📘 **Introduction to Modern Statistics (Çetinkaya‑Rundel & Hardin)** —
+- 📘 **Introduction to Modern Statistics (Çetinkaya-Rundel & Hardin)** —
   [openintro-ims.netlify.app](https://openintro-ims.netlify.app/). A newer OpenIntro
   text emphasizing simulation-based and computational inference; strong chapters on
   exploratory data displays, the bootstrap, confidence intervals, and linear regression.
-  **License: CC BY‑SA.** A good second pass once the classic text's formulas are clear.
+  **License: CC BY-SA.** A good second pass once the classic text's formulas are clear.
 - 🎓 **Khan Academy — Statistics and Probability** —
   [khanacademy.org/math/statistics-probability](https://www.khanacademy.org/math/statistics-probability).
   Short videos and practice on quartiles/boxplots, variance/SD, z-scores, the normal
@@ -69,7 +69,7 @@ known; linked resources remain under their own terms.
 
 ## Reference and data
 
-- 📄 **NIST/SEMATECH e‑Handbook of Statistical Methods** —
+- 📄 **NIST/SEMATECH e-Handbook of Statistical Methods** —
   [itl.nist.gov/div898/handbook](https://www.itl.nist.gov/div898/handbook/). A free,
   authoritative U.S.-government reference for descriptive statistics, distributions,
   confidence intervals, and regression, with formulas and case studies. Public domain
@@ -81,5 +81,5 @@ known; linked resources remain under their own terms.
 
 ## License note
 
-Linked resources remain under their own licenses (several are CC BY‑SA; the NIST handbook
-is U.S. public domain; ISO and Fenton & Bieman are not open). This page is CC BY‑SA 4.0.
+Linked resources remain under their own licenses (several are CC BY-SA; the NIST handbook
+is U.S. public domain; ISO and Fenton & Bieman are not open). This page is CC BY-SA 4.0.

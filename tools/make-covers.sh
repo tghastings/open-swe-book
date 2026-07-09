@@ -17,14 +17,14 @@ declare -A ACCENT=([python]="#4b8bbe" [java]="#f89820" [javascript]="#f0db4f" \
 for lang in "${LANGS[@]}"; do
   html="$(mktemp --suffix=.html)"
   sed -e "s/{{LANG}}/${NAME[$lang]}/g" -e "s/{{ACCENT}}/${ACCENT[$lang]}/g" \
-    -e "s/{{VERSION}}/${SWEBOOK_VERSION:-dev}/g" \
+    -e "s/{{VERSION}}/${SWEBOOK_VERSION:-1.0b1}/g" \
     cover-template.html > "$html"
   # The generic (pseudocode) cover carries no language-edition badge.
   # The generic (retail/KDP) cover carries no language badge, and its footer is
-  # stamped "1st Edition" rather than a build version number.
+  # stamped "First Edition" rather than a build version number.
   if [ "$lang" = generic ]; then
     sed -i '/class="badge"/d' "$html"
-    sed -i 's#<div class="edition">.*</div>#<div class="edition">1st Edition</div>#' "$html"
+    sed -i 's#<div class="edition">.*</div>#<div class="edition">First Edition</div>#' "$html"
   fi
   "$CHROME" --headless --disable-gpu ${CHROME_FLAGS:-} \
     --screenshot="$OUTDIR/cover-$lang.png" --window-size=1600,2560 \

@@ -33,7 +33,7 @@ Mermaid block is fine — the thinking is what is graded.
 6. **[analysis]** Read the following code and critique its coupling and cohesion.
 
    ```generic
-   last_total <- 0.0                      // global, read by Checkout and Receipt
+   last_total <- 0.0                      // global: written by compute, read by render_receipt
 
    function compute(cart, is_b2b)
      sort cart.items ascending by qty    // reaches into Cart's internals
@@ -54,7 +54,7 @@ Mermaid block is fine — the thinking is what is graded.
    ```
 
    ```go
-   var lastTotal = 0.0 // read by Checkout and Receipt
+   var lastTotal = 0.0 // global: written by PriceEngine, read by RenderReceipt
 
    type Item struct {
    	Qty               int
@@ -82,7 +82,7 @@ Mermaid block is fine — the thinking is what is graded.
    ```
 
    ```java
-   class Globals { static double lastTotal = 0.0; }  // read by Checkout and Receipt
+   class Globals { static double lastTotal = 0.0; }  // written by PriceEngine, read by Receipt
 
    class Item { int qty; double retail, wholesale; }
    class Cart { List<Item> items = new ArrayList<>(); }  // internals, not an interface
@@ -108,7 +108,7 @@ Mermaid block is fine — the thinking is what is graded.
    ```
 
    ```javascript
-   let lastTotal = 0.0;                      // read by Checkout and Receipt
+   let lastTotal = 0.0;                      // global: written by PriceEngine, read by Receipt
 
    class PriceEngine {
      compute(cart, isB2b) {
@@ -131,7 +131,7 @@ Mermaid block is fine — the thinking is what is graded.
    ```
 
    ```python
-   LAST_TOTAL = 0.0                          # read by Checkout and Receipt
+   LAST_TOTAL = 0.0                          # global: written by PriceEngine, read by Receipt
 
    class PriceEngine:
      def compute(self, cart, is_b2b):
@@ -151,7 +151,7 @@ Mermaid block is fine — the thinking is what is graded.
    ```
 
    ```ruby
-   $last_total = 0.0                      # read by Checkout and Receipt
+   $last_total = 0.0                      # global: written by PriceEngine, read by Receipt
 
    class PriceEngine
      def compute(cart, is_b2b)
@@ -175,7 +175,7 @@ Mermaid block is fine — the thinking is what is graded.
    ```
 
    ```typescript
-   let lastTotal = 0.0;                      // read by Checkout and Receipt
+   let lastTotal = 0.0;                      // global: written by PriceEngine, read by Receipt
 
    interface Item { qty: number; retail: number; wholesale: number; }
    interface Cart { _items: Item[]; }         // internals, not an interface

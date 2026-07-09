@@ -1,8 +1,8 @@
 # Chapter 5 — Open Resources
 
-Free, open‑licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
-text · 🎓 course · 📄 primary source / reference · 🎥 video. Licenses vary and are noted where
-known.
+Free, open-licensed, or freely accessible materials that reinforce this chapter. Types: 📘 open
+text · 🎓 course · 📄 primary source / reference · 🎥 video · 🛠 tool. Licenses vary and are
+noted where known.
 
 ## Foundations: what a use case is
 
@@ -25,8 +25,8 @@ known.
   covering the writing process and a fully dressed example.
 - 📘 **UC Berkeley — Engineering Software as a Service (ESaaS)** —
   [saasbook.info](https://saasbook.info/). The requirements chapters connect user stories
-  (Chapter 3) to more structured behavioral descriptions, with an agile framing. Book and
-  companion MOOC materials are free to read.
+  (this book's Chapter 3) to more structured behavioral descriptions, with an agile framing.
+  Companion course materials are free, and the associated MOOC is free to audit on edX.
 - 📘 **MIT 6.005 / 6.031 — Software Construction, "Specifications" readings** —
   [MIT OpenCourseWare](https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/).
   Complements this chapter by showing how the behavior a use case describes becomes a
@@ -59,4 +59,4 @@ known.
 
 ## License note
 
-Linked resources remain under their own licenses; this page is CC BY‑SA 4.0.
+Linked resources remain under their own licenses; this page is CC BY-SA 4.0.

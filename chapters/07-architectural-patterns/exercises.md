@@ -1,25 +1,25 @@
 # Chapter 7 — Exercises
 
-Exercises are graded by depth: **[warm-up]** checks understanding, **[analysis]** asks you
+Exercises are graded by depth: **[warm‑up]** checks understanding, **[analysis]** asks you
 to reason about a design and its trade-offs. For every pattern you choose, the grading rubric is
 the same one an engineer applies in practice: *name what the pattern buys you and what it
 costs you.*
 
 ## Concepts
 
-1. **[warm-up]** In one sentence each, state the *problem* solved by the layered pattern,
+1. **[warm‑up]** In one sentence each, state the *problem* solved by the layered pattern,
    the observer pattern, and the client-server pattern. Then name the single quality each
    one is primarily trying to protect (for example, substitutability, or shared truth).
 
-2. **[warm-up]** Explain the difference between *strict* and *relaxed* layering. Give one
+2. **[warm‑up]** Explain the difference between *strict* and *relaxed* layering. Give one
    concrete situation where you would accept the pass-through cost of strict layering, and
    one where relaxed layering is the better call, and say why.
 
-3. **[warm-up]** The observer pattern "inverts a dependency." Which object would depend on
+3. **[warm‑up]** The observer pattern "inverts a dependency." Which object would depend on
    which in the naive (non-observer) design, and which way does the dependency point after
    you apply the observer? Draw the two arrows.
 
-4. **[warm-up]** MVC insists that "the model does not depend on the view." Give one
+4. **[warm‑up]** MVC insists that "the model does not depend on the view." Give one
    concrete benefit you lose the moment a business rule leaks into a view, and connect it
    to the humble-view principle from §7.3.3.
 

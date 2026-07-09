@@ -1,6 +1,6 @@
 # Open Curriculum Resource Map
 
-This book is designed to support **a complete first undergraduate software‑engineering
+This book is designed to support **a complete first undergraduate software-engineering
 course** on its own (see the [chapter-to-SEEK mapping](#coverage-vs-the-acmieee-seek-body-of-knowledge)
 below). This map is a companion: for each chapter it lists the best **free or openly
 accessible** courses, textbooks, primary sources, and videos, so learners who want more
@@ -10,24 +10,24 @@ same as "openly licensed"; check each before adapting.
 
 Resources are grouped as:
 
-- 📘 **Open textbook / notes** — full readable text, usually CC‑licensed.
+- 📘 **Open textbook / notes** — full readable text, usually CC-licensed.
 - 🎓 **Course / MOOC** — university courseware or a free online course.
 - 📄 **Primary source** — the canonical spec, standard, or paper.
 - 🎥 **Video** — recorded lectures or talks.
 
 > **Coverage summary.** The book's fourteen chapters cover a first course. The four
-> "anchor" open courses below reinforce most of that ground; the per‑chapter tables add
-> focused resources for the rest (estimation, use‑case mechanics, architectural pattern
+> "anchor" open courses below reinforce most of that ground; the per-chapter tables add
+> focused resources for the rest (estimation, use-case mechanics, architectural pattern
 > catalogs, and the statistics in Chapter 12).
 
 ## The four anchor courses
 
 | Anchor | Covers chapters | What it is | License |
 |--------|-----------------|------------|---------|
-| **MIT 6.031 Software Construction** — [web.mit.edu/6.031](http://web.mit.edu/6.031), [OCW 6.005 (2016)](https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/) | 6, 9, 10 | Complete, polished reading notes on specs, ADTs, testing, code review, and design. | CC BY‑NC‑SA (OCW) |
-| **UC Berkeley — Engineering Software as a Service (ESaaS)** — [saasbook.info](https://saasbook.info/) | 1, 2, 3, 10 | Free book + MOOC on agile, BDD/user stories, and testing. | Free book; CC‑BY media |
-| **CMU 17‑214 / 17‑313 Software Engineering** — [17-313 course site](https://cmu-313.github.io/) | 2, 6, 9, 12 | Open slides/readings on process, design, reviews, and measurement. | Course‑open |
-| **"Software Engineering at Google"** — [free online](https://abseil.io/resources/swe-book) | 1, 9, 10, 12 | Industry practices for reviews, testing, and metrics at scale. | CC BY‑NC‑ND |
+| **MIT 6.031 Software Construction** — [web.mit.edu/6.031](http://web.mit.edu/6.031), [OCW 6.005 (2016)](https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/) | 6, 9, 10 | Complete, polished reading notes on specs, ADTs, testing, code review, and design. | CC BY-NC-SA (OCW) |
+| **UC Berkeley — Engineering Software as a Service (ESaaS)** — [saasbook.info](https://saasbook.info/) | 1, 2, 3, 10 | Free book + MOOC on agile, BDD/user stories, and testing. | Free book; CC-BY media |
+| **CMU 17-214 / 17-313 Software Engineering** — [17-313 course site](https://cmu-313.github.io/) | 2, 6, 9, 12 | Open slides/readings on process, design, reviews, and measurement. | Course-open |
+| **"Software Engineering at Google"** — [free online](https://abseil.io/resources/swe-book) | 1, 9, 10, 12 | Industry practices for reviews, testing, and metrics at scale. | CC BY-NC-ND |
 
 ---
 
@@ -37,13 +37,13 @@ Resources are grouped as:
 |------|----------|-------|
 | 📘 | [ESaaS ch. 1 "Introduction to SaaS & Agile"](https://saasbook.info/) | What SE is; why process matters. |
 | 📄 | [ACM Code of Ethics and Professional Conduct](https://www.acm.org/code-of-ethics) | §1.6 social responsibility. |
-| 📄 | [IEEE‑CS/ACM Software Engineering Code of Ethics](https://www.computer.org/education/code-of-ethics) | Professional conduct. |
-| 📄 | N. Leveson & C. Turner, ["An Investigation of the Therac‑25 Accidents"](https://web.stanford.edu/class/cs240/old/sp2014/readings/therac-25.pdf) (IEEE Computer, 1993) | The canonical safety case study. |
+| 📄 | [IEEE-CS/ACM Software Engineering Code of Ethics](https://www.computer.org/education/code-of-ethics) | Professional conduct. |
+| 📄 | N. Leveson & C. Turner, ["An Investigation of the Therac-25 Accidents"](https://web.stanford.edu/class/cs240/old/sp2014/readings/therac-25.pdf) (IEEE Computer, 1993) | The canonical safety case study. |
 | 📄 | [SWEBOK Guide v4 (IEEE)](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | The discipline's body of knowledge. |
 | 🎥 | [MIT 6.031 Lecture 1 "Static Checking"](http://web.mit.edu/6.031/www/sp21/classes/01-static-checking/) | Sets up "safe from bugs, easy to understand, ready for change." |
 
 Covers: what is SE, requirements challenge, complexity, defects/testing intro, the
-iron triangle (scope/cost/time), the VW & Therac‑25 case studies, ethics.
+iron triangle (scope/cost/time), the VW & Therac-25 case studies, ethics.
 
 ## Chapter 2 — Software Development Processes
 
@@ -53,10 +53,10 @@ iron triangle (scope/cost/time), the VW & Therac‑25 case studies, ethics.
 | 📄 | [The Scrum Guide (2020)](https://scrumguides.org/scrum-guide.html) · [PDF](https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf) | Accountabilities, events, artifacts — primary source. |
 | 📘 | [Extreme Programming (c2 wiki / Beck summaries)](http://wiki.c2.com/?ExtremeProgramming) | XP practices and user stories. |
 | 📄 | W. Royce, ["Managing the Development of Large Software Systems"](https://www.praxisframework.org/files/royce1970.pdf) (1970) | The origin of "waterfall" (and its critique). |
-| 📄 | B. Boehm, ["A Spiral Model of Software Development and Enhancement"](https://www.cs.unc.edu/techreports/86-020.pdf) (1988) | Risk‑driven process. |
-| 🎓 | [ESaaS ch. 7 (Project Management, Agile)](https://saasbook.info/) | Plan‑and‑document vs. agile lifecycles. |
+| 📄 | B. Boehm, ["A Spiral Model of Software Development and Enhancement"](https://www.cs.unc.edu/techreports/86-020.pdf) (1988) | Risk-driven process. |
+| 🎓 | [ESaaS ch. 7 (Project Management, Agile)](https://saasbook.info/) | Plan-and-document vs. agile lifecycles. |
 
-Covers: process vs. values, plan‑vs‑grow cultures, Scrum, XP, waterfall & V‑model,
+Covers: process vs. values, plan-vs-grow cultures, Scrum, XP, waterfall & V-model,
 risk, the spiral framework.
 
 ## Chapter 3 — User Requirements
@@ -77,7 +77,7 @@ hierarchies, security attack trees.
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📄 | [Planning Poker (Mountain Goat Software)](https://www.mountaingoatsoftware.com/agile/planning-poker) | Story‑point estimation. |
+| 📄 | [Planning Poker (Mountain Goat Software)](https://www.mountaingoatsoftware.com/agile/planning-poker) | Story-point estimation. |
 | 📘 | M. Cohn, ["Agile Estimating and Planning" free chapters/articles](https://www.mountaingoatsoftware.com/blog) | Velocity, story points. |
 | 📄 | [MoSCoW prioritization (DSDM/Agile Business)](https://www.agilebusiness.org/dsdm-project-framework/moscow-prioritisation.html) | Must/Should/Could/Won't. |
 | 📄 | N. Kano et al., [Kano model overview](https://foldingburritos.com/blog/kano-model/) | Satisfiers vs. dissatisfiers. |
@@ -91,12 +91,12 @@ MoSCoW, Kano, value/cost/risk, COCOMO.
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📘 | A. Cockburn, [*Use-Case Foundation* — templates & method](https://alistaircockburn.com/Use%20Case%20Foundation.pdf) | The definitive use‑case method. |
+| 📘 | A. Cockburn, [*Use-Case Foundation* — templates & method](https://alistaircockburn.com/Use%20Case%20Foundation.pdf) | The definitive use-case method. |
 | 📄 | [UML Use Case Diagrams (OMG UML spec)](https://www.omg.org/spec/UML/) | Actors, relationships, notation. |
 | 📘 | [ESaaS §7 (user stories vs. use cases)](https://saasbook.info/) | When to use each. |
 | 🎥 | [Use case modeling tutorials (free)](https://www.uml-diagrams.org/use-case-diagrams.html) | Notation reference. |
 
-Covers: actors & goals, basic/alternative flows, extension points, use‑case diagrams,
+Covers: actors & goals, basic/alternative flows, extension points, use-case diagrams,
 include/extend relationships.
 
 ## Chapter 6 — Design and Architecture
@@ -107,7 +107,7 @@ include/extend relationships.
 | 📄 | P. Kruchten, ["Architectural Blueprints — the 4+1 View Model"](https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf) (1995) | The 4+1 views. |
 | 📘 | [refactoring.guru — Design Principles & SOLID](https://refactoring.guru/design-patterns) | Coupling, cohesion, OO relationships. |
 | 📄 | [UML Class Diagrams reference](https://www.uml-diagrams.org/class-diagrams-overview.html) | Association, aggregation, composition, inheritance. |
-| 📘 | ["Software Engineering at Google" ch. on design](https://abseil.io/resources/swe-book) | Real‑world modular design. |
+| 📘 | ["Software Engineering at Google" ch. on design](https://abseil.io/resources/swe-book) | Real-world modular design. |
 
 Covers: role of architecture, modularity principle, coupling & cohesion, UML class
 diagrams, 4+1 views, describing an architecture.
@@ -117,23 +117,23 @@ diagrams, 4+1 views, describing an architecture.
 | Type | Resource | Notes |
 |------|----------|-------|
 | 📘 | M. Fowler, [Patterns of Enterprise Application Architecture (catalog)](https://martinfowler.com/eaaCatalog/) | Layering, MVC, and more. |
-| 📄 | M. Fowler, [GUI Architectures (MVC/MVP)](https://martinfowler.com/eaaDev/uiArchs.html) | Model‑View‑Controller in depth. |
-| 📘 | [Microsoft — Cloud Design Patterns](https://learn.microsoft.com/azure/architecture/patterns/) | Pub/sub, broker, client‑server, pipes‑and‑filters. |
-| 📘 | M. Richards, [Software Architecture Patterns (free O'Reilly report)](https://www.oreilly.com/content/software-architecture-patterns/) | Layered, event‑driven, microkernel. |
-| 📄 | [Reactive/Dataflow: The Reactive Manifesto](https://www.reactivemanifesto.org/) | Streams and back‑pressure. |
+| 📄 | M. Fowler, [GUI Architectures (MVC/MVP)](https://martinfowler.com/eaaDev/uiArchs.html) | Model-View-Controller in depth. |
+| 📘 | [Microsoft — Cloud Design Patterns](https://learn.microsoft.com/azure/architecture/patterns/) | Pub/sub, broker, client-server, pipes-and-filters. |
+| 📘 | M. Richards, [Software Architecture Patterns (free O'Reilly report)](https://www.oreilly.com/content/software-architecture-patterns/) | Layered, event-driven, microkernel. |
+| 📄 | [Reactive/Dataflow: The Reactive Manifesto](https://www.reactivemanifesto.org/) | Streams and back-pressure. |
 | 📘 | [Software Product Lines (SEI)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=513819) | Families & product lines. |
 
-Covers: layering, shared‑data, observer, publish‑subscribe, MVC, dataflow/pipelines,
-client‑server, broker, RESTful APIs, product lines.
+Covers: layering, shared-data, observer, publish-subscribe, MVC, dataflow/pipelines,
+client-server, broker, RESTful APIs, product lines.
 
 ## Chapter 8 — Version Control with Git
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📘 | [Pro Git (2nd ed.)](https://git-scm.com/book/en/v2) | The canonical Git reference; free, CC BY‑NC‑SA. |
-| 🎓 | [MIT Missing Semester — Version Control (Git)](https://missing.csail.mit.edu/2020/version-control/) | Data‑model‑first Git. |
+| 📘 | [Pro Git (2nd ed.)](https://git-scm.com/book/en/v2) | The canonical Git reference; free, CC BY-NC-SA. |
+| 🎓 | [MIT Missing Semester — Version Control (Git)](https://missing.csail.mit.edu/2020/version-control/) | Data-model-first Git. |
 | 📄 | [Markdown Guide](https://www.markdownguide.org/) · [CommonMark](https://commonmark.org/) | Markdown syntax and the standard. |
-| 📄 | [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) · [Trunk‑Based Development](https://trunkbaseddevelopment.com/) | Team workflows. |
+| 📄 | [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) · [Trunk-Based Development](https://trunkbaseddevelopment.com/) | Team workflows. |
 | 📄 | [Chris Beams — How to Write a Git Commit Message](https://cbea.ms/git-commit/) | Commit hygiene. |
 | 🎥 | ["Oh Shit, Git!?!"](https://ohshitgit.com/) | A recovery cookbook for common messes. |
 
@@ -157,44 +157,44 @@ analysis, false positives/negatives.
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📘 | [MIT 6.031 — Testing reading](http://web.mit.edu/6.031/www/sp21/classes/03-testing/) | Partitioning, coverage, glass‑box vs. black‑box. |
-| 📘 | P. Ammann & J. Offutt, [Introduction to Software Testing (free samples & slides)](https://cs.gmu.edu/~offutt/softwaretest/) | Graph/control‑flow coverage, MC/DC. |
+| 📘 | [MIT 6.031 — Testing reading](http://web.mit.edu/6.031/www/sp21/classes/03-testing/) | Partitioning, coverage, glass-box vs. black-box. |
+| 📘 | P. Ammann & J. Offutt, [Introduction to Software Testing (free samples & slides)](https://cs.gmu.edu/~offutt/softwaretest/) | Graph/control-flow coverage, MC/DC. |
 | 🎓 | [ESaaS ch. 8 "Testing"](https://saasbook.info/) | TDD, unit/integration, test doubles. |
 | 📘 | ["Software Engineering at Google" — testing chapters](https://abseil.io/resources/swe-book) | Test sizes, flakiness, coverage culture. |
 | 📄 | [NIST — Combinatorial (pairwise) testing](https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software) | Input coverage & ACTS tool. |
 
-Covers: levels of testing, control‑flow graphs & coverage, MC/DC, equivalence/
+Covers: levels of testing, control-flow graphs & coverage, MC/DC, equivalence/
 boundary, combinatorial testing.
 
 ## Chapter 11 — Software Security
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📄 | [OWASP Top 10:2025](https://owasp.org/Top10/) | The industry's shared vulnerability vocabulary (§11.2). CC BY‑SA 4.0. |
-| 🛠 | [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) · [WebGoat](https://owasp.org/www-project-webgoat/) | Deliberately insecure apps for hands‑on practice (§11.2). |
-| 🎓 | [PortSwigger Web Security Academy](https://portswigger.net/web-security) | Free hands‑on web‑security labs (§11.2). |
-| 🛠 | [Strix — autonomous AI pentest agents](https://github.com/usestrix/strix) | AI security testing (§11.3). Apache‑2.0; **authorized testing only.** |
-| 📄 | [Andres Freund's xz disclosure](https://www.openwall.com/lists/oss-security/2024/03/29/4) · [xz timeline](https://research.swtch.com/xz-timeline) | Primary sources for the xz‑utils case study (§11.4). |
-| 🛠 | [OpenSSF Scorecard](https://scorecard.dev/) · [SLSA](https://slsa.dev/) · [Sigstore](https://docs.sigstore.dev/) | Supply‑chain security tooling (§11.4). |
+| 📄 | [OWASP Top 10:2025](https://owasp.org/Top10/) | The industry's shared vulnerability vocabulary (§11.2). CC BY-SA 4.0. |
+| 🛠 | [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) · [WebGoat](https://owasp.org/www-project-webgoat/) | Deliberately insecure apps for hands-on practice (§11.2). |
+| 🎓 | [PortSwigger Web Security Academy](https://portswigger.net/web-security) | Free hands-on web-security labs (§11.2). |
+| 🛠 | [Strix — autonomous AI pentest agents](https://github.com/usestrix/strix) | AI security testing (§11.3). Apache-2.0; **authorized testing only.** |
+| 📄 | [Andres Freund's xz disclosure](https://www.openwall.com/lists/oss-security/2024/03/29/4) · [xz timeline](https://research.swtch.com/xz-timeline) | Primary sources for the xz-utils case study (§11.4). |
+| 🛠 | [OpenSSF Scorecard](https://scorecard.dev/) · [SLSA](https://slsa.dev/) · [Sigstore](https://docs.sigstore.dev/) | Supply-chain security tooling (§11.4). |
 | 🎓 | [OpenSSF "Developing Secure Software" (LFD121)](https://openssf.org/training/courses/) | Free course + certificate (§11.5). |
-| 📄 | [Hastings & Walcott, ISSREW 2022](https://doi.org/10.1109/ISSREW55968.2022.00068) | The six‑control continuous‑verification framework (§11.4). |
+| 📄 | [Hastings & Walcott, ISSREW 2022](https://doi.org/10.1109/ISSREW55968.2022.00068) | The six-control continuous-verification framework (§11.4). |
 
 Covers: the CIA triad and defense in depth, the OWASP Top 10:2025, SAST/DAST/SCA and
-AI‑assisted security testing, the open‑source supply chain (Log4Shell, xz‑utils, weak
+AI-assisted security testing, the open-source supply chain (Log4Shell, xz-utils, weak
 links, continuous verification), and building security in (SSDF).
 
 ## Chapter 12 — Quality Metrics
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📘 | [OpenIntro Statistics (CC BY‑SA)](https://www.openintro.org/book/os/) | Boxplots, histograms, variance, normal & t‑distributions, confidence intervals, regression. |
+| 📘 | [OpenIntro Statistics (CC BY-SA)](https://www.openintro.org/book/os/) | Boxplots, histograms, variance, normal & t-distributions, confidence intervals, regression. |
 | 📘 | [Introduction to Modern Statistics (CC, OpenIntro)](https://openintro-ims.netlify.app/) | Modern companion to the above. |
 | 📄 | [DORA / "Accelerate" State of DevOps metrics](https://dora.dev/) | Modern software delivery metrics. |
 | 📘 | N. Fenton & J. Bieman, [Software Metrics (concepts overview)](https://www.cs.toronto.edu/~sme/CSC444F/handouts/) | Measurement theory, scales. |
 | 📄 | [ISO/IEC 25010 product quality model](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010) | Forms of software quality. |
 
 Covers: meaningful metrics & scales, forms of quality, boxplots/histograms, variance/
-SD, normal & t‑distributions, confidence intervals, linear regression.
+SD, normal & t-distributions, confidence intervals, linear regression.
 
 ## Chapter 13 — Software Engineering in the Age of AI
 
@@ -205,7 +205,7 @@ SD, normal & t‑distributions, confidence intervals, linear regression.
 | 📄 | [Perry et al. — "Do Users Write More Insecure Code with AI Assistants?"](https://arxiv.org/abs/2211.03622) | The false-sense-of-security study (§13.3). |
 | 📄 | [GitClear — AI code quality research](https://www.gitclear.com/ai_assistant_code_quality_2025_research) | Duplication up, refactoring down (§13.3). |
 | 📄 | [SWE-bench](https://www.swebench.com/) · [SWT-bench](https://arxiv.org/pdf/2406.12952) | Coding-agent capability benchmarks (§13.2.7). |
-| 📄 | [DORA](https://dora.dev/) | Delivery-performance research referenced in §13.2.8. |
+| 📄 | [DORA](https://dora.dev/) | Delivery-performance research referenced in §13.2.9. |
 
 Covers: what AI changes vs. what endures, the productivity paradox, AI across each
 lifecycle stage, evidence on quality/security, the o16g manifesto.
@@ -214,12 +214,12 @@ lifecycle stage, evidence on quality/security, the o16g manifesto.
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📄 | [SEC Release No. 34‑70694 — In the Matter of Knight Capital](https://www.sec.gov/litigation/admin/2013/34-70694.pdf) | The primary source for the Knight Capital case study (§14.3). Public domain. |
+| 📄 | [SEC Release No. 34-70694 — In the Matter of Knight Capital](https://www.sec.gov/litigation/admin/2013/34-70694.pdf) | The primary source for the Knight Capital case study (§14.3). Public domain. |
 | 📄 | [CrowdStrike — External Technical Root Cause Analysis (2024)](https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/) | Primary source for the July 2024 outage case study (§14.3). |
-| 📄 | [DORA — research and the four keys](https://dora.dev/) | Deployment frequency, lead time, change‑fail rate, failed‑deployment recovery time (§14.7). |
-| 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue‑Green, Strangler Fig](https://martinfowler.com/) | Canonical free articles for §§14.2–14.3, §14.8. |
+| 📄 | [DORA — research and the four keys](https://dora.dev/) | Deployment frequency, lead time, change-fail rate, failed-deployment recovery time (§14.7). |
+| 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue-Green, Strangler Fig](https://martinfowler.com/) | Canonical free articles for §§14.2–14.3, §14.8. |
 | 📘 | [Google SRE books](https://sre.google/books/) | Free online; reliability, release engineering, postmortems. |
-| 📄 | [GitHub Dependabot docs](https://docs.github.com/en/code-security/dependabot) · [OWASP Dependency‑Check](https://owasp.org/www-project-dependency-check/) · [SLSA](https://slsa.dev/) | Dependency scanning and supply‑chain security (§14.6). |
+| 📄 | [GitHub Dependabot docs](https://docs.github.com/en/code-security/dependabot) · [OWASP Dependency-Check](https://owasp.org/www-project-dependency-check/) · [SLSA](https://slsa.dev/) | Dependency scanning and supply-chain security (§14.6). |
 | 📘 | [minimumcd.org](https://minimumcd.org/) | A concise, community definition of minimum CD practice. |
 
 Covers: SaaS & cloud, CI pipelines, continuous deployment & rollout strategies (Knight
@@ -244,7 +244,7 @@ Covers: project goals, team experience, proposal, status reports, final report.
 The book is designed to support a complete *first* undergraduate SE course. The table
 below maps each chapter to the knowledge areas of the ACM/IEEE **SE2014 / SEEK** guideline
 so instructors can see coverage — and its limits — directly, rather than taking a "full
-scope" claim on faith. SEEK is a curriculum *guideline*; no single one‑semester course
+scope" claim on faith. SEEK is a curriculum *guideline*; no single one-semester course
 covers the whole discipline, and the "Depth" column is honest about that.
 
 | SEEK knowledge area | Where in this book | Depth |
@@ -256,15 +256,15 @@ covers the whole discipline, and the "Depth" column is honest about that.
 | Software Configuration Management (CFG) | Ch. 8 (Git, branching, merging, pull requests, team workflows, merge conflicts) | Solid |
 | Software V&V (VAV) | Ch. 9–10 (reviews, static analysis, testing, coverage) | Solid |
 | Software Quality (QUA) | Ch. 12 (metrics, statistics, defects) | Solid |
-| Security (SEC) | **Ch. 11 (OWASP Top 10:2025, SAST/DAST/SCA, AI security testing, supply‑chain security)**; reinforced by Ch. 3 §3.7 (attack trees, STRIDE), Ch. 9 §9.4 (SAST), Ch. 14 §14.6 (security pipelines) | Solid |
+| Security (SEC) | **Ch. 11 (OWASP Top 10:2025, SAST/DAST/SCA, AI security testing, supply-chain security)**; reinforced by Ch. 3 §3.7 (attack trees, STRIDE), Ch. 9 §9.4 (SAST), Ch. 14 §14.6 (security pipelines) | Solid |
 | Software Construction (CST) | assumed as a prerequisite; touched in Ch. 9–10 | Light |
-| Software Evolution / Maintenance | Ch. 14 §14.8 (legacy code, refactoring, technical debt); cost‑of‑change theme throughout | Introductory |
-| Emerging practice: AI‑assisted SE | Ch. 13 | Introductory |
+| Software Evolution / Maintenance | Ch. 14 §14.8 (legacy code, refactoring, technical debt); cost-of-change theme throughout | Introductory |
+| Emerging practice: AI-assisted SE | Ch. 13 | Introductory |
 | Computing Essentials, Math & Eng. Fundamentals (CMP, FND) | assumed prerequisites | Out of scope |
 
 ## Notes on coverage & gaps
 
-Within the areas it *does* teach, the book is self‑contained — no purchase is required to
+Within the areas it *does* teach, the book is self-contained — no purchase is required to
 follow the course. This map records how much of each topic *also* has strong external open
 coverage, so you know where the free supplements are richest:
 
@@ -272,12 +272,12 @@ coverage, so you know where the free supplements are richest:
   design/modularity, code review & static analysis, testing & coverage, and all of the
   statistics in Chapter 12.
 - **Thinner external coverage:** some *estimation* details (e.g. COCOMO calibration), a
-  few *architectural‑pattern* treatments, and worked *case studies*. Our own chapters
+  few *architectural-pattern* treatments, and worked *case studies*. Our own chapters
   supply original explanations and examples for these.
 - **Deliberately light or out of scope** (per the SEEK table above): deep software
-  *construction* and the CS/math prerequisites — appropriate omissions for a one‑semester
+  *construction* and the CS/math prerequisites — appropriate omissions for a one-semester
   first course, but worth naming so no one mistakes this for the whole discipline.
   (*Maintenance/evolution* moved from this list to introductory coverage when Chapter 14
   added legacy code, refactoring, and technical debt; *security* moved to solid coverage
-  when Chapter 11 added the OWASP Top 10, AI‑assisted security testing, and open‑source
-  supply‑chain security.)
+  when Chapter 11 added the OWASP Top 10, AI-assisted security testing, and open-source
+  supply-chain security.)

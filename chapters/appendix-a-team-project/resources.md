@@ -1,6 +1,6 @@
 # Appendix A — Open Resources
 
-Free, open‑licensed, or freely accessible materials to help your team run the semester project
+Free, open-licensed, or freely accessible materials to help your team run the semester project
 well. Types: 📘 open text · 🎓 course · 📄 primary source/standard · 🎥 video.
 
 ## Running a team project end to end

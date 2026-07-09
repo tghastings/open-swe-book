@@ -30,9 +30,9 @@ jobs:
 
       - name: Stamp build version into the sidebar
         run: |
-          V="$(git describe --tags --always)"
+          V="$(git describe --tags --always | sed 's/^v//')"   # v1.0b1 -> 1.0b1
           echo "build version: $V"
-          sed -i "s/const VERSION = \"dev\"/const VERSION = \"${V}\"/" version.js
+          sed -i -E "s/const VERSION = \"[^\"]*\"/const VERSION = \"${V}\"/" version.js
 
       - name: Install mdBook + mdbook-mermaid
         run: |

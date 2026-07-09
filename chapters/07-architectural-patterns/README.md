@@ -403,11 +403,11 @@ crucial property is the direction of the dependency: observers depend on the sub
 neither depends on the other's concrete type. This is why you can add a new observer
 without recompiling the subject.
 
-At larger scale the same idea becomes **publish–subscribe**: publishers emit *events* to
+At larger scale the same idea becomes **publish-subscribe**: publishers emit *events* to
 named channels or topics, and subscribers register interest in topics rather than in a
 specific subject.[^7] A message broker (§7.5.3) sits in the middle so that publishers and
 subscribers need not even know the other exists or be running at the same time. Observer
-is publish–subscribe in miniature, in one process; pub/sub is observer scaled across a
+is publish-subscribe in miniature, in one process; pub/sub is observer scaled across a
 network.
 
 **Trade-offs.** You gain **loose coupling** and **extensibility**: the subject is closed
@@ -1179,7 +1179,7 @@ an interface, and you can swap the implementation.* The trade-off is that a test
 is only as faithful as you make it — tests can pass against a fake that behaves
 differently from reality, so a smaller number of full **integration tests** against a
 real server remain essential (Chapter 10). The same substitution idea, scaled to
-production, powers the blue‑green and canary deployment strategies of Chapter 14.
+production, powers the blue-green and canary deployment strategies of Chapter 14.
 
 ### 7.5.3 The Broker Pattern
 
@@ -1219,7 +1219,7 @@ flowchart TD
 **Participants and examples.** The **broker** registers available servers, resolves each
 request to a capable server, and may add load-balancing, retries, and monitoring. The
 **client** and **server** are relieved of finding each other. Message brokers (the engine
-behind publish–subscribe at scale, §7.2.2), API gateways, service meshes, and the classic
+behind publish-subscribe at scale, §7.2.2), API gateways, service meshes, and the classic
 CORBA object request broker are all instances.[^1] **Trade-offs:** you gain **location
 transparency**, dynamic membership, and a natural home for cross-cutting concerns like
 load-balancing and observability. You pay in **latency** (an extra hop), in **complexity**
@@ -1229,9 +1229,9 @@ in practice it too must be made redundant.
 
 ### 7.5.4 RESTful APIs
 
-Client–server tells you *who talks to whom*; it does not tell you what the conversation
+Client-server tells you *who talks to whom*; it does not tell you what the conversation
 looks like. The dominant answer on today's web is **REST** (Representational State
-Transfer) — less a new pattern than a set of conventions that make the client–server
+Transfer) — less a new pattern than a set of conventions that make the client-server
 pattern scale across the internet.[^20] An API that follows them is called **RESTful**.
 
 **Problem it solves.** If every server invents its own vocabulary of operations
@@ -1256,7 +1256,7 @@ to *any* server using the same small grammar.
   schema can change freely as long as the representation stays stable (an interface, in
   Chapter 6's sense, at network scale).
 - **Statelessness.** Each request carries everything the server needs (identity,
-  parameters); the server keeps **no per‑client session state** between requests.[^20] That is
+  parameters); the server keeps **no per-client session state** between requests.[^20] That is
   what lets any of the broker's servers (§7.5.3) answer any request — the foundation of
   horizontal scaling.
 
@@ -1291,11 +1291,11 @@ one-line version: **POST** creates under a server-chosen name, **PUT** replaces 
 **Trade-offs.** You gain **uniformity** (one grammar for every service; tooling, caching,
 and testing all get cheaper), **evolvability** (representations decouple clients from
 server internals), and effortless fit with the web's infrastructure. You pay when the
-domain is not noun‑shaped — long‑running operations, batch actions, and "verbs with no
+domain is not noun-shaped — long-running operations, batch actions, and "verbs with no
 natural resource" (send reminder? merge records?) force modeling contortions — and
 statelessness pushes real state you *do* need (sessions, carts) into tokens or the shared
-data layer (§7.2.1). When a client needs many resources at once, REST's one‑resource‑per‑
-request grain can also mean chatty interfaces.
+data layer (§7.2.1). When a client needs many resources at once, REST's one-resource-per-request
+grain can also mean chatty interfaces.
 
 > **Principle.** REST is the interface discipline of Chapter 6 applied across a network:
 > stable names, a small uniform contract, and hidden internals. If your API needs a

@@ -1,16 +1,16 @@
 # Chapter 2 — Exercises
 
 Work these in order within a theme; each theme builds from recall toward judgment and
-practice. Tags: **[warm-up]** checks understanding, **[analysis]** asks you to reason about
+practice. Tags: **[warm‑up]** checks understanding, **[analysis]** asks you to reason about
 trade-offs.
 
 ## Processes and values (§2.1)
 
-1. **[warm-up]** In your own words, distinguish a *process model* from the *process a team
+1. **[warm‑up]** In your own words, distinguish a *process model* from the *process a team
    actually lives*. Give one concrete decision (from an ordinary workday) that the model does
    *not* specify but the lived process must.
 
-2. **[warm-up]** For each of the four Agile Manifesto value pairs, write one sentence
+2. **[warm‑up]** For each of the four Agile Manifesto value pairs, write one sentence
    explaining what the *right-hand* side is good for. The manifesto values the left more —
    argue why that does not make the right side worthless.
 
@@ -20,7 +20,7 @@ trade-offs.
 
 ## Scrum (§2.2)
 
-4. **[warm-up]** Match each Scrum accountability to the question it owns — *what/why*, *how*, or *the
+4. **[warm‑up]** Match each Scrum accountability to the question it owns — *what/why*, *how*, or *the
    process itself* — and explain why the Product Owner accountability is held by a single
    person rather than a committee.
 
@@ -36,7 +36,7 @@ trade-offs.
 
 ## XP and engineering practice (§2.3)
 
-7. **[warm-up]** Write a user story for a feature of an app you use often, using the *"As a
+7. **[warm‑up]** Write a user story for a feature of an app you use often, using the *"As a
    &lt;role&gt;, I want &lt;capability&gt; so that &lt;benefit&gt;"* template. Then state one
    *testable* acceptance criterion for it — the property from INVEST that §2.3.1 says matters
    most for building it.
@@ -51,7 +51,7 @@ trade-offs.
 
 ## Plan-driven models and their risks (§§2.4–2.5)
 
-10. **[warm-up]** Draw the V-model and label, for each of the four testing levels, the single
+10. **[warm‑up]** Draw the V-model and label, for each of the four testing levels, the single
     question it answers. Explain why *system testing can pass while acceptance testing fails*.
 
 11. **[analysis]** Explain *big-bang integration* and connect it to the cost-of-change curve.
@@ -64,6 +64,14 @@ trade-offs.
 
 ## Risk and the spiral (§§2.6–2.7)
 
-13. **[analysis]** Compare the successful iterative project (§2.6.2) with the troubled rewrite
-    (§2.6.3). Identify the *single structural difference* that the chapter says explains the
-    different outcomes, and connect it to the spiral model's central claim in §2.7.1.
+13. **[analysis]** Compare the hypothetical iterative project (§2.6.2) with the troubled
+    rewrite (§2.6.3). Identify the *single structural difference* that the chapter says
+    explains the different outcomes, and connect it to the spiral model's central claim in
+    §2.7.1.
+
+## Shape Up (§2.8)
+
+14. **[analysis]** Shape Up fixes time and flexes scope, keeps no backlog, and applies a
+    circuit breaker when the cycle ends. For a project you know, argue which one of these
+    three bets would help the team most and which would hurt it most, using the §2.8
+    "Shape Up vs. Scrum" contrast to justify both picks.
