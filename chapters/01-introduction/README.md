@@ -142,9 +142,9 @@ prevent change?" but "how do we build so that change is cheap?"
 
 Two broad answers appear throughout the book:
 
-1. **Process-level:** work in short iterations so that a change costs at most one
-   iteration of rework, and so that you are always adapting to the *latest*
-   understanding rather than a stale specification (Chapter 2).
+1. **Process-level:** work in short iterations so that less new work accumulates before
+   feedback arrives, limiting the likelihood and extent of rework and keeping the team
+   aligned with its *latest* understanding rather than a stale specification (Chapter 2).
 2. **Design-level:** structure the system so that a likely change touches one module,
    not twenty (Chapter 6).
 

@@ -99,6 +99,11 @@ def to_tex(s):
     s = re.sub(r'\*([^*]+)\*', r'\\textit{\1}', s)
     s = re.sub(r'`([^`]+)`', r'\\texttt{\1}', s)
     s = s.replace('‑', '-')
+    # Straight double quotes reach XeLaTeX as raw LaTeX (pandoc's smart-quotes never
+    # sees references.tex), so they render as a closing curly on BOTH sides. Make them
+    # directional: opening after start/space/open-bracket/dash, closing otherwise.
+    s = re.sub(r'(^|[\s(\[{—–-])"', '\\1“', s)
+    s = s.replace('"', '”')
     for i, u in enumerate(links):
         s = s.replace(f'@@L{i}@@', r'\url{' + u.replace('%', r'\%').replace('#', r'\#') + '}')
     return s

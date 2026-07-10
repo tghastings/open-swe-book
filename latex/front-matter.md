@@ -81,7 +81,9 @@ uses `for each ... in ...` or `while ... do`. An arrow pair, `<-`, means assignm
 `total <- price * quantity` as "let *total* become *price* times *quantity*." Comparisons
 use the ordinary symbols `=`, `<`, `>`, `<=`, `>=`. Anything after `//` on a line is a
 comment. Names come from the problem — *patient*, *catalog*, *invoice* — not from any
-implementation.
+implementation. A hooked arrow ($\hookrightarrow$) at the start of a line means the
+previous line was too long for the page and has wrapped onto this one; it is not part of
+the program.
 
 You can read the book straight through, or use the table of contents to jump to a specific
 concern. Either way, the aim is the same: to leave you able to build software that other
