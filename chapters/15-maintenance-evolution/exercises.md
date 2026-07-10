@@ -7,7 +7,7 @@ refactoring, a real repository — not just prose. Show the work, not only the a
 ## Concepts
 
 1. **[warm‑up]** Classify each of these as *deliberate* or *inadvertent* technical debt
-   (§15.4), and justify: (a) hard-coding a single currency to make a demo deadline, with
+   (§15.5), and justify: (a) hard-coding a single currency to make a demo deadline, with
    a backlog ticket to internationalize; (b) a data model that made sense before the
    requirements pivoted; (c) copy-pasting a function at 2 a.m. during crunch to avoid
    touching a shared module.
@@ -143,13 +143,13 @@ refactoring, a real repository — not just prose. Show the work, not only the a
     daylight-saving bug that two downstream call sites silently work around; (d) the
     billing module has no tests at all; (e) a feature flag from a promotion that ended
     last year still guards dead code in the checkout path. Build a **debt register**
-    (§15.4): for each item, classify it (deliberate or inadvertent), name the *interest*
+    (§15.5): for each item, classify it (deliberate or inadvertent), name the *interest*
     it charges (what it costs the team per sprint, concretely) and the *principal* (what
     paying it off would take). Then order the five for paydown, justify the order — and
     identify the one item you would argue is *not* worth paying down this term, and why.
 
 5. **[analysis]** Your organization proposes a two-year big-bang rewrite of a
-    ten-year-old billing system. Using §15.5 and the browser-rewrite case of §2.6.3,
+    ten-year-old billing system. Using §15.6 and the browser-rewrite case of §2.6.3,
     write a one-page counter-proposal for a strangler-fig migration: what the interception
     layer would be, which capability you would peel off first (and why *that* one), how
     each slice gets validated, and what the organization can do at month six under your
@@ -162,7 +162,7 @@ refactoring, a real repository — not just prose. Show the work, not only the a
     calculator — but one subsystem, the customer-facing quote portal, needs features the
     old architecture makes painful. Management is being pitched a full rewrite. Write a
     one-page recommendation that honestly weighs all *three* options — continued
-    maintenance, a strangler migration (§15.5), and the rewrite — against criteria you
+    maintenance, a strangler migration (§15.6), and the rewrite — against criteria you
     state explicitly (rate of change, incident history, knowledge retention, test
     coverage, where the pain actually is). Note that in this scenario the cheapest option
     may be the right one for most of the system; your recommendation may differ by
@@ -178,3 +178,12 @@ refactoring, a real repository — not just prose. Show the work, not only the a
     first characterization test you would write there (§15.2), with its actual input; and
     (d) one place you would refuse to modify until it had more coverage, and what that
     refusal would cost.
+
+8. **[analysis]** *Repository stewardship.* Choose one pull request from your team project
+    or another repository. Identify one small improvement you made — or could safely make —
+    beyond the requested behavior: a clearer name, a stronger test, a corrected document, a
+    simplified branch, removed duplication, or an improved build check. Explain why the
+    improvement is *relevant* to the change (not an unrelated detour), how you verified it
+    preserved behavior (§15.2, §15.3), and name one *larger* cleanup you deliberately left
+    for a separate issue because including it would have made the change harder to review or
+    reverse (§15.4, §15.5).

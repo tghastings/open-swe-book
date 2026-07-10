@@ -74,7 +74,9 @@
   ["pioneered by Michael Fagan", "Fagan, Michael"],
   ["The Therac-25 disaster", "Therac-25"],
   ["The Therac-25 disaster", "case studies!Therac-25"],
-  ["Google's experience with static", "Google"]
+  ["Google's experience with static", "Google"],
+  ["repository stewardship", "repository stewardship"],
+  ["repository stewardship", "code health"]
  ],
 
  "chapters/10-testing/README.md": [
@@ -84,7 +86,8 @@
   ["mutmut", "mutmut"],
   ["Cucumber", "Cucumber"],
   ["DO-178C requires it", "DO-178C"],
-  ["NIST studied fault databases", "NIST"]
+  ["NIST studied fault databases", "NIST"],
+  ["never trust a test you have never seen fail", "never trust a test you have never seen fail"]
  ],
 
  "chapters/11-software-security/README.md": [
@@ -162,7 +165,11 @@
 
  "chapters/15-maintenance-evolution/README.md": [
   ["comes from Michael Feathers", "Feathers, Michael"],
-  ["Fowler's catalog is", "Fowler, Martin"]
+  ["Fowler's catalog is", "Fowler, Martin"],
+  ["taking responsibility for the condition", "repository stewardship"],
+  ["Scout Rule", "Boy Scout Rule"],
+  ["Small improvements compound", "continuous improvement"],
+  ["leaving a repository better than you found it", "leave the repository better"]
  ],
 
  "chapters/appendix-a-team-project/README.md": [

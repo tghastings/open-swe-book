@@ -176,3 +176,10 @@ answer.
     surcharges). (a) How many distinct paths does it have? (b) How many tests for branch
     coverage? (c) Explain the exponential-vs-linear gap and what it implies about when path
     coverage is worth attempting.
+
+13. **[analysis]** *Test the test* (§10.1.5). Select one test from your project that has
+    always passed. Introduce the smallest deliberate defect the test should detect, run the
+    test, and record three things: whether it fails, whether it fails *for the expected
+    reason*, and whether any unrelated tests fail first. Restore the implementation
+    afterward. If the test stayed green, it was not testing what you thought — strengthen it
+    and repeat the experiment until a real defect turns it red for the right reason.

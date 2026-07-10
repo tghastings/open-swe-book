@@ -8,7 +8,7 @@ where known. Each entry notes its license or access terms; when in doubt, check 
 
 - 📘 **Martin Fowler — "StranglerFigApplication"** —
   [martinfowler.com/bliki/StranglerFigApplication.html](https://martinfowler.com/bliki/StranglerFigApplication.html).
-  The original naming of §15.5's incremental-replacement pattern, with the fig-tree
+  The original naming of §15.6's incremental-replacement pattern, with the fig-tree
   metaphor from its source. *Access: free to read.*
 - 📘 **Refactoring catalog** — [refactoring.com/catalog](https://refactoring.com/catalog/)
   (Fowler's official catalog of named moves and mechanics) and
@@ -18,7 +18,7 @@ where known. Each entry notes its license or access terms; when in doubt, check 
 - 📄 **Ward Cunningham — "The WyCash Portfolio Management System"** (OOPSLA 1992
   experience report) — widely mirrored, e.g. via
   [c2.com](http://c2.com/doc/oopsla92.html). The four-paragraph origin of the
-  technical-debt metaphor (§15.4), worth reading to see how much the original meaning —
+  technical-debt metaphor (§15.5), worth reading to see how much the original meaning —
   debt as *deliberate*, to be repaid with refactoring — matches this chapter's framing.
   *Access: free on the author's site.*
 - 📄 **Robert L. Glass — "Frequently Forgotten Fundamental Facts about Software
@@ -32,6 +32,11 @@ where known. Each entry notes its license or access terms; when in doubt, check 
   The source of §15.1's tests-first definition of legacy code and the
   edit-and-pray/cover-and-modify distinction. *Not* openly licensed — listed here as the
   standard citation.
+- 📘 **Robert C. Martin — "The Boy Scout Rule"**, in *97 Things Every Programmer Should
+  Know* (ed. Kevlin Henney, O'Reilly, 2010) —
+  [97-things-every-x-should-know.gitbooks.io](https://97-things-every-x-should-know.gitbooks.io/97-things-every-programmer-should-know/content/en/thing_08/).
+  The one-page statement behind §15.4's repository-stewardship habit — "leave the code
+  cleaner than you found it." *Access: the collection is released under Creative Commons.*
 
 ## License note
 

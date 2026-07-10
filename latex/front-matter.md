@@ -39,6 +39,15 @@ These four pressures recur in every chapter. Watch for them, and much of the fie
 looking like a grab-bag of tools and starts looking like a small set of responses to the
 same handful of forces.
 
+One enduring professional goal ties these four pressures together: **leave the repository
+better than you found it.** A repository is more than its source code. It includes tests,
+documentation, build scripts, configuration, automation, and the recorded decisions that
+allow the next engineer to work safely. Every change should provide its intended value
+without quietly making the next change harder. When the opportunity is local, relevant,
+and safe, improve something: clarify a name, add a missing test, remove obsolete
+documentation, simplify duplicated logic, or strengthen a fragile build step. Software
+engineering is stewardship of a system that will usually outlive any one contributor.
+
 ## Who this book is for
 
 This book is intended for upper-division undergraduate students who have completed at

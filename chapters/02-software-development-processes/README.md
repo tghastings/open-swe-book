@@ -287,8 +287,10 @@ flowchart LR
 ```
 
 You write a small automated test for behavior that does not exist yet and watch it fail
-(*red*) — proving the test can fail and pinning down what "done" means for this slice. Then
-you write the least code that makes it pass (*green*). Then you improve the design while the
+for the expected reason (*red*). That failure confirms three things at once: the test is
+actually being executed, its failure is connected to the missing behavior, and it can tell
+the current implementation apart from the one you intend to build. It also pins down what
+"done" means for this slice. Then you write the least code that makes it pass (*green*). Then you improve the design while the
 test guards against breakage (*refactor*). Repeat in minutes-long cycles.[^9]
 
 One turn of this loop on the clinic app's appointment slots starts *red* — the slot-overlap
@@ -443,6 +445,11 @@ function slotsOverlap(a: Slot, b: Slot): boolean {
   return a[0] < b[1] && b[0] < a[1];
 }
 ```
+
+This leads to a durable testing rule, one Chapter 10 returns to: *never trust a test you
+have never seen fail — and never trust a failure you have not understood.* A red phase
+that comes from a broken setup, a missing import, or an unrelated compiler error is not
+the red you are looking for.
 
 Why work this way? Three reasons. First, tests written *first* are honest — they cannot be
 quietly shaped to match whatever the code happens to do. Second, the growing suite is a

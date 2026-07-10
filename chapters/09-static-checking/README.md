@@ -263,11 +263,18 @@ approved it has vouched for it. That shared ownership is the cultural payoff of 
 is why "the reviewer will catch it" and "I'm just approving to unblock them" are both
 corrosive.
 
-> **Principle.** The primary question in a code review is not "is this how *I* would have
-> written it?" but "will this change make the codebase *healthier over time*?"[^9] A reviewer's
-> job is to prevent decline, not to enforce personal style. If a change clearly improves the
-> system, it should be approved even when the reviewer can imagine a marginally better
-> version.
+> **Principle — repository stewardship.** The primary question in a code review is not "is
+> this how *I* would have written it?" but "will this change make the repository *healthier
+> over time*?"[^9] A reviewer's job is to prevent decline, not to enforce personal style.
+> If a change clearly improves the system, it should be approved even when the reviewer can
+> imagine a marginally better version.
+>
+> This principle extends beyond the lines in the diff. A healthy change may also add a
+> missing test, clarify nearby documentation, improve a misleading name, remove
+> duplication, or strengthen the automation that verifies the code. The improvement should
+> remain relevant and proportionate to the work at hand. Do not turn a focused feature or
+> defect fix into an unrelated rewrite; when the cleanup is large, risky, or separable,
+> record it and submit it as its own small change.
 
 ### 9.3.1 Invested Expert Reviewers
 

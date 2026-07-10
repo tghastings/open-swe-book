@@ -597,7 +597,7 @@ states of any flag that will live past a sprint, and at least pairwise across fl
 interact. And flags demand hygiene *because* they are so easy to add: every
 flag needs an owner, an intended lifespan, and a removal date, and a retired flag's code
 — both the dead branch and the conditional — must be deleted promptly. Stale flags are
-technical debt ([§15.4](../15-maintenance-evolution/#154-technical-debt)) of an unusually
+technical debt ([§15.5](../15-maintenance-evolution/#155-technical-debt)) of an unusually
 dangerous kind: dormant behavior sitting in
 production, waiting for someone to trip it. The first case study below turned that danger
 from hypothetical to historical.

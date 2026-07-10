@@ -230,9 +230,9 @@ Capital and CrowdStrike case studies), packaging and DNS/TLS/the edge, security 
 
 | Type | Resource | Notes |
 |------|----------|-------|
-| 📘 | [Martin Fowler — StranglerFigApplication](https://martinfowler.com/bliki/StranglerFigApplication.html) | The original naming of the incremental-replacement pattern (§15.5). |
+| 📘 | [Martin Fowler — StranglerFigApplication](https://martinfowler.com/bliki/StranglerFigApplication.html) | The original naming of the incremental-replacement pattern (§15.6). |
 | 📘 | [Refactoring catalog](https://refactoring.com/catalog/) · [refactoring.guru](https://refactoring.guru/refactoring) | Named, behavior-preserving moves behind §15.3. |
-| 📄 | [Ward Cunningham — The WyCash Portfolio Management System (OOPSLA 1992)](http://c2.com/doc/oopsla92.html) | The origin of the technical-debt metaphor (§15.4). |
+| 📄 | [Ward Cunningham — The WyCash Portfolio Management System (OOPSLA 1992)](http://c2.com/doc/oopsla92.html) | The origin of the technical-debt metaphor (§15.5). |
 | 📄 | [Glass — Frequently Forgotten Fundamental Facts (IEEE Software 2001)](https://doi.org/10.1109/MS.2001.922739) | The maintenance-cost figure behind the chapter's framing. |
 
 Covers: what makes code legacy, characterization tests, refactoring under green tests,
@@ -271,7 +271,7 @@ covers the whole discipline, and the "Depth" column is honest about that.
 | Software Quality (QUA) | Ch. 12 (metrics, statistics, defects) | Solid |
 | Security (SEC) | **Ch. 11 (OWASP Top 10:2025, SAST/DAST/SCA, AI security testing, supply-chain security)**; reinforced by Ch. 3 §3.7 (attack trees, STRIDE), Ch. 9 §9.4 (SAST), Ch. 14 §14.6 (security pipelines) | Solid |
 | Software Construction (CST) | assumed as a prerequisite; touched in Ch. 9–10 | Light |
-| Software Evolution / Maintenance | Ch. 15 (legacy code, characterization tests, refactoring, technical debt, strangler fig); cost-of-change theme throughout | Introductory |
+| Software Evolution / Maintenance | Ch. 15 (legacy code, characterization tests, refactoring, repository stewardship, technical debt, strangler fig); cost-of-change theme throughout | Introductory |
 | Emerging practice: AI-assisted SE | Ch. 13 | Introductory |
 | Computing Essentials, Math & Eng. Fundamentals (CMP, FND) | assumed prerequisites | Out of scope |
 

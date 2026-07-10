@@ -510,12 +510,34 @@ low-risk *enabling* changes — introduce a parameter, extract an interface for 
 dependency so a test double (Chapter 10) can stand in — done with extreme care, exactly to
 the point where a test can grip, and no further.
 
-## 15.4 Technical Debt
+## 15.4 Repository Stewardship
+
+The habit of leaving a repository better than you found it is sometimes called the **Boy
+Scout Rule**.[^4] It does not mean perfecting every file you open or disguising a rewrite
+inside an ordinary change. It means taking responsibility for the condition of the system,
+not merely for the feature or defect named in the ticket.
+
+Small improvements compound just as small shortcuts do. A clearer name reduces the cost of
+the next reading. A characterization test protects the next modification. Removing a stale
+comment prevents the next engineer from trusting a false explanation. Simplifying one
+tangled branch makes the next defect easier to isolate. None transforms the system alone,
+but repeated across a team and over years, they determine whether the repository becomes
+easier or harder to change.
+
+The guardrails are the same as the rest of this chapter: understand the behavior before
+changing it, protect it with tests, work in small steps, and keep each change coherent
+enough to review and reverse. Improve the code you already have reason to touch. Record
+larger problems instead of pretending they can be repaired safely on the side. This is the
+review-time principle of [§9.3](../09-static-checking/#93-code-reviews-check-intent-and-trust)
+turned into a daily working habit — deliver the change you were asked for, and leave the
+system better prepared for the change that comes next.
+
+## 15.5 Technical Debt
 
 The economics underneath all of this has a name. **Technical debt** is the metaphor for
 the future cost incurred when you take a shortcut today: like financial debt, it lets you
 move faster *now* in exchange for **interest** — and the interest is that *every future
-change to that code costs more* than it would have.[^4] The metaphor's precision is its
+change to that code costs more* than it would have.[^5] The metaphor's precision is its
 virtue. Debt is a *deal*, not simply "bad code" — and sometimes the deal is a good one.
 **Deliberate debt** is a conscious trade — "we hard-code the tax rule to make the pilot;
 we log a ticket to generalize it" — the engineering equivalent of a startup loan, rational
@@ -534,7 +556,7 @@ nobody has opened in years. Refactoring (§15.3) is the repayment mechanism, and
 pipeline ([§14.2](../14-delivery/#142-continuous-integration-pipelines)) is what makes
 repayment safe enough to do continuously.
 
-## 15.5 Strangler Fig versus Big-Bang Rewrite
+## 15.6 Strangler Fig versus Big-Bang Rewrite
 
 What about a system so far gone that the team wants to start over? Chapter 2's troubled
 browser rewrite
@@ -543,7 +565,7 @@ browser rewrite
 code that handles a thousand edge cases, you run two systems (one frozen, one imaginary)
 for the duration, and the new system's first real validation comes at the end, all at
 once. The delivery-era alternative is the **strangler fig** pattern, named for the fig
-that grows around a host tree, roots itself, and gradually replaces the host it envelops.[^5]
+that grows around a host tree, roots itself, and gradually replaces the host it envelops.[^6]
 You place an interception layer — a routing facade — in front of the legacy system, then
 peel off one capability at a time: build the new implementation, route that slice of
 traffic to it, verify it in production (a canary, [§14.3.2](../14-delivery/#1432-deployment-strategies), at the granularity of a
@@ -553,7 +575,7 @@ weeks of being written. The rewrite becomes a sequence of small, reversible depl
 instead of one giant irreversible bet: the whole argument of Chapter 14, applied to the
 biggest change a team ever makes.
 
-## 15.6 Conclusion
+## 15.7 Conclusion
 
 Evolution is where Chapter 6's "design for change" either pays its dividend or collects
 its debt: systems built with seams, interfaces, and tests bend under years of change;
@@ -561,8 +583,9 @@ systems without them become the legacy code someone else must characterize, stra
 replace. The working sequence of this chapter is the discipline in miniature: pin current
 behavior with characterization tests, refactor only under green, repay debt deliberately
 rather than by accident, and when replacement is truly justified, strangle rather than
-rewrite. Chapter 14's compression was a rule about *making* change — keep it small, keep
-its path to users automatic;
+rewrite. Underneath all of it runs the habit of §15.4 — steward the repository, leaving it
+a little better prepared for the next change than you found it. Chapter 14's compression
+was a rule about *making* change — keep it small, keep its path to users automatic;
 this chapter adds the long-run corollary: **keep the code changeable** — because the one
 certainty about a successful system is that it will have to change for longer than anyone
 who built it expects.
@@ -577,12 +600,18 @@ who built it expects.
 
 [^3]: Martin Fowler, *Catalog of Refactorings*. [refactoring.com](https://refactoring.com/catalog/).
 
-[^4]: Ward Cunningham, *The WyCash Portfolio Management System* (OOPSLA experience report, 1992). [c2.com](http://c2.com/doc/oopsla92.html).
+[^4]: Robert C. Martin, *The Boy Scout Rule*, in Kevlin Henney (ed.), *97 Things Every
+    Programmer Should Know* (O'Reilly, 2010) — the widely cited one-page statement of
+    "leave the code cleaner than you found it." The collection is released under a
+    Creative Commons license.
+    [97-things-every-x-should-know.gitbooks.io](https://97-things-every-x-should-know.gitbooks.io/97-things-every-programmer-should-know/content/en/thing_08/).
 
-[^5]: Martin Fowler, *StranglerFigApplication* (2004). [martinfowler.com](https://martinfowler.com/bliki/StranglerFigApplication.html).
+[^5]: Ward Cunningham, *The WyCash Portfolio Management System* (OOPSLA experience report, 1992). [c2.com](http://c2.com/doc/oopsla92.html).
+
+[^6]: Martin Fowler, *StranglerFigApplication* (2004). [martinfowler.com](https://martinfowler.com/bliki/StranglerFigApplication.html).
 
 ---
 
-- **Key takeaways** are summarized above in §15.6.
+- **Key takeaways** are summarized above in §15.7.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

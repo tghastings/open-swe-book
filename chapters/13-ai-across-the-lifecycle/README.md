@@ -220,7 +220,11 @@ techniques).[^16]
 But the deepest problem in testing survives untouched: the **oracle problem**. A generated
 test encodes *what the model thinks correct behavior is* — which may simply mirror a
 misunderstanding also baked into the generated code. Coverage numbers can look great while
-the tests assert the wrong thing.
+the tests assert the wrong thing. Apply the same rule to an AI-generated test as to a
+human-written one ([§10.1.5](../10-testing/#1015-mutation-testing-grading-your-suite)):
+never trust a test you have never seen fail. Introduce or restore the defect it claims to
+detect, confirm it fails for the expected reason, and only then count its passing result
+as evidence.
 
 Chapter 10's discount example makes the failure concrete: suppose the billing spec says
 half-cent prices round *up*, while the generated code trips a language-specific rounding
