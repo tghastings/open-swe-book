@@ -26,6 +26,16 @@ software‑engineering course.
 
 ---
 
+## Who this book is for
+
+This book is intended for upper-division undergraduate students who have completed at
+least two programming courses and are comfortable reading modular or object-oriented
+code, using a command line, and working with basic data structures. Prior experience with
+Git, automated testing, statistics, or cloud deployment is helpful but not required —
+each is taught from first principles in its chapter. Instructors will find ready-made
+course plans in [`curriculum/course-plan.md`](curriculum/course-plan.md); self-learners
+can follow the suggested paths below.
+
 ## Why this book exists
 
 Most significant software is developed by teams, under evolving requirements, and with
@@ -61,10 +71,12 @@ The chapters are organized into thematic arcs:
 
 ## Suggested paths through the book
 
-- **One-semester course (14–16 weeks).** Read all fifteen chapters in order, one to two
-  weeks each, with the Appendix A team project running in parallel from week 2. Two
-  ready-made week-by-week plans (a milestone track and a two-week-sprint track) are in
-  [`curriculum/course-plan.md`](curriculum/course-plan.md).
+- **One-semester course (14–16 weeks).** Cover the complete conceptual spine: most
+  chapters get a week, Chapter 13's AI material is distributed across the term through
+  its per-stage sections (§13.2), and selected advanced sections work as optional or
+  independent reading — with the Appendix A team project running in parallel from
+  week 2. Two ready-made week-by-week plans (a milestone track and a two-week-sprint
+  track) are in [`curriculum/course-plan.md`](curriculum/course-plan.md).
 - **One-quarter course (~10 weeks).** Keep the spine and compress: Chapters 1–2
   (week 1), 3–4 (weeks 2–3, folding Chapter 5's use-case notation into the requirements
   work), 6–8 (weeks 4–5, design, patterns, and version control), 9–10 (weeks 6–7, checking

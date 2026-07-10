@@ -39,6 +39,15 @@ These four pressures recur in every chapter. Watch for them, and much of the fie
 looking like a grab-bag of tools and starts looking like a small set of responses to the
 same handful of forces.
 
+## Who this book is for
+
+This book is intended for upper-division undergraduate students who have completed at
+least two programming courses and are comfortable reading modular or object-oriented
+code, using a command line, and working with basic data structures. Prior experience with
+Git, automated testing, statistics, or cloud deployment is helpful but not required —
+each is taught from first principles in its chapter. Instructors, self-learners, and
+practitioners returning to fill gaps should all find a workable path through it.
+
 ## How this book is organized
 
 The chapters move through the life of a software project, in arcs. The first two set the

@@ -17,20 +17,29 @@ pace.
 | Week | Concepts (chapter) | Project milestone | Key open resources |
 |------|--------------------|-------------------|--------------------|
 | 1 | Ch. 1 — Introduction | Form teams; brainstorm ideas | ACM Code of Ethics; Therac-25 |
-| 2 | Ch. 2 — Processes (Scrum/XP); Ch. 8 — Version Control (Git) | Pick a process; set up repo & board with a protected `main`, plus a hello-world CI pipeline (§14.2) so every later commit lands on green | Scrum Guide; Pro Git |
+| 2 | Ch. 2 — Processes (Scrum/XP); Ch. 8 — Version Control (Git); CI basics (§14.2.1–14.2.2) | Pick a process; set up repo & board with a protected `main`, plus a hello-world CI pipeline (§14.2) so every later commit lands on green | Scrum Guide; Pro Git; Fowler CI |
 | 3 | Ch. 3 — User Requirements | **Project Proposal** (App. A.2) | ESaaS ch.7; Volere; INVEST |
 | 4 | Ch. 4 — Requirements Analysis | Backlog + estimates (Planning Poker) | Planning Poker; MoSCoW; Kano |
 | 5 | Ch. 5 — Use Cases | Use cases / stories for iteration 1 | Cockburn use cases |
 | 6 | Ch. 6 — Design & Architecture | Architecture sketch; class diagram | MIT 6.031; 4+1 views |
 | 7 | Ch. 7 — Architectural Patterns | **Status Report 1** (skeletal system) | Fowler PoEAA; MS patterns |
 | 8 | *Midterm / catch-up* | Sprint review + retrospective | — |
-| 9 | Ch. 9 — Static Checking; CI pipelines (§14.2) | Set up CI, linters, code review | Google eng-practices; Fagan |
-| 10 | Ch. 10 — Testing (coverage) | Test plan; coverage targets | MIT 6.031 testing; Ammann/Offutt |
+| 9 | Ch. 9 — Static Checking; pipeline stages & gates (§§14.1–14.2) | Harden CI: linters, code review as a gate | Google eng-practices; Fagan |
+| 10 | Ch. 10 — Testing (coverage); progressive deployment (§14.3) | Test plan; coverage targets; staged rollout for the project | MIT 6.031 testing; Ammann/Offutt; SEC 34-70694 |
 | 11 | Ch. 10 — Testing (MC/DC, combinatorial) | **Status Report 2** (viable system) | NIST combinatorial |
 | 12 | Ch. 11 — Software Security (OWASP Top 10, SAST/DAST/SCA, supply chain) | Threat-model the project; add dependency scanning | OWASP Top 10; PortSwigger; OpenSSF Scorecard |
 | 13 | Ch. 12 — Metrics (quality, defects, statistics); DORA (§14.7) | Defect tracking; measure & analyze project data | OpenIntro Stats; DORA |
-| 14 | Ch. 13 — SE in the Age of AI; Ch. 14 — CD; Ch. 15 — evolution + review | **Comprehensive Final Report** (A.5) | METR study; o16g manifesto; SEC 34-70694 |
+| 14 | Ch. 15 — Maintenance & evolution (legacy code, refactoring, technical debt); synthesis + o16g manifesto discussion (§13.8) | **Comprehensive Final Report** (A.5) | o16g manifesto; Fowler refactoring catalog |
 | 15 | Final presentations / demos | Ship & retrospective | — |
+
+> **Chapter 13 (AI) is read alongside, not as its own week.** Its per-stage sections map
+> onto the concept weeks — assign each §13.2.x with its matching chapter (requirements
+> weeks get §13.2.2, testing weeks §13.2.5, and so on), the evidence sections §13.1 and
+> §13.3 (including the METR study) with week 9 or 10, and the o16g manifesto (§13.8) as
+> the week-14 synthesis discussion. Chapter 14's delivery material is likewise
+> distributed where the project needs it: CI basics in week 2, pipeline hardening in
+> week 9, progressive deployment in week 10, DORA in week 13 — so week 14 belongs to
+> Chapter 15 and to pulling the course together.
 
 > **Flexibility on Chapter 11 (Software Security).** Week 12 gives security its own
 > session, but the material also pairs naturally with the CI and static-analysis week
@@ -78,10 +87,13 @@ reports, and two in-term tests replace the midterm/final split.
 
 | Component | Weight |
 |-----------|-------:|
-| Team project (proposal, 2 status reports, final report, demo) | 45% |
+| Team project artifacts (proposal, iterative progress reports/reviews, final report, demo) | 45% |
 | Individual exercises / problem sets (chapter `exercises.md`) | 20% |
-| Midterm (concepts, weeks 1–7) | 15% |
-| Final exam (concepts, whole book) | 20% |
+| Test 1 / midterm (concepts, first half) | 15% |
+| Test 2 / final exam (concepts, whole book) | 20% |
+
+The progress artifacts differ by variant: Variant A uses the two **status reports**,
+Variant B uses **sprint reports and team reviews** — same weight either way.
 
 ## Learning outcomes
 
@@ -91,12 +103,22 @@ By the end, a student can:
 2. **Elicit, write, prioritize, and estimate** requirements as user stories/use cases.
 3. **Design a modular architecture** and describe it with UML and 4+1 views.
 4. Apply the right **architectural patterns** to a problem.
-5. **Review and statically check** code and architecture for defects.
-6. Design a **test suite** that meets defined coverage criteria.
-7. Identify common **vulnerabilities** (the OWASP Top 10) and vet open-source
+5. Use **version control** — branching, pull requests, reviewed merges — and
+   **continuous integration** to coordinate team development.
+6. **Review and statically check** code and architecture for defects.
+7. Design a **test suite** that meets defined coverage criteria.
+8. Identify common **vulnerabilities** (the OWASP Top 10) and vet open-source
    dependencies for **software-supply-chain** risk.
-8. Define and interpret **quality metrics** using sound statistics.
-9. Work effectively on a **software team** and communicate progress.
+9. Define and interpret **quality metrics** using sound statistics.
+10. Design and evaluate a **delivery pipeline**: progressive deployment, automated
+    quality gates, and delivery-performance (DORA) metrics.
+11. Safely modify an **inherited system** using characterization tests, incremental
+    refactoring, and technical-debt management.
+12. Use **AI-assisted engineering tools responsibly**: specify intent, verify outputs,
+    document provenance, and retain human accountability.
+13. Work effectively on a **software team**, communicate progress, and act on the
+    **professional and ethical responsibilities** of shipping software that affects
+    real people.
 
 ## Adapting the plan
 

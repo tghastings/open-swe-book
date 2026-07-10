@@ -95,6 +95,15 @@
   display: none;
 }
 
+/* The appendix is "Appendix A", not "Chapter 16": hide mdBook's automatic
+   chapter number on the appendix entry (and its template sub-pages) so the
+   sidebar matches the manuscript's own A.1/A.2 numbering. The print and EPUB
+   editions already render it as a true appendix. */
+#sidebar .chapter li.chapter-item > a[href*="appendix-a-team-project"] > strong,
+#sidebar .chapter li.chapter-item > a[href*="templates/"] > strong {
+  display: none;
+}
+
 /* Mermaid diagrams render at natural size (mermaid-init.js sets
    useMaxWidth:false so labels stay readable). A diagram wider than the text
    column "full-bleeds": it centers over the column and may spill into the

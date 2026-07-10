@@ -15,9 +15,11 @@ The industry has names for that work. **Corrective maintenance** fixes defects.
 deprecated API, a new regulation — where the code did nothing wrong but the world moved.
 **Perfective maintenance** adds the features and improvements users keep asking a living
 system for. And **preventative maintenance** — refactoring, debt paydown — improves
-structure now so that all the other kinds stay affordable later. The standard industry
-rule of thumb is that maintenance, taken together, consumes roughly 60 percent of a
-system's lifetime cost.[^1] Read that number again: the phase this book spent fourteen chapters
+structure now so that all the other kinds stay affordable later. A widely cited
+historical rule of thumb places maintenance, taken together, at roughly 60 percent of a
+system's lifetime cost — the share varies substantially by system, by organization, and
+by what gets classified as maintenance, but the direction is not in
+doubt.[^1] Read that number again: the phase this book spent fourteen chapters
 preparing you for is the *minority* of the money, which is reason enough to treat evolving
 code as the main event of an engineering career rather than the cleanup after it.
 
@@ -232,7 +234,9 @@ test("empty type bills as exam", () => {             // edge probe: pinned, bug 
 
 Characterizing assumes you can find your way around, and with an inherited codebase that
 takes a deliberate workflow. Read what the previous team left behind first — the tests
-above all (a passing test is documentation that cannot drift out of date), then any design
+above all: a passing test is executable documentation that stays synchronized with the
+behavior it actually checks, though what it checks may be incomplete or no longer what
+anyone intends. Then read any design
 documents. On documentation, note the distinction: an architecture description
 ([§6.5](../06-design-and-architecture/#65-describing-system-architecture)) is the *formal*
 design artifact, but tests, commit history, and mockups are living *informal*
