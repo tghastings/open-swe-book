@@ -1116,50 +1116,65 @@ source, as a composition, and as a running target.
 
 ## 14.7 DORA Metrics
 
-### 14.7.1 The Four Keys
+### 14.7.1 The Four Keys — Now Five
 
 How would you know whether any of this is working? Chapter 12 warned that most metrics
 programs fail by measuring what is easy instead of what matters. The delivery world has an
 unusually good answer, produced by the **DORA** research program (DevOps Research and
 Assessment) — a multi-year academic effort, surveying tens of thousands of professionals,
 published in the annual *State of DevOps* reports and the book *Accelerate* (Forsgren,
-Humble, and Kim).[^42] [^43] Its core finding is a set of four outcome measures — the **four keys** —
-that jointly predict software-delivery performance:
+Humble, and Kim).[^42] [^43] Its best-known finding is a set of outcome measures — the famous
+**four keys** — that jointly predict software-delivery performance:
 
 1. **Deployment frequency** — how often your team deploys to production.
-2. **Lead time for changes** — how long a commit takes to reach production.
-3. **Change failure rate** — what fraction of deployments cause a failure in production
+2. **Change lead time** — how long a commit takes to reach production.
+3. **Change fail rate** — what fraction of deployments cause a failure in production
    (an incident, a rollback, a hotfix).
 4. **Failed-deployment recovery time** — when a deployment does cause a failure, how long
    restoring service takes.[^44]
 
-Notice the shape: the first two measure **throughput** (how fast value moves), the second
-two measure **stability** (how safely it moves). All four are *outcomes* of your whole
-delivery system, not activities within it — which is what makes them worth watching.
+The model has since been refined: the 2024 research added a fifth metric, **deployment
+rework rate** — the share of deployments that are *unplanned*, shipped in response to a
+production incident — and DORA's current guidance presents the five in two groups.[^45]
+**Throughput** is change lead time, deployment frequency, and failed-deployment recovery
+time: how fast changes — including fixes — flow to production. **Instability** is change
+fail rate and deployment rework rate: how often deployments go wrong, or exist only to
+clean up after one that did. The regrouping is worth a moment's thought. Recovery *time*
+is a speed, so it now sits with throughput; and rework rate was added because a team
+could look stable while quietly spending its deployments patching production — reactive
+work the original four keys never surfaced.
+
+Notice the shape either way: one group measures how fast value moves, the other how
+safely it moves. All five are *outcomes* of your whole delivery system, not activities
+within it — which is what makes them worth watching.
 
 ### 14.7.2 Why Paired Metrics Resist Gaming
 
 Chapter 12 introduced Goodhart's Law
 ([§12.1.2](../12-quality-metrics/#1212-selecting-useful-metrics)): when a measure becomes
 a target, people optimize the measure rather than the goal, and the chapter's advice was
-to pair each metric with a counter-metric that degrades when someone cheats. The four
-keys are that advice, institutionalized. Try to game throughput — deploy half-baked
-changes constantly — and change failure rate rises to expose you. Try to game stability —
+to pair each metric with a counter-metric that degrades when someone cheats. The DORA
+metrics are that advice, institutionalized. Try to game throughput — deploy half-baked
+changes constantly — and change fail rate rises to expose you. Try to game stability —
 deploy once a quarter after months of manual checking — and deployment frequency and lead
-time collapse. Each pair is the other pair's counter-metric. A team can only improve all
-four *together* by actually getting better at delivery: smaller changes, stronger
+time collapse. Each group is the other's counter-metric. And the fifth metric closed a
+cheat the original four left open: recover *fast* by shipping quick, unplanned patches,
+and recovery time looks elite while deployment rework rate exposes how much of your
+delivery is cleanup. A team can only improve all
+five *together* by actually getting better at delivery: smaller changes, stronger
 pipelines, faster recovery. There is no cheap move that improves the whole dashboard,
 which is the property §12.1.2 said to look for.
 
 ### 14.7.3 What the Research Found
 
 Two findings from the DORA research deserve to reshape your intuitions. First, the spread
-between the best and the rest is not incremental — it is multiplicative. Across survey
-years, **elite** performers deploy on demand (many times per day) where **low** performers
-deploy between once a month and once every six months; elite lead times are under a day
-against months; elite recovery times are under an hour against a week or more — differences
-of orders of magnitude on the throughput measures, with change failure rates
-lower as well.[^42]
+between the best and the rest is not incremental — it is multiplicative. In the **2019
+survey**, **elite** performers deployed on demand (many times per day) where **low**
+performers deployed between once a month and once every six months; elite lead times were
+under a day against months; elite recovery times under an hour against a week or more —
+differences of orders of magnitude on the throughput measures, with change fail rates
+lower as well.[^42] The bands are re-measured each survey year and move — read them as a
+dated yardstick from a specific report, not a permanent threshold.
 
 Second — and this is the finding that overturned decades of folklore — **speed and
 stability correlate positively**.[^42] The traditional assumption was a trade-off: move fast
@@ -1169,17 +1184,19 @@ frequency forces small changes; small changes are easier to review
 (Chapter 9), test (Chapter 10), and attribute; attribution makes recovery fast; and fast,
 safe recovery removes the fear that drives batching. Slow, careful, big-batch releases are the risky choice wearing caution's clothes.
 
-### 14.7.4 Measuring Your Own Four Keys
+### 14.7.4 Measuring Your Own Five
 
-A student team can measure all four keys with data it already has, and the exercise is
+A student team can measure all five metrics with data it already has, and the exercise is
 worth doing because the numbers will be humbler than the elite benchmarks.
 Define "production" honestly — your deployed demo environment, or your instructor-facing
 release — then: **deployment frequency** is a count of deploy events per week, from your
 pipeline's history. **Lead time** is deploy timestamp minus commit timestamp, taken as a median
 over recent changes (`git log` and your CI dashboard give you both ends). **Change
-failure rate** requires a log discipline: record each deploy and whether it needed a
+fail rate** requires a log discipline: record each deploy and whether it needed a
 revert or hotfix; failures divided by deploys. **Recovery time** is the gap from noticing
-a bad deploy to restored service, from the same log. Review the four numbers at your
+a bad deploy to restored service, from the same log. **Rework rate** comes from the same
+log too: mark each deploy planned or unplanned (a revert or hotfix shipped because
+production broke is unplanned); unplanned divided by total. Review the five numbers at your
 retrospective, and resist the urge to set targets — use them, in GQM fashion (Chapter
 12), to ask *why* lead time is three days and *which* stage of your pipeline the time
 hides in.
@@ -1189,7 +1206,7 @@ hides in.
 Delivery is the connective tissue of everything this book has taught. The CI pipeline of
 §14.2 is Chapters 9 and 10 made *mandatory*: reviews, static analysis, and tests by level,
 converted from practices a diligent team performs into gates no change can bypass. The
-DORA four keys of §14.7 are Chapter 12 made *honest*: outcome metrics, paired against
+DORA delivery metrics of §14.7 are Chapter 12 made *honest*: outcome metrics, paired against
 their own counter-metrics, measuring the whole system rather than rewarding activity.
 Continuous deployment of §14.3 is Chapter 2's short-cycle bet made *physical*: the same
 argument that favored small iterations over big-bang phases favors small deployments over
@@ -1297,7 +1314,13 @@ and [Component Analysis (SCA)](https://owasp.org/www-community/Component_Analysi
 
 [^43]: Nicole Forsgren, Jez Humble, and Gene Kim, *Accelerate: The Science of Lean Software and DevOps* (IT Revolution Press, 2018). [itrevolution.com](https://itrevolution.com/product/accelerate/).
 
-[^44]: DORA, *DORA's software delivery metrics: the four keys*. [dora.dev](https://dora.dev/guides/dora-metrics-four-keys/).
+[^44]: DORA, *DORA's software delivery performance metrics*. [dora.dev](https://dora.dev/guides/dora-metrics/).
+
+[^45]: DORA, *A history of DORA's software delivery metrics* — the transition from the
+    original four keys to the current five-metric model; deployment rework rate ("the
+    ratio of deployments that are unplanned but happen as a result of an incident in
+    production") was introduced with the 2024 *State of DevOps* research.
+    [dora.dev](https://dora.dev/insights/dora-metrics-history/).
 
 ---
 

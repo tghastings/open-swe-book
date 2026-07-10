@@ -94,9 +94,10 @@ well. Types: 📘 open text · 🎓 course · 📄 primary source/standard · �
   A free, openly-licensed statistics textbook; use it to analyze your velocity and defect
   data honestly rather than cherry-picking a number.
 - 📄 **DORA / Accelerate metrics overview** —
-  [dora.dev](https://dora.dev/). Freely available guidance on lead time, deployment
-  frequency, and change-failure rate — a mature vocabulary for the quality dashboard in
-  your final report.
+  [dora.dev](https://dora.dev/). Freely available guidance on the five delivery metrics —
+  throughput (change lead time, deployment frequency, failed-deployment recovery time)
+  and instability (change fail rate, deployment rework rate) — a mature vocabulary for
+  the quality dashboard in your final report.
 
 ## License note
 

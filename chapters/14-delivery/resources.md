@@ -175,9 +175,11 @@ where known. Each entry notes its license or access terms; when in doubt, check 
 
 ## DORA and delivery research
 
-- 📄 **DORA — research program, four-keys definitions, and annual State of DevOps
-  reports** — [dora.dev](https://dora.dev/). The research base for §14.7: metric
-  definitions, performance-band data, capability catalog, and a quick check for assessing
+- 📄 **DORA — research program, delivery-metric definitions, and annual State of DevOps
+  reports** — [dora.dev](https://dora.dev/). The research base for §14.7: the current
+  five-metric model ([guides/dora-metrics](https://dora.dev/guides/dora-metrics/)), the
+  four-keys-to-five history ([insights/dora-metrics-history](https://dora.dev/insights/dora-metrics-history/)),
+  performance-band data, capability catalog, and a quick check for assessing
   your own team. *Access: site content free; reports free to download.*
 - 📘 **Forsgren, Humble, Kim — *Accelerate*** (IT Revolution Press, 2018). The book-length
   treatment of the research methodology and the speed-and-stability finding. *Not* openly

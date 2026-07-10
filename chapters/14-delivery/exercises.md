@@ -34,9 +34,10 @@ only the answer.
 
 ## Analysis
 
-6. **[analysis]** *Compute the four keys.* A student team's combined git and deploy log
+6. **[analysis]** *Compute the DORA metrics.* A student team's combined git and deploy log
    for two weeks is below. A deploy is "failed" if it required a revert or hotfix;
-   recovery time is from deploy to restored service.
+   recovery time is from deploy to restored service. Note that the revert and the hotfix
+   are themselves deployments — unplanned ones, shipped because production broke.
 
    | Change | Commit time | Deployed | Outcome |
    |--------|-------------|----------|---------|
@@ -49,10 +50,12 @@ only the answer.
    | C7 | Wed 10:00 (wk 2) | Wed 17:00 (wk 2) | ok |
    | C8 | Thu 09:00 (wk 2) | Fri 11:00 (wk 2) | ok |
 
-   Compute (a) deployment frequency (deploys per week), (b) median lead time for changes,
-   (c) change failure rate, and (d) mean failed-deployment recovery time. Then (e) using
-   §14.7.3's elite benchmarks, identify which key is furthest from elite and propose the
-   single pipeline change most likely to improve it.
+   Compute (a) deployment frequency (deploys per week), (b) median change lead time,
+   (c) change fail rate, (d) mean failed-deployment recovery time, and (e) deployment
+   rework rate — counting the revert and the hotfix as deployments, what share of *all*
+   deployments were unplanned (§14.7.1)? Then (f) using the 2019 elite bands quoted in
+   §14.7.3, identify which metric is furthest from elite and propose the single pipeline
+   change most likely to improve it.
 
 7. **[analysis]** *Design a canary rollout.* Your team is shipping a rewritten
    session-handling module to a service with 200,000 daily users. Design a staged rollout
@@ -77,10 +80,11 @@ only the answer.
    changes, and which properties of code changes must it preserve?
 
 10. **[analysis]** Goodhart's Law (§12.1.2) says any single metric target gets gamed. For
-    each of the four DORA keys taken *alone*, describe a way a cynical team could improve
-    the number while making delivery worse — then show which *other* key would expose each
-    cheat (§14.7.2). One key is hardest to pair with a built-in counter; identify it and
-    propose an external counter-metric.
+    each of the four classic DORA keys taken *alone*, describe a way a cynical team could
+    improve the number while making delivery worse — then show which *other* metric would
+    expose each cheat (§14.7.2). Finally: DORA's 2024 addition of **deployment rework
+    rate** closed exactly one such gap — which of your cheats does it catch that the
+    original four keys missed, and why did that cheat survive the original pairing?
 
 11. **[analysis]** You are putting a small service online at `app.example.com`, running as
     a Compose stack (app + Postgres + Redis) on a single rented virtual machine. Using

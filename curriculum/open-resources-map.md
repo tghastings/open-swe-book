@@ -216,7 +216,7 @@ lifecycle stage, evidence on quality/security, the o16g manifesto.
 |------|----------|-------|
 | 📄 | [SEC Release No. 34-70694 — In the Matter of Knight Capital](https://www.sec.gov/litigation/admin/2013/34-70694.pdf) | The primary source for the Knight Capital case study (§14.3). Public domain. |
 | 📄 | [CrowdStrike — External Technical Root Cause Analysis (2024)](https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/) | Primary source for the July 2024 outage case study (§14.3). |
-| 📄 | [DORA — research and the four keys](https://dora.dev/) | Deployment frequency, lead time, change-fail rate, failed-deployment recovery time (§14.7). |
+| 📄 | [DORA — research and delivery metrics](https://dora.dev/) | The five metrics: throughput (change lead time, deployment frequency, recovery time) and instability (change-fail rate, deployment rework rate) (§14.7). |
 | 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue-Green](https://martinfowler.com/) | Canonical free articles for §§14.2–14.3. |
 | 📘 | [Google SRE books](https://sre.google/books/) | Free online; reliability, release engineering, postmortems. |
 | 📄 | [GitHub Dependabot docs](https://docs.github.com/en/code-security/dependabot) · [OWASP Dependency-Check](https://owasp.org/www-project-dependency-check/) · [SLSA](https://slsa.dev/) | Dependency scanning and supply-chain security (§14.6). |

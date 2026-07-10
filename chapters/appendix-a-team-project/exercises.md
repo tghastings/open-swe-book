@@ -51,6 +51,8 @@ them with your team, in order, across the term. Each maps to a deliverable in th
    and honest raw counts are the expected level of rigor; add a confidence interval only
    if your data give you enough independent observations to justify one (§12.8), and say
    explicitly when they do not. A stated limitation earns more credit than pseudo-precision.
+   If your pipeline history supports it, also report your five DORA delivery metrics
+   (§14.7.4) from your deploy log — with the same limitations discipline.
 10. **[analysis]** Write an honest *individual contribution* statement for each member,
     then a team retrospective: what would you do differently if you started over knowing
     what you know now? Tie at least three lessons back to specific chapters.
