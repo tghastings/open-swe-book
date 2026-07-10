@@ -1,0 +1,183 @@
+{
+ "_comment": "Curated back-of-book index entries: people, case studies, tools, standards, subentries, and see-references. Each [pattern, entry]: `pattern` is a verbatim prose substring locating the page (literal, case-sensitive, outside code/headings/footnotes); `entry` is inserted VERBATIM as \\index{...} so makeindex syntax works (main!sub for subentries). `_aliases` are page-less see-references (key|see{target}) emitted once with chapter 1. Keep in sync with the miners in LOG; validate with latex/preprocess.py's stderr warnings.",
+
+ "chapters/01-introduction/README.md": [
+  ["Margaret Hamilton", "Hamilton, Margaret"],
+  ["Apollo Guidance", "Apollo Guidance Computer"],
+  ["Apollo 11", "Apollo 11"],
+  ["NATO Software Engineering", "NATO Software Engineering conference (1968)"],
+  ["Dave Farley", "Farley, Dave"],
+  ["Fred Brooks", "Brooks, Frederick P."],
+  ["Dijkstra", "Dijkstra, Edsger W."],
+  ["Volkswagen diesel vehicles", "Volkswagen emissions scandal"],
+  ["Volkswagen diesel vehicles", "case studies!Volkswagen emissions scandal"],
+  ["ACM Code of Ethics", "ACM Code of Ethics"],
+  ["ACM/IEEE-CS Software Engineering Code", "ACM/IEEE-CS Software Engineering Code of Ethics"],
+  ["Therac-25", "Therac-25"],
+  ["Therac-25", "case studies!Therac-25"]
+ ],
+
+ "chapters/02-software-development-processes/README.md": [
+  ["Unix philosophy", "Unix philosophy"],
+  ["Agile Manifesto", "Agile Manifesto"],
+  ["Scrum Guide", "Scrum Guide"],
+  ["Royce", "Royce, Winston W."]
+ ],
+
+ "chapters/03-user-requirements/README.md": [
+  ["Connextra format", "Connextra format"],
+  ["Cucumber family", "Cucumber"],
+  ["STRIDE", "STRIDE"]
+ ],
+
+ "chapters/04-requirements-analysis/README.md": [
+  ["Atul Gawande's surgeons", "Gawande, Atul"],
+  ["Barry Boehm's adaptation", "Boehm, Barry"],
+  ["Olaf Helmer and Norman", "Helmer, Olaf"],
+  ["Dalkey, identified", "Dalkey, Norman"],
+  ["DSDM agile framework", "DSDM"],
+  ["Noriaki Kano challenged", "Kano, Noriaki"],
+  ["recall Brooks", "Brooks, Frederick P."]
+ ],
+
+ "chapters/06-design-and-architecture/README.md": [
+  ["Robert C. Martin catalogued", "Martin, Robert C."],
+  ["Unified Modeling Language (UML)", "UML (Unified Modeling Language)"],
+  ["introduced by Philippe Kruchten", "Kruchten, Philippe"]
+ ],
+
+ "chapters/07-architectural-patterns/README.md": [
+  ["seven-layer OSI model", "OSI model"],
+  ["The Unix shell pipeline", "Unix shell pipeline"],
+  ["the Redux", "Redux"],
+  ["shuffled names. Django", "Django"],
+  ["Rails is classic", "Rails"]
+ ],
+
+ "chapters/08-version-control-git/README.md": [
+  ["Linus Torvalds started writing", "Torvalds, Linus"],
+  ["Junio Hamano", "Hamano, Junio"],
+  ["Git is close to universal", "Git"],
+  ["built on it — GitHub", "GitHub"],
+  ["GitLab calls it a", "GitLab"],
+  ["free use of BitKeeper", "BitKeeper"],
+  ["the Linux kernel project lost", "Linux kernel"],
+  ["Pro Git calls the", "Pro Git"],
+  ["by the SHA-1 hash of", "SHA-1"],
+  ["Conventional Commits", "Conventional Commits"],
+  ["a plain-text writing format", "Markdown"],
+  ["Gitflow", "Gitflow"],
+  ["GitHub Flow", "GitHub Flow"]
+ ],
+
+ "chapters/09-static-checking/README.md": [
+  ["pioneered by Michael Fagan", "Fagan, Michael"],
+  ["The Therac-25 disaster", "Therac-25"],
+  ["The Therac-25 disaster", "case studies!Therac-25"],
+  ["Google's experience with static", "Google"]
+ ],
+
+ "chapters/10-testing/README.md": [
+  ["go-mutesting", "go-mutesting"],
+  ["PIT", "PIT (mutation testing)"],
+  ["Stryker", "Stryker"],
+  ["mutmut", "mutmut"],
+  ["Cucumber", "Cucumber"],
+  ["DO-178C requires it", "DO-178C"],
+  ["NIST studied fault databases", "NIST"]
+ ],
+
+ "chapters/11-software-security/README.md": [
+  ["Log4Shell", "Log4Shell"],
+  ["Log4Shell", "case studies!Log4Shell"],
+  ["The xz-utils backdoor", "xz-utils backdoor"],
+  ["The xz-utils backdoor", "case studies!xz-utils backdoor"],
+  ["one overworked volunteer, Lasse Collin", "Collin, Lasse"],
+  ["Jia Tan", "Jia Tan"],
+  ["Andres Freund, a PostgreSQL developer", "Freund, Andres"],
+  ["Hastings' 2024", "Hastings, Thomas"],
+  ["OWASP Juice Shop", "OWASP Juice Shop"],
+  ["OWASP WebGoat", "WebGoat"],
+  ["GitHub Copilot Autofix", "Copilot Autofix"],
+  ["combines CodeQL code scanning", "CodeQL"],
+  ["Big Sleep", "Big Sleep"],
+  ["Strix", "Strix"],
+  ["OpenSSF Scorecard", "OpenSSF Scorecard"],
+  ["Sigstore", "Sigstore"],
+  ["published as NIST Special Publication", "NIST Secure Software Development Framework (SSDF)"]
+ ],
+
+ "chapters/12-quality-metrics/README.md": [
+  ["introduced by Victor Basili", "Basili, Victor"],
+  ["ISO/IEC 25010", "ISO/IEC 25010"],
+  ["call it Northwind", "Northwind case study"]
+ ],
+
+ "chapters/13-ai-across-the-lifecycle/README.md": [
+  ["Cory Ondrejka (co-creator", "Ondrejka, Cory"],
+  ["Addy Osmani wrote it up", "Osmani, Addy"],
+  ["Boris Cherny, who built Claude Code", "Cherny, Boris"],
+  ["Peter Steinberger argued that the", "Steinberger, Peter"],
+  ["METR had experienced", "METR study"],
+  ["Stripe's internal coding agents", "Stripe Minions"],
+  ["surveyed Copilot users", "GitHub Copilot"],
+  ["toolkits such as GitHub's", "Spec Kit"],
+  ["for Claude Code, or the tool-neutral", "CLAUDE.md"],
+  ["formalized as an open specification", "AGENTS.md"],
+  ["Anthropic's Claude Code guide", "Claude Code"],
+  ["OpenAI's Codex guide says nothing", "Codex (OpenAI)"],
+  ["The bdfinst", "agentic-dev-team (bdfinst)"]
+ ],
+
+ "chapters/14-delivery/README.md": [
+  ["concerns three properties", "Brewer, Eric"],
+  ["(Forsgren,", "Forsgren, Nicole"],
+  ["Humble, and Kim)", "Humble, Jez"],
+  ["and Kim)", "Kim, Gene"],
+  ["Knight Capital was one of the largest", "Knight Capital"],
+  ["Knight Capital was one of the largest", "case studies!Knight Capital"],
+  ["CrowdStrike's Falcon sensor", "CrowdStrike outage"],
+  ["CrowdStrike's Falcon sensor", "case studies!CrowdStrike outage"],
+  ["37signals — the company behind Basecamp", "37signals cloud exit"],
+  ["37signals — the company behind Basecamp", "case studies!37signals cloud exit"],
+  ["Prime Video team published", "Prime Video cost case"],
+  ["Prime Video team published", "case studies!Prime Video cost case"],
+  ["The 2020 SolarWinds", "SolarWinds"],
+  ["The 2020 SolarWinds", "case studies!SolarWinds"],
+  ["the 2016 left-pad incident", "left-pad"],
+  ["the 2016 left-pad incident", "case studies!left-pad"],
+  ["The tools are Docker and Docker", "Docker"],
+  ["replaces that with one declarative", "Docker Compose"],
+  ["operating system for the cloud", "Kubernetes"],
+  ["a relational database offering", "PostgreSQL"],
+  ["it keeps data in RAM", "Redis"],
+  ["The dominant provider is", "Cloudflare"],
+  ["changed that: a nonprofit CA", "Let's Encrypt"],
+  ["lets a program prove it controls", "ACME protocol"],
+  ["such as nginx or Caddy", "Caddy"],
+  ["Dependabot is the archetype", "Dependabot"],
+  ["vendor-neutral flag API", "OpenFeature"],
+  ["the twelve-factor model", "Twelve-Factor App"]
+ ],
+
+ "chapters/15-maintenance-evolution/README.md": [
+  ["comes from Michael Feathers", "Feathers, Michael"],
+  ["Fowler's catalog is", "Fowler, Martin"]
+ ],
+
+ "chapters/appendix-a-team-project/README.md": [
+  ["Project Aristotle, a multi-year study", "Project Aristotle"]
+ ],
+
+ "_aliases": [
+  "MTTR|see{DORA delivery metrics}",
+  "mean time to recovery|see{DORA delivery metrics}",
+  "TDD|see{test-driven development}",
+  "BDD|see{Behavior-Driven Development}",
+  "MC/DC|see{Modified Condition/Decision Coverage}",
+  "SaaS|see{Software as a service}",
+  "DRE|see{Defect-removal efficiency}",
+  "ADR|see{Architecture Decision Records}",
+  "SBOM|see{Software bill of materials}"
+ ]
+}

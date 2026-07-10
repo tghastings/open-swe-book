@@ -1299,8 +1299,10 @@ data layer (§7.2.1). When a client needs many resources at once, REST's one-res
 grain can also mean chatty interfaces.
 
 > **Principle.** REST is the interface discipline of Chapter 6 applied across a network:
-> stable names, a small uniform contract, and hidden internals. If your API needs a
-> manual per endpoint, it is not benefiting from the pattern.
+> stable names, a small uniform contract, and hidden internals. Every real API still needs
+> documentation — schemas, authorization rules, error formats — but if every endpoint
+> requires its own bespoke interaction model that consistent resource-and-HTTP semantics
+> cannot explain, the API is gaining little from REST's uniform interface.
 
 One more pair of names to recognize: **service-oriented architecture (SOA)** and its
 modern descendant, **microservices**, describe systems built as fleets of small services

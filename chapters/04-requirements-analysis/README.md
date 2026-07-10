@@ -130,8 +130,8 @@ Points become a *forecasting* tool the moment you measure **velocity** — the n
 points a team actually completes in one iteration (sprint).[^2] Velocity is measured, not
 decreed: you finish a sprint, add up the points of the stories that met the definition of
 done, and that sum is your velocity for that sprint. Only *completed* work counts; a story
-that is 90% done contributes zero, because 90%-done software delivers 0% of its value and
-you cannot bank a partial point.
+that is 90% done contributes zero to velocity, because it has not met the definition of
+done and may not yet deliver usable customer value — you cannot bank a partial point.
 
 Because a single sprint is noisy — someone was sick, the API was down — you smooth it. Take
 a rolling average of the last few sprints. Suppose your team's last three sprints closed:
@@ -378,17 +378,21 @@ Risk cuts two ways, and *both* argue for tackling risky work early:
 - **Learning.** Risky stories are where you *learn the most*. Doing them early retires
   uncertainty and makes every later estimate more accurate.
 
-A common technique is to fold risk into the score. Rate risk 1–10 (10 = most dangerous) and
-compute a **weighted priority**. One transparent formula rewards value, penalizes cost, and
-adds a *bonus* for retiring risk early:
+A common technique is to fold risk into the score — where "risk" enters the formula not as
+danger for its own sake but as **risk-reduction value**: how much uncertainty doing the
+story *now* would retire. Rate that 1–10 (10 = doing it early burns down the most
+uncertainty) and compute a **weighted priority**. One transparent formula rewards value,
+penalizes cost, and adds a *bonus* for retiring risk early:
 
-> **weighted priority = (value + risk) ÷ cost**
+> **weighted priority = (value + risk reduction) ÷ cost**
 
-Adding risk to the numerator deliberately *pulls dangerous work forward* — you want to face
-it now, not last. Re-ranking the backlog with a risk column — the low-value multi-language
+Adding risk reduction to the numerator deliberately *pulls uncertain work forward* — you
+want to face it now, not last. (Read it any other way and the formula would appear to
+reward a feature merely for being dangerous.) Re-ranking the backlog with a
+risk-reduction column — the low-value multi-language
 row has dropped off the short list, and a new payment-integration request has arrived:
 
-| Feature             | Value | Risk | Cost | (V+R) ÷ Cost | Rank |
+| Feature             | Value | Risk red. | Cost | (V+R) ÷ Cost | Rank |
 |---------------------|------:|-----:|-----:|-------------:|-----:|
 | Conflict detection  |     9 |    2 |    5 |     **2.20** |    1 |
 | Payment integration |     7 |    9 |    8 |     **2.00** |    2 |
@@ -400,7 +404,10 @@ PDF (4+1)/3 = **1.67**, SMS (8+5)/8 = **1.63**. So the order becomes **conflict 
 payment integration, PDF export, SMS reminders.** The risky payment work leaps from the
 bottom of the pack to near the top — exactly the intent. Conflict detection still leads
 because it is both valuable *and* cheap, but risk has promoted the payment work above two
-safer, comfier features.
+safer, comfier features. Pulling risk forward also does not have to mean building the
+whole feature next: often the right first move is a small, time-boxed **spike** — an
+investigation whose only deliverable is knowledge — which banks most of the
+risk-reduction value at a fraction of the cost.
 
 > **Pitfall.** Do not let these formulas masquerade as objective truth. The inputs are
 > judgments, and the formula's shape encodes a *strategy* (here, "confront risk early"). Use
@@ -409,9 +416,9 @@ safer, comfier features.
 
 Industry has named two widely used variants of this same idea. **WSJF (Weighted Shortest
 Job First)** prioritizes by *cost of delay ÷ job size* — how much you lose per unit time
-by not having the feature, divided by how big it is.[^12] The (value + risk) ÷ cost ranking
-above is a WSJF-family scheme: value and risk stand in for cost of delay, and story
-points for job size. The **risk–value matrix** trades the arithmetic for a 2×2 quadrant
+by not having the feature, divided by how big it is.[^12] The (value + risk reduction) ÷ cost
+ranking above is a WSJF-family scheme: value and retired risk stand in for cost of delay,
+and story points for job size. The **risk–value matrix** trades the arithmetic for a 2×2 quadrant
 view: plot each feature by value and risk, then read the strategy off the quadrants —
 high-value/high-risk items go *first*, to burn off risk early; high-value/low-risk items
 can be scheduled with confidence; and low-value/high-risk items are candidates to drop

@@ -162,9 +162,9 @@ Other complexity is **accidental** — it comes from our tools, our choices, and
 mistakes: tangled dependencies, unclear names, duplicated logic, leaky abstractions.[^7]
 
 Good engineering cannot eliminate essential complexity, but it relentlessly attacks
-accidental complexity. Much of this book is about that: clear specifications
-(Chapter 6), patterns that package proven solutions (Chapter 7), reviews that catch
-needless complication (Chapter 9).
+accidental complexity. Much of this book is about that: clear requirements and
+specifications (Chapters 3–5), design and patterns that package proven solutions
+(Chapters 6–7), reviews that catch needless complication (Chapter 9).
 
 Software is also unusually complex among engineered artifacts for structural reasons:
 

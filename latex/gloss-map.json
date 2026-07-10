@@ -737,8 +737,16 @@
    "canarydeployment"
   ],
   [
-   "DORA four keys",
+   "DORA delivery metrics",
    "dorafourkeys"
+  ],
+  [
+   "four keys",
+   "dorafourkeys"
+  ],
+  [
+   "deployment rework rate",
+   "deploymentreworkrate"
   ]
  ],
  "chapters/15-maintenance-evolution/README.md": [

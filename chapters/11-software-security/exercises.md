@@ -30,7 +30,9 @@ source, scoring a real package — not just prose. Show the work, not only the a
    versions: the string-concatenated query and the parameterized query. Then write one input that
    returns every row from the vulnerable version, and confirm the same input is harmless against the
    parameterized one. Submit the two queries, the malicious input, and one sentence on *why* the
-   parameterized version is safe.
+   parameterized version is safe. **Perform this only against your own local database or a
+   sandbox you are explicitly authorized to test** — never against a running system you do
+   not own, including your own team's deployed project without the team's agreement.
 
 6. **[analysis]** Run **OpenSSF Scorecard** (or read its published report) against one open-source
    dependency your project actually uses. Report its aggregate score and the two lowest-scoring

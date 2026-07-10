@@ -1026,8 +1026,9 @@ Walking the deployment in order:
    feature flag, or as a canary to a slice of traffic — and watch the DORA signals of §14.7:
    when deployment frequency is high and change-fail rate stays low, the machinery is sound.
 
-None of these steps is exotic, and a small team can stand up this entire stack in an
-afternoon. The chapter's argument is that doing it *repeatably* — an image built once by a
+None of these steps is exotic, and a practiced small team can stand up a minimal version
+of this stack in an afternoon — expect your first time through to take longer, with DNS,
+TLS, and container networking supplying the surprises. The chapter's argument is that doing it *repeatably* — an image built once by a
 pipeline, configuration externalized, the database on a durable volume, the release
 automated and progressively exposed, the whole path observed — is what separates a demo that
 happens to be online from a service a team can operate, and keep operating, as it changes.
@@ -1114,7 +1115,7 @@ staging deployment, after the artifact exists. The result is defense in depth th
 pipeline itself: by the time an artifact reaches production, it has been examined as
 source, as a composition, and as a running target.
 
-## 14.7 DORA Metrics
+## 14.7 DORA Delivery Metrics
 
 ### 14.7.1 The Four Keys — Now Five
 

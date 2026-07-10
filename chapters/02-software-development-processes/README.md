@@ -897,8 +897,9 @@ The practical takeaways connect straight back to Chapter 1's four pressures:
 - **Coordination:** a named, deliberate process lets a team of people act like one competent
   engineer instead of a crowd; Scrum's accountabilities, events, and artifacts are one proven
   scaffold.
-- **Change:** short iterations make change cheap by ensuring any rework costs at most one
-  iteration, and by always adapting to your *latest* understanding.
+- **Change:** short iterations make change cheaper by limiting how much work can pile up
+  before feedback arrives — shrinking the likelihood, and usually the size, of expensive
+  rework — and by always adapting to your *latest* understanding.
 - **Defects:** continuous testing and integration, structured by the V-model's levels of
   verification, catch faults while they are cheap instead of concentrating them in a final
   big bang.

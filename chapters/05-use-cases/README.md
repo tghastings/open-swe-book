@@ -703,8 +703,8 @@ level, neither too vague to test nor too concrete to design against; and an incr
 build order — actors and goals, then the basic flow, then the alternatives — that keeps
 something reviewable in front of you at every stage.
 
-Three ideas are worth carrying forward. First, **the failure modes are most of the
-requirements**;
+Three ideas are worth carrying forward. First, **the failure modes are often the most
+revealing part of the requirements**;
 anyone can describe the happy path, but the value of a use case is its honest catalog of
 what can go wrong and what the system promises anyway. Second, **keep every step at the
 system boundary** — observable behavior in the language of the domain — so stakeholders can

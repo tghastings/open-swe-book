@@ -1340,7 +1340,8 @@ roughly how many tests branch coverage will demand. For the function above: two 
 (nodes 2 and 5), so complexity $2 + 1 = 3$; or count the graph above, $E = 9$, $N = 8$,
 $9 - 8 + 2 = 3$. Conventional bands for reading the number: **1–10** is simple, readily
 testable code; **11–20** is moderately complex; **21–50** is risky; above **50** is
-effectively untestable.[^14] The metric earns its keep as a *predictor*: high-complexity
+extremely difficult to test comprehensively — and a strong sign the function should be
+decomposed.[^14] The metric earns its keep as a *predictor*: high-complexity
 functions are where defects cluster and where the hard-to-cover branches live, which
 makes it a map of where to spend testing effort — and refactoring (Chapter 15,
 [§15.3](../15-maintenance-evolution/#153-refactoring-under-green-tests)) is the

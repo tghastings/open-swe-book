@@ -187,12 +187,45 @@ for m in re.finditer(r'\*\*([^*]+)\*\*', md):   # 2) every boldface use of a kno
         for t in _all_terms:
             if cn in _cn[t]:
                 idx_pts.append((m.end(), t)); break
+
+# 3) curated extra entries (latex/index-extra.json) — people, case studies, tools,
+#    standards, subentries, and see-references. Each item is [pattern, raw_entry]:
+#    `pattern` locates the page (searched like a term; "" = end of this file), and
+#    `raw_entry` is inserted VERBATIM as \index{...}, so makeindex syntax works:
+#    "coverage!branch" (subentry), "MTTR|see{DORA delivery metrics}" (alias).
+#    The special key "_aliases" is a list of raw entries emitted once, with ch01.
+try:
+    _extra = json.load(open("latex/index-extra.json"))
+except Exception:
+    _extra = {}
+def _find_literal(text, pat):             # exact, case-sensitive; skip code + headings + footnote defs
+    for m in re.finditer(re.escape(pat), text):
+        ls = text.rfind('\n', 0, m.start()) + 1
+        if text[ls] in '#' or text[ls:ls + 2] == '[^' or text[:m.start()].count('`') % 2:
+            continue
+        return m.end()
+    return None
+raw_pts = []
+for pat, entry in _extra.get(inp, []):
+    if pat:
+        h = _find_literal(md, pat)
+        if h is not None:
+            raw_pts.append((h, entry))
+        else:
+            sys.stderr.write(f"index-extra: pattern not found in {inp}: {pat!r}\n")
+    else:
+        raw_pts.append((len(md), entry))
+if inp == "chapters/01-introduction/README.md":
+    for entry in _extra.get("_aliases", []):
+        raw_pts.append((len(md), entry))
+
+ins = [(pos, _idxterm(term)) for pos, term in idx_pts] + raw_pts
 _seen = set()
-for pos, term in sorted(idx_pts, key=lambda x: x[0], reverse=True):   # insert from the end
-    if (pos, term) in _seen:
+for pos, ent in sorted(ins, key=lambda x: x[0], reverse=True):   # insert from the end
+    if (pos, ent) in _seen:
         continue
-    _seen.add((pos, term))
-    md = md[:pos] + '\\index{' + _idxterm(term) + '}' + md[pos:]
+    _seen.add((pos, ent))
+    md = md[:pos] + '\\index{' + ent + '}' + md[pos:]
 
 # --- code fences: keep only generic ---
 md = re.sub(r'(?ms)^[ \t]*```(?:go|java|javascript|python|ruby|typescript)[ \t]*\n.*?^[ \t]*```[ \t]*$\n?', '', md)

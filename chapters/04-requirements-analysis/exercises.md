@@ -97,23 +97,23 @@ Throughout, we reuse the **clinic scheduling app** from Chapters 1 and 3.
    Which feature has a high *raw* value (8) yet ranks **last**, and what does
    that teach about "build the flashiest thing first"?
 
-9. **[analysis]** Take the same four features from Exercise 8 and add a **risk** rating
-   (10 = most dangerous). The insurance-card scan needs an unfamiliar OCR service; the
-   waitlist needs new notification plumbing.
+9. **[analysis]** Take the same four features from Exercise 8 and add a **risk-reduction**
+   rating (10 = doing it early retires the most uncertainty). The insurance-card scan
+   needs an unfamiliar OCR service; the waitlist needs new notification plumbing.
 
-   | Feature              | Value | Risk | Cost |
+   | Feature              | Value | Risk red. | Cost |
    |----------------------|------:|-----:|-----:|
    | Waitlist auto-promote|     7 |    6 |    8 |
    | Conflict detection   |     9 |    2 |    5 |
    | Dark mode            |     3 |    1 |    2 |
    | Insurance-card scan  |     8 |    9 |   13 |
 
-   a. Compute the **weighted priority = (value + risk) ÷ cost** for each and give the new
-      order.
+   a. Compute the **weighted priority = (value + risk reduction) ÷ cost** for each and
+      give the new order.
    b. Compute how much each feature's score changed from Exercise 8 (both the difference
       and the ratio). Notice that the *order* did not change — explain how the
-      insurance-card scan's large cost denominator swamps even a risk of 9, and why the
-      formula nevertheless encodes "tackle risky work early" (§4.4.3).
+      insurance-card scan's large cost denominator swamps even a risk-reduction score of
+      9, and why the formula nevertheless encodes "tackle risky work early" (§4.4.3).
    c. The formula still ranks the two genuinely risky features last. Argue for or against
       overriding it to pull the insurance-card scan forward anyway — for example, spending
       one sprint on an OCR spike purely to retire its risk.

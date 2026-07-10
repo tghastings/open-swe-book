@@ -87,6 +87,24 @@ You can read the book straight through, or use the table of contents to jump to 
 concern. Either way, the aim is the same: to leave you able to build software that other
 people can trust, and that you can keep changing for longer than anyone expects.
 
+## The companion site
+
+The companion site carries the current web edition, the runnable code examples in all six
+languages, EPUB and PDF downloads (one per language), corrections, and the updated
+open-resource maps:
+
+\begin{center}
+\vspace{0.5em}
+{\Large \textbf{https://www.swebook.org}}
+
+\vspace{0.9em}
+\includegraphics[width=1.15in]{../qr-swebook.png}
+\vspace{0.5em}
+\end{center}
+
+Every resource this book links is also linked from the site's chapters and resource
+maps, so an address that has aged in print can be found again online.
+
 ## How this book was made
 
 This book was written in collaboration with an AI assistant (Anthropic's Claude) under the
