@@ -1,4 +1,4 @@
-// §13.6.2 Characterization Tests — probe, promote the observed value, probe an edge.
+// §15.2 Characterization Tests — probe, promote the observed value, probe an edge.
 // TypeScript variant. The book's step-1 probe asserts the deliberately wrong "XXX"
 // and fails with:
 //   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:

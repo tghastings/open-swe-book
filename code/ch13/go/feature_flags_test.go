@@ -1,4 +1,4 @@
-// §13.3.3 — checks for the feature-flag and percentage-rollout examples.
+// §14.3.3 — checks for the feature-flag and percentage-rollout examples.
 package delivery
 
 import (

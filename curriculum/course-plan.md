@@ -5,7 +5,7 @@ book — **Variant A**, a 15-week milestone track, and **Variant B**, a 16-week 
 on two-week sprints. Both run **two parallel tracks** (as the ACM/IEEE guidelines
 recommend[^1]):
 
-- **Concepts track** — the fourteen chapters, one theme at a time.
+- **Concepts track** — the fifteen chapters, one theme at a time.
 - **Project track** — a real team project (Appendix A), started early and iterated.
 
 The two tracks are **tightly coupled at the start** (weeks 1–4, while teams form and
@@ -17,7 +17,7 @@ pace.
 | Week | Concepts (chapter) | Project milestone | Key open resources |
 |------|--------------------|-------------------|--------------------|
 | 1 | Ch. 1 — Introduction | Form teams; brainstorm ideas | ACM Code of Ethics; Therac-25 |
-| 2 | Ch. 2 — Processes (Scrum/XP); Ch. 8 — Version Control (Git) | Pick a process; set up repo & board with a protected `main` | Scrum Guide; Pro Git |
+| 2 | Ch. 2 — Processes (Scrum/XP); Ch. 8 — Version Control (Git) | Pick a process; set up repo & board with a protected `main`, plus a hello-world CI pipeline (§14.2) so every later commit lands on green | Scrum Guide; Pro Git |
 | 3 | Ch. 3 — User Requirements | **Project Proposal** (App. A.2) | ESaaS ch.7; Volere; INVEST |
 | 4 | Ch. 4 — Requirements Analysis | Backlog + estimates (Planning Poker) | Planning Poker; MoSCoW; Kano |
 | 5 | Ch. 5 — Use Cases | Use cases / stories for iteration 1 | Cockburn use cases |
@@ -29,7 +29,7 @@ pace.
 | 11 | Ch. 10 — Testing (MC/DC, combinatorial) | **Status Report 2** (viable system) | NIST combinatorial |
 | 12 | Ch. 11 — Software Security (OWASP Top 10, SAST/DAST/SCA, supply chain) | Threat-model the project; add dependency scanning | OWASP Top 10; PortSwigger; OpenSSF Scorecard |
 | 13 | Ch. 12 — Metrics (quality, defects, statistics); DORA (§14.7) | Defect tracking; measure & analyze project data | OpenIntro Stats; DORA |
-| 14 | Ch. 13 — SE in the Age of AI; Ch. 14 — CD, evolution + review | **Comprehensive Final Report** (A.5) | METR study; o16g manifesto; SEC 34-70694 |
+| 14 | Ch. 13 — SE in the Age of AI; Ch. 14 — CD; Ch. 15 — evolution + review | **Comprehensive Final Report** (A.5) | METR study; o16g manifesto; SEC 34-70694 |
 | 15 | Final presentations / demos | Ship & retrospective | — |
 
 > **Flexibility on Chapter 11 (Software Security).** Week 12 gives security its own
@@ -64,7 +64,7 @@ progressive engineering-hardening arc (CI → CD → lint/dependency scans → d
 | 10 | *Spring break* | — |
 | 11 | Ch. 9 — Static checking; risk | Sprint 2 continues |
 | 12 | Ch. 11 — Software Security (OWASP Top 10, SAST/DAST/SCA, supply chain); security pipelines (§14.6) | Sprint 2 due → Demo Day; **Sprint 3**; review #2 |
-| 13 | Legacy code & refactoring (§14.8); Ch. 13 AI readings | Sprint 3 continues |
+| 13 | Legacy code & refactoring (Ch. 15); Ch. 13 AI readings | Sprint 3 continues |
 | 14 | Work days; Ch. 12 metrics in practice | Sprint 3 due → Demo Day; **Sprint 4**; review #3 |
 | 15 | *Test 2* | Sprint 4 due |
 | 16 | Final presentations | Individual write-ups; review #4 |

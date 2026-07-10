@@ -19,13 +19,13 @@ class FakeTransport < Array            # a two-line test double
 end
 
 fake = FakeTransport.new
-MessageRouter.new(fake).route({ "to" => "dana", "body" => "you are on call" })
-raise unless fake == [["dana", "you are on call"]]
+MessageRouter.new(fake).route({ "to" => "eloise", "body" => "you are on call" })
+raise unless fake == [["eloise", "you are on call"]]
 
 # The real implementation conforms too — fed a stand-in socket here so the
 # file runs without a network.
 sock = StringIO.new
-MessageRouter.new(WebSocketTransport.new(sock)).route({ "to" => "dana", "body" => "hi" })
-raise unless sock.string == "dana:hi"
+MessageRouter.new(WebSocketTransport.new(sock)).route({ "to" => "eloise", "body" => "hi" })
+raise unless sock.string == "eloise:hi"
 
 puts "fake and websocket transports both satisfy MessageRouter: OK"

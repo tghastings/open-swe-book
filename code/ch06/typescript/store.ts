@@ -21,6 +21,6 @@ class MemoryUserStore implements Store {  // the new secret: an in-memory table
 }
 
 for (const store of [new UserStore("users.json"), new MemoryUserStore()]) {
-  store.save({ id: "u7", name: "Dana" });        // the identical caller, untouched
-  assert.strictEqual(store.find("u7")!.name, "Dana");
+  store.save({ id: "u7", name: "Kati" });        // the identical caller, untouched
+  assert.strictEqual(store.find("u7")!.name, "Kati");
 }

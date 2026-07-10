@@ -1,4 +1,4 @@
-# Exercise 11 (§13.6.2) — the inherited, undocumented norm_code, Ruby variant.
+# Chapter 15, exercise 2 (§15.2) — the inherited, undocumented norm_code, Ruby variant.
 # nil plays Python's None; ArgumentError plays ValueError; the [[:alnum:]] regex
 # plays str.isalnum (nonempty, all letters/digits). Ruby's "" is truthy, so the
 # final `s or ...` needs an explicit empty? check.

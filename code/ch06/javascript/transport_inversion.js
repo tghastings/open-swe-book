@@ -19,8 +19,8 @@ class FakeTransport extends Array {    // a two-line test double
 }
 
 const fake = new FakeTransport();
-new MessageRouter(fake).route({ to: "dana", body: "you are on call" });
-assert.deepStrictEqual([...fake], [["dana", "you are on call"]]);
+new MessageRouter(fake).route({ to: "eloise", body: "you are on call" });
+assert.deepStrictEqual([...fake], [["eloise", "you are on call"]]);
 
 // The real implementation conforms too — fed a stand-in socket here so the
 // file runs without a network.
@@ -28,7 +28,7 @@ class RecordingSocket extends Array {
   send(data) { this.push(data); }
 }
 const sock = new RecordingSocket();
-new MessageRouter(new WebSocketTransport(sock)).route({ to: "dana", body: "hi" });
-assert.deepStrictEqual([...sock], ["dana:hi"]);
+new MessageRouter(new WebSocketTransport(sock)).route({ to: "eloise", body: "hi" });
+assert.deepStrictEqual([...sock], ["eloise:hi"]);
 
 console.log("fake and websocket transports both satisfy MessageRouter: OK");

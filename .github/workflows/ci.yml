@@ -39,6 +39,11 @@ jobs:
           sed -i -E "s/const VERSION = \"[^\"]*\"/const VERSION = \"${V}\"/" version.js
           sed -i -E "s/\*First Edition, [^*]*\*/*First Edition, ${V}.*/" README.md
 
+      # Gate the build on footnote-numbering hygiene: every [^N] defined and used,
+      # numbers in first-use order per file. Mechanical repairs: tools/check-footnotes.py --fix
+      - name: Validate footnote numbering
+        run: python3 tools/check-footnotes.py
+
       - name: Install mdBook + mdbook-mermaid
         run: |
           MDBOOK_VERSION="0.4.40"

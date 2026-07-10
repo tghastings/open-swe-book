@@ -12,15 +12,15 @@ import java.util.Map;
 public class TransportInversion {
   public static void main(String[] args) {
     var fake = new FakeTransport();
-    new MessageRouter(fake).route(Map.of("to", "dana", "body", "you are on call"));
-    System.out.println(fake); // [dana:you are on call]
+    new MessageRouter(fake).route(Map.of("to", "eloise", "body", "you are on call"));
+    System.out.println(fake); // [eloise:you are on call]
 
     // The real implementation conforms too — fed a stand-in stream here so the
     // file runs without a network.
     var sock = new ByteArrayOutputStream();
     new MessageRouter(new WebSocketTransport(sock))
-        .route(Map.of("to", "dana", "body", "hi"));
-    System.out.println(sock); // dana:hi
+        .route(Map.of("to", "eloise", "body", "hi"));
+    System.out.println(sock); // eloise:hi
   }
 }
 

@@ -1,4 +1,4 @@
-# §13.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
+# §14.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
 # Ruby variant. Zlib.crc32 computes the same CRC-32 as Python's zlib.crc32, so the two
 # variants put every user in the same bucket.
 # Runs standalone: ruby feature_flags.rb

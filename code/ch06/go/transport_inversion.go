@@ -30,13 +30,13 @@ func (t *FakeTransport) Deliver(to, body string) { t.sent = append(t.sent, to+":
 
 func main() {
 	fake := &FakeTransport{}
-	MessageRouter{fake}.Route(map[string]string{"to": "dana", "body": "you are on call"})
-	fmt.Println(fake.sent) // [dana:you are on call]
+	MessageRouter{fake}.Route(map[string]string{"to": "eloise", "body": "you are on call"})
+	fmt.Println(fake.sent) // [eloise:you are on call]
 
 	// The real implementation conforms too — fed a stand-in writer here so the
 	// file runs without a network.
 	var sock bytes.Buffer
 	router := MessageRouter{WebSocketTransport{&sock}}
-	router.Route(map[string]string{"to": "dana", "body": "hi"})
-	fmt.Println(sock.String()) // dana:hi
+	router.Route(map[string]string{"to": "eloise", "body": "hi"})
+	fmt.Println(sock.String()) // eloise:hi
 }

@@ -23,14 +23,15 @@ head. Understanding the gap between those two activities is the subject of this 
 
 Three words in that definition carry a lot of weight:
 
-- **Team.** Almost all real software is built by groups. Coordination, communication,
-  and shared understanding become first-class engineering concerns, not afterthoughts.
+- **Team.** Most real software — and nearly all software at commercial scale — is built
+  by groups. Coordination, communication, and shared understanding become first-class
+  engineering concerns, not afterthoughts.
   This is why Chapter 2 is about *process* and why an entire team project runs alongside
   the concepts (Appendix A).
 - **Changing.** Requirements are discovered, not handed down. They shift as users learn
   what they actually want. Methods that assume a frozen specification tend to fail; this
   is why the industry moved toward *iterative, agile* methods (Chapters 2–4).
-- **Scale.** Beyond a few tens of thousands of lines, no one understands the whole
+- **Scale.** Beyond a few tens of thousands of lines, hardly anyone understands the whole
   system in detail. We manage that with **design and architecture** (Chapters 6–7):
   dividing the system so each part can be understood, changed, and tested in relative
   isolation.
@@ -268,7 +269,7 @@ reality that **quality is not free**, and that a manager who demands more scope,
 for less is mistaking innumeracy for ambition.
 
 Agile methods make a deliberate choice here: they **fix time and cost** (a fixed-length
-iteration with a fixed team) and let **scope flex** — you always ship *something* valuable
+iteration with a fixed team) and let **scope flex** — the aim is to ship *something* valuable
 on the date, even if not everything. Plan-driven methods more often fix scope and flex
 time. Chapters 2 and 4 return to this trade-off with concrete estimation and
 prioritization techniques (story points, MoSCoW, value/cost/risk). And modern software
@@ -352,6 +353,8 @@ those pressures:
 - **AI across the lifecycle** (Ch. 13) re-examines every one of those disciplines as
   coding agents take over more of the typing.
 - **Delivery** (Ch. 14) carries a verified change the last mile, into production, safely.
+- **Maintenance and evolution** (Ch. 15) keep the system alive and changeable through the
+  years after launch — where most engineering effort actually goes.
 - **A team project** (Appendix A) puts it all into practice.
 
 A word about the code you will meet along the way. Concepts come first in this book and

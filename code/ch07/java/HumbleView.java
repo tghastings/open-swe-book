@@ -34,17 +34,17 @@ class HumbleInvoiceWidget {              // the book shows this as InvoiceWidget
 }
 
 void testUnpaid31DaysIsOverdue() {
-  assert isOverdue(new Invoice("Ana", LocalDate.of(2026, 6, 1), false),
+  assert isOverdue(new Invoice("Adilyn", LocalDate.of(2026, 6, 1), false),
       LocalDate.of(2026, 7, 2));
 }
 
 void main() {
-  var ana = new Invoice("Ana", LocalDate.of(2026, 6, 1), false);
+  var adilyn = new Invoice("Adilyn", LocalDate.of(2026, 6, 1), false);
   var today = LocalDate.of(2026, 7, 2);
-  var fat = new InvoiceWidget().render(ana, today);
-  assert fat.equals("Ana — OVERDUE");
+  var fat = new InvoiceWidget().render(adilyn, today);
+  assert fat.equals("Adilyn — OVERDUE");
 
-  var vm = invoiceViewModel(ana, today);
+  var vm = invoiceViewModel(adilyn, today);
   assert new HumbleInvoiceWidget().render(vm).equals(fat);
   assert !isOverdue(new Invoice("Ben", LocalDate.of(2026, 6, 15), false), today);
   assert !isOverdue(new Invoice("Cho", LocalDate.of(2026, 5, 1), true), today);

@@ -8,6 +8,6 @@ class MemoryUserStore implements Store {  // the new secret: an in-memory table,
 }
 
 const store: Store = new MemoryUserStore();
-store.save({ id: "u7", name: "Dana" });
-if (store.find("u7")!.name !== "Dana") throw new Error("mismatch");
+store.save({ id: "u7", name: "Kati" });
+if (store.find("u7")!.name !== "Kati") throw new Error("mismatch");
 console.log(store.find("u7")!.name);

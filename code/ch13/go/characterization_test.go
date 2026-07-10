@@ -1,4 +1,4 @@
-// §13.6.2 Characterization Tests — probe, promote the observed value, probe an edge.
+// §15.2 Characterization Tests — probe, promote the observed value, probe an edge.
 // The book's step-1 probe asserts the deliberately wrong "XXX" and fails with
 // `legacyFeeCode("phone") = "E10", want "XXX"`. Here the probe asserts the
 // observed failure instead, so `go test` stays green.

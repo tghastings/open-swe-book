@@ -22,5 +22,5 @@ class FakeTransport implements Transport {        // a two-line test double
 }
 
 const fake = new FakeTransport();
-new MessageRouter(fake).route({ to: "dana", body: "you are on call" });
-assert.deepStrictEqual(fake.sent, [["dana", "you are on call"]]);
+new MessageRouter(fake).route({ to: "eloise", body: "you are on call" });
+assert.deepStrictEqual(fake.sent, [["eloise", "you are on call"]]);

@@ -30,8 +30,8 @@ func (s MemStore) Save(record User)    { s[record.ID] = record }
 
 func main() {
 	for _, store := range []UserStore{FileStore{os.TempDir()}, MemStore{}} {
-		store.Save(User{ID: "u7", Name: "Dana"})
-		fmt.Println(store.Find("u7").Name) // Dana — the identical caller, untouched
+		store.Save(User{ID: "u7", Name: "Kati"})
+		fmt.Println(store.Find("u7").Name) // Kati — the identical caller, untouched
 	}
 	os.Remove(os.TempDir() + "/u7") // cleanup
 }

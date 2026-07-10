@@ -50,10 +50,10 @@ check and test that the system actually works. A chapter on security asks how a 
 holds up under attack, from its own code to the open-source supply chain it depends on. A
 chapter on metrics shows how to measure quality and progress honestly. A chapter on the
 role of AI separates what genuinely changes when machines can draft code from what
-stubbornly does not. A final chapter on delivery follows a change from a finished commit to
-running safely in front of real users, and then into the long life of code as it becomes
-legacy. An appendix carries a real team project alongside the concepts, so the ideas have
-somewhere to land.
+stubbornly does not. A chapter on delivery follows a change from a finished commit to
+running safely in front of real users, and a final chapter follows the long life of code
+after that — legacy systems, refactoring, technical debt, and evolution. An appendix
+carries a real team project alongside the concepts, so the ideas have somewhere to land.
 
 Each chapter builds on the ones before it, and each explains not only *what* to do but
 *why* — because the "why" is what survives when the tools change.

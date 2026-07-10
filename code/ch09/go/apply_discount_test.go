@@ -10,7 +10,7 @@ func TestApplyDiscount(t *testing.T) {
 		price, percent, want float64
 	}{
 		{"no discount", 100.0, 0, 100.0},
-		{"half off", 100.0, 50, 50.0},
+		{"half off", 143.0, 50, 71.5},
 		{"rounds to cents", 9.99, 10, 8.99},
 		{"full discount", 40.0, 100, 0.0},
 	}

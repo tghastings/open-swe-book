@@ -1,4 +1,4 @@
-// Exercise 11 (§13.6.2) — characterization pins for norm_code, matching the
+// Chapter 15, exercise 2 (§15.2) — characterization pins for norm_code, matching the
 // Python original's observed behavior on every probed input class.
 package delivery
 

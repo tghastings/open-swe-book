@@ -10,7 +10,7 @@ end
 
 class TestApplyDiscount < Minitest::Test
   def test_no_discount     = assert_equal(100.0, apply_discount(100.0, 0))
-  def test_half_off        = assert_equal(50.0, apply_discount(100.0, 50))
+  def test_half_off        = assert_equal(71.5, apply_discount(143.0, 50))
   def test_rounds_to_cents = assert_equal(8.99, apply_discount(9.99, 10))
   def test_full_discount   = assert_equal(0.0, apply_discount(40.0, 100))
 

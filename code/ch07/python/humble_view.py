@@ -17,8 +17,8 @@ class InvoiceWidget:
       text += " — OVERDUE"         # a business rule, trapped on screen
     return text
 
-fat = InvoiceWidget().render(Invoice("Ana", date(2026, 6, 1), False), date(2026, 7, 2))
-assert fat == "Ana — OVERDUE"
+fat = InvoiceWidget().render(Invoice("Adilyn", date(2026, 6, 1), False), date(2026, 7, 2))
+assert fat == "Adilyn — OVERDUE"
 
 # --- After: humble view -----------------------------------------------------
 def is_overdue(invoice, today):          # the rule, extracted where tests reach it
@@ -33,10 +33,10 @@ class HumbleInvoiceWidget:               # the book shows this as InvoiceWidget,
     return vm["text"]                # run in one file
 
 def test_unpaid_31_days_is_overdue():
-  assert is_overdue(Invoice("Ana", sent_on=date(2026, 6, 1), paid=False), date(2026, 7, 2))
+  assert is_overdue(Invoice("Adilyn", sent_on=date(2026, 6, 1), paid=False), date(2026, 7, 2))
 
-vm = invoice_view_model(Invoice("Ana", date(2026, 6, 1), False), date(2026, 7, 2))
-assert HumbleInvoiceWidget().render(vm) == "Ana — OVERDUE"
+vm = invoice_view_model(Invoice("Adilyn", date(2026, 6, 1), False), date(2026, 7, 2))
+assert HumbleInvoiceWidget().render(vm) == "Adilyn — OVERDUE"
 assert not is_overdue(Invoice("Ben", date(2026, 6, 15), False), date(2026, 7, 2))
 assert not is_overdue(Invoice("Cho", date(2026, 5, 1), True), date(2026, 7, 2))
 test_unpaid_31_days_is_overdue()

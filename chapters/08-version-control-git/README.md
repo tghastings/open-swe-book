@@ -205,7 +205,7 @@ as a new commit — either opening an editor for the message or taking it inline
 git status                         # what changed, and what is staged
 git add src/login.py               # stage this file's current content
 git add -p                         # stage selected chunks, interactively
-git commit -m "Fix redirect loop on expired session"
+git commit -m "Fix redirect loop on expired session (#143)"
 git log --oneline --graph          # see history as a labeled graph
 git diff                           # unstaged changes (working tree vs. index)
 git diff --staged                  # what the next commit will record
@@ -269,9 +269,11 @@ answer is usually `git reflog` to find the commit's hash and `git reset --hard <
 `git branch recover <hash>`) to get it back — not deleting the folder and re-cloning in
 despair.[^15]
 
-> **Pitfall.** Never `--amend`, `reset`, or force-push a commit you have already shared. You
-> are not editing your copy; you are rewriting history other people have built on, and their
-> next pull becomes a mess. Rewrite freely *before* you push; treat pushed history as
+> **Pitfall.** As a default team policy, never `--amend`, `reset`, or force-push a commit
+> you have already shared. You are not editing your copy; you are rewriting history other
+> people have built on, and their next pull becomes a mess. The rare exceptions — a
+> coordinated `--force-with-lease` on your own feature branch, scrubbing a leaked secret —
+> are announced, not improvised. Rewrite freely *before* you push; treat pushed history as
 > public record.
 
 ## 8.3 Branching and Merging
@@ -325,10 +327,12 @@ genuine debates in everyday Git. **`git rebase`** takes the commits on your bran
 *replays* them, one at a time, on top of the latest `main`, as if you had started your work
 from there.[^18] The result is a straight, linear history with no merge commit — which many
 teams find easier to read. The cost is that rebasing creates *new* commits (same changes,
-new hashes): it rewrites history. That leads to the one rule you must not break.
+new hashes): it rewrites history. That leads to the nearest thing everyday Git has to an
+iron rule.
 
-> **Principle — the Golden Rule of Rebasing.** Never rebase commits that exist outside your
-> own local repository — that is, commits you have already pushed and others may have.[^19]
+> **Principle — the Golden Rule of Rebasing.** Unless the whole team has coordinated the
+> rewrite, never rebase commits that exist outside your own local repository — that is,
+> commits you have already pushed and others may have.[^19]
 > Rebase your *own* unpushed work to tidy it before sharing; use *merge* to integrate work
 > that is already public. Break this rule and you force everyone else into a painful
 > reconciliation of two divergent histories.
@@ -538,7 +542,7 @@ long time.[^30]
   (Chapters 6–7) gives people separate, cohesive modules to own, they edit different files
   and rarely collide. Conflict frequency is a quiet signal about coupling.
 - **Communicate ownership.** A thirty-second "I'm refactoring the auth module this
-  afternoon" prevents the conflict that a day of silent parallel edits guarantees.
+  afternoon" prevents the conflict that a day of silent parallel edits all but guarantees.
 - **Agree on formatting.** A shared auto-formatter (§9.1) means diffs contain real changes,
   not whitespace and reflowing that manufacture conflicts out of nothing.
 
@@ -698,7 +702,13 @@ someone is you.
 
 [^4]: Scott Chacon & Ben Straub, *Pro Git*, §1.1 — local, centralized, and distributed version control. [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
 
-[^5]: *Git* — origin, the BitKeeper license dispute, and the 2005 development timeline. [en.wikipedia.org](https://en.wikipedia.org/wiki/Git).
+[^5]: Linus Torvalds, *Kernel SCM saga..* and follow-ups, linux-kernel mailing list
+    (April 6–8, 2005) — the primary record: the announcement, the design goals
+    (a distributed workflow, CVS as an example of what *not* to do, protection against
+    corruption, speed), and the early timeline. [lkml.org](https://lkml.org/lkml/2005/4/6/121).
+    See also Scott Chacon and Ben Straub, *Pro Git*, 2nd ed., §1.2 "A Short History of
+    Git" — the Git project's own account of the BitKeeper dispute and Git's goals.
+    [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git).
 
 [^6]: Scott Chacon & Ben Straub, *Pro Git*, §1.3 "What is Git?" — snapshots not differences, and integrity by checksum. [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F).
 

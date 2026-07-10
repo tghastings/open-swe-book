@@ -161,7 +161,7 @@ ceremony without the substance.
 ### 3.2.2 An Agile Emphasis on Requirements
 
 A common misreading is that agile means "no requirements." The opposite is true. Agile
-teams do *more* requirements work than plan-driven teams — they just do it in small,
+teams often do *more* requirements work than plan-driven teams — they just do it in small,
 continuous doses rather than one large batch. Every iteration begins with refining and
 selecting requirements (the backlog), and ends with validating them against a running
 system. Requirements conversations happen constantly, at the moment they are needed, with
@@ -294,7 +294,7 @@ sharpen that:
 Whatever mix of techniques you use, there will always be a gap between what the customer
 said and what you understood — and that gap fills itself with **assumptions**. Every
 unstated assumption buried in a story is untracked risk: you will build on it, and if it
-is wrong, everything on top of it is wrong too.
+is wrong, everything on top of it is suspect.
 
 > **Technique — track your assumptions.** Write assumptions down *explicitly*, the moment
 > you notice yourself making one ("we assume clinicians never edit each other's
@@ -308,7 +308,7 @@ is wrong, everything on top of it is wrong too.
 ### 3.3.3 Design for Delight
 
 Satisfying stated needs makes a product *acceptable*. Delighting users — meeting latent
-needs they did not know to ask for — makes a product *loved*, and loved products win. A
+needs they did not know to ask for — makes a product *loved*, and loved products tend to win. A
 useful mental model here — the **Kano model**,[^6] developed fully in
 [§4.5](../04-requirements-analysis/#45-customer-satisfiers-and-dissatisfiers) —
 distinguishes categories of features by how user satisfaction responds to them:
@@ -681,10 +681,10 @@ when it enters the backlog, and the rest is discipline about references:
 
 | Link in the chain           | Where it lives                  | How it points back            |
 |-----------------------------|---------------------------------|-------------------------------|
-| Story `STORY-17`            | the backlog                     | — (the anchor)                |
+| Story `STORY-143`           | the backlog                     | — (the anchor)                |
 | Acceptance criteria         | `interpreter_alerts.feature`    | story key in the feature file |
 | Step definitions and tests  | the test suite (Chapter 10)      | they execute the criteria     |
-| Commits and pull requests   | version control                 | `STORY-17` in the message     |
+| Commits and pull requests   | version control                 | `STORY-143` in the message    |
 
 Each direction pays differently. Forward traceability turns "are we done?" into a
 checkable claim: every *Must* in the release plan (§4.4) has at least one acceptance
@@ -721,7 +721,7 @@ a real goal, and specific steps forces the vagueness into the open, where you ca
 about it productively. Good scenarios follow a few guidelines:
 
 - **Use a concrete persona, not "the user."** Give them a name, a role, a level of skill,
-  and a motivation. "Dana, a new front-desk clerk two weeks into the job" behaves very
+  and a motivation. "Kati, a new front-desk clerk two weeks into the job" behaves very
   differently from "an experienced office manager," and the difference drives design.
 - **Start from a trigger and a goal.** What situation begins the scenario, and what is the
   person trying to achieve? A scenario without a goal is just a click-by-click script.
@@ -732,7 +732,7 @@ about it productively. Good scenarios follow a few guidelines:
   *need*, leaning away from prescribing exact UI. Some interface detail is unavoidable and
   useful, but a scenario dictating pixel positions has stopped being a requirement and
   become a design.
-- **Include the person's emotional and situational context.** "Dana is being watched by an
+- **Include the person's emotional and situational context.** "Kati is being watched by an
   impatient patient and three people in line" is a requirement in disguise: it tells you the
   interaction must be fast and forgiving under stress.
 
@@ -744,21 +744,21 @@ the narrative whole and the buildable parts.
 
 Here is a scenario for the clinic scheduler, written to the guidelines above:
 
-> **Scenario: Priya checks in an arriving patient during the morning rush.**
+> **Scenario: Dorothy checks in an arriving patient during the morning rush.**
 >
-> Priya is an experienced front-desk clerk. It is 8:55 a.m., the waiting room is filling,
+> Dorothy is an experienced front-desk clerk. It is 8:55 a.m., the waiting room is filling,
 > and she has a line of five patients. Her goal is to check each one in quickly and make
 > sure the clinician has what they need before the visit.
 >
-> Mr. Alvarez arrives for a 9:00 appointment. Priya greets him and searches by last name.
-> Two Alvarezes appear; she confirms the date of birth and selects the right one. The
-> system shows his appointment and a reminder that his insurance verification is *pending*.
-> With one tap she marks him *arrived*; the assigned clinician's screen updates, and the
-> pending-insurance flag is passed along so the clinician isn't surprised. Total time: under
-> fifteen seconds. Priya moves to the next patient.
+> Laurel arrives for a 9:00 appointment. Dorothy greets her and searches by last name.
+> Two patients share it; she confirms the date of birth and selects the right one. The
+> system shows Laurel's appointment and a reminder that her insurance verification is
+> *pending*. With one tap Dorothy marks her *arrived*; the assigned clinician's screen
+> updates, and the pending-insurance flag is passed along so the clinician isn't
+> surprised. Total time: under fifteen seconds. Dorothy moves to the next patient.
 >
-> **Exception A — patient not found.** The next arrival, Ms. Okafor, does not appear in
-> search. She has an appointment but her name was misspelled at booking. Priya needs to find
+> **Exception A — patient not found.** The next arrival, Harper, does not appear in
+> search. She has an appointment but her name was misspelled at booking. Dorothy needs to find
 > her by phone number and correct the record without leaving the check-in flow, because the
 > line is growing.
 >
@@ -783,7 +783,7 @@ A scenario is a story told in prose; a **storyboard** is the same story told in 
 a short sequence of rough sketches, one frame per step, showing what the user sees and
 does at each moment. Borrowed from film,[^13] storyboarding earns its place in requirements
 work because a drawing forces decisions that a sentence lets you dodge: what is actually
-*on* the screen when Priya searches? Where does the *pending-insurance* flag appear? What
+*on* the screen when Dorothy searches? Where does the *pending-insurance* flag appear? What
 does she tap? If you cannot draw the frame, you have not yet imagined the requirement.
 
 Storyboards at this stage are **lo-fi** (low fidelity) on purpose: boxes, arrows, stick
@@ -796,10 +796,10 @@ This is the same right-fidelity discipline as the fat-marker sketches and breadb
 essentially a breadboard with time running left to right.
 
 > **Technique — storyboard an exception.** Storyboard the *unhappy* paths, not just the
-> demo path. Drawing §3.5.2's Exception A frame by frame — Ms. Okafor at the desk, the
-> empty search result, Priya switching to phone-number lookup, the inline correction, the
+> demo path. Drawing §3.5.2's Exception A frame by frame — Harper at the desk, the
+> empty search result, Dorothy switching to phone-number lookup, the inline correction, the
 > line still moving — immediately raises the questions that matter: where does the
-> correction happen? does Priya lose her place in check-in? what does the system show the
+> correction happen? does Dorothy lose her place in check-in? what does the system show the
 > *next* patient while she fixes it? Each frame you cannot draw is a requirement you have
 > not discovered yet.
 
@@ -985,7 +985,7 @@ otherwise miss:
 
 > **Pitfall.** Security is a set of requirements you discover by asking a different
 > question, not a feature you add at the end. A team that only elicits from cooperative users
-> will ship a system that does exactly what good people want — and exactly what bad people
+> risks shipping a system that does exactly what good people want — and exactly what bad people
 > want, too. Build one attack tree per critical asset *while* you write your user stories,
 > not after your first breach.
 

@@ -203,7 +203,7 @@ them as empty ritual is a classic failure.
   This is where requirements get corrected by contact with reality.
 - The **Sprint Retrospective** closes the sprint's *process* loop. The team reflects on how it
   worked — what to keep, what to change — and commits to one or two concrete improvements for
-  next sprint. A team that skips retrospectives stops getting better.
+  next sprint. A team that skips retrospectives gives up its built-in way of getting better.
 
 ### 2.2.4 Scrum Artifacts
 
@@ -458,7 +458,7 @@ engineering is for.
 Plan-driven cultures design everything up front. XP takes the opposite stance: **design a
 little, all the time.** Because requirements are discovered, a comprehensive up-front design
 is largely a guess about a future you do not yet understand — and guesses about the future
-are where accidental complexity comes from.
+are a major source of accidental complexity.
 
 XP's answer rests on three habits. **Simple design**: build the simplest thing that could
 possibly work for the stories you have *now*, not the ones you imagine you might have later
@@ -590,8 +590,9 @@ for waterfall's problems are the defining features of the methods that replaced 
 Waterfall's simplicity is seductive and its structure is treacherous: by deferring
 integration and testing to the end, it concentrates risk exactly where you can least afford
 it, and the cost-of-change curve makes late discovery of mistakes brutally expensive. The
-model is defensible only when requirements are genuinely stable and well understood — and even
-then, incremental integration and phase reviews are cheap insurance.
+model is defensible mainly when requirements are genuinely stable and well understood, or
+when contract or regulation forces its shape — and even then, incremental integration and
+phase reviews are cheap insurance.
 
 ## 2.5 Levels of Design and Testing: V Processes
 
@@ -728,7 +729,7 @@ The contrast with Section 2.6.2 is the lesson. The successful project reduced ri
 working system in small, validated steps. The troubled one *concentrated* risk into a single
 large leap — the same mistake, structurally, as big-bang integration and strict waterfall.
 Whether the risk is technical, schedule, or requirements, the pattern repeats: large,
-late-validated bets are dangerous; small, early-validated ones are safe.
+late-validated bets are dangerous; small, early-validated ones are far safer.
 
 > **Principle.** Prefer evolving working software to rewriting it wholesale. A rewrite throws
 > away embedded knowledge and takes on all its risk at once — exactly the concentration of risk

@@ -15,10 +15,10 @@ class InvoiceWidget {
   }
 }
 
-const ana = { patientName: "Ana", sentOn: new Date("2026-06-01"), paid: false };
+const adilyn = { patientName: "Adilyn", sentOn: new Date("2026-06-01"), paid: false };
 const today = new Date("2026-07-02");
-const fat = new InvoiceWidget().render(ana, today);
-assert.strictEqual(fat, "Ana — OVERDUE");
+const fat = new InvoiceWidget().render(adilyn, today);
+assert.strictEqual(fat, "Adilyn — OVERDUE");
 
 // --- After: humble view ------------------------------------------------------
 function isOverdue(invoice, today) {     // the rule, extracted where tests reach it
@@ -37,11 +37,11 @@ class HumbleInvoiceWidget {              // the book shows this as InvoiceWidget
 }
 
 function testUnpaid31DaysIsOverdue() {
-  const ana = { patientName: "Ana", sentOn: new Date("2026-06-01"), paid: false };
-  assert(isOverdue(ana, new Date("2026-07-02")));
+  const adilyn = { patientName: "Adilyn", sentOn: new Date("2026-06-01"), paid: false };
+  assert(isOverdue(adilyn, new Date("2026-07-02")));
 }
 
-assert.strictEqual(new HumbleInvoiceWidget().render(invoiceViewModel(ana, today)), fat);
+assert.strictEqual(new HumbleInvoiceWidget().render(invoiceViewModel(adilyn, today)), fat);
 const ben = { patientName: "Ben", sentOn: new Date("2026-06-15"), paid: false };
 const cho = { patientName: "Cho", sentOn: new Date("2026-05-01"), paid: true };
 assert(!isOverdue(ben, today) && !isOverdue(cho, today));

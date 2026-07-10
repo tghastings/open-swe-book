@@ -1,4 +1,4 @@
-# Exercise 11 (§13.6.2) — the inherited, undocumented norm_code the exercise
+# Chapter 15, exercise 2 (§15.2) — the inherited, undocumented norm_code the exercise
 # asks students to characterize, with the pins a probing session produces.
 # Runs standalone: python3 norm_code.py
 def norm_code(s, strict=False):

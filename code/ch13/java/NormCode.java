@@ -1,4 +1,4 @@
-// Exercise 11 (§13.6.2) — the inherited, undocumented norm_code, Java variant.
+// Chapter 15, exercise 2 (§15.2) — the inherited, undocumented norm_code, Java variant.
 // null plays Python's None; IllegalArgumentException plays ValueError; the
 // allMatch check plays str.isalnum (nonempty, all letters/digits).
 // Run: java -ea NormCode.java

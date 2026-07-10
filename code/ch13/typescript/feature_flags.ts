@@ -1,4 +1,4 @@
-// §13.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
+// §14.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
 // TypeScript variant. JS has no built-in string hash, so an FNV-1a helper supplies the
 // stable per-user bucket; its buckets differ from the CRC-32 buckets of the Python and
 // Ruby variants (any stable hash works, but pick one per system).

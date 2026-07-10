@@ -142,8 +142,8 @@ The basic flow is a lie of omission. In reality PINs are mistyped, accounts run 
 machines run out of twenties. The parts of a use case that make it genuinely useful — and
 genuinely hard — are the **alternative flows** that describe what happens when the happy
 path is interrupted. This is where use cases earn their keep over user stories: a story
-hides these conditions; a use case drags every one into the light and decides, on the
-record, what the system will do.
+hides these conditions; a use case drags every one you can find into the light and
+decides, on the record, what the system will do.
 
 An alternative flow always attaches to a specific point in another flow. It answers: "At
 step *N*, if condition *C* holds instead, then this happens." Because each alternative
@@ -703,7 +703,8 @@ level, neither too vague to test nor too concrete to design against; and an incr
 build order — actors and goals, then the basic flow, then the alternatives — that keeps
 something reviewable in front of you at every stage.
 
-Three ideas are worth carrying forward. First, **the failure modes are the requirements**;
+Three ideas are worth carrying forward. First, **the failure modes are most of the
+requirements**;
 anyone can describe the happy path, but the value of a use case is its honest catalog of
 what can go wrong and what the system promises anyway. Second, **keep every step at the
 system boundary** — observable behavior in the language of the domain — so stakeholders can

@@ -358,7 +358,7 @@ Severity is distinct from **priority**, which is the business decision of *when*
 A low-severity typo on the login page can be high-priority because everyone sees it; a
 critical bug in a feature no one uses can be low-priority. Because severity is ordinal,
 summarize it with counts per level and a median — not a mean (§12.3.2). A release with
-one Critical and five Lows is *worse* than one with ten Mediums, even though the second
+one Critical and five Lows can be *worse* than one with ten Mediums, even though the second
 has more total defects; the severity distribution captures what the count destroys.
 
 ### 12.4.2 Defect-Removal Efficiency
@@ -431,7 +431,7 @@ the release with 5, it is actually the *cleaner* release per user.
 
 You improve what you measure, measure against a target, act, and re-measure — the loop the
 Gantt chart in §12.3.4 lays out (Measure → Analyze → Improve → Verify). This is just the
-scientific method wearing a hard hat, and it is the only reliable way to improve quality,
+scientific method wearing a hard hat, and it is the most reliable way to improve quality,
 because it forces you to state a hypothesis ("more integration tests will cut escaped
 defects") and then *check* it against data rather than declaring victory by feeling.
 
@@ -454,7 +454,7 @@ Weighting by severity keeps the metric from treating a cosmetic typo like an out
 (Critical = 10, High = 5, Medium = 2, Low = 1, say), and normalizing by installs obeys
 the principle of §12.4.4. This one number is what leadership tracks; it is deliberately
 *outcome*-focused (what customers feel) rather than *activity*-focused (what engineers
-do), so it cannot be gamed by working harder at the wrong thing.
+do), so it is far harder to game by working harder at the wrong thing.
 
 ### 12.5.3 Subgoals: Product and Process Improvement
 
@@ -945,18 +945,35 @@ $$
 \text{95\% CI} = 9 \pm 3.93 = (5.07,\ 12.93)\ \text{customer-found defects}.
 $$
 
-Now interpret Northwind's result. The "before" quarter's true mean CFD rate plausibly lies
-anywhere from about 5 to 13 defects per release. If the "after" quarter's mean of, say, 4.5
-raw defects per release falls *below* this interval — and the after-interval likewise excludes the before-mean —
-the improvement is unlikely to be noise, and you can report it as real with quantified
-confidence. If the intervals overlap heavily, the right conclusion is "we cannot yet
-distinguish the improvement from ordinary release-to-release variation; collect more data."
-That is what §12.5.4 demanded: a confidence interval turns "quality
-improved" from a hope into a defensible finding — or an honest *not yet*.
+Now interpret Northwind's result — and resist a tempting shortcut. The "before" interval
+says the true mean CFD rate plausibly lies anywhere from about 5 to 13 defects per
+release. It does *not* follow that you can judge the improvement by computing a second
+interval for the "after" quarter and eyeballing whether the two overlap: overlap of two
+separate intervals is not a reliable test of whether two means differ. What §12.5.4 asked
+for was a confidence interval around the *improvement itself* — one interval for the
+**difference** between the means. Build it from paired differences when the observations
+are naturally paired (the same release measured under both processes); for two independent
+samples like Northwind's before and after quarters, it is
 
-> **Principle.** Never report a before/after change without a confidence interval or an
-> equivalent test. Metrics vary release to release even when nothing changed; the interval
-> is what separates a real improvement from a lucky quarter.
+$$
+(\bar{x}_{\text{before}} - \bar{x}_{\text{after}})
+\pm t^\* \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}},
+$$
+
+with degrees of freedom from your statistics package (or, conservatively, the smaller
+$n - 1$). If that interval excludes zero, the improvement is unlikely to be noise, and you
+can report it with quantified confidence. If it includes zero, the right conclusion is "we
+cannot yet distinguish the improvement from ordinary release-to-release variation; collect
+more data." Either way, a confidence interval turns "quality improved" from a hope into a
+defensible finding — or an honest *not yet*.
+
+> **Principle.** As a default, never report a before/after change without a confidence
+> interval or an equivalent test: metrics vary release to release even when nothing
+> changed, and the interval is what separates a real improvement from a lucky quarter.
+> And when your data cannot support one — a handful of observations, definitions that
+> changed midway, measurements that aren't independent — say *that* instead. Descriptive
+> numbers with stated limitations are honest; an interval computed from data that do not
+> meet its assumptions is pseudo-precision.
 
 ## 12.9 Simple Linear Regression
 

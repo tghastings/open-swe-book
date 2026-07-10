@@ -43,7 +43,7 @@ measure your own process. You are being graded not only on the artifact but on t
 The third goal is **to learn to work as a team** — which is a skill, not a personality
 trait, and one that employers consistently rank among the attributes they most want to
 see in new graduates.[^1] A team that communicates well and distributes work fairly will
-out-build a team of stronger individuals who do not.
+usually out-build a team of stronger individuals who do not.
 
 > **Tip.** Pick a project you can *finish*, not one you can *imagine*. A scheduling tool
 > for a campus club that you complete, test, and measure teaches you more than an

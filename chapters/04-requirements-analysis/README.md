@@ -5,8 +5,9 @@
 > comes the harder question every team faces on Monday morning: *given more work than we
 > can possibly do, in what order, and how long will it take?* This chapter is about
 > **requirements analysis** — sizing work, estimating effort, ranking by value, cost, and
-> risk, and turning a pile of wishes into a defensible plan. These are the skills that let
-> you promise a date and keep it.
+> risk, and turning a pile of wishes into a defensible plan. These techniques help teams
+> produce evidence-based forecasts, communicate uncertainty, and revise commitments
+> responsibly as new information appears.
 
 You have talked to users, and the whiteboard is full. There are forty things the clinic
 scheduling app "must" do, six people who each want theirs first, and a sponsor asking a
@@ -25,7 +26,8 @@ person can follow at 4 p.m. without heroics. Atul Gawande's surgeons and Boeing'
 rely on them for the same reason engineers should: not because the steps are difficult,
 but because *skipping* one is easy and expensive.[^1]
 
-A requirement is ready to be estimated only when you can answer questions like these:
+A requirement is ready to be estimated with confidence only when you can answer questions
+like these:
 
 - **Who** asked for it, and who else is affected? (A change to appointment reminders
   touches front-desk staff, patients, *and* the SMS-cost line item.)
@@ -224,7 +226,8 @@ when scope truly cannot flex.
 
 ## 4.3 Structured Group Consensus Estimates
 
-An estimate from one person is a guess. An estimate from a group *if you gather it well* is
+An estimate from one person is usually a guess. An estimate from a group *if you gather it
+well* is
 markedly better, because different people see different risks: the database expert knows
 about the migration, the front-end developer knows the UI is fiddly, the tester knows the
 edge cases. The trick is to combine their knowledge **without** letting the loudest or most
@@ -553,7 +556,7 @@ term. If *b* = 1, effort is linear. Real projects show **b slightly greater than
 building identical widgets, where bigger batches get cheaper per unit, bigger software costs
 *more* per line.[^7] Doubling the size more than doubles the effort. That single fact — that
 software exhibits diseconomies of scale — is the reason "just add more code" and "just add
-more people" both disappoint.
+more people" both so often disappoint.
 
 ### 4.6.2 The COCOMO Family of Estimation Models
 

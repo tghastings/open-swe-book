@@ -30,8 +30,8 @@ class FakeTransport(list):                 # a two-line test double
 
 
 fake = FakeTransport()
-MessageRouter(fake).route({"to": "dana", "body": "you are on call"})
-assert fake == [("dana", "you are on call")]
+MessageRouter(fake).route({"to": "eloise", "body": "you are on call"})
+assert fake == [("eloise", "you are on call")]
 
 
 # The real implementation conforms too — fed a stand-in socket here so the
@@ -41,7 +41,7 @@ class RecordingSocket(list):
 
 
 sock = RecordingSocket()
-MessageRouter(WebSocketTransport(sock)).route({"to": "dana", "body": "hi"})
-assert sock == [b"dana:hi"]
+MessageRouter(WebSocketTransport(sock)).route({"to": "eloise", "body": "hi"})
+assert sock == [b"eloise:hi"]
 
 print("fake and websocket transports both satisfy MessageRouter: OK")

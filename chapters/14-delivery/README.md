@@ -1,15 +1,15 @@
-# Chapter 14 — Delivery: CI/CD, DevOps, and Evolution
+# Chapter 14 — Delivery: CI/CD, DevOps, and Operations
 
 > **Where we are.** Chapter 13 asked how AI changes the practice of software engineering;
-> this final chapter asks a question the earlier
+> this chapter asks a question the earlier
 > chapters quietly deferred. Chapters 1–12 taught you how to *build* software — process,
 > requirements, design, patterns — and how to *verify* it with reviews, tests, security
 > scanning, and metrics.
 > But a verified commit sitting in a repository helps no one. This chapter covers the
-> stretch of engineering between "the code is written" and "users are running it," and then
-> the longer stretch after that: what happens to code once it has been in production for
-> years. **Delivery** is where every earlier discipline either becomes real or stays
-> theoretical.
+> stretch of engineering between "the code is written" and "users are running it";
+> Chapter 15 covers the longer stretch after that — what happens to code once it has been
+> in production for years. **Delivery** is where every earlier discipline either becomes
+> real or stays theoretical.
 
 Delivery used to be an afterthought — a thing operations people did after engineering was
 "done." Two shifts ended that. First, software moved to the cloud, where releasing stopped
@@ -21,7 +21,8 @@ discipline, practiced by one team, with shared tools and shared accountability. 
 chapter walks the pipeline from commit to production, studies two of the most instructive
 deployment disasters on the public record, shows concretely how a service is packaged and
 put online — containers, a database, a domain, a certificate, and the edge — and closes
-with the fate that awaits all successful code: becoming legacy.
+with the research on why delivery performance predicts so much else. The fate that awaits
+all successful code — becoming legacy — is Chapter 15.
 
 > **Principle.** Undeployed code is inventory, not value. Every practice in this chapter
 > exists to shrink the time and the risk between *writing* a change and *learning* what it
@@ -41,8 +42,10 @@ it, and mistakes are answered with recalls, patch disks, and support calls.
 
 **Software as a service (SaaS)** inverts the arrangement: the software runs on machines
 the *vendor* controls, and users reach it over the network, usually through a browser or a
-thin client. Nothing ships. That single change rearranges almost everything downstream.
-There is exactly one version in production, not a museum of old installs to support. The
+thin client. In its pure form, nothing ships. That single change rearranges almost
+everything downstream. The provider controls what runs in production — canaries, staged
+rollouts, and feature flags may briefly mix versions, but there is no museum of old
+customer installs to support. The
 vendor sees real usage directly — logs, errors, performance — instead of hearing about it
 through support tickets. And because the vendor owns the machines, an update is an
 internal operation rather than a request to thousands of customers: it can happen at any
@@ -79,7 +82,7 @@ failure modes a shipped artifact simply could not have.
 Serving many tenants also means serving unpredictable load, and the cloud's answer is
 **horizontal scaling**: instead of buying a bigger machine (*vertical* scaling), you run
 more copies of the same service behind a load balancer and add or remove copies as demand
-moves. Horizontal scaling only works if any copy can serve any request — which is exactly
+moves. Horizontal scaling only works cleanly if any copy can serve any request — which is exactly
 why the statelessness convention of RESTful design matters
 ([§7.5.4](../07-architectural-patterns/#754-restful-apis)). A service that keeps
 per-client session state on one server has silently welded each user to that server;
@@ -335,8 +338,16 @@ the slow end-to-end layer thin. Beyond that, run independent stages in parallel,
 dependencies and build outputs so unchanged parts are not rebuilt, and split the pipeline
 into a fast merge-blocking core plus deeper suites (full end-to-end runs, performance
 tests, long fuzzing) that run continuously against the trunk without holding up merges.
-Treat a slow pipeline as a process defect that changes how your team behaves, not as a
-tooling annoyance to live with.
+
+Order matters inside the merge-blocking core, too. The pipeline's verdict arrives when
+the first test *fails*, not when the last one passes — so run the tests most likely to
+fail first: the ones nearest the changed code, and the ones that have failed most
+recently. At the largest scale, teams select per change the subset of tests worth running
+at all — a budgeted-selection problem (the knapsack problem in disguise) that
+[§10.1.6](../10-testing/#1016-selecting-from-the-suite-regression-selection-and-prioritization)
+examines, and that industrial CI systems implement as *predictive test selection*. Treat
+a slow pipeline as a process defect that changes how your team behaves, not as a tooling
+annoyance to live with.
 
 ## 14.3 Continuous Deployment
 
@@ -586,7 +597,8 @@ states of any flag that will live past a sprint, and at least pairwise across fl
 interact. And flags demand hygiene *because* they are so easy to add: every
 flag needs an owner, an intended lifespan, and a removal date, and a retired flag's code
 — both the dead branch and the conditional — must be deleted promptly. Stale flags are
-technical debt (§14.8) of an unusually dangerous kind: dormant behavior sitting in
+technical debt ([§15.4](../15-maintenance-evolution/#154-technical-debt)) of an unusually
+dangerous kind: dormant behavior sitting in
 production, waiting for someone to trip it. The first case study below turned that danger
 from hypothetical to historical.
 
@@ -749,8 +761,8 @@ the dependency layer, so most rebuilds skip it entirely. Pinning the base image 
 build the image once and run it as many times as you like:
 
 ```bash
-docker build -t clinic-app:1.4.0 .        # build, tag with a version
-docker run -p 8000:8000 clinic-app:1.4.0  # run, mapping host port to container port
+docker build -t clinic-app:1.4.3 .        # build, tag with a version
+docker run -p 8000:8000 clinic-app:1.4.3  # run, mapping host port to container port
 ```
 
 > **Principle.** Build once, run anywhere. The image your CI pipeline (§14.2) builds is the
@@ -873,7 +885,7 @@ most common ways a live credential ends up in a public repository.
 ## 14.5 Reaching Users: DNS, TLS, and the Edge
 
 You now have a stack running on a server. That server has an IP address like
-`203.0.113.10`, but no user will type that, and no browser will trust it without a padlock.
+`203.0.113.143`, but no user will type that, and no browser will trust it without a padlock.
 Two pieces of internet infrastructure bridge the distance between "a container is running
 somewhere" and "anyone can reach it safely at `https://clinic.example.com`": the **Domain
 Name System**, which turns a name into an address, and **TLS**, which encrypts and
@@ -885,9 +897,10 @@ start to finish.
 
 The **Domain Name System (DNS)** is the internet's directory: a globally distributed
 database that maps human-readable names like `clinic.example.com` to the numeric IP
-addresses machines actually route to.[^29] Every web request begins with a DNS lookup, and
-understanding the pieces clears up what is otherwise the most common source of "it works
-locally but not in production."
+addresses machines actually route to.[^29] A client's first connection to an uncached
+hostname generally requires name resolution — commonly through DNS — and understanding the
+pieces clears up what is otherwise the most common source of "it works locally but not in
+production."
 
 You obtain a domain from a **registrar**, the company you buy `example.com` from. The
 registrar records which **nameservers** are authoritative for your domain — the servers
@@ -902,8 +915,8 @@ typed mapping. The handful you actually set for a deployment:
 
 | Record | Maps a name to | Example use |
 |--------|----------------|-------------|
-| **A** | an IPv4 address | `clinic.example.com` → `203.0.113.10` |
-| **AAAA** | an IPv6 address | `clinic.example.com` → `2001:db8::10` |
+| **A** | an IPv4 address | `clinic.example.com` → `203.0.113.143` |
+| **AAAA** | an IPv6 address | `clinic.example.com` → `2001:db8::143` |
 | **CNAME** | another name (an alias) | `www.example.com` → `clinic.example.com` |
 | **MX** | a mail server | routes email addressed to the domain |
 | **TXT** | arbitrary text | domain verification, email (SPF/DKIM) policy |
@@ -931,7 +944,7 @@ Authentication rests on a **certificate**: a file, issued by a **Certificate Aut
 (CA)**, that binds your domain name to a cryptographic key and carries the signature of an
 authority the browser already trusts. When a browser connects, the server presents its
 certificate; the browser checks the CA's signature and that the name matches, then
-negotiates an encrypted session. A certificate for a name you do not control cannot be
+negotiates an encrypted session. A certificate for a name you do not control cannot normally be
 obtained from a trusted CA, which is what stops an attacker from impersonating your site.
 
 Certificates were once a paid, manual chore. **Let's Encrypt** changed that: a nonprofit CA
@@ -965,8 +978,7 @@ through Cloudflare first. Sitting in that position lets the edge do several jobs
   filter malicious requests with a **web application firewall (WAF)** before they reach you.
 
 The scale is what makes this remarkable. Cloudflare sits in front of roughly **one in five
-of all websites** and carries well over 20% of global web request traffic, so a large share
-of the internet is proxied through this one network.[^34] That scale is the source of both
+of all websites**, so a large share of the web is proxied through this one network.[^34] That scale is the source of both
 its value, because it sees enough traffic to recognize new attacks quickly, and a real
 concern: when a service this central has an outage, a visible slice of the web goes down
 with it. The concentration is worth weighing when you decide how much of your delivery to
@@ -1172,551 +1184,7 @@ retrospective, and resist the urge to set targets — use them, in GQM fashion (
 12), to ask *why* lead time is three days and *which* stage of your pipeline the time
 hides in.
 
-## 14.8 Legacy Code, Refactoring, and Technical Debt
-
-Deployment begins the longest phase of a successful system's life. Most professional
-effort goes into **evolving** systems that have been in production for years, not into
-building new ones — and this section is about the code you will inherit.
-
-The industry has names for that work. **Corrective maintenance** fixes defects.
-**Adaptive maintenance** responds to a changing environment — a new OS version, a
-deprecated API, a new regulation — where the code did nothing wrong but the world moved.
-**Perfective maintenance** adds the features and improvements users keep asking a living
-system for. And **preventative maintenance** — refactoring, debt paydown — improves
-structure now so that all the other kinds stay affordable later. The standard industry
-rule of thumb is that maintenance, taken together, consumes roughly 60 percent of a
-system's lifetime cost.[^45] Read that number again: the phase this book spent eleven chapters
-preparing you for is the *minority* of the money, which is reason enough to treat evolving
-code as the main event of an engineering career rather than the cleanup after it.
-
-### 14.8.1 What Makes Code Legacy
-
-Colloquially, "legacy" means old. The working definition that matters is different:
-**legacy code is code without tests** — or, in its more visceral form, *code you are
-afraid to change*. Age is incidental. A module written last month with no tests, no
-documentation, and one departed author is legacy; a fifteen-year-old module with a
-thorough suite is not, because the suite makes change safe. The defining property is that
-*the system's actual behavior is not pinned down anywhere except in the code itself* —
-so any change might break something, you cannot know what, and you cannot know cheaply.
-Fear sets in, fear breeds avoidance, avoidance means changes are bolted on in the least
-invasive (and least clean) way possible, and the code gets worse precisely because
-everyone is being careful. Breaking that spiral is a skill, and it starts with an
-inversion of the testing you learned in Chapter 10.
-
-The tests-first definition comes from Michael Feathers, whose *Working Effectively with
-Legacy Code* also names the only two ways there are to change legacy code.[^46] **Edit and
-pray**: study the code, make the change, look around manually for anything you broke,
-deploy, and hope. **Cover and modify**: first build tests that cover the code you must
-touch, then make the change and let the tests detect any behavior you altered without
-meaning to. This book has been teaching the second way all along; here it finally gets its
-name. Cover-and-modify starts with a search, not an edit: locate your **change points** —
-the specific places in the code where your change must actually land — because those are
-the places the test coverage has to grip before you touch anything. The next two
-subsections are cover-and-modify in practice.
-
-### 14.8.2 Characterization Tests
-
-Chapter 10's tests were built from a *specification*: the oracle
-([§10.1.4](../10-testing/#1014-test-oracles-evaluating-the-response-to-a-test)) told you
-what the right answer *should* be. Legacy code has no trustworthy spec — the comments
-lie, the documentation describes version 2, and the original requirements are three
-pivots old. So you flip the direction of inference. A **characterization test** documents
-what the code *actually does now*: you call the function with an input, observe the
-output, and write that observation down as the expected value. The running system itself
-becomes the oracle.
-
-This feels like cheating — you are asserting the code does whatever it does, bugs
-included. But the test's job is to **pin down current behavior**, not to verify
-correctness, so that your upcoming changes cannot alter it *unknowingly*. Users, and other
-code, may well depend on the current behavior, strange corners and all. The practical
-loop: write a test with a deliberately wrong expected value, run it, read the actual
-value from the failure message, and promote that actual value into the assertion. Probe
-the edges — empty inputs, nulls, boundary values — until you have a net of pinned
-behavior around everything your change might disturb. When a characterization test
-exposes something that is plainly a bug, resist fixing it in the same breath: record it,
-finish building the net, and change behavior as its own deliberate, separately reviewed
-step. One commit should refactor *or* fix, never ambiguously both.
-
-Applied to a fee-code lookup inherited with the clinic scheduler, the loop leaves this
-trail:
-
-```generic
-function legacy_fee_code(visit_type)   // inherited: no docs, no tests
-  codes <- { "exam": "E10", "lab": "L20", "vaccine": "V30" }
-  if visit_type is a key in codes then
-    return codes[visit_type]
-  end if
-  return "E10"                          // default when the type is unknown
-end function
-
-test probe_unknown_type
-  assert legacy_fee_code("phone") = "XXX"    // deliberately wrong
-// FAILED: legacy_fee_code("phone") = "E10", not "XXX"
-
-test unknown_type_bills_as_exam              // observed value, promoted
-  assert legacy_fee_code("phone") = "E10"
-
-test empty_type_bills_as_exam                // edge probe: pinned, bug or not
-  assert legacy_fee_code("") = "E10"
-```
-
-```go
-func legacyFeeCode(visitType string) string { // inherited: no docs, no tests
-	codes := map[string]string{"exam": "E10", "lab": "L20", "vaccine": "V30"}
-	return cmp.Or(codes[visitType], "E10")
-}
-
-func TestProbeUnknownType(t *testing.T) {
-	if got := legacyFeeCode("phone"); got != "XXX" { // deliberately wrong
-		t.Errorf(`legacyFeeCode("phone") = %q, want "XXX"`, got)
-	}
-}
-// FAILED: legacyFeeCode("phone") = "E10", want "XXX"
-
-func TestUnknownTypeBillsAsExam(t *testing.T) { // observed value, promoted
-	if got := legacyFeeCode("phone"); got != "E10" {
-		t.Errorf("got %q", got)
-	}
-}
-
-func TestEmptyTypeBillsAsExam(t *testing.T) { // edge probe: pinned, bug or not
-	if got := legacyFeeCode(""); got != "E10" {
-		t.Errorf("got %q", got)
-	}
-}
-```
-
-```java
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-import java.util.Map;
-
-class FeeCodeCharacterization {
-  static String legacyFeeCode(String visitType) {   // inherited: no docs, no tests
-    return Map.of("exam", "E10", "lab", "L20", "vaccine", "V30")
-        .getOrDefault(visitType, "E10");
-  }
-
-  @Test void probeUnknownType() {
-    assertEquals("XXX", legacyFeeCode("phone"));    // deliberately wrong
-  }
-  // FAILED: org.opentest4j.AssertionFailedError: expected: <XXX> but was: <E10>
-
-  @Test void unknownTypeBillsAsExam() {             // observed value, promoted
-    assertEquals("E10", legacyFeeCode("phone"));
-  }
-
-  @Test void emptyTypeBillsAsExam() {               // edge probe: pinned, bug or not
-    assertEquals("E10", legacyFeeCode(""));
-  }
-}
-```
-
-```javascript
-const test = require("node:test");
-const assert = require("node:assert/strict");
-
-function legacyFeeCode(visitType) {                 // inherited: no docs, no tests
-  return { exam: "E10", lab: "L20", vaccine: "V30" }[visitType] ?? "E10";
-}
-
-test("probe unknown type", () => {
-  assert.equal(legacyFeeCode("phone"), "XXX");      // deliberately wrong
-});
-// FAILED: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-// 'E10' !== 'XXX'
-
-test("unknown type bills as exam", () => {          // observed value, promoted
-  assert.equal(legacyFeeCode("phone"), "E10");
-});
-
-test("empty type bills as exam", () => {            // edge probe: pinned, bug or not
-  assert.equal(legacyFeeCode(""), "E10");
-});
-```
-
-```python
-def legacy_fee_code(visit_type):                    # inherited: no docs, no tests
-  return {"exam": "E10", "lab": "L20", "vaccine": "V30"}.get(visit_type, "E10")
-
-def test_probe_unknown_type():
-  assert legacy_fee_code("phone") == "XXX"        # deliberately wrong
-# FAILED: AssertionError: assert 'E10' == 'XXX'
-
-def test_unknown_type_bills_as_exam():              # observed value, promoted
-  assert legacy_fee_code("phone") == "E10"
-
-def test_empty_type_bills_as_exam():                # edge probe: pinned, bug or not
-  assert legacy_fee_code("") == "E10"
-```
-
-```ruby
-require "minitest/autorun"
-
-def legacy_fee_code(visit_type)                     # inherited: no docs, no tests
-  { "exam" => "E10", "lab" => "L20", "vaccine" => "V30" }.fetch(visit_type, "E10")
-end
-
-class TestFeeCode < Minitest::Test
-  def test_probe_unknown_type
-    assert_equal "XXX", legacy_fee_code("phone")    # deliberately wrong
-  end
-  # FAILED: Expected: "XXX"  Actual: "E10"
-
-  def test_unknown_type_bills_as_exam               # observed value, promoted
-    assert_equal "E10", legacy_fee_code("phone")
-  end
-
-  def test_empty_type_bills_as_exam                 # edge probe: pinned, bug or not
-    assert_equal "E10", legacy_fee_code("")
-  end
-end
-```
-
-```typescript
-import test from "node:test";
-import assert from "node:assert/strict";
-
-function legacyFeeCode(visitType: string): string {  // inherited: no docs, no tests
-  const codes: Record<string, string> =
-    { exam: "E10", lab: "L20", vaccine: "V30" };
-  return codes[visitType] ?? "E10";
-}
-
-test("probe unknown type", () => {
-  assert.equal(legacyFeeCode("phone"), "XXX");       // deliberately wrong
-});
-// FAILED: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-// 'E10' !== 'XXX'
-
-test("unknown type bills as exam", () => {           // observed value, promoted
-  assert.equal(legacyFeeCode("phone"), "E10");
-});
-
-test("empty type bills as exam", () => {             // edge probe: pinned, bug or not
-  assert.equal(legacyFeeCode(""), "E10");
-});
-```
-
-Characterizing assumes you can find your way around, and with an inherited codebase that
-takes a deliberate workflow. Read what the previous team left behind first — the tests
-above all (a passing test is documentation that cannot drift out of date), then any design
-documents. On documentation, note the distinction: an architecture description
-([§6.5](../06-design-and-architecture/#65-describing-system-architecture)) is the *formal*
-design artifact, but tests, commit history, and mockups are living *informal*
-documentation, and agile teams weight the informal kind heavily because it stays closer
-to the code. Next, generate a class or dependency diagram — most languages have
-tools that extract one — to see the shape of the system before you dive into any single
-file. Then get the application and its test suite running *locally*, against a cloned or
-fixture copy of the database, before touching anything: a system you cannot run is a
-system you cannot characterize. Only then write characterization tests at your intended
-change points, and begin.
-
-### 14.8.3 Refactoring Under Green Tests
-
-With behavior pinned, you can refactor. Chapter 2 introduced **refactoring** inside the
-red–green–refactor loop
-([§2.3.2](../02-software-development-processes/#232-testing-make-it-central-to-development)):
-improving the design of existing code without changing its behavior, protected by green
-tests. In legacy work, the loop is the same but the entry point differs — you had to
-*build* the green net first — and the discipline must be stricter, because the code fights
-back. The craft is to move in steps so small that each one is obviously
-behavior-preserving — rename, extract a function, inline a variable, move a method —
-running the suite after every step. If the bar goes red, the *last* step is the culprit;
-undo it and take a smaller one. Named, cataloged refactoring moves (Fowler's catalog is
-the standard reference) matter because each has known mechanics and known traps; a
-sequence of safe moves composes into a transformation you would never dare attempt as one
-leap.[^47]
-
-Where should you aim the moves? **Code smells** are surface symptoms that *suggest* — not
-prove — a deeper design problem: a long method, a large class that does too many things, a
-stretch of duplicated code, **magic numbers** (unexplained literals like `65` scattered
-through the logic), deeply nested conditionals, a long parameter list. A smell is a prompt
-to look closer, not a verdict; sometimes the long method really is the clearest way to
-write that logic. For functions in particular, a compact health checklist is **SOFA**:
-keep each function **S**hort, doing **O**ne thing, taking **F**ew arguments, and written
-at a single level of **A**bstraction. Some smells can even be measured: cyclomatic
-complexity counts the independent decision paths through a function — built on the
-control-flow analysis of [Chapter 10](../10-testing/#1031-control-flow-graphs) — turning
-"this method feels tangled"
-into a number a pipeline can watch.
-
-The named moves map onto the smells. Beyond rename, extract, inline, and move: **replace
-magic number with named constant** (`speed > SPEED_LIMIT` explains itself; `speed > 65`
-does not); **introduce guard clauses** — early returns for the exceptional cases — to
-flatten deeply nested conditionals; **remove duplication**, applying Chapter 6's DRY
-principle, while staying alert for code that merely *looks* similar but serves different
-purposes; **decompose large class**, splitting along clusters of fields and methods that
-change together; **replace temp with query**, turning a scattered computed variable into
-one well-named method; and **introduce parameter object**, bundling arguments that always
-travel together into a single type that can then attract the behavior that uses it.
-
-The clinic scheduler's booking check shows two of those smells at once:
-
-```generic
-function can_book(patient, slot, booked_today)
-  if patient is present then
-    if slot.open then
-      if booked_today < 8 then      // magic number: daily booking cap
-        return true
-      else
-        return false
-      end if
-    else
-      return false
-    end if
-  else
-    return false
-  end if
-end function
-```
-
-```go
-func canBook(patient *Patient, slot Slot, bookedToday int) bool {
-	if patient != nil {
-		if slot.Open {
-			if bookedToday < 8 {
-				return true
-			} else {
-				return false
-			}
-		} else {
-			return false
-		}
-	} else {
-		return false
-	}
-}
-```
-
-```java
-static boolean canBook(Patient patient, Slot slot, int bookedToday) {
-  if (patient != null) {
-    if (slot.open()) {
-      if (bookedToday < 8) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
-```
-
-```javascript
-function canBook(patient, slot, bookedToday) {
-  if (patient !== null) {
-    if (slot.open) {
-      if (bookedToday < 8) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
-```
-
-```python
-def can_book(patient, slot, booked_today):
-  if patient is not None:
-    if slot.open:
-      if booked_today < 8:
-        return True
-      else:
-        return False
-    else:
-      return False
-  else:
-    return False
-```
-
-```ruby
-def can_book(patient, slot, booked_today)
-  if !patient.nil?
-    if slot.open
-      if booked_today < 8
-        true
-      else
-        false
-      end
-    else
-      false
-    end
-  else
-    false
-  end
-end
-```
-
-```typescript
-interface Slot {
-  open: boolean;
-}
-
-function canBook(patient: string | null, slot: Slot, bookedToday: number): boolean {
-  if (patient !== null) {
-    if (slot.open) {
-      if (bookedToday < 8) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
-```
-
-Replace the magic `8` with a named constant, run the suite, flatten the nesting with
-guard clauses, run it again — the tests stay green after each move:
-
-```generic
-MAX_DAILY_BOOKINGS <- 8
-
-function can_book(patient, slot, booked_today)
-  if patient is absent then return false
-  if not slot.open then return false
-  return booked_today < MAX_DAILY_BOOKINGS
-end function
-```
-
-```go
-const maxDailyBookings = 8
-
-func canBook(patient *Patient, slot Slot, bookedToday int) bool {
-	if patient == nil {
-		return false
-	}
-	if !slot.Open {
-		return false
-	}
-	return bookedToday < maxDailyBookings
-}
-```
-
-```java
-static final int MAX_DAILY_BOOKINGS = 8;
-
-static boolean canBook(Patient patient, Slot slot, int bookedToday) {
-  if (patient == null) return false;
-  if (!slot.open()) return false;
-  return bookedToday < MAX_DAILY_BOOKINGS;
-}
-```
-
-```javascript
-const MAX_DAILY_BOOKINGS = 8;
-
-function canBook(patient, slot, bookedToday) {
-  if (patient === null) return false;
-  if (!slot.open) return false;
-  return bookedToday < MAX_DAILY_BOOKINGS;
-}
-```
-
-```python
-MAX_DAILY_BOOKINGS = 8
-
-def can_book(patient, slot, booked_today):
-  if patient is None:
-    return False
-  if not slot.open:
-    return False
-  return booked_today < MAX_DAILY_BOOKINGS
-```
-
-```ruby
-MAX_DAILY_BOOKINGS = 8
-
-def can_book(patient, slot, booked_today)
-  return false if patient.nil?
-  return false unless slot.open
-  booked_today < MAX_DAILY_BOOKINGS
-end
-```
-
-```typescript
-const MAX_DAILY_BOOKINGS = 8;
-
-function canBook(patient: string | null, slot: Slot, bookedToday: number): boolean {
-  if (patient === null) return false;
-  if (!slot.open) return false;
-  return bookedToday < MAX_DAILY_BOOKINGS;
-}
-```
-
-Legacy code adds a chicken-and-egg problem the catalog alone cannot solve: the worst code
-cannot be tested without refactoring (dependencies are hard-wired, everything talks to the
-database) and cannot be safely refactored without tests. The escape is a minimal set of
-low-risk *enabling* changes — introduce a parameter, extract an interface for a hard-wired
-dependency so a test double (Chapter 10) can stand in — done with extreme care, exactly to
-the point where a test can grip, and no further.
-
-### 14.8.4 Technical Debt
-
-The economics underneath all of this has a name. **Technical debt** is the metaphor for
-the future cost incurred when you take a shortcut today: like financial debt, it lets you
-move faster *now* in exchange for **interest** — and the interest is that *every future
-change to that code costs more* than it would have.[^48] The metaphor's precision is its
-virtue. Debt is a *deal*, not simply "bad code" — and sometimes the deal is a good one.
-**Deliberate debt** is a conscious trade — "we hard-code the tax rule to make the pilot;
-we log a ticket to generalize it" — the engineering equivalent of a startup loan, rational
-whenever learning fast matters more than building clean, *provided you track it and
-service it*. **Inadvertent debt** is the interest you pay on shortcuts you never knew you
-took — from inexperience, from requirements that shifted under a once-correct design, or
-from Chapter 1's crunch pitfall, where scope silently absorbed through overtime gets paid
-for later in weakened structure. Nobody chose it, so nobody tracks it, so it compounds.
-
-Unmanaged, debt's interest payments consume a team's entire capacity: each feature takes
-longer, which raises pressure, which invites new shortcuts, which raises interest again.
-The management is not "never borrow" — it is to borrow knowingly, keep the debts visible
-(a debt register in the backlog, reviewed like any other work), and pay down principal
-where you actually pay interest: the high-churn code you touch weekly, not the ugly module
-nobody has opened in years. Refactoring (§14.8.3) is the repayment mechanism, and the
-pipeline (§14.2) is what makes repayment safe enough to do continuously.
-
-### 14.8.5 Strangler Fig versus Big-Bang Rewrite
-
-What about a system so far gone that the team wants to start over? Chapter 2's troubled
-browser rewrite
-([§2.6.3](../02-software-development-processes/#263-a-troubled-project)) showed how a
-**big-bang rewrite** concentrates risk: you discard the accumulated knowledge embedded in
-code that handles a thousand edge cases, you run two systems (one frozen, one imaginary)
-for the duration, and the new system's first real validation comes at the end, all at
-once. The delivery-era alternative is the **strangler fig** pattern, named for the fig
-that grows around a host tree, roots itself, and gradually replaces the host it envelops.[^49]
-You place an interception layer — a routing facade — in front of the legacy system, then
-peel off one capability at a time: build the new implementation, route that slice of
-traffic to it, verify it in production (a canary, §14.3.2, at the granularity of a
-feature), and retire the old code path. At every moment, you have one *working* system —
-part old, part new — and every increment of the rewrite is validated by real use within
-weeks of being written. The rewrite becomes a sequence of small, reversible deployments
-instead of one giant irreversible bet: the whole argument of this chapter, applied to the
-biggest change a team ever makes.
-
-Modern tooling has also shifted the *comprehension* half of legacy work. Understanding
-what a gnarly function actually does — the prerequisite for characterizing it — has always
-been the slowest, loneliest part of the job. AI assistants
-([§13.2](../13-ai-across-the-lifecycle/#132-ai-across-the-lifecycle)) are genuinely strong
-here: summarizing an unfamiliar module, proposing what a function's edge cases might be,
-drafting candidate characterization tests for you to verify against the running code. The
-verification discipline of Chapter 13 still governs — an AI's *account* of legacy behavior
-is a hypothesis, and the running system remains the only oracle — but as a hypothesis
-generator for code no living person understands, it removes a real bottleneck.
-
-## 14.9 Conclusion
+## 14.8 Conclusion
 
 Delivery is the connective tissue of everything this book has taught. The CI pipeline of
 §14.2 is Chapters 9 and 10 made *mandatory*: reviews, static analysis, and tests by level,
@@ -1729,16 +1197,12 @@ big releases, with Knight Capital and CrowdStrike as the permanent record of wha
 at either failed extreme — no automation, and automation without staging. The packaging and
 networking of §§14.4–14.5 are that same pipeline made *tangible*: an image built once, a
 database on a durable volume, a name, a certificate, and an edge in front, so the artifact a
-pipeline produces actually becomes a service a user can reach. And the
-evolution practices of §14.8 are where Chapter 6's "design for change" either pays its
-dividend or collects its debt: systems built with seams, interfaces, and tests bend under
-years of change; systems without them become the legacy code someone else must
-characterize, strangle, and replace.
+pipeline produces actually becomes a service a user can reach. What delivery cannot do
+is stop the clock: the system you now ship continuously will spend years being changed,
+and that long tail — legacy code, refactoring, technical debt — is Chapter 15's subject.
 
 If the chapter compresses to one sentence, it is this: **make change small, make its path
-to users automatic and progressively exposed, watch the outcomes, and keep the code
-changeable** — because the one certainty about a successful system is that it will have
-to change for longer than anyone who built it expects.
+to users automatic and progressively exposed, and watch the outcomes.**
 
 ---
 
@@ -1810,7 +1274,7 @@ to change for longer than anyone who built it expects.
 
 [^33]: Cloudflare, *How Cloudflare works* and *What is a reverse proxy?* [developers.cloudflare.com/fundamentals/concepts/how-cloudflare-works](https://developers.cloudflare.com/fundamentals/concepts/how-cloudflare-works/), [cloudflare.com/learning/cdn/glossary/reverse-proxy](https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/).
 
-[^34]: W3Techs, *Usage statistics and market share of reverse proxy services for websites*, July 2026 — Cloudflare is used as a reverse proxy by 20.4% of all websites and carries a comparable share of global web request traffic. [w3techs.com/technologies/overview/proxy](https://w3techs.com/technologies/overview/proxy/).
+[^34]: W3Techs, *Usage statistics and market share of reverse proxy services for websites*, July 2026 — Cloudflare is used as a reverse proxy by 20.4% of all websites. (W3Techs measures website adoption, not request volume; the share of global request *traffic* is a different quantity and is not measured here.) [w3techs.com/technologies/overview/proxy](https://w3techs.com/technologies/overview/proxy/).
 
 [^35]: OWASP Foundation, community references for the scanner families:
 [Source Code Analysis Tools (SAST)](https://owasp.org/www-community/Source_Code_Analysis_Tools),
@@ -1835,18 +1299,8 @@ and [Component Analysis (SCA)](https://owasp.org/www-community/Component_Analysi
 
 [^44]: DORA, *DORA's software delivery metrics: the four keys*. [dora.dev](https://dora.dev/guides/dora-metrics-four-keys/).
 
-[^45]: Robert L. Glass, *Frequently Forgotten Fundamental Facts about Software Engineering* (IEEE Software, 2001). [doi.org](https://doi.org/10.1109/MS.2001.922739).
-
-[^46]: Michael Feathers, *Working Effectively with Legacy Code* (Prentice Hall, 2004). [informit.com](https://www.informit.com/store/working-effectively-with-legacy-code-9780131177055).
-
-[^47]: Martin Fowler, *Catalog of Refactorings*. [refactoring.com](https://refactoring.com/catalog/).
-
-[^48]: Ward Cunningham, *The WyCash Portfolio Management System* (OOPSLA experience report, 1992). [c2.com](http://c2.com/doc/oopsla92.html).
-
-[^49]: Martin Fowler, *StranglerFigApplication* (2004). [martinfowler.com](https://martinfowler.com/bliki/StranglerFigApplication.html).
-
 ---
 
-- **Key takeaways** are summarized above in §14.9.
+- **Key takeaways** are summarized above in §14.8.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this chapter.

@@ -1,4 +1,4 @@
-// §13.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
+// §14.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
 // Go variant. FNV-1a gives a stable per-user bucket; note the buckets differ from the
 // CRC-32 buckets of the Python and Ruby variants (any stable hash works, but pick one
 // per system, or a user's bucket changes when a service is rewritten).

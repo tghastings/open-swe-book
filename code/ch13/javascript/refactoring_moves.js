@@ -1,4 +1,4 @@
-// §13.6.3 Refactoring Under Green Tests — two moves on one function:
+// §15.3 Refactoring Under Green Tests — two moves on one function:
 // replace magic number with named constant, then introduce guard clauses.
 // The same suite runs green before, between, and after the moves.
 // Run: node refactoring_moves.js

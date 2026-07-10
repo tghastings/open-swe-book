@@ -149,6 +149,13 @@ text · 🎓 course · 📄 primary source / standard · 🎥 video. Each entry 
   2014 — [doi.org](https://doi.org/10.1145/2635868.2635920). The empirical taxonomy of
   flaky-test root causes (async waits, concurrency, order dependence) behind §10.2.4.
   *Access: free author copy on the authors' Illinois pages; ACM DL paywalled.*
+- 📄 **Walcott-Justice — *Testing in Resource-Constrained Environments***, Ph.D.
+  dissertation, University of Virginia, 2012 —
+  [faculty.uccs.edu](https://faculty.uccs.edu/kwalcott/wp-content/uploads/sites/49/2024/01/dissertation_with_sigs.pdf).
+  Time-aware regression test selection under a hard budget (knapsack solvers, then an
+  overlap-aware genetic algorithm) and THeME, which measures branch and statement
+  coverage by sampling CPU hardware monitors instead of instrumenting the code
+  (§10.1.6, §10.3.2). *Access: free PDF on the author's faculty page.*
 
 ## License note
 

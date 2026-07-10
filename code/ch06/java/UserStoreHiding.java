@@ -13,13 +13,13 @@ public class UserStoreHiding {
     Path dir = Files.createTempDirectory("users");
 
     UserStore store = new FileUserStore(dir);   // or new MemoryUserStore() — can't tell
-    store.save(new User("u7", "Dana"));         // the identical caller, untouched
-    System.out.println(store.find("u7").name()); // Dana
+    store.save(new User("u7", "Kati"));         // the identical caller, untouched
+    System.out.println(store.find("u7").name()); // Kati
 
     // The identical caller again, against the other secret:
     store = new MemoryUserStore();
-    store.save(new User("u7", "Dana"));
-    System.out.println(store.find("u7").name()); // Dana
+    store.save(new User("u7", "Kati"));
+    System.out.println(store.find("u7").name()); // Kati
 
     Files.deleteIfExists(dir.resolve("u7"));    // cleanup
     Files.deleteIfExists(dir);

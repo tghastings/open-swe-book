@@ -257,7 +257,7 @@
    "goal"
   ],
   [
-   "Actor\u2013goal list",
+   "Actor–goal list",
    "actorgoallist"
   ],
   [
@@ -365,7 +365,7 @@
    "observerpattern"
   ],
   [
-   "Publish\u2013subscribe",
+   "Publish–subscribe",
    "publishsubscribe"
   ],
   [
@@ -739,7 +739,9 @@
   [
    "DORA four keys",
    "dorafourkeys"
-  ],
+  ]
+ ],
+ "chapters/15-maintenance-evolution/README.md": [
   [
    "Legacy code",
    "legacycode"

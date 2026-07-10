@@ -1,4 +1,4 @@
-# §13.3.3 Feature Flags — a release flag, then the same check as a percentage rollout
+# §14.3.3 Feature Flags — a release flag, then the same check as a percentage rollout
 # (canary deployment's progressive exposure implemented in code).
 # Runs standalone: python3 feature_flags.py
 from zlib import crc32

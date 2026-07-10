@@ -1,4 +1,4 @@
-// §13.6.3 — the green net: the same suite passes before, between, and after the moves,
+// §15.3 — the green net: the same suite passes before, between, and after the moves,
 // and before/after agree on all 48 input combinations.
 package delivery
 

@@ -44,8 +44,13 @@ them with your team, in order, across the term. Each maps to a deliverable in th
 ## Weeks 12–15 — Final report and demo
 
 9. **[project]** Complete the [final report](../../templates/final-report.md), including a
-   quality-metrics section: defect-removal efficiency and at least one chart or confidence
-   interval from your project data (Chapter 12).
+   quality-metrics section (Chapter 12): defect-removal efficiency, at least one chart of
+   your project data, and a short *limitations* paragraph naming the threats to validity
+   in your numbers — a semester project yields few, unevenly measured, non-independent
+   observations, and saying so is part of the analysis. Descriptive statistics, trends,
+   and honest raw counts are the expected level of rigor; add a confidence interval only
+   if your data give you enough independent observations to justify one (§12.8), and say
+   explicitly when they do not. A stated limitation earns more credit than pseudo-precision.
 10. **[analysis]** Write an honest *individual contribution* statement for each member,
     then a team retrospective: what would you do differently if you started over knowing
     what you know now? Tie at least three lessons back to specific chapters.

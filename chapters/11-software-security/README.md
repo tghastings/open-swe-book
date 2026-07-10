@@ -16,7 +16,7 @@
 
 For most of this book, "does it work?" has meant "does it do what the user needs?" Security
 asks a sharper question: does the system do *only* that, even when someone is actively
-trying to make it do something else? Every other quality attribute assumes a cooperative
+trying to make it do something else? Most other quality attributes assume a cooperative
 world — users who supply reasonable inputs, dependencies that behave, networks that deliver
 what was sent. Security assumes the opposite: an intelligent adversary studying your system
 for the one input, the one dependency, the one forgotten default that turns your feature
@@ -116,7 +116,7 @@ account and alerts an operator within one minute" — and they turn "be secure" 
 something a design can be checked against. Chapter 3's **attack trees**
 ([§3.7.1](../03-user-requirements/#371-attack-trees-think-like-an-attacker)) are the
 adversary's half of the same practice: model the attacker's goal as a tree of sub-goals,
-and each leaf is a scenario your design must answer. Threat modeling is the requirements and design work of Chapters 3
+and each leaf is a scenario your design must answer. Threat modeling is, at its core, the requirements and design work of Chapters 3
 and 6, done with an adversary in the room.
 
 ## 11.2 The OWASP Top 10
@@ -345,11 +345,11 @@ defines **Insecure Design** as "missing or ineffective control design" — a cat
 weaknesses that a perfect implementation would faithfully preserve.[^8] A password-reset
 flow that lets anyone reset an account by answering a question whose answer is public is not
 a coding bug; every line may be correct, and the system is still insecure because the design
-never included the control it needed. No amount of static analysis, code review, or testing
-finds this, because there is no defect on any single line to find.
+never included the control it needed. No amount of static analysis or line-by-line code
+review finds this, because there is no defect on any single line to find.
 
 This is the category that binds security to the rest of software engineering. It says some
-security problems are *requirements and architecture* problems, catchable only by the threat
+security problems are *requirements and architecture* problems, caught earliest by the threat
 modeling of Chapter 3 and the design review of Chapter 9 — before code exists. Insecure
 Design is the standing argument against treating security as a coding-time concern: the
 most expensive vulnerabilities are decided at the whiteboard.
@@ -740,7 +740,7 @@ tests of Chapter 10 were catching vulnerabilities all along; and the pipeline of
 will turn those checks into gates no change can skip. What this chapter added is the adversarial
 frame that unifies them — the assumption that someone is actively working to make your system
 misbehave — and the recognition that most of the software you ship was written by strangers,
-so trust in the supply chain is now the largest security decision your team makes. The OWASP
+so trust in the supply chain is now among the largest security decisions your team makes. The OWASP
 Top 10 tells you which risks are real this year; parameterized queries and secure defaults
 close whole categories by construction; AI tools like Copilot Autofix, Big Sleep, and Strix
 are beginning to find and fix bugs at machine speed, under the standing conditions of
@@ -787,7 +787,12 @@ an adversary only has to find the one weak link you forgot to check.**
 
 [^15]: Google Project Zero, *From Naptime to Big Sleep: Using Large Language Models to Catch Vulnerabilities in Real-World Code* (October 2024). [projectzero.google](https://projectzero.google/2024/10/from-naptime-to-big-sleep.html).
 
-[^16]: The Hacker News, *Google AI "Big Sleep" Stops Exploitation of Critical SQLite Vulnerability* (CVE-2025-6965, 2025). [thehackernews.com](https://thehackernews.com/2025/07/google-ai-big-sleep-stops-exploitation.html).
+[^16]: Google, *Google's latest AI security announcements* (July 2025) — the originating
+    announcement that Big Sleep, working from Google Threat Intelligence, identified
+    CVE-2025-6965 (SQLite, CVSS 7.2) before in-the-wild exploitation; Google characterizes
+    it as the first time an AI agent directly foiled an imminent exploit.
+    [blog.google](https://blog.google/innovation-and-ai/technology/safety-security/cybersecurity-updates-summer-2025/).
+    CVE record: [nvd.nist.gov](https://nvd.nist.gov/vuln/detail/CVE-2025-6965).
 
 [^17]: usestrix/strix — GitHub repository and README (Apache-2.0; autonomous AI penetration-testing agents; self-description and ethics statement). [github.com/usestrix/strix](https://github.com/usestrix/strix).
 

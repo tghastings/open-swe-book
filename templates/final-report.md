@@ -71,8 +71,11 @@ _Your test strategy and the evidence behind your quality claims (Chapters 10 and
 - **Test strategy:** _unit / integration / end-to-end; black-box and white-box (Ch. 10)_
 - **Coverage achieved:** _target vs. actual_
 - **Defect data:** _found, fixed, open; where they clustered_
-- **Analysis:** _what the numbers mean — analyze honestly with sound statistics (Ch. 12),
-  don't cherry-pick a single flattering figure_
+- **Analysis:** _what the numbers mean — descriptive statistics, trends, and raw counts
+  first; inferential claims like a confidence interval (§12.8) only if your sample
+  justifies them (Ch. 12). Don't cherry-pick a single flattering figure_
+- **Limitations / threats to validity:** _what your numbers cannot support — small
+  samples, definitions that changed mid-project, observations that aren't independent_
 
 | Metric | Value | What it tells us |
 |--------|-------|------------------|

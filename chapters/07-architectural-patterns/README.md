@@ -142,7 +142,7 @@ ideas you already understand.
 
 **Problem it solves.** Many components need to read and write a common body of data:
 several tools operate on the same document, several services on the same customer record.
-If each component kept its own copy, you would face the impossible job of keeping the
+If each component kept its own copy, you would face the treacherous job of keeping the
 copies consistent. The **shared-data** (or **repository**) pattern gives the components a
 single, central data store that they all access through a defined interface, making the
 store the authoritative source of truth.[^2]
@@ -509,7 +509,7 @@ them onto widgets. It should contain no business rules, no decisions that matter
 state that cannot be trivially reconstructed from the model.
 
 Why so insistent? Because the view is the *one part you cannot easily test*. Automated
-tests can exercise a model directly, but exercising a rendered screen requires slow,
+tests can exercise a model directly, but exercising a rendered screen usually means slow,
 brittle UI automation. Every branch, calculation, or rule you allow to creep into the
 view is a branch that escapes your fast, reliable tests and hides where only a human
 clicking around will find its bugs. Pushing that logic down into the model — or into a
@@ -736,14 +736,14 @@ The extracted rule now tests in a few short lines, with no widget in sight:
 
 ```generic
 function test_unpaid_31_days_is_overdue()
-  ana <- Invoice with name "Ana", sent_on 2026-06-01, paid false
-  assert is_overdue(ana, 2026-07-02)   // unpaid, sent 31 days ago
+  adilyn <- Invoice with name "Adilyn", sent_on 2026-06-01, paid false
+  assert is_overdue(adilyn, 2026-07-02)   // unpaid, sent 31 days ago
 ```
 
 ```go
 func TestUnpaid31DaysIsOverdue(t *testing.T) {
-	ana := Invoice{"Ana", time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC), false}
-	if !isOverdue(ana, time.Date(2026, 7, 2, 0, 0, 0, 0, time.UTC)) {
+	adilyn := Invoice{"Adilyn", time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC), false}
+	if !isOverdue(adilyn, time.Date(2026, 7, 2, 0, 0, 0, 0, time.UTC)) {
 		t.Error("unpaid invoice sent 31 days ago should be overdue")
 	}
 }
@@ -751,35 +751,35 @@ func TestUnpaid31DaysIsOverdue(t *testing.T) {
 
 ```java
 void testUnpaid31DaysIsOverdue() {
-  assert isOverdue(new Invoice("Ana", LocalDate.of(2026, 6, 1), false),
+  assert isOverdue(new Invoice("Adilyn", LocalDate.of(2026, 6, 1), false),
       LocalDate.of(2026, 7, 2));
 }
 ```
 
 ```javascript
 function testUnpaid31DaysIsOverdue() {
-  const ana = { patientName: "Ana", sentOn: new Date("2026-06-01"), paid: false };
-  assert(isOverdue(ana, new Date("2026-07-02")));
+  const adilyn = { patientName: "Adilyn", sentOn: new Date("2026-06-01"), paid: false };
+  assert(isOverdue(adilyn, new Date("2026-07-02")));
 }
 ```
 
 ```python
 def test_unpaid_31_days_is_overdue():   # the whole test: two lines
-  assert is_overdue(Invoice("Ana", sent_on=date(2026, 6, 1), paid=False), date(2026, 7, 2))
+  assert is_overdue(Invoice("Adilyn", sent_on=date(2026, 6, 1), paid=False), date(2026, 7, 2))
 ```
 
 ```ruby
 def test_unpaid_31_days_is_overdue
-  ana = Invoice.new("Ana", Date.new(2026, 6, 1), false)
-  raise unless overdue?(ana, Date.new(2026, 7, 2))
+  adilyn = Invoice.new("Adilyn", Date.new(2026, 6, 1), false)
+  raise unless overdue?(adilyn, Date.new(2026, 7, 2))
 end
 ```
 
 ```typescript
 function testUnpaid31DaysIsOverdue(): void {
-  const ana: Invoice =
-    { patientName: "Ana", sentOn: new Date("2026-06-01"), paid: false };
-  assert(isOverdue(ana, new Date("2026-07-02")));
+  const adilyn: Invoice =
+    { patientName: "Adilyn", sentOn: new Date("2026-06-01"), paid: false };
+  assert(isOverdue(adilyn, new Date("2026-07-02")));
 }
 ```
 
@@ -912,7 +912,8 @@ must handle **out-of-order and late data**, because events generated at one time
 arrive later, and you must decide how long to wait. You must bound memory, because you
 cannot buffer an infinite stream, which means most computations must be *incremental* and
 approximate. And **backpressure** becomes essential: when a downstream filter cannot keep
-up, it must signal upstream to slow down, or buffers overflow and the system falls over.[^17]
+up, it must signal upstream to slow down — or the design must shed load deliberately — or
+buffers overflow and the system falls over.[^17]
 
 > **Case study.** A fraud-detection system watches a never-ending stream of card
 > transactions and must flag a suspicious one within seconds. It cannot wait for a "batch"
@@ -1243,7 +1244,7 @@ to *any* server using the same small grammar.
 **Structure.** Four conventions do the work:
 
 - **Resources, named by URIs.** Everything interesting is a **resource** with a stable
-  name: `/patients/123`, `/patients/123/appointments`, `/appointments/987`. Nouns, not
+  name: `/patients/143`, `/patients/143/appointments`, `/appointments/987`. Nouns, not
   verbs — the URI names a *thing*, not an *action*.
 - **A fixed set of verbs.** Instead of unlimited custom operations, HTTP's methods act on
   resources. By common convention **GET** reads (safely, with no side effects), **POST** often
@@ -1264,15 +1265,15 @@ to *any* server using the same small grammar.
 
 | Request | Meaning |
 |---------|---------|
-| `GET /patients/123/appointments` | List patient 123's appointments |
-| `POST /patients/123/appointments` | Book a new appointment for patient 123 |
+| `GET /patients/143/appointments` | List patient 143's appointments |
+| `POST /patients/143/appointments` | Book a new appointment for patient 143 |
 | `GET /appointments/987` | Fetch one appointment's representation |
 | `PATCH /appointments/987` | Update it (e.g., `{"status": "arrived"}`) |
 | `DELETE /appointments/987` | Cancel it |
 
 **POST, PUT, or PATCH?** The three writing verbs are the ones students confuse, and the choice
 turns on two questions. First, *who names the new resource?* Reach for **POST** when the
-*server* assigns the URL: `POST /patients/123/appointments` creates a fresh `/appointments/987`,
+*server* assigns the URL: `POST /patients/143/appointments` creates a fresh `/appointments/987`,
 and posting again makes a *second* appointment — POST is not **idempotent**. Reach for **PUT**
 when the *client* already knows the URL and wants to create or wholly *replace* what lives
 there, sending the complete representation; repeating the same `PUT /appointments/987` leaves
@@ -1447,7 +1448,7 @@ solves the problem in front of you and to state out loud what it will cost.
 | **RESTful API** | Every server invents its own vocabulary, defeating generic clients and tooling | Uniform grammar and evolvability vs. contortions for non-resource-shaped operations |
 | **Product line** | Build a family of related products from shared assets | Reuse and consistency vs. up-front platform cost and misprediction risk |
 
-No system uses one pattern. A real application layers presentation over domain over
+No system of any size uses just one pattern. A real application layers presentation over domain over
 infrastructure (layering), renders through MVC (which runs on the observer), talks to a
 database (shared data) across the network (client-server over a REST API, perhaps via a
 broker), ingests

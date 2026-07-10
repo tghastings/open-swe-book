@@ -1,4 +1,4 @@
-// §13.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
+// §14.3.3 Feature Flags — a release flag, then the same check as a percentage rollout,
 // Java variant. String.hashCode() is fixed by the Java spec, so buckets are stable
 // across JVMs — but they differ from the CRC-32 buckets of the Python and Ruby
 // variants (any stable hash works, but pick one per system).

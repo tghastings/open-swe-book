@@ -15,10 +15,10 @@ class InvoiceWidget
   end
 end
 
-ana = Invoice.new("Ana", Date.new(2026, 6, 1), false)
+adilyn = Invoice.new("Adilyn", Date.new(2026, 6, 1), false)
 today = Date.new(2026, 7, 2)
-fat = InvoiceWidget.new.render(ana, today)
-raise unless fat == "Ana — OVERDUE"
+fat = InvoiceWidget.new.render(adilyn, today)
+raise unless fat == "Adilyn — OVERDUE"
 
 # --- After: humble view -------------------------------------------------------
 def overdue?(invoice, today)             # the rule, extracted where tests reach it
@@ -37,11 +37,11 @@ class HumbleInvoiceWidget                # the book shows this as InvoiceWidget,
 end
 
 def test_unpaid_31_days_is_overdue
-  ana = Invoice.new("Ana", Date.new(2026, 6, 1), false)
-  raise unless overdue?(ana, Date.new(2026, 7, 2))
+  adilyn = Invoice.new("Adilyn", Date.new(2026, 6, 1), false)
+  raise unless overdue?(adilyn, Date.new(2026, 7, 2))
 end
 
-raise unless HumbleInvoiceWidget.new.render(invoice_view_model(ana, today)) == fat
+raise unless HumbleInvoiceWidget.new.render(invoice_view_model(adilyn, today)) == fat
 raise if overdue?(Invoice.new("Ben", Date.new(2026, 6, 15), false), today)
 raise if overdue?(Invoice.new("Cho", Date.new(2026, 5, 1), true), today)
 test_unpaid_31_days_is_overdue

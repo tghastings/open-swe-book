@@ -224,8 +224,8 @@ function memory_save(records, record)
 end function
 
 for each store in [file-backed store, in-memory store]
-  save record {id: "u7", name: "Dana"} to store   // the identical caller, untouched
-  assert store's find of "u7" has name "Dana"
+  save record {id: "u7", name: "Kati"} to store   // the identical caller, untouched
+  assert store's find of "u7" has name "Kati"
 end for
 ```
 
@@ -251,8 +251,8 @@ func (s MemStore) Find(id string) User { return s[id] }
 func (s MemStore) Save(record User)    { s[record.ID] = record }
 
 for _, store := range []UserStore{FileStore{os.TempDir()}, MemStore{}} {
-	store.Save(User{ID: "u7", Name: "Dana"})
-	fmt.Println(store.Find("u7").Name) // Dana — the identical caller, untouched
+	store.Save(User{ID: "u7", Name: "Kati"})
+	fmt.Println(store.Find("u7").Name) // Kati — the identical caller, untouched
 }
 ```
 
@@ -280,8 +280,8 @@ class MemoryUserStore implements UserStore {   // the new secret: an in-memory t
 }
 
 UserStore store = new FileUserStore(dir);   // or new MemoryUserStore() — can't tell
-store.save(new User("u7", "Dana"));         // the identical caller, untouched
-System.out.println(store.find("u7").name()); // Dana
+store.save(new User("u7", "Kati"));         // the identical caller, untouched
+System.out.println(store.find("u7").name()); // Kati
 ```
 
 ```javascript
@@ -307,8 +307,8 @@ class MemoryUserStore {                 // the new secret: an in-memory table.
 }
 
 for (const store of [new UserStore("users.json"), new MemoryUserStore()]) {
-  store.save({ id: "u7", name: "Dana" });        // the identical caller, untouched
-  assert.strictEqual(store.find("u7").name, "Dana");
+  store.save({ id: "u7", name: "Kati" });        // the identical caller, untouched
+  assert.strictEqual(store.find("u7").name, "Kati");
 }
 ```
 
@@ -356,8 +356,8 @@ class MemoryUserStore                  # the new secret: an in-memory table.
 end
 
 [UserStore.new("users.json"), MemoryUserStore.new].each do |store|
-  store.save({ "id" => "u7", "name" => "Dana" })  # the identical caller, untouched
-  raise unless store.find("u7")["name"] == "Dana"
+  store.save({ "id" => "u7", "name" => "Kati" })  # the identical caller, untouched
+  raise unless store.find("u7")["name"] == "Kati"
 end
 ```
 
@@ -385,8 +385,8 @@ class MemoryUserStore implements Store {  // the new secret: an in-memory table
 }
 
 for (const store of [new UserStore("users.json"), new MemoryUserStore()]) {
-  store.save({ id: "u7", name: "Dana" });        // the identical caller, untouched
-  assert.strictEqual(store.find("u7")!.name, "Dana");
+  store.save({ id: "u7", name: "Kati" });        // the identical caller, untouched
+  assert.strictEqual(store.find("u7")!.name, "Kati");
 }
 ```
 
@@ -460,38 +460,38 @@ A caller that relied only on the promise runs unchanged against either version.
 ```generic
 // same caller as above — no changes needed
 
-save record {id: "u7", name: "Dana"} to store
-assert store's find of "u7" has name "Dana"
+save record {id: "u7", name: "Kati"} to store
+assert store's find of "u7" has name "Kati"
 ```
 
 ```go
-store.Save(User{ID: "u7", Name: "Dana"})
-fmt.Println(store.Find("u7").Name) // Dana
+store.Save(User{ID: "u7", Name: "Kati"})
+fmt.Println(store.Find("u7").Name) // Kati
 ```
 
 ```java
-store.save(new User("u7", "Dana"));
-System.out.println(store.find("u7").name()); // Dana
+store.save(new User("u7", "Kati"));
+System.out.println(store.find("u7").name()); // Kati
 ```
 
 ```javascript
-store.save({ id: "u7", name: "Dana" });
-assert.strictEqual(store.find("u7").name, "Dana");
+store.save({ id: "u7", name: "Kati" });
+assert.strictEqual(store.find("u7").name, "Kati");
 ```
 
 ```python
-store.save({"id": "u7", "name": "Dana"})
-assert store.find("u7")["name"] == "Dana"
+store.save({"id": "u7", "name": "Kati"})
+assert store.find("u7")["name"] == "Kati"
 ```
 
 ```ruby
-store.save({ "id" => "u7", "name" => "Dana" })
-raise unless store.find("u7")["name"] == "Dana"
+store.save({ "id" => "u7", "name" => "Kati" })
+raise unless store.find("u7")["name"] == "Kati"
 ```
 
 ```typescript
-store.save({ id: "u7", name: "Dana" });
-assert.strictEqual(store.find("u7")!.name, "Dana");
+store.save({ id: "u7", name: "Kati" });
+assert.strictEqual(store.find("u7")!.name, "Kati");
 ```
 
 **Encapsulation** is the mechanism that enforces information hiding: the language keeps
@@ -560,7 +560,7 @@ Coupling and cohesion pull in the same direction, which is why they are always t
 together: **when you raise cohesion, coupling tends to fall, and vice versa.**[^8] If each
 module does exactly one thing (high cohesion), related logic sits together and does not need
 to reach across boundaries (low coupling). If a module does five unrelated things (low
-cohesion), pieces of those five jobs inevitably entangle with five other modules (high
+cohesion), pieces of those five jobs almost inevitably entangle with five other modules (high
 coupling). Chasing one gets you the other.
 
 > **Pitfall.** A "utility" or "helpers" module is usually a cohesion failure wearing a
@@ -812,7 +812,7 @@ angle. **Draw one structure per view, name the view, and say who it is for.**
 
 ## 6.5 Describing System Architecture
 
-Deciding an architecture is worthless if the decision lives only in the head of the person
+On a team, an architecture decision is worthless if it lives only in the head of the person
 who made it. Architecture must be *described* — written down in a form the team can read,
 question, and hold changes accountable to. This section gives you a practical outline and a
 worked example.
@@ -957,8 +957,8 @@ function fake_deliver(sent, to, body)   // a two-line test double
 end function
 
 fake <- new fake transport with an empty sent list
-route(fake, {to: "dana", body: "you are on call"})
-assert fake's sent = [["dana", "you are on call"]]
+route(fake, {to: "eloise", body: "you are on call"})
+assert fake's sent = [["eloise", "you are on call"]]
 ```
 
 ```go
@@ -981,8 +981,8 @@ type FakeTransport struct{ sent []string }       // a two-line test double
 func (t *FakeTransport) Deliver(to, body string) { t.sent = append(t.sent, to+":"+body) }
 
 fake := &FakeTransport{}
-MessageRouter{fake}.Route(map[string]string{"to": "dana", "body": "you are on call"})
-fmt.Println(fake.sent) // [dana:you are on call]
+MessageRouter{fake}.Route(map[string]string{"to": "eloise", "body": "you are on call"})
+fmt.Println(fake.sent) // [eloise:you are on call]
 ```
 
 ```java
@@ -1005,8 +1005,8 @@ class FakeTransport extends ArrayList<String> implements Transport { // a two-li
 }
 
 var fake = new FakeTransport();
-new MessageRouter(fake).route(Map.of("to", "dana", "body", "you are on call"));
-System.out.println(fake); // [dana:you are on call]
+new MessageRouter(fake).route(Map.of("to", "eloise", "body", "you are on call"));
+System.out.println(fake); // [eloise:you are on call]
 ```
 
 ```javascript
@@ -1027,8 +1027,8 @@ class FakeTransport extends Array {    // a two-line test double
 }
 
 const fake = new FakeTransport();
-new MessageRouter(fake).route({ to: "dana", body: "you are on call" });
-assert.deepStrictEqual([...fake], [["dana", "you are on call"]]);
+new MessageRouter(fake).route({ to: "eloise", body: "you are on call" });
+assert.deepStrictEqual([...fake], [["eloise", "you are on call"]]);
 ```
 
 ```python
@@ -1055,8 +1055,8 @@ class FakeTransport(list):                 # a two-line test double
   def deliver(self, to, body): self.append((to, body))
 
 fake = FakeTransport()
-MessageRouter(fake).route({"to": "dana", "body": "you are on call"})
-assert fake == [("dana", "you are on call")]
+MessageRouter(fake).route({"to": "eloise", "body": "you are on call"})
+assert fake == [("eloise", "you are on call")]
 ```
 
 ```ruby
@@ -1075,8 +1075,8 @@ class FakeTransport < Array            # a two-line test double
 end
 
 fake = FakeTransport.new
-MessageRouter.new(fake).route({ "to" => "dana", "body" => "you are on call" })
-raise unless fake == [["dana", "you are on call"]]
+MessageRouter.new(fake).route({ "to" => "eloise", "body" => "you are on call" })
+raise unless fake == [["eloise", "you are on call"]]
 ```
 
 ```typescript
@@ -1104,8 +1104,8 @@ class FakeTransport implements Transport {        // a two-line test double
 }
 
 const fake = new FakeTransport();
-new MessageRouter(fake).route({ to: "dana", body: "you are on call" });
-assert.deepStrictEqual(fake.sent, [["dana", "you are on call"]]);
+new MessageRouter(fake).route({ to: "eloise", body: "you are on call" });
+assert.deepStrictEqual(fake.sent, [["eloise", "you are on call"]]);
 ```
 
 The `MessageRouter` can now be exercised in a test without opening a socket — the same

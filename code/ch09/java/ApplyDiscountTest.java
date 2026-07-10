@@ -12,7 +12,7 @@ class ApplyDiscountTest {
   }
 
   @Test void noDiscount()    { assertEquals(100.0, applyDiscount(100.0, 0)); }
-  @Test void halfOff()       { assertEquals(50.0, applyDiscount(100.0, 50)); }
+  @Test void halfOff()       { assertEquals(71.5, applyDiscount(143.0, 50)); }
   @Test void roundsToCents() { assertEquals(8.99, applyDiscount(9.99, 10)); }
   @Test void fullDiscount()  { assertEquals(0.0, applyDiscount(40.0, 100)); }
   @Test void freeItemAllowed() {

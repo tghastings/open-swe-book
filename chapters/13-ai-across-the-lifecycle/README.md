@@ -17,6 +17,15 @@ to build* and *proving it works* — which are the very activities this book has
 teaching. The engineer who internalized Chapters 1–12 is the person best positioned to
 *direct* the agents.
 
+> **Note — what will age here.** This chapter mixes two kinds of content with very
+> different half-lives. Named tools, model capabilities, benchmark and study results,
+> prices, and specific agent behaviors are **edition-specific**: they describe early 2026
+> and will drift, so treat every product name and number as a dated snapshot. The durable
+> content is the principles — verify before you trust, keep a human accountable for what
+> ships, write specifications precise enough to execute, and preserve traceability from
+> requirement to change. When this edition's numbers age out, those principles are the
+> part meant to remain.
+
 ## 13.1 What AI Changes — and What It Doesn't
 
 ### 13.1.1 Essential vs. Accidental Complexity, Revisited
@@ -67,9 +76,12 @@ review.
 Does AI make developers faster? The honest answer is *it depends, and the evidence is
 mixed enough to demand humility.*
 
-- **Perceived gains are large.** In field studies, a majority of developers report feeling
-  more productive with tools like GitHub Copilot, and vendors cite eye-catching
-  numbers.[^1] [^2]
+- **Perceived gains are large — and the headline numbers are vendor-reported.** In
+  GitHub's own 2022 research, surveyed Copilot users (about 2,000) reported feeling more
+  productive, and in the companion controlled experiment — 95 developers, one
+  well-specified task, building an HTTP server — the Copilot group finished about 55%
+  faster.[^1] [^2] These are honest but narrow measurements, reported by the vendor of
+  the product being measured, of one task type at one moment in the tools' evolution.
 - **Measured gains are smaller and sometimes negative.** In a 2025 randomized controlled
   trial, METR had experienced open-source developers do real tasks in repositories they
   knew well. Developers *predicted* AI would make them ~24% faster; in fact they were about
@@ -151,7 +163,7 @@ reframing (§13.4). MoSCoW, value/cost/risk, and Kano analysis remain the right 
 
 Given a goal and a happy path, models are good at enumerating **alternative flows** and
 exception cases — exactly the tedious part of use-case writing that people skip. That
-coverage is valuable. But an agent cannot tell you which actor *goals* matter, and it will
+coverage is valuable. But an agent cannot tell you which actor *goals* matter, and it tends to
 pad use cases with flows no user will ever take.
 
 - **Human owns:** the actor–goal list (what the system is *for*) and pruning generated
@@ -549,7 +561,8 @@ puts more weight on the part that was always the hardest.
 
 ## 13.6 Context as Infrastructure: `CLAUDE.md`, `AGENTS.md`, and Skills
 
-An agent begins every session knowing nothing about *your* project: your conventions, your
+Out of the box, an agent begins a session knowing nothing about *your* project: your
+conventions, your
 build command, which directories are off-limits, what "done" means on your team. You can
 paste that briefing into the prompt every time — and pay to re-explain it forever, to every
 agent and every session. Or you can write it down once, in a file the agent reads
@@ -607,7 +620,7 @@ as a lever: "you can tune instructions by adding emphasis (e.g., `IMPORTANT` or 
 improve adherence."[^25] OpenAI's Codex guide says nothing of the kind; it stresses instead
 that instructions be *verifiable* and *decomposed* — give the agent "a specific outcome,
 measurable target, or test criteria," and "break [work] into smaller, focused steps."[^26] So
-the same shouted rule that sharpens a priority for one agent is, at best, wasted characters
+the same shouted rule that sharpens a priority for one agent may be wasted characters
 for another: put colloquially, one assistant hears *emphasis* where another just hears
 *yelling*. The lesson is not that one guide is right — it is that instruction *phrasing does
 not port*, so you read the guide for the tool you actually use and tune tone in that tool's
@@ -629,7 +642,7 @@ advice there is.
 loaded every time, a **skill** is a named, reusable unit of project knowledge — "how we cut
 a release," "how we triage failing CI" — that an agent invokes only when the task calls for
 it. A skill can be versioned, tested, and improved like any other artifact; a prompt pasted
-into a script cannot. That distinction matters for the loops of the next section: a loop
+into a script rarely is. That distinction matters for the loops of the next section: a loop
 that discovers its own work should trigger a *named skill*, not a wall of instructions
 buried in a cron job that no one will ever update.
 
@@ -779,7 +792,7 @@ loop is running, and they reinforce one another:[^23]
   "it's right," waiting for one morning when it comes due all at once.
 - **Comprehension rot** — the codebase grows faster than anyone's understanding of it,
   because reading generated code is duller than writing it and the loop never stops to read.
-  A bug in a corner no human has read surfaces only as a production incident.
+  A bug in a corner no human has read tends to surface first as a production incident.
 - **Cognitive surrender** — the attitude version of the first two: not "no time to review"
   but "no longer want to." The more reliable the loop seems, the more tempting it is to stop
   having an opinion about its output.
@@ -860,7 +873,7 @@ layer that decides whether the volume of generated code can be trusted, and metr
 evidence that a real *outcome* shipped rather than mere output.
 
 The o16g manifesto pushes this to its edge — *it was never about the code* — and whether or
-not you accept its every claim, it points where the profession is heading: engineers who
+not you accept its every claim, it points where the profession may be heading: engineers who
 direct fleets of agents toward well-specified, rigorously verified outcomes. The practices
 are arriving to match — you write the spec, encode the constitution in a file the agents
 read, and design the loop that runs them — but in every one of them the human's job is the

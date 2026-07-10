@@ -36,7 +36,8 @@ responsibilities, and the connections between them (Chapters 6–7) — conducte
 than the designers. The goal is to *stress* the diagram, not admire it: to ask the
 questions that the design's authors, being close to their own work, have stopped asking.
 
-Architecture reviews matter because architectural mistakes are the most expensive kind. A
+Architecture reviews matter because architectural mistakes are usually the most expensive
+kind. A
 poorly named variable is a five-minute fix in code review. A decision to route every request
 through a single synchronous service, or to store money as a floating-point number, or to
 couple two modules that should have been independent, can require months of rework once the
@@ -155,7 +156,8 @@ flowchart TD
 
 2. **Overview.** The author briefly educates the reviewers on the context: what this code is
    for, how it fits the larger system, any background they need. This phase is optional when
-   reviewers already know the area, but omitting it when they don't guarantees shallow review.
+   reviewers already know the area, but omitting it when they don't all but guarantees
+   shallow review.
 
 3. **Preparation.** Each reviewer examines the work product *individually and in advance*,
    noting suspected defects and questions. This is the phase where most defects are actually
@@ -165,7 +167,7 @@ flowchart TD
 4. **Meeting.** The group convenes. The reader walks through the material (see the roles
    below), reviewers raise the issues they found in preparation, and the scribe records each
    confirmed defect. The critical rule: the meeting *finds and records* defects; it does not
-   *solve* them. Debating fixes in the meeting is the single most common way inspections run
+   *solve* them. Debating fixes in the meeting is the classic way inspections run
    over time and lose their value — solutions are the author's job during rework.
 
 5. **Rework.** The author takes the logged defect list away and fixes each item. Some
@@ -251,7 +253,7 @@ face of everything the inspection literature discovered.[^8]
 
 Modern code review through pull requests is less about hunting for every defect (automated
 tools, §9.4, are better at the mechanical ones) and more about two human questions that no
-tool can answer: **intent** and **trust**.[^8] *Intent*: does this change do what the author
+tool can settle for you: **intent** and **trust**.[^8] *Intent*: does this change do what the author
 *meant* it to do, and is what they meant actually the right thing? A reviewer who understands
 the system can see that a change is technically correct but solves the wrong problem, or
 introduces a subtle inconsistency with how the rest of the codebase works. *Trust*: code

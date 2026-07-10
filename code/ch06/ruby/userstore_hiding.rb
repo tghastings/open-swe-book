@@ -21,8 +21,8 @@ class MemoryUserStore                  # the new secret: an in-memory table.
 end
 
 [UserStore.new("users.json"), MemoryUserStore.new].each do |store|
-  store.save({ "id" => "u7", "name" => "Dana" })  # the identical caller, untouched
-  raise unless store.find("u7")["name"] == "Dana"
+  store.save({ "id" => "u7", "name" => "Kati" })  # the identical caller, untouched
+  raise unless store.find("u7")["name"] == "Kati"
 end
 
 File.delete("users.json")                         # cleanup

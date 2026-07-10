@@ -9,7 +9,7 @@ modern software engineering: how software is built in industry using
 agile methods, how to discover and analyze requirements, how to design and architect
 modular systems, how to check and test code, and how to measure quality with metrics.
 
-The book is structured into fourteen chapters and a team project appendix, following the topic
+The book is structured into fifteen chapters and a team project appendix, following the topic
 progression of the ACM/IEEE software‑engineering curriculum guidelines (SE2014/SEEK).[^1]
 Each chapter contains original explanatory prose rather than material copied from other textbooks
 and is accompanied by a curated map of free or openly accessible resources — MOOCs, university
@@ -56,18 +56,20 @@ The chapters are organized into thematic arcs:
 | **Metrics** | 12 | How do we measure quality and track progress? |
 | **The AI shift** | 13 | How is AI reshaping every stage — and what stays the same? |
 | **Delivery** | 14 | How does code get from a merged branch to running safely in production? |
+| **Evolution** | 15 | How does code stay changeable through years of maintenance and growth? |
 | **Practice** | Appendix A | How do we run a real team project alongside the concepts? |
 
 ## Suggested paths through the book
 
-- **One-semester course (14–16 weeks).** Read all fourteen chapters in order, one to two
+- **One-semester course (14–16 weeks).** Read all fifteen chapters in order, one to two
   weeks each, with the Appendix A team project running in parallel from week 2. Two
   ready-made week-by-week plans (a milestone track and a two-week-sprint track) are in
   [`curriculum/course-plan.md`](curriculum/course-plan.md).
 - **One-quarter course (~10 weeks).** Keep the spine and compress: Chapters 1–2
   (week 1), 3–4 (weeks 2–3, folding Chapter 5's use-case notation into the requirements
   work), 6–8 (weeks 4–5, design, patterns, and version control), 9–10 (weeks 6–7, checking
-  and testing), 11–12 (week 8, security and metrics), and 14 (week 9, delivery), with
+  and testing), 11–12 (week 8, security and metrics), and 14–15 (week 9, delivery and
+  evolution), with
   Chapter 13 (AI) read alongside each topic through its per-stage sections (§13.2). Run a
   scoped-down project: proposal, two sprints, final demo.
 - For self-study, chapters should be read sequentially. Each chapter concludes with key takeaways, exercises, and
@@ -124,7 +126,8 @@ The sidebar provides a complete, linked table of contents, including chapters an
 11. [Software Security](chapters/11-software-security/) — the CIA triad and defense in depth, the OWASP Top 10:2025, SAST/DAST/SCA and AI‑assisted security testing, the open‑source supply chain (Log4Shell, xz‑utils, and continuous verification of components), and building security in.
 12. [Quality Metrics](chapters/12-quality-metrics/) — meaningful metrics, defect measures, boxplots/histograms, statistics, confidence intervals, regression.
 13. [Software Engineering in the Age of AI](chapters/13-ai-across-the-lifecycle/) — how AI reshapes every lifecycle stage, the productivity/quality/security evidence, and the o16g Outcome Engineering manifesto.
-14. [Delivery: CI/CD, DevOps, and Evolution](chapters/14-delivery/) — SaaS and the cloud, CI pipelines, continuous deployment (the Knight Capital and CrowdStrike case studies), security pipelines, DORA metrics, legacy code and technical debt.
+14. [Delivery: CI/CD, DevOps, and Operations](chapters/14-delivery/) — SaaS and the cloud, CI pipelines, continuous deployment (the Knight Capital and CrowdStrike case studies), packaging with Docker, DNS/TLS/the edge, security pipelines, DORA metrics.
+15. [Maintenance and Evolution](chapters/15-maintenance-evolution/) — legacy code, characterization tests, refactoring under green tests, technical debt, and the strangler-fig alternative to rewrites.
 
 - [Appendix A: The Team Project](chapters/appendix-a-team-project/) — proposal, sprint and status reports, team reviews, and final-report templates.
 
@@ -225,7 +228,7 @@ A single chapter (adjust `title`, `chapter`, and `url`):
 ```bibtex
 @inbook{hastings2026swe-ch14,
   author    = {Hastings, Thomas},
-  title     = {Delivery: CI/CD, DevOps, and Evolution},
+  title     = {Delivery: CI/CD, DevOps, and Operations},
   booktitle = {Software Engineering: Standing on the Shoulders of Giants},
   chapter   = {14},
   year      = {2026},

@@ -10,6 +10,6 @@ class MemoryUserStore implements Store {
 }
 
 const store: Store = new MemoryUserStore();
-store.save({ id: "u7", name: "Dana" });
-assert.strictEqual(store.find("u7")!.name, "Dana");
+store.save({ id: "u7", name: "Kati" });
+assert.strictEqual(store.find("u7")!.name, "Kati");
 console.log("ok");

@@ -29,8 +29,8 @@ class UserStore:
 with tempfile.TemporaryDirectory() as d:
   store = UserStore(os.path.join(d, "users.json"))
   # The caller — it depends only on the promise:
-  store.save({"id": "u7", "name": "Dana"})
-  assert store.find("u7")["name"] == "Dana"
+  store.save({"id": "u7", "name": "Kati"})
+  assert store.find("u7")["name"] == "Kati"
 
 
 # --- Version 2: the secret changes; the promise does not ------------------
@@ -47,7 +47,7 @@ class UserStore:
 
 store = UserStore()
 # The identical caller, untouched:
-store.save({"id": "u7", "name": "Dana"})
-assert store.find("u7")["name"] == "Dana"
+store.save({"id": "u7", "name": "Kati"})
+assert store.find("u7")["name"] == "Kati"
 
 print("both versions satisfy the same caller: OK")

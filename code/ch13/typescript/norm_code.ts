@@ -1,4 +1,4 @@
-// Exercise 11 (§13.6.2) — the inherited, undocumented norm_code, TypeScript variant.
+// Chapter 15, exercise 2 (§15.2) — the inherited, undocumented norm_code, TypeScript variant.
 // null plays Python's None; RangeError plays ValueError; the Unicode property
 // regex plays str.isalnum (nonempty, all letters/digits). The string | null return
 // type states the missing-input contract the JavaScript variant only implies.

@@ -52,18 +52,18 @@ func (w HumbleInvoiceWidget) Render(vm InvoiceViewModel) string { return vm.Text
 
 // the book's fence writes this as TestUnpaid31DaysIsOverdue(t *testing.T)
 func testUnpaid31DaysIsOverdue() {
-	ana := Invoice{"Ana", time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC), false}
-	if !isOverdue(ana, time.Date(2026, 7, 2, 0, 0, 0, 0, time.UTC)) {
+	adilyn := Invoice{"Adilyn", time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC), false}
+	if !isOverdue(adilyn, time.Date(2026, 7, 2, 0, 0, 0, 0, time.UTC)) {
 		panic("unpaid invoice sent 31 days ago should be overdue")
 	}
 }
 
 func main() {
-	ana := Invoice{"Ana", time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC), false}
+	adilyn := Invoice{"Adilyn", time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC), false}
 	today := time.Date(2026, 7, 2, 0, 0, 0, 0, time.UTC)
-	fat := InvoiceWidget{}.Render(ana, today)
-	humble := HumbleInvoiceWidget{}.Render(invoiceViewModel(ana, today))
-	if fat != "Ana — OVERDUE" || humble != fat {
+	fat := InvoiceWidget{}.Render(adilyn, today)
+	humble := HumbleInvoiceWidget{}.Render(invoiceViewModel(adilyn, today))
+	if fat != "Adilyn — OVERDUE" || humble != fat {
 		panic("fat and humble views should render identically")
 	}
 	ben := Invoice{"Ben", time.Date(2026, 6, 15, 0, 0, 0, 0, time.UTC), false}

@@ -15,7 +15,7 @@ Resources are grouped as:
 - 📄 **Primary source** — the canonical spec, standard, or paper.
 - 🎥 **Video** — recorded lectures or talks.
 
-> **Coverage summary.** The book's fourteen chapters cover a first course. The four
+> **Coverage summary.** The book's fifteen chapters cover a first course. The four
 > "anchor" open courses below reinforce most of that ground; the per-chapter tables add
 > focused resources for the rest (estimation, use-case mechanics, architectural pattern
 > catalogs, and the statistics in Chapter 12).
@@ -210,21 +210,34 @@ SD, normal & t-distributions, confidence intervals, linear regression.
 Covers: what AI changes vs. what endures, the productivity paradox, AI across each
 lifecycle stage, evidence on quality/security, the o16g manifesto.
 
-## Chapter 14 — Delivery: CI/CD, DevOps, and Evolution
+## Chapter 14 — Delivery: CI/CD, DevOps, and Operations
 
 | Type | Resource | Notes |
 |------|----------|-------|
 | 📄 | [SEC Release No. 34-70694 — In the Matter of Knight Capital](https://www.sec.gov/litigation/admin/2013/34-70694.pdf) | The primary source for the Knight Capital case study (§14.3). Public domain. |
 | 📄 | [CrowdStrike — External Technical Root Cause Analysis (2024)](https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/) | Primary source for the July 2024 outage case study (§14.3). |
 | 📄 | [DORA — research and the four keys](https://dora.dev/) | Deployment frequency, lead time, change-fail rate, failed-deployment recovery time (§14.7). |
-| 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue-Green, Strangler Fig](https://martinfowler.com/) | Canonical free articles for §§14.2–14.3, §14.8. |
+| 📘 | [Martin Fowler — CI, Deployment Pipelines, Blue-Green](https://martinfowler.com/) | Canonical free articles for §§14.2–14.3. |
 | 📘 | [Google SRE books](https://sre.google/books/) | Free online; reliability, release engineering, postmortems. |
 | 📄 | [GitHub Dependabot docs](https://docs.github.com/en/code-security/dependabot) · [OWASP Dependency-Check](https://owasp.org/www-project-dependency-check/) · [SLSA](https://slsa.dev/) | Dependency scanning and supply-chain security (§14.6). |
 | 📘 | [minimumcd.org](https://minimumcd.org/) | A concise, community definition of minimum CD practice. |
 
 Covers: SaaS & cloud, CI pipelines, continuous deployment & rollout strategies (Knight
-Capital and CrowdStrike case studies), security pipelines & supply chain, DORA metrics,
-legacy code/refactoring/technical debt.
+Capital and CrowdStrike case studies), packaging and DNS/TLS/the edge, security pipelines
+& supply chain, DORA metrics.
+
+## Chapter 15 — Maintenance and Evolution
+
+| Type | Resource | Notes |
+|------|----------|-------|
+| 📘 | [Martin Fowler — StranglerFigApplication](https://martinfowler.com/bliki/StranglerFigApplication.html) | The original naming of the incremental-replacement pattern (§15.5). |
+| 📘 | [Refactoring catalog](https://refactoring.com/catalog/) · [refactoring.guru](https://refactoring.guru/refactoring) | Named, behavior-preserving moves behind §15.3. |
+| 📄 | [Ward Cunningham — The WyCash Portfolio Management System (OOPSLA 1992)](http://c2.com/doc/oopsla92.html) | The origin of the technical-debt metaphor (§15.4). |
+| 📄 | [Glass — Frequently Forgotten Fundamental Facts (IEEE Software 2001)](https://doi.org/10.1109/MS.2001.922739) | The maintenance-cost figure behind the chapter's framing. |
+
+Covers: what makes code legacy, characterization tests, refactoring under green tests,
+technical debt, strangler fig versus big-bang rewrite. (Feathers' *Working Effectively
+with Legacy Code* is the standard commercial citation.)
 
 ## Appendix A — A Team Project
 
@@ -258,7 +271,7 @@ covers the whole discipline, and the "Depth" column is honest about that.
 | Software Quality (QUA) | Ch. 12 (metrics, statistics, defects) | Solid |
 | Security (SEC) | **Ch. 11 (OWASP Top 10:2025, SAST/DAST/SCA, AI security testing, supply-chain security)**; reinforced by Ch. 3 §3.7 (attack trees, STRIDE), Ch. 9 §9.4 (SAST), Ch. 14 §14.6 (security pipelines) | Solid |
 | Software Construction (CST) | assumed as a prerequisite; touched in Ch. 9–10 | Light |
-| Software Evolution / Maintenance | Ch. 14 §14.8 (legacy code, refactoring, technical debt); cost-of-change theme throughout | Introductory |
+| Software Evolution / Maintenance | Ch. 15 (legacy code, characterization tests, refactoring, technical debt, strangler fig); cost-of-change theme throughout | Introductory |
 | Emerging practice: AI-assisted SE | Ch. 13 | Introductory |
 | Computing Essentials, Math & Eng. Fundamentals (CMP, FND) | assumed prerequisites | Out of scope |
 
@@ -277,7 +290,7 @@ coverage, so you know where the free supplements are richest:
 - **Deliberately light or out of scope** (per the SEEK table above): deep software
   *construction* and the CS/math prerequisites — appropriate omissions for a one-semester
   first course, but worth naming so no one mistakes this for the whole discipline.
-  (*Maintenance/evolution* moved from this list to introductory coverage when Chapter 14
-  added legacy code, refactoring, and technical debt; *security* moved to solid coverage
+  (*Maintenance/evolution* moved from this list to introductory coverage when the book
+  added legacy code, refactoring, and technical debt — now Chapter 15; *security* moved to solid coverage
   when Chapter 11 added the OWASP Top 10, AI-assisted security testing, and open-source
   supply-chain security.)

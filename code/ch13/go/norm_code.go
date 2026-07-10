@@ -1,4 +1,4 @@
-// Exercise 11 (§13.6.2) — the inherited, undocumented norm_code, Go variant.
+// Chapter 15, exercise 2 (§15.2) — the inherited, undocumented norm_code, Go variant.
 // A nil *string plays Python's None; the ValueError becomes an error return.
 // Note: len/[:8] count bytes, not characters — identical for the ASCII codes
 // this function sees, another behavior a characterization suite would pin.

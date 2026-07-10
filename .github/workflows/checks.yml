@@ -1,0 +1,48 @@
+name: checks
+
+# Early-warning checks on every push/PR to main — catches problems BEFORE a release tag.
+# Deliberately a separate workflow from ci.yml (which is tags-only and deploys): this one
+# never deploys, never touches the "pages" concurrency group, and so can never race a tag
+# build into publishing a stale version.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Footnote-numbering hygiene: every [^N] defined and used, first-use order per file.
+      # Mechanical repairs: tools/check-footnotes.py --fix
+      - name: Validate footnote numbering
+        run: python3 tools/check-footnotes.py
+
+      - name: Install mdBook + mdbook-mermaid
+        run: |
+          MDBOOK_VERSION="0.4.40"
+          MERMAID_VERSION="0.14.0"
+          curl -sSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz --directory=/usr/local/bin
+          curl -sSL "https://github.com/badboy/mdbook-mermaid/releases/download/v${MERMAID_VERSION}/mdbook-mermaid-v${MERMAID_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz --directory=/usr/local/bin
+
+      # Prove the site builds (same toolchain as the release), but never deploy from here.
+      - name: Build the book (no deploy)
+        run: mdbook build
+
+      - name: Check internal Markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress './**/*.md'
+          fail: false

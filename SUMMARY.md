@@ -67,11 +67,14 @@
   - [Exercises](chapters/13-ai-across-the-lifecycle/exercises.md)
   - [Open Resources](chapters/13-ai-across-the-lifecycle/resources.md)
 
-# Delivery
+# Delivery and Evolution
 
-- [Delivery: CI/CD, DevOps, and Evolution](chapters/14-delivery/README.md)
+- [Delivery: CI/CD, DevOps, and Operations](chapters/14-delivery/README.md)
   - [Exercises](chapters/14-delivery/exercises.md)
   - [Open Resources](chapters/14-delivery/resources.md)
+- [Maintenance and Evolution](chapters/15-maintenance-evolution/README.md)
+  - [Exercises](chapters/15-maintenance-evolution/exercises.md)
+  - [Open Resources](chapters/15-maintenance-evolution/resources.md)
 
 # Practice
 

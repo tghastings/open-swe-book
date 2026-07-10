@@ -13,9 +13,14 @@ text · 🎓 course · 📄 primary source · 🎥 video. Licenses vary and are 
 - 🎓 **MIT "The Missing Semester of Your CS Education" — Version Control (Git)** —
   [missing.csail.mit.edu](https://missing.csail.mit.edu/2020/version-control/). Teaches Git
   data-model-first, the same approach this chapter takes. *License: CC BY-NC-SA 4.0.*
-- 📄 **Linus Torvalds — Git origin and the 2005 timeline (Wikipedia summary)** —
-  [en.wikipedia.org/wiki/Git](https://en.wikipedia.org/wiki/Git). The BitKeeper dispute, the
-  design goals, and how Git came to manage the Linux kernel. *Access: free.*
+- 📄 **Linus Torvalds — "Kernel SCM saga.." (linux-kernel mailing list, April 2005)** —
+  [lkml.org](https://lkml.org/lkml/2005/4/6/121). The primary record of Git's origin: the
+  announcement, the design goals, and the early timeline, in Torvalds' own words.
+  *Access: free archive.*
+- 📘 **Chacon & Straub — *Pro Git*, §1.2 "A Short History of Git"** —
+  [git-scm.com/book](https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git).
+  The Git project's own account of the BitKeeper dispute and how Git came to manage the
+  Linux kernel. *License: CC BY-NC-SA 3.0.*
 
 ## Building the right mental model (used in §8.1, §8.3)
 

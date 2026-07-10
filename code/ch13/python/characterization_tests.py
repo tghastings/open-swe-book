@@ -1,4 +1,4 @@
-# §13.6.2 Characterization Tests — probe, promote the observed value, probe an edge.
+# §15.2 Characterization Tests — probe, promote the observed value, probe an edge.
 # Runs standalone: python3 characterization_tests.py
 # Under pytest, the step-1 probe fails by design with the line the book shows:
 #   AssertionError: assert 'E10' == 'XXX'
