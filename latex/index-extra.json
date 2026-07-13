@@ -51,7 +51,7 @@
   ["The Unix shell pipeline", "Unix shell pipeline"],
   ["the Redux", "Redux"],
   ["shuffled names. Django", "Django"],
-  ["Rails is classic", "Rails"]
+  ["Rails uses conventional", "Rails"]
  ],
 
  "chapters/08-version-control-git/README.md": [
@@ -166,7 +166,7 @@
  "chapters/15-maintenance-evolution/README.md": [
   ["comes from Michael Feathers", "Feathers, Michael"],
   ["Fowler's catalog is", "Fowler, Martin"],
-  ["taking responsibility for the condition", "repository stewardship"],
+  ["Repository stewardship extends responsibility", "repository stewardship"],
   ["Scout Rule", "Boy Scout Rule"],
   ["Small improvements compound", "continuous improvement"],
   ["leaving a repository better than you found it", "leave the repository better"]

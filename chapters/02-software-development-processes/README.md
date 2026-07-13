@@ -29,8 +29,8 @@ It helps to separate two things that beginners conflate. A **process model** is 
 abstract shape: "work in two-week iterations, each producing shippable software" or "gather
 all requirements, then design, then build." A **process** — the real one your team lives —
 is that model plus a thousand local decisions: which chat channel bugs go in, how long a
-code review may sit, whether Friday afternoon is for demos. The model is the skeleton;
-your team supplies the flesh.
+code review may sit, whether Friday afternoon is for demos. A process model provides a
+basic structure that each team adapts to its project.
 
 > **Principle.** A good process makes the *right thing* the *easy thing*. If your process
 > only works when everyone is disciplined and heroic, it is not a process — it is a wish.
@@ -121,9 +121,10 @@ this risk profile*. A handful of questions will steer you most of the way:
   plan-driven scope; ongoing partnerships enable collaboration and change.
 
 Most real teams end up **hybrids**: agile iterations wrapped in enough up-front
-architecture and enough documentation to satisfy their domain. The goal is not purity but
-*fit*. Keep the four pressures from Chapter 1 in view — complexity, change, defects,
-coordination — and pick the process that best answers the ones that dominate your project.
+architecture and enough documentation to satisfy their domain. Choose the process model
+that best *fits* the project's risks and constraints. Keep the four pressures from
+Chapter 1 in view — complexity, change, defects, coordination — and pick the process
+that best answers the ones that dominate your project.
 
 ## 2.2 Structuring Teamwork: The Scrum Framework
 
@@ -154,7 +155,8 @@ flowchart TD
 The diagram shows the loop you repeat every sprint: pull the highest-value items from the
 product backlog into a sprint backlog, work them through the sprint with a daily check-in,
 produce an increment, review it with stakeholders (which reshapes the backlog), and reflect
-on the process itself. The loop is the point. Each turn gives you a fresh chance to correct
+on the process itself. Scrum organizes work as a repeating cycle of planning, delivery,
+review, and adaptation, and each turn of the cycle gives you a fresh chance to correct
 course based on real, working software.
 
 ### 2.2.2 Scrum Accountabilities
@@ -689,7 +691,8 @@ Common risk categories on software projects include:
 - **People risk:** key contributors leave, or the team lacks a needed skill.
 - **External risk:** a dependency, vendor, or regulator behaves unexpectedly.
 
-The value of the exercise is not the list but the *response*. For each significant risk you
+The list becomes useful when the team defines a concrete *response* for each important
+risk. For each significant risk you
 choose a strategy — **avoid** it (change the plan so it cannot occur), **mitigate** it
 (reduce its probability or impact, e.g. prototype the risky component early), **transfer** it
 (insurance, a vendor SLA), or knowingly **accept** it. The single most powerful risk-reduction
@@ -710,9 +713,9 @@ questions almost immediately — *will patients use it?* and *does the integrati
 the cost of being wrong is two weeks, not two quarters. Each subsequent sprint adds a slice
 (more appointment types, reminders, cancellations), and each sprint review lets real usage
 reshape the backlog. Requirements that looked important on paper get dropped when usage data
-contradicts them; unforeseen needs get added. The project succeeds not because the team guessed
-right up front — they didn't — but because the process let them be *wrong cheaply and often*,
-converging on the right system through feedback. This is the grow-it culture paying off exactly
+contradicts them; unforeseen needs get added. The team did not predict the final system at
+the start. Short feedback cycles let it identify mistakes early, revise the product at low
+cost, and converge on a useful result. This is the grow-it culture paying off exactly
 as advertised.
 
 ### 2.6.3 A Troubled Project
@@ -732,7 +735,8 @@ later treated the episode as a textbook argument against throwing away working s
 grand rewrite — you discard hard-won knowledge embedded in code that already handles a thousand
 edge cases, and you take on enormous integration and schedule risk all at once.[^15]
 
-The contrast with Section 2.6.2 is the lesson. The successful project reduced risk by evolving a
+The contrast with Section 2.6.2 shows how process choices affected the outcome. The
+successful project reduced risk by evolving a
 working system in small, validated steps. The troubled one *concentrated* risk into a single
 large leap — the same mistake, structurally, as big-bang integration and strict waterfall.
 Whether the risk is technical, schedule, or requirements, the pattern repeats: large,
@@ -848,10 +852,10 @@ uninterrupted, with the expectation of finishing.[^19]
 > of a tracked list for freedom from the "always behind" guilt and the grooming overhead of
 > a backlog that only ever grows.
 
-No backlog also implies an etiquette for new **raw ideas**. The default answer to any raw
-idea is a soft *"interesting — maybe someday,"* never an on-the-spot yes or no, because
-the real gate is not approval but *shaping*: only shaped work can be bet on, and a raw
-idea has not yet earned that. Do not shut down an idea you do not understand, and keep a
+No backlog also implies an etiquette for new **raw ideas**. A raw idea usually receives a
+provisional response — *"interesting — maybe someday"* — rather than an on-the-spot yes or
+no. The team first *shapes* the idea enough to decide whether it deserves a bet; only
+shaped work can be bet on. Do not shut down an idea you do not understand, and keep a
 poker face even about ideas you love — visible enthusiasm commits you before anyone has
 checked for rabbit holes. Bugs get no privileged lane either; Shape Up handles them three
 ways: fix them during cool-down (that slack time exists partly for this), pitch a big
@@ -914,9 +918,8 @@ The practical takeaways connect straight back to Chapter 1's four pressures:
   structure keep pace with understanding, instead of freezing it at the moment you knew least.
 
 There is no universally best process — only a best process for *this* project's risks, team,
-and constraints. Your job as an engineer is not to pledge allegiance to a methodology but to
-read the risks in front of you and choose, and adapt, the process that confronts them earliest
-and most cheaply.
+and constraints. An engineer should evaluate the project's risks, select a process that
+addresses them early, and adapt that process as conditions change.
 
 ---
 

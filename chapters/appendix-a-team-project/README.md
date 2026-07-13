@@ -3,16 +3,17 @@
 > **Where we are.** The chapters of this book each teach a discipline in isolation:
 > process, requirements, design, testing, metrics. This appendix is where those
 > disciplines stop being separate lessons and become one experience. Over a semester you
-> and three or four teammates will build a real, working software system for a real user,
-> and you will do it by *practicing* — not just reading about — every idea in the book.
+> and three or four teammates will build a working system for a real user. The project
+> gives you repeated *practice* with the ideas introduced throughout the book.
 > The project is the spine that the concepts hang from, and it is deliberately structured
 > around four deliverables: a **proposal**, two **status reports** (a skeletal system,
 > then a viable one), and a **comprehensive final report**.
 
 A course project is not a bigger homework assignment. Homework has a known answer, a
 solitary author, and a deadline measured in days. A project has an ambiguous goal, a
-shifting scope, several authors who must agree, and a horizon measured in months. That is
-precisely the point. Everything that makes software *engineering* hard — coordination,
+shifting scope, several authors who must agree, and a horizon measured in months. These
+differences are intentional: they expose the coordination, changing requirements, and
+sustained complexity that a short individual assignment cannot reproduce. Everything that makes software *engineering* hard — coordination,
 changing requirements, complexity that outgrows any one head — only appears at team scale
 and project length. You cannot learn it from a problem set. You can only learn it by
 living through a small, safe version of the real thing, which is what this appendix is
@@ -94,13 +95,12 @@ later. An architecture chosen in a hallway and remembered by one person is a lia
 
 **Psychological safety.** Cheap communication only happens where people feel safe doing
 it. **Psychological safety** is the shared belief that you can raise a problem, admit a
-mistake, or ask a "basic" question without being punished or embarrassed for it — and it
-is the research-backed foundation of team performance, not a soft nicety.[^2] Google's
-Project Aristotle, a multi-year study of 180 of its own teams, found psychological
-safety the most important of the dynamics that set effective teams apart — ahead of who
-was on them.[^3] Its absence has recognizable symptoms: standups where everyone is silently "fine,"
-deadlines that arrive with surprises because nobody said they were behind, one teammate
-redoing others' work instead of raising the issue. You build it with concrete
+mistake, or ask a "basic" question without expecting punishment or embarrassment.[^2]
+Research on team performance identifies it as a major factor in effective collaboration. In
+Google's Project Aristotle, a multi-year study of 180 internal teams, psychological
+safety was the most important team dynamic the researchers identified.[^3] Its absence
+appears in familiar ways: everyone reports being "fine" in standup, delays remain hidden
+until a deadline, or one teammate quietly redoes another's work instead of discussing the problem. You build it with concrete
 habits, not slogans. Whoever is leading admits their own mistakes *first*, which licenses
 everyone else's honesty. Thank people for surfacing bad news early — early is exactly
 when bad news is cheap, and the thanks is what makes it happen again. And critique the
@@ -185,9 +185,9 @@ gantt
 ## A.2 Project Proposal
 
 The **proposal** (due around week 3) is where your team commits to a problem, a user, and
-a plausible scope. Its job is not to lock you into a fixed specification — requirements
-*will* change, and that is normal (Chapter 1) — but to prove that you have found a real
-problem worth solving and have thought hard enough about it to begin.
+a plausible scope. The proposal establishes that the team has identified a real problem and
+developed a plausible starting plan. It remains revisable as requirements change during the
+project (Chapter 1).
 
 A good proposal answers five questions concretely:
 
@@ -223,13 +223,14 @@ reports on it. A walking skeleton is a tiny implementation that exercises the sy
 **end to end**: a real request enters through the real interface, flows through each
 architectural layer, touches the real database or service, and produces a real response —
 but does almost nothing useful yet.[^5] If your app is a web tool, the skeleton might let a
-user log in, create one empty record, and see it listed. That is all. The value is not in
-*what* it does but in the fact that *every connection is proven to work*.
+user log in, create one empty record, and see it listed. That is all. At this milestone,
+the important result is that a request travels successfully through *every layer* and
+returns a response.
 
 The skeletal milestone exists because integration is where projects die. A team can build
 five beautiful components in isolation and discover in week 12 that they cannot be wired
 together — the assumptions do not match, the interfaces do not line up, the deployment
-does not deploy. The walking skeleton forces that discovery into week 7, when it is cheap.
+does not deploy. Requiring the walking skeleton in week 7 reveals integration problems while the team still has time to correct them.
 It also stands up the machinery you will rely on all term: the repository, the build, the
 test harness, and continuous integration (Chapter 14) so that every commit is checked. From
 this point on you are *always* looking at a running system and fleshing it out, never

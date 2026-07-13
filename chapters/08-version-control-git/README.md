@@ -16,10 +16,10 @@
 Git is close to universal. In recent Stack Overflow developer surveys roughly 93–94% of
 professional developers report using it,[^1] and the platforms built on it — GitHub,
 GitLab, and others — are where modern software is written, reviewed, and shipped. Yet Git
-also has a reputation for being hard to learn, and the reputation is earned: its commands
-are famously inconsistent, and a small, elegant idea hides behind an interface that leaks
-its own internals.[^2] This chapter takes a clear position: the cure for the confusion is
-not memorizing commands but building the right *mental model* first. Once you know what
+also has a reputation for being hard to learn, and the difficulty is partly deserved: its
+command interface is inconsistent and exposes internal concepts that beginners do not yet
+understand.[^2] This chapter therefore begins with the underlying *mental model*, so that
+the commands have a coherent explanation. Once you know what
 Git actually stores, the commands stop being incantations and start being obvious.
 
 > **Principle.** Version control is the substrate of collaboration. You cannot review,
@@ -102,7 +102,8 @@ feasible, but the idea is unchanged.)
 
 ### 8.1.3 How to Think About Git: A Graph of Snapshots
 
-Here is the model that makes the rest of the chapter easy. Underneath, Git is a key-value
+Begin with a graph of snapshots; the later commands follow from this representation.
+Underneath, Git is a key-value
 store: hand it content, it hashes the content and hands back the fingerprint. Three kinds
 of object are built on that store.[^7] A **blob** holds the contents of one file. A **tree**
 maps names to blobs and other trees — it is a snapshot of a directory. A **commit** points
@@ -139,10 +140,9 @@ parent, and the branch HEAD points at slides forward to the new commit. Branches
 just sticky notes you peel off and re-stick onto newer commits as you work.
 
 > **Pitfall.** The single most common misconception is that *Git stores diffs.* It stores
-> whole snapshots keyed by content hash. Nearly every later confusion — why branching is
-> instant, why merging and rebasing behave the way they do, why nothing is ever really
-> lost — dissolves once you picture commits as snapshots in a graph rather than as a pile
-> of edits.[^2]
+> whole snapshots keyed by content hash. Viewing commits as snapshots connected in a
+> graph explains why branches are cheap, how merges and rebases operate, and how Git can
+> recover work that seems lost.[^2]
 
 ## 8.2 The Everyday Workflow
 
@@ -578,7 +578,7 @@ as the safety net that means an afternoon's work is essentially never truly lost
 
 ## 8.7 Markdown, READMEs, and Project Documentation
 
-A team does not only write code together; it writes *explanations* together. Every repository
+Teams create documentation alongside code. Every repository
 carries a README, every pull request carries a description, every issue and design note is
 prose — and almost all of it is written in one lightweight format: **Markdown**. Learning it
 is a small investment that pays off in every chapter after this one and in every deliverable
@@ -670,9 +670,10 @@ There is a reason this section sits inside the version-control chapter. In the i
 write-up and the final report (Appendix A), you are asked to show *evidence* of what you did —
 and that evidence is almost entirely Markdown-and-Git artifacts: your commit messages, your
 pull request descriptions and review comments, your README, and the issues you opened and
-closed. A repository full of clear commits and well-written pull requests is not just good
-process; it is the durable, timestamped record that lets you — and your grader — see who built
-what, when, and why. Write it as though it is evidence, because it is.
+closed. Clear commits and well-written pull requests create a durable, timestamped record
+of who changed the repository, what changed, and why — and that record is what lets you,
+and your grader, see each member's contribution. Write it as though it is evidence,
+because it is.
 
 ## 8.8 Conclusion
 

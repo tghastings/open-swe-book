@@ -46,13 +46,13 @@ thin client. In its pure form, nothing ships. That single change rearranges almo
 everything downstream. The provider controls what runs in production — canaries, staged
 rollouts, and feature flags may briefly mix versions, but there is no museum of old
 customer installs to support. The
-vendor sees real usage directly — logs, errors, performance — instead of hearing about it
-through support tickets. And because the vendor owns the machines, an update is an
+vendor can observe actual usage through logs, errors, and performance data, reducing its
+dependence on support reports. And because the vendor owns the machines, an update is an
 internal operation rather than a request to thousands of customers: it can happen at any
 time, invisibly, many times a day.
 
-The pull toward SaaS is not only the vendor's. Users get real benefits from the same
-arrangement: their data lives on the service, so a stolen laptop or a dead phone loses a
+Customers also benefit from the move toward SaaS: their data lives on the service, so a
+stolen laptop or a dead phone loses a
 device, not the work; several people can collaborate on the *same* data at once instead of
 emailing copies back and forth; and datasets that are large or constantly changing can
 live in one central, managed place rather than being squeezed onto whatever machine each
@@ -107,8 +107,8 @@ the gap between "works on my machine" and "works in production" permanently smal
 never build up a terrifying pile of unreleased work whose first contact with reality is a
 big bang — the same pathology, at the release level, that
 [§2.4.1](../02-software-development-processes/#241-the-perils-of-big-bang-integration-and-testing)
-diagnosed at the integration level. The rest of this chapter is the machinery that makes
-deploying early *safe* rather than merely brave.
+diagnosed at the integration level. The practices in the remainder of this chapter reduce
+the risk of early deployment.
 
 ### 14.1.4 The Cloud Landscape: Providers, Components, and Responsibility
 
@@ -241,8 +241,8 @@ branches evolve apart, the more their eventual merge resembles the big-bang inte
 [§2.4.1](../02-software-development-processes/#241-the-perils-of-big-bang-integration-and-testing),
 with conflicting assumptions surfacing all at once, weeks after they were made.
 
-The deeper point is that *integration risk grows with divergence*, and divergence grows
-with time. Trunk-based development keeps divergence permanently small by construction.
+Integration becomes more difficult as branches *diverge*, and divergence increases with
+time. Trunk-based development keeps divergence permanently small by construction.
 Merging several times a day means each merge carries at most a few hours of divergence —
 small enough that conflicts are rare, and trivial when they occur. The obvious objection —
 "how do I commit work that isn't finished?" — has a standard answer you will meet in
@@ -307,17 +307,15 @@ quickly. Reverting is not an insult. It is the cheap, always-available path back
 known-good state, and teams that treat it as routine stay green far more than teams that
 treat it as defeat.
 
-The metaphor that captures all of this: *the build is the team's heartbeat*. When it is
-green and beating steadily, every developer enjoys a continuous, machine-checked guarantee
-that the shared codebase works, and can move fast on top of it. When it is red, the team
-has no pulse — nobody actually knows whether the system works — and everything else should
-stop until it does.
+A broken build interrupts the entire team's work and should be treated as an urgent
+operational problem. While it is green, every developer has a continuous, machine-checked
+guarantee that the shared codebase works and can build on top of it; while it is red,
+nobody knows whether the system works, and restoring it comes before other work.
 
 > **Pitfall.** *The flaky test.* A test that fails intermittently without a code change is
 > more corrosive than a test that always fails, because it teaches the team to ignore red.
-> Once "just re-run it, that one's flaky" enters the vocabulary, the build has stopped
-> being a heartbeat and become a slot machine, and real failures start slipping through on
-> the same shrug. Quarantine flaky tests immediately, fix or delete them promptly, and
+> Once "just re-run it, that one's flaky" enters the vocabulary, the build has become a
+> slot machine, and real failures start slipping through on the same shrug. Quarantine flaky tests immediately, fix or delete them promptly, and
 > treat their existence as a defect in the suite.
 > [§10.2.4](../10-testing/#1024-case-study-test-early-and-often--the-testing-pyramid)
 > catalogs the usual causes — races, shared state, order dependence, unstable externals —
@@ -865,8 +863,8 @@ database engine underneath you.
 
 ### 14.4.4 Configuration and Secrets
 
-Notice what the Compose file did *not* contain: no password written into the image, no
-connection string hard-coded in the source. They arrive as **environment variables**
+The Compose file contains neither a password embedded in the image nor a connection string
+hard-coded in the source. Those values arrive as **environment variables**
 (`${DB_PASSWORD}`), read from an untracked `.env` file or injected by the deployment
 platform. This is the externalized-configuration rule of the twelve-factor model: one image
 runs in every environment, and what differs between environments — credentials, hostnames,
@@ -1119,8 +1117,9 @@ source, as a composition, and as a running target.
 
 ### 14.7.1 The Four Keys — Now Five
 
-How would you know whether any of this is working? Chapter 12 warned that most metrics
-programs fail by measuring what is easy instead of what matters. The delivery world has an
+How would you know whether any of this is working? As Chapter 12 explained, metrics
+programs often choose convenient measurements that do not reflect the outcomes the team
+needs to improve. The delivery world has an
 unusually good answer, produced by the **DORA** research program (DevOps Research and
 Assessment) — a multi-year academic effort, surveying tens of thousands of professionals,
 published in the annual *State of DevOps* reports and the book *Accelerate* (Forsgren,

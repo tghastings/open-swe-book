@@ -14,8 +14,8 @@ recurring answer to a recurring question about how responsibilities and dependen
 should be arranged. When someone says "we'll put a message broker in the middle" or
 "the UI is just a view over the model," they are naming a pattern, and everyone who
 knows the vocabulary immediately shares a picture of the structure, its participants,
-and the compromises it implies. That shared picture is the real payoff. Patterns give a
-team a *design language* precise enough to argue in.
+and the compromises it implies. The main benefit is that participants leave with a shared
+view of the system. Patterns give a team a *design language* precise enough to argue in.
 
 One honest caveat before the catalog: the patterns in this chapter do not all live at
 the same altitude, even though tradition files them under one name.[^3] Layering, shared
@@ -122,7 +122,7 @@ a latency-critical inner loop it is not, and you may deliberately collapse layer
 hot path. And layering says nothing about horizontal scaling — a beautifully layered
 monolith is still one deployable unit.
 
-The deeper trade-off is between **isolation and directness**. Strict layers isolate
+This decision balances **isolation against directness**. Strict layers isolate
 change but add indirection; relaxed layers are direct but let coupling leak. The right
 call depends on which changes you expect. If you expect to swap infrastructure often,
 pay for strictness. If your layers are thin and stable, relax them. Notice that this is
@@ -400,8 +400,8 @@ subscribed and invokes each one's notification callback.
 list. The **observer** (or *subscriber*) implements the callback that runs on change. The
 crucial property is the direction of the dependency: observers depend on the subject's
 *notification interface*, and the subject depends on the observers' *update interface* —
-neither depends on the other's concrete type. This is why you can add a new observer
-without recompiling the subject.
+neither depends on the other's concrete type. Because the subject depends only on the
+observer interface, a new observer can be added without recompiling the subject.
 
 At larger scale the same idea becomes **publish-subscribe**: publishers emit *events* to
 named channels or topics, and subscribers register interest in topics rather than in a
@@ -461,8 +461,8 @@ three roles.
   gestures to intentions.
 
 The wiring is what makes MVC more than three boxes. The view **observes** the model: when
-the model changes, it notifies its views, and each view re-reads the model and redraws.
-This is why editing data in one place updates every view of it automatically.
+the model notifies its views of a change, each view re-reads the model and redraws — so
+editing the data in one place causes every view to refresh.
 
 ```mermaid
 flowchart TD
@@ -788,15 +788,14 @@ function testUnpaid31DaysIsOverdue(): void {
 > design constraint, and keep the untestable layer as thin as physically possible.
 
 > **MVC in the wild.** Real frameworks realize the pattern under shuffled names. Django
-> calls its variant **MTV (Model-Template-View)**: Django's "view" plays the controller
-> role and its "template" is the view — the same triad, relabeled.[^11] Rails is classic
-> server-side MVC.[^12] **Single-page applications (SPAs)** built with React or Angular move
-> the triad into the browser, often replacing two-way observer wiring with a
-> **unidirectional data-flow** store (Flux/Redux): the view fires actions, the store
-> updates, the view re-renders — the same separation with a stricter update discipline.[^5]
-> Very large products run on each (Instagram on Django, Shopify on Rails, Airbnb on
-> React), which is the point: the pattern, not the framework, is the transferable
-> knowledge.[^13] [^14]<!-- -->[^15]
+> calls its variation **MTV (Model-Template-View)**: Django's "view" fills the controller
+> role, and its "template" fills the view role.[^11] Rails uses conventional server-side
+> MVC.[^12] **Single-page applications (SPAs)** built with React or Angular place the same
+> separation in the browser, often using a **unidirectional data-flow** store (Flux/Redux):
+> a view dispatches an action, the store updates, and the view renders again.[^5] Large
+> products have been built with each approach — Instagram with Django, Shopify with Rails,
+> Airbnb with React.[^13] [^14]<!-- -->[^15] The architectural separation transfers across
+> frameworks even when the names and update mechanisms differ.
 
 ## 7.4 Dataflow Architectures
 
@@ -944,10 +943,10 @@ flowchart LR
     class M1,M2,M3,R1,R2 f;
 ```
 
-**Problem it solves and trade-offs.** The pattern's genius is that *you* write two small,
-sequential functions — map and reduce — and the *framework* handles the hard distributed
-concerns: partitioning the data, scheduling work, moving map outputs to the right
-reducers (the **shuffle**), and re-running tasks that fail on a flaky machine. You get
+**Problem it solves and trade-offs.** In MapReduce, *you* supply two small, sequential
+functions — map and reduce — and the *framework* handles the hard distributed concerns:
+partitioning the data, scheduling work, moving map outputs to the right reducers (the
+**shuffle**), and re-running tasks that fail on a flaky machine. You get
 massive parallelism and fault tolerance almost for free, provided your problem fits the
 map-then-reduce shape. The costs are real: the rigid two-phase structure forces awkward
 encodings for computations that are naturally iterative (many machine-learning
@@ -1431,9 +1430,8 @@ interaction, and rules on separate schedules. Dataflow makes it cheap to reorder
 parallelize transformations. Client-server, broker, and product lines push those same
 ideas across machines and across whole families of products.
 
-The table below is your quick-reference map. Use it the way an engineer uses any catalog:
-not to pick the fanciest option, but to reach quickly for the *smallest* pattern that
-solves the problem in front of you and to state out loud what it will cost.
+The table below is your quick-reference map. Treat it as a catalog: choose the *smallest*
+pattern that addresses the problem in front of you, and make its costs explicit.
 
 | Pattern | Problem it solves | Key trade-off |
 | --- | --- | --- |

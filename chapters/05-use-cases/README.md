@@ -127,9 +127,8 @@ Here is the basic flow for *Withdraw Cash from ATM*, written the way a use case 
 Read those steps and notice their properties. Each is a whole interaction (not "the system
 sends a byte to the card reader" — that is design). Each names *who* acts. None mentions a
 screen layout, a database table, or a programming language. And the sequence tells a story
-a bank customer could read and confirm: *yes, that is how I withdraw money.* That
-confirmability is the point — a basic flow the domain expert cannot follow is one they
-cannot correct.
+a bank customer could read and confirm: *yes, that is how I withdraw money.* A basic
+flow must be clear enough for the domain expert to verify and correct.
 
 > **Pitfall.** Steps that describe the system's *internals* ("the controller polls the
 > dispenser queue") make a use case impossible for stakeholders to validate and tie your
@@ -570,10 +569,9 @@ who the actors are, what goals the system offers them, and how those goals relat
 
 A use-case diagram uses a tiny visual vocabulary. **Actors** are drawn as stick figures
 (or labeled boxes for non-human systems). **Use cases** are ovals labeled with a goal.
-A plain line — an **association** — connects an actor to each use case it participates
-in.[^4] That is nearly the whole notation, and its minimalism is the point: the diagram is meant
-to show *scope and relationships*, not to reproduce the flows. The story stays in the
-text; the diagram shows the forest.
+An **association** is a plain line connecting an actor to each use case in which it
+participates.[^4] This minimal notation keeps the diagram focused on *scope and
+relationships*; the detailed flows remain in the use-case text.
 
 ```mermaid
 flowchart LR

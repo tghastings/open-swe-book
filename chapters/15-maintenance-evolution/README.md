@@ -264,9 +264,9 @@ With behavior pinned, you can refactor. Chapter 2 introduced **refactoring** ins
 red–green–refactor loop
 ([§2.3.2](../02-software-development-processes/#232-testing-make-it-central-to-development)):
 improving the design of existing code without changing its behavior, protected by green
-tests. In legacy work, the loop is the same but the entry point differs — you had to
-*build* the green net first — and the discipline must be stricter, because the code fights
-back. The craft is to move in steps so small that each one is obviously
+tests. Legacy work follows the same feedback loop, but it begins by *building* the green
+net around existing behavior first. Because the code is difficult to change safely, the
+team must apply the loop more cautiously. The craft is to move in steps so small that each one is obviously
 behavior-preserving — rename, extract a function, inline a variable, move a method —
 running the suite after every step. If the bar goes red, the *last* step is the culprit;
 undo it and take a smaller one. Named, cataloged refactoring moves (Fowler's catalog is
@@ -505,17 +505,17 @@ function canBook(patient: string | null, slot: Slot, bookedToday: number): boole
 
 Legacy code adds a chicken-and-egg problem the catalog alone cannot solve: the worst code
 cannot be tested without refactoring (dependencies are hard-wired, everything talks to the
-database) and cannot be safely refactored without tests. The escape is a minimal set of
-low-risk *enabling* changes — introduce a parameter, extract an interface for a hard-wired
-dependency so a test double (Chapter 10) can stand in — done with extreme care, exactly to
-the point where a test can grip, and no further.
+database) and cannot be safely refactored without tests. To break the cycle, make only the
+*enabling* changes required to add a test: introduce a parameter or extract an interface
+around a hard-wired dependency so a test double can replace it (Chapter 10). Stop once the
+behavior can be tested, then proceed under that protection.
 
 ## 15.4 Repository Stewardship
 
 The habit of leaving a repository better than you found it is sometimes called the **Boy
 Scout Rule**.[^4] It does not mean perfecting every file you open or disguising a rewrite
-inside an ordinary change. It means taking responsibility for the condition of the system,
-not merely for the feature or defect named in the ticket.
+inside an ordinary change. Repository stewardship extends responsibility beyond the feature
+or defect named in the ticket to the condition of the surrounding system.
 
 Small improvements compound just as small shortcuts do. A clearer name reduces the cost of
 the next reading. A characterization test protects the next modification. Removing a stale
@@ -580,10 +580,9 @@ biggest change a team ever makes.
 Evolution is where Chapter 6's "design for change" either pays its dividend or collects
 its debt: systems built with seams, interfaces, and tests bend under years of change;
 systems without them become the legacy code someone else must characterize, strangle, and
-replace. The working sequence of this chapter is the discipline in miniature: pin current
-behavior with characterization tests, refactor only under green, repay debt deliberately
-rather than by accident, and when replacement is truly justified, strangle rather than
-rewrite. Underneath all of it runs the habit of §15.4 — steward the repository, leaving it
+replace. The chapter's working sequence is practical: preserve current behavior with
+characterization tests, refactor while the tests remain green, address technical debt
+deliberately, and use incremental replacement when a rewrite is justified. Underneath all of it runs the habit of §15.4 — steward the repository, leaving it
 a little better prepared for the next change than you found it. Chapter 14's compression
 was a rule about *making* change — keep it small, keep its path to users automatic;
 this chapter adds the long-run corollary: **keep the code changeable** — because the one

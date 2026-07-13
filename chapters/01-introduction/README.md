@@ -97,8 +97,8 @@ developed like an engineering discipline, with deliberate methods, rather than b
 programming and heroics.[^5]
 
 What ultimately answered the crisis, though, was not a fixed body of rules like a
-building code. Software turned out to be too changeable for that. The discipline's
-mature answer is **empiricism**: work like an experimental scientist. Iterate in small
+building code. Software turned out to be too changeable for that. The discipline
+eventually adopted an **empirical** approach modeled on experimental science. Iterate in small
 steps, seek fast **feedback**, prefer **incremental** progress you can evaluate, run
 **experiments** when you are unsure, and let measured evidence — not opinion or
 authority — settle the argument. Modern writers such as Dave Farley frame the effective
@@ -137,8 +137,8 @@ hierarchies — for eliciting and recording what all of these stakeholders actua
 ### 1.2.2 Dealing with Requirements Changes
 
 Requirements *change*, and this is normal, not a failure. Users learn from early
-versions; markets move; regulations update. The engineering question is not "how do we
-prevent change?" but "how do we build so that change is cheap?"
+versions; markets move; regulations update. Because requirements will change, engineers
+focus on reducing the cost of accommodating change.
 
 Two broad answers appear throughout the book:
 
@@ -295,9 +295,9 @@ speed, and time patterns) and switched to a cleaner, lower-performance mode *onl
 the test*. On the road, the cars emitted many times the legal limit of nitrogen oxides.[^9]
 
 The software worked *exactly as designed* — and that is the problem. This was no mere testing failure — it was a *requirement* that should never have
-been implemented. Engineers wrote that code. The lesson: **correctness is not the same
-as rightness.** A professional must sometimes refuse to build what they are asked to
-build.
+been implemented. Engineers wrote that code. **A system can satisfy its specification
+and still be ethically wrong.** A professional must sometimes refuse to build what they
+are asked to build.
 
 ### 1.6.2 The ACM Code
 
@@ -327,8 +327,9 @@ death** — not bureaucratic overhead.
 
 Across these cases, recurring lessons:
 
-1. **Build the right thing, not just the thing right** — question requirements that harm
-   users or the public.
+1. **Build the right thing, not only the thing right** — challenge requirements that
+   would cause harm to users or the public. (Chapter 10 returns to this distinction as
+   validation versus verification.)
 2. **Don't rely on a single safeguard** — defense in depth (interlocks *and* software
    checks; reviews *and* tests).
 3. **Take field reports seriously** — a dismissed anomaly is a failure waiting to recur.

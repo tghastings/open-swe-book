@@ -13,9 +13,9 @@ You have talked to users, and the whiteboard is full. There are forty things the
 scheduling app "must" do, six people who each want theirs first, and a sponsor asking a
 question you cannot yet answer: *when will it be done, and what will it cost?* Guessing
 feels dishonest; refusing to answer feels unprofessional. The discipline in this chapter
-sits exactly in that gap. It will not give you certainty — nothing can — but it will give
-you **estimates you can defend, revise as you learn, and use to make trade-offs in the
-open** rather than in a manager's head at midnight.
+sits exactly in that gap. The method cannot eliminate uncertainty. It can produce
+**estimates that the team can explain, update as it learns, and use for explicit
+trade-offs.**
 
 ## 4.1 A Checklist Approach
 
@@ -185,9 +185,9 @@ An estimate and an appetite point in opposite directions:
 
 An appetite is a **budget, not a prediction.** It flips the iron triangle (Chapter 1):
 instead of fixing scope and letting time flex, you **fix time and let scope flex**. The
-deadline is a **circuit breaker** — when the budget runs out, you ship what you have or
-drop the project; you do *not* automatically extend it.[^6] That hard stop is what forces the
-important trade-offs to happen *early* instead of in a panic at the end.
+deadline is a **circuit breaker**: when the budget runs out, you ship what you have or
+drop the project rather than extending the schedule automatically.[^6] A fixed limit
+brings the scope trade-offs forward, before the end-of-project rush.
 
 > **Principle.** Fixed time, variable scope. A budget you cannot exceed turns "how long
 > will it take?" into the far more useful question "what is the best thing we can build in
@@ -240,8 +240,8 @@ a structured cycle: experts estimate privately, the estimates are revealed toget
 outliers *explain their reasoning*, and everyone re-estimates.[^7] The magic is in that middle
 step — the person who guessed 13 when everyone else guessed 3 usually knows something the
 others don't ("that feature needs a HIPAA audit log"), or has misunderstood the story.
-Either way, surfacing the *reason* — not splitting the difference — is what improves the
-estimate.
+The estimate improves when the group examines the *reasons* behind disagreement; simply
+averaging the numbers loses that information.
 
 **Planning Poker** is Wideband Delphi made fast and fun for agile teams.[^8] Each estimator
 holds a deck of cards printed with the point scale (1, 2, 3, 5, 8, 13, …). For each story:
@@ -270,8 +270,8 @@ for the SMS-reminders story:
 
 Notice what happened. The final number matters less than the *conversation* it forced: the
 team discovered hidden work (consent) and a hidden opportunity (reuse) that a single
-estimator would have missed. That shared understanding is the real product of the session;
-the point value is a by-product.
+estimator would have missed. The session's main result is a shared understanding of the
+work; the point value records that understanding in a compact form.
 
 ### 4.3.2 The Original Delphi Method
 
@@ -529,10 +529,10 @@ marginal cost, and stop when it doesn't. **Delighters** are
 all-or-nothing in a different sense: a half-built delighter often delights no one, so either
 fund it enough to actually thrill or don't start.
 
-This is why Kano and value/cost analysis are partners. Kano tells you the *shape* of a
-feature's payoff curve; value/cost tells you *where on that curve to stop spending*. Together
-they answer the question a raw priority ranking cannot: not just *what* to build next, but
-*how much of it is enough*.
+Kano analysis and value/cost analysis complement one another: Kano describes the *shape*
+of a feature's payoff curve, and value/cost shows *where on that curve to stop spending*.
+Used together, they show both which item should come next and what level of implementation
+is sufficient.
 
 ## 4.6 Plan-Driven Estimation Models
 

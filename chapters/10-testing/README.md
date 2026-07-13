@@ -1352,14 +1352,13 @@ a function's decision points plus one — equivalently, for a graph with $E$ edg
 nodes, $E - N + 2$.[^14] It measures how many independent paths thread the function, and so
 roughly how many tests branch coverage will demand. For the function above: two decisions
 (nodes 2 and 5), so complexity $2 + 1 = 3$; or count the graph above, $E = 9$, $N = 8$,
-$9 - 8 + 2 = 3$. Conventional bands for reading the number: **1–10** is simple, readily
-testable code; **11–20** is moderately complex; **21–50** is risky; above **50** is
-extremely difficult to test comprehensively — and a strong sign the function should be
-decomposed.[^15] The metric earns its keep as a *predictor*: high-complexity
-functions are where defects cluster and where the hard-to-cover branches live, which
-makes it a map of where to spend testing effort — and refactoring (Chapter 15,
-[§15.3](../15-maintenance-evolution/#153-refactoring-under-green-tests)) is the
-treatment for the hot spots it finds.[^16]
+$9 - 8 + 2 = 3$. Typical interpretation bands are **1–10** for simple, readily testable
+code; **11–20** for moderate complexity; **21–50** for risky code; and above **50** for
+code that is extremely difficult to test comprehensively and should usually be
+decomposed.[^15] High-complexity functions tend to contain more defects and hard-to-cover
+branches, so the metric helps teams direct testing and refactoring effort (Chapter 15,
+[§15.3](../15-maintenance-evolution/#153-refactoring-under-green-tests)) toward the areas
+of greatest risk.[^16]
 
 ### 10.3.2 Control-Flow Coverage Criteria
 

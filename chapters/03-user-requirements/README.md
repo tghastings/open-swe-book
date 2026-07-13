@@ -263,9 +263,9 @@ spot:
   logs are elicitation gold — they are records of real needs and real friction, unfiltered
   by anyone's memory.
 
-The lesson is to *combine* methods rather than pick a single "best" one, so that each
-covers another's weakness: interview to form hypotheses, observe to correct them, prototype
-to discover what you missed, and survey to prioritize what you found.
+Use several elicitation methods, because each corrects a different weakness: interviews
+form hypotheses, observation tests them, prototypes reveal omissions, and surveys help
+prioritize the findings.
 
 > **Case study.** A team building the clinic scheduler interviewed front-desk staff, who
 > asked for faster search. Only when the team *watched* a morning rush did they see the
@@ -339,8 +339,8 @@ flowchart LR
 
 > **Pitfall.** Delighters decay into expectations. The first scheduler with automatic
 > reminders delighted users; today a scheduler *without* reminders feels broken. What was a
-> delighter becomes a must-be. This is why elicitation never stops: the bar keeps rising,
-> and yesterday's magic is today's baseline.
+> delighter becomes a must-be. Elicitation continues throughout development because user
+> expectations rise as products and competitors improve.
 
 Two practical consequences. First, spend your must-be budget ruthlessly but seek no glory
 there — just don't fail. Second, invest deliberately in one or two delighters per release,
@@ -795,8 +795,8 @@ This is the same right-fidelity discipline as the fat-marker sketches and breadb
 [§6.1.2](../06-design-and-architecture/#612-design-includes-architecture); a storyboard is
 essentially a breadboard with time running left to right.
 
-> **Technique — storyboard an exception.** Storyboard the *unhappy* paths, not just the
-> demo path. Drawing §3.5.2's Exception A frame by frame — Harper at the desk, the
+> **Technique — storyboard an exception.** Include failure cases and difficult paths in
+> the storyboard alongside the ideal demonstration path. Drawing §3.5.2's Exception A frame by frame — Harper at the desk, the
 > empty search result, Dorothy switching to phone-number lookup, the inline correction, the
 > line still moving — immediately raises the questions that matter: where does the
 > correction happen? does Dorothy lose her place in check-in? what does the system show the
@@ -976,7 +976,7 @@ otherwise miss:
   action), *Information disclosure* (leaking data), *Denial of service* (blocking access),
   and *Elevation of privilege* (gaining rights you shouldn't have).[^16] Walking each category
   against each asset surfaces branches brainstorming misses.
-- **Attack the humans and the process, not just the code.** The cheapest attack is often a
+- **Include social and procedural weaknesses, not only flaws in code.** The cheapest attack is often a
   convincing phone call to the front desk. Social engineering, weak password-reset flows,
   and over-broad admin rights are attack branches too.
 - **Prune by feasibility, then defend the rest.** Not every leaf is worth defending equally.
@@ -1014,11 +1014,10 @@ surface **conflicting goals** so the right owner resolves the trade-off on purpo
 than by accident in the code. And you **invert** the whole exercise for security, using
 attack trees to ask what an adversary wants, because cooperative users will never tell you.
 
-None of this produces certainty, and it is not meant to. The point is to be *less wrong,
-sooner, and on purpose* — to spend a small, early, deliberate effort so you don't spend a
-large, late, accidental one building the wrong thing. That is the same bargain Chapter 1
-called engineering discipline, applied to the hardest question a project faces: not *how* to
-build it, but *what* to build. The next chapters take these requirements and turn them into
+None of this produces certainty, and it is not meant to. The purpose is to identify errors
+early, while correction is inexpensive, by investing a small amount of deliberate effort
+before committing to the wrong solution. This applies Chapter 1's engineering discipline
+to deciding *what* the team should build — the most consequential question in the project. The next chapters take these requirements and turn them into
 plans, designs, and tests — but each of those inherits the quality of the understanding you
 build here.
 

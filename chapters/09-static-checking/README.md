@@ -60,7 +60,7 @@ A few principles keep an architecture review productive rather than performative
 - **Focus on the risky and the irreversible.** Review time is scarce. Spend it on the
   decisions that are hard to change and costly if wrong — data models, trust boundaries,
   concurrency, external dependencies — not on choices that a later refactor can fix cheaply.
-- **Produce decisions and owners, not just discussion.** A review that ends with "good
+- **End with recorded decisions, assigned owners, and follow-up actions.** A review that ends with "good
   points, we'll think about it" has failed. Every significant concern should end as a
   recorded item with an owner and a disposition: fix now, accept the risk (and why), or
   investigate further by a date.
@@ -113,9 +113,9 @@ flowchart TD
 ```
 
 The three are not mutually exclusive — a long-lived system will have all three, repeatedly.
-The point is to know *which* review you are running, because a deep-dive that wanders into
-discovery loses its focus, and a discovery that demands deep-dive rigor exhausts everyone
-before the real risks are found.
+State *which* review you are running at the start: a deep-dive that turns into discovery
+loses its focus, while a discovery that demands deep-dive rigor exhausts everyone before
+the major risks are found.
 
 ## 9.2 Conducting Software Inspections
 
@@ -265,7 +265,8 @@ corrosive.
 
 > **Principle — repository stewardship.** The primary question in a code review is not "is
 > this how *I* would have written it?" but "will this change make the repository *healthier
-> over time*?"[^9] A reviewer's job is to prevent decline, not to enforce personal style.
+> over time*?"[^9] Reviewers should identify risks and maintain standards without imposing
+personal preferences.
 > If a change clearly improves the system, it should be approved even when the reviewer can
 > imagine a marginally better version.
 >
@@ -298,9 +299,9 @@ is worse than no approval at all.
 
 ### 9.3.2 Reviewing Is Done within Hours
 
-The other thing modern practice has learned is that **review latency matters enormously**, and
-the target is *hours, not days*.[^10] This surprises people who assume slower means more thorough,
-but the reasoning is about the whole system's throughput, not one review's depth.
+Modern practice also emphasizes **review latency**: teams should usually respond within
+*hours rather than days*.[^10] Fast review supports the throughput of the whole
+development system, even though a slower review may appear more thorough in isolation.
 
 When a change sits unreviewed for days, several bad things happen. The author, blocked, either
 switches to other work (incurring the cost of context-switching back later) or, worse, starts

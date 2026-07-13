@@ -133,10 +133,10 @@ Concretely, a good architecture tends to have these properties.
   every test to spin up the entire system is a bad architecture, because it makes the
   feedback loop that catches defects slow and expensive (Chapter 10).
 
-> **Principle.** You cannot maximize all qualities at once. Good architecture is the art
-> of *trading off* consciously — buying the qualities this system needs and knowingly
-> paying for them in the qualities it does not — rather than stumbling into whichever
-> trade-offs the code happens to make for you.
+> **Principle.** You cannot maximize all qualities at once. A good architecture records
+> deliberate trade-offs among quality attributes: the team chooses which qualities to
+> prioritize, understands the costs imposed on others, and avoids letting incidental code
+> structure make those decisions.
 
 ### 6.1.4 Quality-Attribute Scenarios: Making "Good" Testable
 
@@ -165,7 +165,8 @@ For the clinic app of Chapter 3:
 > visit* (stimulus); *the visit is recorded and billing is queued* (response) *with no
 > data loss, and the queue drains within ten minutes of recovery* (response measure).
 
-Notice what the format buys you. Each scenario is an architecture test you can run on
+This format turns a vague quality goal into a scenario that can be reviewed and tested.
+Each scenario is an architecture test you can run on
 paper — walk the design and ask *where* each stimulus lands and *which* structures
 produce the response in time — and later a real test you can run in Chapter 10's sense.
 The response measure is exactly the **fit criterion** of §3.1.3 wearing its
@@ -686,8 +687,8 @@ classDiagram
 ```
 
 Read the boxes first: a `User` hides its `id` and `status` (private, the `-`) but promises
-a public `send` operation (the `+`). The relationships — the lines between boxes — are the
-real content of the diagram, and they are the subject of the next section.
+a public `send` operation (the `+`). The lines between class boxes show the relationships
+that give the diagram its structure; the next section examines those relationships.
 
 ### 6.3.2 Relationships between Classes
 
@@ -722,10 +723,11 @@ of zero or more messages, and each message belongs to exactly one conversation."
 Multiplicities matter: `1` versus `0..1` versus `0..*` is often the difference
 between a null-pointer bug, a missing foreign key, and a correct schema.
 
-> **Pitfall.** Do not agonize over aggregation versus composition in every diagram — even
-> the UML specification leaves the precise semantics of aggregation open.[^13] What matters is the *lifetime and ownership*
-> question the distinction forces you to ask: "if I delete the whole, does the part die,
-> and can two wholes share one part?" Answer that; the diamond follows.
+> **Pitfall.** Do not spend excessive time choosing between aggregation and composition —
+> even the UML specification leaves aggregation's precise semantics open.[^13] Start with
+> the *lifetime and ownership* questions: when the whole is deleted, does the part also
+> disappear, and can multiple wholes share the same part? Choose the diamond after
+> answering those questions.
 
 ## 6.4 Architectural Views
 
@@ -881,8 +883,8 @@ Notice how the diagram *encodes the quality requirements*. The transport (WebSoc
 confined to the edge between the UI and the Connection Gateway, so changing it touches two
 boxes, not the whole system. The Attachment Store is reached by a *dashed, asynchronous*
 connector, signaling that the Message Router does not block on it — if attachments are down,
-text messages still flow, satisfying the "stay usable" requirement. The architecture is
-readable *because* it makes the important decisions visible and hides the rest.
+text messages still flow, satisfying the "stay usable" requirement. The overview remains
+readable by displaying the decisions readers need and omitting lower-level detail.
 
 ### 6.5.3 A Development View: Module Hierarchies
 

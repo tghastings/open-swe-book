@@ -70,7 +70,8 @@ file is 400" is meaningless until you say *400 what, measuring which attribute.*
 
 ### 12.1.2 Selecting Useful Metrics
 
-Because you can measure almost anything, the hard part is deciding what is *worth*
+Since almost anything can be measured, teams must choose measures that support useful
+decisions. The hard part is deciding what is *worth*
 measuring. A useful metric passes several tests at once:
 
 1. **Relevant.** It moves when the attribute you care about moves. Counting comments does
@@ -82,7 +83,8 @@ measuring. A useful metric passes several tests at once:
    decision it informs. A metric that needs a week of manual effort per release will not
    survive contact with a deadline.
 4. **Robust against gaming.** The moment a metric becomes a target for people's
-   incentives, they optimize the metric rather than the goal. This is **Goodhart's Law** —
+   incentives, people begin optimizing the measured value, sometimes at the expense of the
+   underlying goal. This is **Goodhart's Law** —
    the single most common way metrics programs go wrong.[^1]
 
 > **Pitfall.** Reward developers for "lines of code written" and you will get more, longer,
@@ -297,15 +299,15 @@ charts.
 ### 12.3.5 Hill Charts: Displaying Uncertainty, Not Just Quantity
 
 The progress charts most teams use — a **burndown** of remaining tasks, or a "percent
-done" bar — share a blind spot: they measure *quantity remaining* and silently assume you
-already know all the work. But the riskiest work is the work you *haven't figured
+done" bar — report the *quantity of work remaining*, but they usually assume that the team
+has already discovered all of the work. The riskiest work is the work you *haven't figured
 out yet*, and a task list often *grows* as you discover what a problem really involves. A
 burndown that ticks down looks reassuring right up until the unknown you never listed
 blows up the schedule.
 
-The **hill chart**, popularized by Basecamp's *Shape Up*, is a small chart designed to show
-what a burndown hides: not how much is left, but *how much is still uncertain*.[^5] Picture
-each piece of work as a dot climbing and descending a hill:
+The **hill chart**, popularized by Basecamp's *Shape Up*, adds information that a burndown
+omits: *how much uncertainty remains* in each piece of work.[^5] Represent each item as a
+dot moving over a hill:
 
 ```text
                  . . . . .            <- crest: "we know what to do"
@@ -334,15 +336,15 @@ early — the same risk-first instinct behind the spiral model
 and Shape Up's building phase
 ([§2.8](../02-software-development-processes/#28-shape-up-fixed-time-variable-scope)).
 
-> **Principle.** Choose a progress metric that exposes your *uncertainty*, not just your
-> *volume*. A number that only counts finished tasks will look healthiest right before the
-> unknown you never measured comes due.
+> **Principle.** Use a progress metric that makes *uncertainty* visible alongside the
+> amount of work remaining. A number that only counts finished tasks will look healthiest
+> right before the unknown you never measured comes due.
 
 ## 12.4 Product Quality: Measuring Defects
 
 Defects are the most measurable face of quality, so they anchor most quality programs.
-The trick is measuring them in a way that tracks the attribute you care about — usually
-"how much pain reaches the customer" — rather than an artifact of how hard you looked.
+Measure the outcome you care about — usually "how much pain reaches the customer" — and
+avoid letting the result depend mainly on how aggressively the team searched for defects.
 
 ### 12.4.1 Severity of Defects
 
@@ -407,8 +409,9 @@ defects respectively in their first six months.
 
 ### 12.4.4 CFDs Measure Installs, Not Quality
 
-Here is the subtlety that trips up naive dashboards. **Raw CFD count is confounded by
-usage.** A release installed on ten machines and a release installed on ten million
+A CFD requires careful interpretation, because installation counts can make a dashboard
+appear healthier without showing whether product quality improved. **Raw CFD count is
+confounded by usage.** A release installed on ten machines and a release installed on ten million
 machines can have identical code quality, yet the second will generate vastly more
 customer-found defects, simply because more users exercise more paths on more data. A
 falling CFD count might mean the code got better — or that adoption cratered. A rising CFD
@@ -452,9 +455,9 @@ $$
 
 Weighting by severity keeps the metric from treating a cosmetic typo like an outage
 (Critical = 10, High = 5, Medium = 2, Low = 1, say), and normalizing by installs obeys
-the principle of §12.4.4. This one number is what leadership tracks; it is deliberately
-*outcome*-focused (what customers feel) rather than *activity*-focused (what engineers
-do), so it is far harder to game by working harder at the wrong thing.
+the principle of §12.4.4. Leadership tracks this single value because it reflects customer
+impact. Since it measures *outcomes* instead of engineering *activity*, a team cannot
+improve it simply by doing more of the wrong work.
 
 ### 12.5.3 Subgoals: Product and Process Improvement
 
@@ -565,9 +568,8 @@ Read at a glance: the box (5 to 12) holds the middle 50% of releases; the median
 8, a little left of the box's center, so the data are mildly **right-skewed** (a longer
 tail toward high defect counts); and one release (23) is a genuine outlier worth
 investigating on its own — maybe a spike in installs (§12.4.4) or a botched release.
-Boxplots shine when you place several side by side: the "before" and "after" quarters of
-Northwind's initiative, drawn as two boxplots, show at once whether the whole distribution
-shifted down, not just the mean.
+Placed side by side, Northwind's before-and-after boxplots show whether the entire
+distribution moved downward and how its spread changed. The mean alone cannot show either.
 
 ### 12.6.3 Histograms of Data Spread
 

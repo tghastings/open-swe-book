@@ -9,10 +9,9 @@
 > ([§6.1.4](../06-design-and-architecture/#614-quality-attribute-scenarios-making-good-testable)).
 > Chapter 9's static analysis traced tainted input into a query, and Chapter 10's tests
 > probed the error paths an attacker lives on — and Chapter 14 will turn many of these
-> checks into automated pipeline gates. Security is a **cross-cutting
-> concern** — a property of the whole lifecycle rather than a feature bolted on at the end —
-> and this chapter gathers the threads the earlier chapters left loose and ties them into
-> one discipline.
+> checks into automated pipeline gates. Security must be addressed throughout the software
+> lifecycle — requirements, design, implementation, dependencies, testing, and deployment.
+> This chapter brings those practices together.
 
 For most of this book, "does it work?" has meant "does it do what the user needs?" Security
 asks a sharper question: does the system do *only* that, even when someone is actively
@@ -192,9 +191,9 @@ ultimately the system being tricked into acting outside its intended authority.
 The defense is a design stance, not a patch: **deny by default**, decide authorization on
 the server for *every* request, and derive the acting user's identity from an authenticated
 session rather than from any value the client can set. Access control is also the security
-attribute least visible to testing — a feature "works" perfectly while silently letting the
-wrong people use it — which is exactly why it belongs in design review and in the
-authorization scenarios of §11.1.4.
+attribute least visible to ordinary feature testing: the system appears to work while
+granting access to unauthorized users. Authorization therefore needs explicit design
+review and dedicated scenarios such as those in §11.1.4.
 
 ### 11.2.2 A05: Injection
 
@@ -323,7 +322,8 @@ function findSafe(db: Database, name: string): Promise<unknown[]> {
 }
 ```
 
-The two functions look almost identical, and that is the lesson. In the first, the boundary
+The functions look nearly identical, but only the parameterized version keeps user input
+separate from the SQL command. In the first, the boundary
 between *code* (the query) and *data* (the name) is a string the attacker can rewrite; a
 crafted name like `Robert'); DROP TABLE appointments; --` closes the quote, ends the
 statement, and appends one of their own. In the second, the `?` placeholder is a
@@ -497,8 +497,8 @@ people's, and its vulnerabilities are your vulnerabilities.
 
 > **Pitfall.** *Automatic updates are a supply-chain attack vector.* The same
 > **semantic-versioning** ranges you learn as good practice — accept any compatible patch or minor
-> release — mean your build silently pulls a poisoned version the moment an attacker
-> publishes one, disguised as a routine patch. As Hastings' dissertation puts the inversion:
+> release — can also create supply-chain risk: your build may automatically accept a
+> malicious patch or minor release as soon as an attacker publishes one. As Hastings' dissertation puts the inversion:
 > "It used to be patch on a Friday to prevent a breach on Monday. Now, it is patch on Friday
 > and a breach on Monday."[^19] The defenses are cultural before they are technical: pin
 > exact versions with a lockfile, review dependency-update pull requests like any other
@@ -717,14 +717,12 @@ configuration, never in source — the secrets-scanning gate of Chapter 14
 to git history must be treated as compromised the moment it lands.
 
 Finally, assume you will be attacked anyway, and instrument for it. **A09:2025 Security
-Logging and Alerting Failures** names the risk of flying blind: without logging you cannot
-detect an attack, and — the point behind the 2025 rename — without *alerting* you cannot
-respond in time to a breach in progress.[^41] Its neighbor, **A10:2025 Mishandling of
-Exceptional Conditions**, is the everyday habit that turns into a security bug when done
-badly: fail-open logic, crashes on unexpected input, and stack traces leaked to
-users.[^42] Both connect security back to ordinary engineering discipline — an error path
-you handle carefully and a log you actually watch are security controls, and Chapter 14's
-CrowdStrike outage is what the mishandled exceptional condition looks like at global scale.
+Logging and Alerting Failures** addresses two related problems: without logging, a team
+may not detect an attack; without *alerting*, it may not respond while the breach is still
+in progress.[^41] **A10:2025 Mishandling of Exceptional Conditions** covers fail-open
+logic, crashes on unexpected input, and stack traces exposed to users.[^42] Careful error
+handling and actively monitored logs are therefore security controls. Chapter 14's
+CrowdStrike case shows the scale of damage that poor exceptional-condition handling can cause.
 
 > **Principle.** Design so that the *default* path is the secure one and the *privileged*
 > path is the exception. Every control that must be remembered will eventually be forgotten;
@@ -733,7 +731,7 @@ CrowdStrike outage is what the mishandled exceptional condition looks like at gl
 
 ## 11.6 Conclusion
 
-Security is the discipline this book has been building toward without always naming it. The
+Security draws together practices introduced throughout the book. The
 attack trees and STRIDE checklists of Chapter 3 were security work; the quality-attribute
 scenarios of Chapter 6 made "secure" measurable; the static analysis of Chapter 9 and the
 tests of Chapter 10 were catching vulnerabilities all along; and the pipeline of Chapter 14

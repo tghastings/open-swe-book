@@ -10,8 +10,8 @@
 > practices now emerging to work this way — **spec-driven development**, **agent
 > instruction files** (`CLAUDE.md`/`AGENTS.md`), and **loop engineering**.
 
-The headline claim of the moment is that AI writes the code now. The more useful claim is
-this: **AI changes where the hard part lives.** For decades the bottleneck was *producing*
+The headline claim of the moment is that AI writes the code now. A more useful way to
+describe the change is that **AI moves the engineering bottleneck.** For decades the bottleneck was *producing*
 correct code fast enough. As producing gets cheap, the bottleneck moves to *deciding what
 to build* and *proving it works* — which are the very activities this book has been
 teaching. The engineer who internalized Chapters 1–12 is the person best positioned to
@@ -97,9 +97,10 @@ mixed enough to demand humility.*
 > whole chapter returns to.
 
 The lesson is not "AI is useless" — gains are real for boilerplate, unfamiliar APIs,
-greenfield prototypes, and well-specified narrow tasks. The lesson is that **leverage
-scales with the operator's judgment**, and that you must *measure* impact rather than trust
-the feeling of speed (a direct application of Chapter 12).
+greenfield prototypes, and well-specified narrow tasks. These results suggest that **AI
+provides more leverage to people who can judge its output well.** Measure its effect on
+delivered work instead of relying on the subjective feeling of moving faster, as discussed
+in Chapter 12.
 
 ## 13.2 AI Across the Lifecycle
 
@@ -471,8 +472,8 @@ not vibes.*[^19]
 metrics*, *outcomes over activity*, *encode intent explicitly*, *make risk a blocking
 gate*, *audit continuously* — is essentially this book's quality philosophy, restated for a
 world where a machine writes the first draft. Principles 2, 10, 14, 15, and 16 are almost a
-summary of Chapters 9–12. That convergence is the point: **when generation is cheap,
-specification and verification become the whole game.**
+summary of Chapters 9–12. Across these sources, **cheaper generation shifts more of the
+engineering work toward specifying desired outcomes and verifying the result.**
 
 **What's open to challenge.** Treat it as a provocation, not gospel:
 
@@ -692,10 +693,9 @@ keyboard, directing the agent line by line. Loop engineering removes that assump
 practitioner moves from *inside* the loop to *outside* it, building the loop rather than
 being it.[^23]
 
-This is why the layer belongs in a book about engineering discipline rather than about
-tools: **it changes what a mistake costs.** §13.1.3 noted that the cost of a
-confident-but-wrong output rises with how much happens between your instruction and your
-review. A loop is, by construction, a machine for *maximizing* that distance — it can run all
+This layer belongs in a discussion of engineering discipline because **it increases the
+consequences of mistakes.** As §13.1.3 noted, a confident but incorrect output becomes
+more costly as the system performs more actions before a person reviews it. A loop is, by construction, a machine for *maximizing* that distance — it can run all
 night, change code you never looked at, and feed its own output back as tomorrow's input.
 Every discipline below exists to shorten the gap between a mistake and its discovery.
 
@@ -765,12 +765,11 @@ flowchart LR
     class E ev;
 ```
 
-Two refinements make the evaluator real. First, it should **act, not just read**: an
-evaluator that only reads code judges "does this look right," not "does this run right."
-Anthropic's evaluator drove the live application through browser automation — clicking,
-screenshotting, inspecting the result — and graded behavior against calibrated criteria
-rather than reading intent.[^28] Second, its default stance should be **doubt, not trust**:
-assume the code is broken until a check proves otherwise. This is the old **maker–checker**
+Two refinements make the evaluator real. First, an evaluator should **execute the software
+and inspect its observed behavior**, not only read the code. Anthropic's evaluator used
+browser automation to operate the live application, capture screenshots, and grade the
+result against calibrated criteria.[^28] Second, it should **begin from skepticism**: treat
+the code as unverified until a check demonstrates that it behaves correctly. This is the old **maker–checker**
 principle from banking — the person entering a large transfer and the person approving it
 must differ — applied to the stop condition of a loop.
 
@@ -797,23 +796,21 @@ loop is running, and they reinforce one another:[^23]
 - **Comprehension rot** — the codebase grows faster than anyone's understanding of it,
   because reading generated code is duller than writing it and the loop never stops to read.
   A bug in a corner no human has read tends to surface first as a production incident.
-- **Cognitive surrender** — the attitude version of the first two: not "no time to review"
-  but "no longer want to." The more reliable the loop seems, the more tempting it is to stop
-  having an opinion about its output.
+- **Cognitive surrender** — the gradual loss of willingness to examine or challenge the
+  system's output. As the loop becomes more reliable, users may stop forming an independent
+  judgment.
 - **Token blowout** — the only cost that hits the bill directly. An idle bug can spin all
   night, burning budget on rounds that produce nothing, unless a hard cap stops it.
 
-The defenses are cheap, and they are the disciplines this book has taught all along, applied
-to a faster machine: **read a representative sample of the loop's output every day** (against
-comprehension rot); **set hard budget caps before the loop first runs unattended, not after
-the first surprising bill** (against token blowout); and — most important — **keep at least
-one human checkpoint where the loop pauses for a person** (against cognitive surrender), not
-because a human will always intervene, but because the pause keeps a human *able* to.
+The defenses are inexpensive and familiar. **Read a representative sample of the loop's
+output each day** to preserve comprehension. **Set hard budget caps before unattended
+execution begins.** **Keep at least one human checkpoint where the loop pauses for review**,
+so that people remain able and prepared to intervene.
 
-> **Case study — Stripe's "Minions."** Stripe's internal coding agents ship on the order of
-> 1,300 pull requests a week, kicked off by an emoji reaction in Slack.[^29] What makes that
-> reliable is not a stronger model — the harness is a fork of the open-source *Goose* — but
-> the *constraints* around it. A deterministic orchestrator assembles context and runs
+> **Case study — Stripe's "Minions."** Stripe's internal coding agents produce roughly
+> 1,300 pull requests each week after being triggered by an emoji reaction in Slack.[^29]
+> Their reliability comes from the *constraints* surrounding the harness, which is a fork
+> of the open-source *Goose*. A deterministic orchestrator assembles context and runs
 > hard-coded quality gates (a linter the agent cannot skip, then a commit step) before and
 > after the probabilistic model does its part; anything a rule can decide is kept out of the
 > model's hands. Every one of those PRs is still reviewed by an engineer — the humans did not
@@ -834,8 +831,8 @@ a machine they can no longer audit.
 That is the deskilling risk of §13.4 stated operationally, and it resolves the same way: the
 human review point is not a temporary scaffold to remove once the loop is trusted. It is the
 permanent feature that *keeps* the loop trustworthy, and the day it is removed is the day
-comprehension rot begins in earnest. Build the loop — but build it like someone who intends
-to stay the engineer, not just the one who presses go.
+comprehension rot begins in earnest. Build the loop in a way that preserves your ability
+and responsibility to review its work.
 
 > **Principle.** Stop prompting the agent; design the system that prompts it. But design that
 > system so a human can always still say "no" — a loop can execute judgment, it cannot supply

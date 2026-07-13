@@ -190,11 +190,11 @@ Demo Day is the sprint review, and four rules keep it honest:
 
 ## Appetite per sprint
 
-Each sprint is a **fixed two-week box**: time and team size are constants, so scope is
-the only variable
+Each sprint has a **fixed two-week duration** and a fixed team, leaving scope as the
+adjustable variable
 ([§4.2.4](../04-requirements-analysis/#424-appetite-fixed-time-variable-scope)).[^6] Plan
-each sprint by appetite — "what is the best version of this we can demo in two weeks?" —
-rather than by estimate. When the box gets tight, practice **scope hammering**: shrink
+by asking, "what is the best version of this we can demo in two weeks?" — then select and
+trim the work to fit that appetite, rather than planning by estimate. When the box gets tight, practice **scope hammering**: shrink
 the task, not the deadline.[^7] Mark nice-to-haves with a `~` on your board when you write
 them down, so that cutting them at crunch time is a pre-authorized decision instead of a
 mid-sprint argument — and keep a few pre-groomed extras ready so a member who finishes
