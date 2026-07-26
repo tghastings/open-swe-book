@@ -334,7 +334,66 @@ reported on with hand-waving. Use the
 > are the ones that begin "if we did this again, we would…". They prove you learned
 > something the deliverable alone cannot show.
 
-## A.6 Conclusion
+## A.6 Grading Your Own Repository
+
+All term, other people grade your work. This section is about doing it to yourself first —
+on the same axes this book teaches, while there is still time to act on the answer.
+
+This book's repository ships a **repository scorecard**: a set of instructions an AI coding
+agent follows to audit a codebase against the nine parts of this book that cover the
+software lifecycle, then report a letter grade for each along with specific findings. The
+areas are the book's own structure — process and teamwork (Chapters 1–2 and this
+appendix), requirements (3–5), design and architecture (6–7), version control (8),
+software quality (9–10), security (11), metrics (12), AI-assisted practice (13), and
+delivery and evolution (14–15). A grade you cannot trace to a chapter is not worth much;
+every finding it produces cites the section that teaches the fix.
+
+You will find it under `.claude/skills/repo-scorecard/` in the
+[book's repository](https://github.com/tghastings/open-swe-book), with setup instructions
+in that repository's `AGENTS.md`. Copy the folder into your own project, then ask your
+agent to score the repository. It is plain Python and runs offline; nothing is uploaded.
+
+### Using it during the project, not after
+
+Run it **at every checkpoint**, starting with the skeletal system — not once, the night
+before the final report. Two reasons. First, most of what it finds is cheap to fix early
+and expensive to fix late: a test suite that never gated a merge is a twenty-minute
+pipeline change in week 6 and a rewrite of your team's habits in week 14. Second, the
+interesting number is not any single grade but the **delta between runs**. A repository
+that moves from C to B− across two sprints is demonstrating engineering discipline, and
+the two scorecards are evidence you can put directly into your status report or
+retrospective — far stronger than asserting that quality improved.
+
+The findings are also a ready-made work queue. Each one names a concrete change and an
+effort estimate, which makes them straightforward to turn into backlog items and split
+across the team.
+
+### What the grade is, and what it is not
+
+Treat the output as a structured second opinion, not a verdict. Its real value is that it
+makes disagreement concrete: when it reports that your project has no acceptance criteria
+and you can point to the twelve scenarios in your issue tracker, you have learned
+something about where your work is *visible* — which is most of what an outside reviewer,
+including your instructor, can actually assess. **A finding you can refute with evidence
+is worth as much as one you fix.**
+
+Be clear about its limits. It reads a repository, so it can see your tests, your commits,
+and your pipeline — but not whether the software is any good for the person using it, not
+whether your team is functioning, and not the judgment behind a design. Those are the
+things a demo and a retrospective are for. It is a floor, not a ceiling: passing every
+check it makes is the beginning of good engineering practice, not the whole of it.
+
+> **Pitfall.** The letter it produces is not your course grade, and there is no rubric
+> anywhere that maps one to the other. A team that optimizes for the scorecard — adding a
+> linter nobody runs, a `SECURITY.md` nobody reads — will score better and *be* no better,
+> which is Goodhart's law from Chapter 12 arriving on schedule. Fix the underlying
+> practice and let the grade follow.
+
+Practitioners can use it the same way on working code, with one adjustment: the tool
+offers a `practitioner` profile that shifts weight away from coursework process and toward
+quality, security, and delivery.
+
+## A.7 Conclusion
 
 The team project is where this book stops being a set of ideas and becomes a way of
 working. Each of the four deliverables — proposal, skeletal system, viable system, final
@@ -360,7 +419,7 @@ defeated improvisation. That experience, more than any exam, is what makes an en
 
 ---
 
-- **Key takeaways** are summarized above in §A.6.
+- **Key takeaways** are summarized above in §A.7.
 - Continue to the [Exercises](exercises.md).
 - Go deeper with the [Open Resources](resources.md) for this appendix.
 - Running on sprints? See [Running the Project on Two-Week Sprints](two-week-sprints.md).

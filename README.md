@@ -155,6 +155,16 @@ The sidebar provides a complete, linked table of contents, including chapters an
   from [Appendix A](chapters/appendix-a-team-project/).
 - Contributors should consult [`CONTRIBUTING.md`](CONTRIBUTING.md). This resource is intended to be a
   living, community‑improved resource.
+- **Grade your own repository.** This repository ships a *repository scorecard* under
+  [`.claude/skills/repo-scorecard/`](https://github.com/tghastings/open-swe-book/tree/main/.claude/skills/repo-scorecard) — instructions an AI
+  coding agent follows to audit a codebase against the nine parts of this book that cover
+  the software lifecycle, returning a letter grade per area and findings that cite the
+  chapter teaching each fix. Copy it into your own project and ask your agent to score the
+  repository; setup is in [`AGENTS.md`](AGENTS.md) and the classroom workflow is in
+  [Appendix A](chapters/appendix-a-team-project/) §A.6. Students can track progress across
+  sprints; practitioners can switch it to a `practitioner` profile that weights quality,
+  security, and delivery more heavily. It is plain Python, runs offline, and uploads
+  nothing.
 
 ## Building the book
 
@@ -205,8 +215,8 @@ Links: [Google Scholar](https://scholar.google.com/citations?user=8iQ6Jt0AAAAJ) 
 
 ## If this book helped you
 
-This book is free, and it stays free. If it helped you learn a topic, teach a course, or
-build something, the most useful thing you can do in return is
+If it helped you learn a topic, teach a course, or build something, the most useful thing
+you can do in return is
 **[star the repository on GitHub](https://github.com/tghastings/open-swe-book)** — it
 takes a second, and a star is how I get to see who the book is reaching: students,
 instructors, teams, and self‑learners. Knowing where it lands is what tells me the work is

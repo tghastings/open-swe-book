@@ -14,6 +14,10 @@ Thumbs.db
 scratch/
 *.local.md
 
+# Per-machine Claude Code settings (permission allowlists, local paths).
+# The shared agent config — AGENTS.md and .claude/skills/ — IS tracked.
+.claude/settings.local.json
+
 # Local EPUB / print site builds (stray root-owned output from one-shot builds)
 epubs/
 .epub-build/

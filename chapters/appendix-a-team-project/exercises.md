@@ -58,3 +58,8 @@ them with your team, in order, across the term. Each maps to a deliverable in th
     what you know now? Tie at least three lessons back to specific chapters.
 11. **[project]** Prepare a 5–8 minute demo that shows the system doing real work for its
     primary user — not a slideshow *about* the system, but the system itself.
+12. **[analysis]** Score your repository with the repository scorecard from §A.6 at the
+    start of this phase and again before the demo. Include both scorecards in your
+    final report with a short account of what changed: which findings you fixed, which you
+    decided not to fix and why, and which you refuted with evidence the tool could not see.
+    A defended disagreement counts as much here as a fix.
