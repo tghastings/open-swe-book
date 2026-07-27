@@ -1,9 +1,59 @@
 ---
 name: repo-scorecard
-description: Grade a code repository against the SDLC practices taught in "Software Engineering: Standing on the Shoulders of Giants" — letter grades per area plus triple-verified, actionable feedback with citations back to the book. Use when asked to score, grade, audit, review, or assess a repo's engineering practices.
+description: Apply the SDLC practices from "Software Engineering: Standing on the Shoulders of Giants" to a codebase — either ADOPT them (write TDD, BDD, security, CI and stewardship rules into the project's CLAUDE.md, for a new or existing project) or SCORE the repo against them (letter grade per area with triple-verified, actionable findings). Use when asked to score, grade, audit, or review a repo's engineering practices, or to set up / bootstrap a project with the book's principles.
 ---
 
 # Repository scorecard
+
+Two modes. Most projects want both, in this order.
+
+| Mode | When | Section |
+|---|---|---|
+| **Adopt** | Starting a project, or bringing an existing one under the book's practices. Writes the principles into `CLAUDE.md` so every future session follows them. | [Mode A](#mode-a--adopt-the-principles) |
+| **Score** | Auditing what a repo actually does. Letter grade per SDLC area with verified findings. | [Mode B](#mode-b--score-the-repository) |
+
+Adopt sets the standard; score measures against it. Running adopt first and score a sprint
+later gives the owner a before/after they can point at.
+
+---
+
+## Mode A — Adopt the principles
+
+Install the book's SDLC practices into a project's agent-instructions file, so the rules
+are in context for every future session rather than living in a book nobody re-reads.
+
+```bash
+python3 <skill-dir>/adopt-principles.py /path/to/project     # merge into CLAUDE.md
+python3 <skill-dir>/adopt-principles.py . --agents           # AGENTS.md instead
+python3 <skill-dir>/adopt-principles.py . --dry-run          # report, write nothing
+python3 <skill-dir>/adopt-principles.py . --print            # stdout only
+```
+
+**What it writes.** A tailored block covering every part of the lifecycle: requirements and
+acceptance criteria, BDD scenarios, TDD (red-green-refactor, *never trust a test you have
+never seen fail*, oracle choice, failure paths), design and ADRs, commit and review
+practice, static checking, security, delivery and DORA, metrics without gaming,
+maintenance and stewardship, working with AI assistance, and a definition of done. Each
+rule cites the chapter that explains it.
+
+**It is tailored, not boilerplate.** The script reuses `repo-census.py`'s detection to fill
+in the real test and lint commands for the stack, and to name the practices *not yet in
+place* so the block reads as a backlog rather than a fiction. A new empty directory gets
+different opening advice than a mature codebase.
+
+**It never clobbers.** The block sits between `<!-- BEGIN swebook-principles -->` markers.
+Re-running replaces only what is between them; anything the owner writes outside survives.
+An existing `CLAUDE.md` with no markers gets the block appended, never overwritten.
+
+**After running it**, tell the owner three things: which file changed, that their own
+content was preserved, and that re-running refreshes the block as the project matures.
+Offer to tailor further — a project with no CI yet may want the delivery rules trimmed to
+what it can actually honor this month, since rules a team cannot follow teach them to
+ignore the file.
+
+---
+
+## Mode B — Score the repository
 
 Grade a repo against the nine SDLC areas the book teaches, and hand back a report the
 owner can act on this week: a letter grade per area, an overall grade, and findings that

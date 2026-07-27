@@ -339,19 +339,36 @@ reported on with hand-waving. Use the
 All term, other people grade your work. This section is about doing it to yourself first —
 on the same axes this book teaches, while there is still time to act on the answer.
 
-This book's repository ships a **repository scorecard**: a set of instructions an AI coding
-agent follows to audit a codebase against the nine parts of this book that cover the
-software lifecycle, then report a letter grade for each along with specific findings. The
-areas are the book's own structure — process and teamwork (Chapters 1–2 and this
-appendix), requirements (3–5), design and architecture (6–7), version control (8),
-software quality (9–10), security (11), metrics (12), AI-assisted practice (13), and
-delivery and evolution (14–15). A grade you cannot trace to a chapter is not worth much;
-every finding it produces cites the section that teaches the fix.
+This book's repository ships a **repository scorecard**: instructions an AI coding agent
+follows to work with a codebase against the nine parts of this book that cover the
+software lifecycle — process and teamwork (Chapters 1–2 and this appendix), requirements
+(3–5), design and architecture (6–7), version control (8), software quality (9–10),
+security (11), metrics (12), AI-assisted practice (13), and delivery and evolution
+(14–15). It has two modes, and you want them in this order.
 
-You will find it under `.claude/skills/repo-scorecard/` in the
+**Adopt** writes the book's practices into your project's `CLAUDE.md` — the file your
+coding agent reads at the start of every session. Test-driven development, Given/When/Then
+acceptance scenarios, commit and review standards, secrets handling, the definition of
+done: each rule stated concretely and cited to the chapter that explains it. Run it on the
+day you create the repository, and the practices are in force from the first commit rather
+than retrofitted in week 14. It works just as well on a project already underway, and it
+tailors itself — it fills in your actual test and lint commands and names the practices
+you do not have yet, so the block reads as a backlog rather than a fiction.
+
+**Score** then audits what the repository actually does, reporting a letter grade per area
+with specific findings. A grade you cannot trace to a chapter is not worth much; every
+finding cites the section that teaches the fix.
+
+You will find both under `.claude/skills/repo-scorecard/` in the
 [book's repository](https://github.com/tghastings/open-swe-book), with setup instructions
 in that repository's `AGENTS.md`. Copy the folder into your own project, then ask your
-agent to score the repository. It is plain Python and runs offline; nothing is uploaded.
+agent to set the project up with the book's principles, or to score the repository. It is
+plain Python and runs offline; nothing is uploaded.
+
+> **Principle.** Adopt sets the standard; score measures against it. Writing the practices
+> down before you need them is what makes the later grade meaningful — a team that agrees
+> on what "done" means in week 2 is arguing about evidence in week 12, not about
+> standards.
 
 ### Using it during the project, not after
 

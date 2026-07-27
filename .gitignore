@@ -43,3 +43,7 @@ latex/references.tex
 latex/citation-map.json
 # Amazon Endure is licensed for KDP use, not for redistribution in a public repo
 latex/fonts/
+
+# Python bytecode
+__pycache__/
+*.pyc

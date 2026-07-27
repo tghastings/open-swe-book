@@ -13,12 +13,18 @@ There are two reasons an agent touches this repo. Jump to the one that applies.
 
 ---
 
-## 1 · Grading a repository against the book
+## 1 · Applying the book to your own project
 
-The repo ships a skill that scores **your own project** against the nine SDLC areas the
-book teaches, with a letter grade per area and findings that cite the chapter teaching the
-fix. It is for students running a course team project and for practitioners auditing
-working code.
+The repo ships a skill with two modes, for students running a course team project and for
+practitioners working on real code:
+
+- **Adopt** — write the book's SDLC practices into your project's `CLAUDE.md` (TDD, BDD,
+  requirements, design, commits, security, delivery, stewardship) so every future agent
+  session follows them. Works on a new *or* existing project.
+- **Score** — audit what the repository actually does against the nine SDLC areas the book
+  teaches, with a letter grade per area and findings that cite the chapter teaching each fix.
+
+Adopt sets the standard; score measures against it.
 
 **Skill:** `.claude/skills/repo-scorecard/`
 
@@ -37,21 +43,29 @@ mkdir -p ~/.claude/skills
 cp -r .claude/skills/repo-scorecard ~/.claude/skills/
 ```
 
-Then, from your project, ask your agent to *"score this repo"* / *"grade my repo against
-the book"* and it will pick the skill up. Everything is stdlib Python 3 and offline — no
-install step, no network, no API key.
+Then, from your project, ask your agent to *"set this project up with the book's
+principles"* (adopt) or *"score this repo against the book"* (score) and it will pick the
+skill up. Everything is stdlib Python 3 and offline — no install step, no network, no API key.
 
 ### Run it directly
 
-The two scripts also work standalone, without an agent:
+The scripts also work standalone, without an agent:
 
 ```bash
-# what the repo has — languages, tests, CI, linters, scanners, commit hygiene
+# ADOPT — merge the book's practices into this project's CLAUDE.md.
+# Tailored to the detected stack; --agents targets AGENTS.md; --dry-run to preview.
+python3 .claude/skills/repo-scorecard/adopt-principles.py /path/to/your-project
+
+# SCORE — what the repo has: languages, tests, CI, linters, scanners, commit hygiene
 python3 .claude/skills/repo-scorecard/repo-census.py /path/to/your-project
 
 # findings JSON -> interactive HTML report (also --markdown, --fragment)
 python3 .claude/skills/repo-scorecard/render-scorecard.py findings.json -o report.html
 ```
+
+`adopt-principles.py` writes a block between `<!-- BEGIN swebook-principles -->` markers.
+Re-run it whenever the project matures — it replaces only what is between the markers and
+leaves everything you wrote alone.
 
 `repo-census.py` reports facts and grades nothing; the judgment is the agent's. The HTML
 report is one self-contained file with severity and area filters, search, and per-finding
@@ -102,6 +116,13 @@ container is watching will race it; build to `.verify` instead.
 - **Never link to a `README.md`.** mdBook rewrites those to a nonexistent `README.html`.
   Link chapters in directory form — `../08-version-control-git/` or `../02-…/#anchor`.
   `SUMMARY.md` is the one file that keeps real `.md` paths.
+- **Only files listed in `SUMMARY.md` are rendered.** mdBook rewrites *every* relative
+  `.md` link to `.html`, so a link to a real file that is not in `SUMMARY.md` — `AGENTS.md`,
+  a note under `docs/` — 404s on the website even though the file exists in the repo. Link
+  to those by absolute GitHub URL instead. **CI will not catch this**: lychee runs with
+  `--offline './**/*.md'`, validating the Markdown *source*, where the target does exist.
+  It never sees the rewrite. (It also runs with `fail: false`, so it cannot fail the build
+  regardless.) After adding any link, check the rendered output, not just the source.
 - **No `#anchors` in `SUMMARY.md`** — mdBook fails with "Chapter file not found." Sidebar
   sub-navigation is injected at runtime by `subsections.js`.
 - **Footnotes are per-page** and numbered by first use, with no gaps. Adding or moving

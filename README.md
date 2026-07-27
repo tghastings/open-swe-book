@@ -155,16 +155,21 @@ The sidebar provides a complete, linked table of contents, including chapters an
   from [Appendix A](chapters/appendix-a-team-project/).
 - Contributors should consult [`CONTRIBUTING.md`](CONTRIBUTING.md). This resource is intended to be a
   living, community‑improved resource.
-- **Grade your own repository.** This repository ships a *repository scorecard* under
-  [`.claude/skills/repo-scorecard/`](https://github.com/tghastings/open-swe-book/tree/main/.claude/skills/repo-scorecard) — instructions an AI
-  coding agent follows to audit a codebase against the nine parts of this book that cover
-  the software lifecycle, returning a letter grade per area and findings that cite the
-  chapter teaching each fix. Copy it into your own project and ask your agent to score the
-  repository; setup is in [`AGENTS.md`](AGENTS.md) and the classroom workflow is in
+- **Apply the book to your own project.** This repository ships a *repository scorecard*
+  under [`.claude/skills/repo-scorecard/`](https://github.com/tghastings/open-swe-book/tree/main/.claude/skills/repo-scorecard)
+  — instructions an AI coding agent follows, with two modes. **Adopt** writes the book's
+  practices into your project's `CLAUDE.md` (TDD, BDD, requirements, design, commits,
+  security, CI/CD, stewardship, and a definition of done), tailored to your stack and
+  working on a new or existing project. **Score** then audits the repository against the
+  nine parts of the book that cover the software lifecycle, returning a letter grade per
+  area and findings that cite the chapter teaching each fix. Copy the folder into your
+  project and ask your agent to set it up or score it; setup is in
+  [`AGENTS.md`](https://github.com/tghastings/open-swe-book/blob/main/AGENTS.md)
+  and the classroom workflow is in
   [Appendix A](chapters/appendix-a-team-project/) §A.6. Students can track progress across
-  sprints; practitioners can switch it to a `practitioner` profile that weights quality,
-  security, and delivery more heavily. It is plain Python, runs offline, and uploads
-  nothing.
+  sprints; practitioners can switch scoring to a `practitioner` profile that weights
+  quality, security, and delivery more heavily. It is plain Python, runs offline, and
+  uploads nothing.
 
 ## Building the book
 
