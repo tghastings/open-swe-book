@@ -110,23 +110,30 @@ def describe(project: pathlib.Path) -> tuple[str, str, str]:
         bits.append("**no tests detected**")
     bits.append(f"CI: {', '.join(c['ci'])}" if c.get("ci") else "**no CI detected**")
 
-    # Name the gaps rather than pretending the checklist is already met.
+    # Possible gaps — NEVER asserted as fact. A signal means "the lookup tables
+    # matched nothing", not "the practice is absent": tools are commonly invoked
+    # from CI steps, Makefiles, or pre-commit hooks that no file-name scan sees.
+    # Stating an unverified absence here would be the hallucinated-absence failure
+    # the skill exists to prevent, arriving through the tool instead of the model.
     sig = c.get("signals", {})
-    gaps = []
-    if not sig.get("static_checking"):
-        gaps.append("linter/formatter config")
-    if not sig.get("security"):
-        gaps.append("dependency scanning")
+    ci_tools = c.get("ci_tools", {})
+    unmatched = []
+    if not sig.get("static_checking") and not ci_tools.get("static_checking"):
+        unmatched.append("linter/formatter")
+    if not sig.get("security") and not ci_tools.get("security"):
+        unmatched.append("dependency or security scanning")
     if not sig.get("design", {}).get("ADRs"):
-        gaps.append("ADRs")
+        unmatched.append("architecture decision records")
     if not c.get("lockfiles") and c.get("dep_managers"):
-        gaps.append("a dependency lockfile")
+        unmatched.append("a dependency lockfile")
 
     ctx = "**This project.** " + " · ".join(bits) + "."
-    if gaps:
-        ctx += ("\nNot yet in place: " + ", ".join(gaps) +
-                ". The practices below still apply — treat the gaps as backlog items, "
-                "not as rules that do not count here.")
+    if unmatched:
+        ctx += ("\nNot detected by the setup scan: " + ", ".join(unmatched) +
+                ". This scan reads file names and CI definitions only — **confirm before "
+                "treating any of these as a gap**, since tools invoked from a Makefile, a "
+                "pre-commit hook, or a script will not show up here. Whatever is genuinely "
+                "missing becomes a backlog item; the practices below apply either way.")
     return ctx, test_cmd, lint_note
 
 

@@ -126,6 +126,43 @@ CI_FILES = {
     "Buildkite": [".buildkite"],
 }
 
+# Tools are usually *invoked* in CI rather than configured by a dotfile — a repo can
+# run Brakeman and npm audit on every push with no security config file anywhere. Read
+# the workflow bodies, or the file-based SIGNALS table reports a gap that isn't there.
+CI_TOOL_PATTERNS = {
+    "security": [
+        "brakeman", "bundler-audit", "bundle audit", "npm audit", "yarn audit",
+        "pnpm audit", "pip-audit", "safety check", "trivy", "snyk", "semgrep",
+        "gitleaks", "trufflehog", "codeql", "dependency-check", "govulncheck",
+        "cargo audit", "osv-scanner", "importmap audit", "grype", "syft",
+        "dotnet list package --vulnerable", "composer audit",
+    ],
+    "static_checking": [
+        "rubocop", "eslint", "ruff", "flake8", "pylint", "mypy", "pyright",
+        "tsc ", "golangci-lint", "go vet", "gofmt", "clippy", "checkstyle",
+        "spotbugs", "ktlint", "detekt", "phpstan", "psalm", "black ", "prettier",
+        "dotnet format", "swiftlint", "biome",
+    ],
+    "testing": [
+        "pytest", "rspec", "jest", "vitest", "go test", "cargo test", "mvn test",
+        "gradle test", "dotnet test", "rails test", "minitest", "cucumber",
+        "phpunit", "npm test", "yarn test", "karma", "playwright", "cypress",
+    ],
+}
+
+# A step that cannot fail the build is a notification, not a gate (Ch. 14).
+ADVISORY_PATTERNS = [
+    (re.compile(r"continue-on-error:\s*true"), "continue-on-error: true"),
+    (re.compile(r"\|\|\s*true\b"), "|| true"),
+    (re.compile(r"\|\|\s*exit\s+0\b"), "|| exit 0"),
+    (re.compile(r"^\s*fail:\s*false", re.M), "fail: false"),
+    (re.compile(r"--exit-zero\b"), "--exit-zero"),
+]
+
+CI_FILE_HINTS = (".github/workflows/", ".gitlab-ci.yml", "jenkinsfile",
+                 ".circleci/", "azure-pipelines.yml", ".travis.yml",
+                 ".drone.yml", ".buildkite/")
+
 DEP_MANIFESTS = {
     "requirements.txt": "pip", "pyproject.toml": "python", "Pipfile": "pipenv",
     "package.json": "npm", "go.mod": "go", "Cargo.toml": "cargo",
@@ -294,6 +331,39 @@ def scan_secrets(files: list[pathlib.Path], repo: pathlib.Path) -> list[dict]:
     return found
 
 
+def scan_ci_bodies(files: list[pathlib.Path], repo: pathlib.Path) -> tuple[dict, list]:
+    """Read CI definitions for invoked tools and for steps that cannot fail.
+
+    Returns ({area: [tools]}, [advisory steps]). This is a text scan, so it finds
+    what is named — it cannot know whether the step actually runs."""
+    tools: dict[str, set[str]] = {k: set() for k in CI_TOOL_PATTERNS}
+    advisory: list[dict] = []
+
+    for f in files:
+        rel = f.relative_to(repo).as_posix()
+        low = rel.lower()
+        if not any(h in low for h in CI_FILE_HINTS):
+            continue
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        lowered = text.lower()
+        for area, names in CI_TOOL_PATTERNS.items():
+            for name in names:
+                if name in lowered:
+                    tools[area].add(name.strip())
+        for i, line in enumerate(text.split("\n"), 1):
+            if line.lstrip().startswith("#"):
+                continue
+            for rx, label in ADVISORY_PATTERNS:
+                if rx.search(line):
+                    advisory.append({"file": f"{rel}:{i}", "pattern": label})
+                    break
+
+    return {k: sorted(v) for k, v in tools.items() if v}, advisory
+
+
 def census(repo: pathlib.Path) -> dict:
     files = walk(repo)
     rels = {str(f.relative_to(repo)) for f in files}
@@ -336,8 +406,12 @@ def census(repo: pathlib.Path) -> dict:
                                                       for r in rel_lower))})
     locks = sorted(l for l in LOCKFILES if l.lower() in rel_lower)
 
+    ci_tools, advisory = scan_ci_bodies(files, repo)
+
     return {
         "repo": str(repo.resolve()),
+        "ci_tools": ci_tools,
+        "advisory_steps": advisory,
         "files": len(files),
         "languages": langs.most_common(8),
         "loc": loc.most_common(8),
@@ -392,15 +466,24 @@ def report(c: dict) -> None:
         parts = list(sigs)
         if area == "testing" and c["test_files"]:
             parts.insert(0, f"{c['test_files']} test file(s)")
-        print(f"  {label}: " + (", ".join(parts) if parts else "none detected"))
+        for tool in c.get("ci_tools", {}).get(area, []):
+            parts.append(f"{tool} (in CI)")
+        print(f"  {label}: " + (", ".join(parts) if parts else "nothing matched"))
+
+    if c.get("advisory_steps"):
+        print("\n— CI steps that cannot fail the build —")
+        for a in c["advisory_steps"][:12]:
+            print(f"  ! {a['file']} — {a['pattern']}")
+        print("  A check that cannot fail is a notification, not a gate.")
 
     if c["secrets"]:
         print("\n— possible secrets in the working tree (VERIFY BEFORE REPORTING) —")
         for s in c["secrets"][:15]:
             print(f"  ! {s['file']} — {s['issue']}")
 
-    print("\nAbsence of a signal is not a defect — confirm by reading the repo before")
-    print("turning any line above into a finding.")
+    print("\n\"nothing matched\" means this tool's lookup tables found nothing — NOT that")
+    print("the practice is absent. Tools get invoked in Makefiles, pre-commit hooks, and")
+    print("scripts this scan never opens. Confirm by reading before claiming a gap.")
 
 
 def main() -> int:

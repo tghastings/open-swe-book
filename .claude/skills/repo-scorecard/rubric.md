@@ -201,9 +201,10 @@ alongside real config loaded from the environment; pinned dependencies with a lo
 Dependabot/Renovate; SCA or SAST in CI; input validation and parameterized queries at the
 boundaries; `SECURITY.md` for anything public; SBOM or signing for anything distributed.
 
-- **A** — secrets externalized, dependencies pinned and monitored, scanning in CI, and
-  boundary handling is correct where you read it.
-- **B** — good hygiene; automated scanning missing or advisory only.
+- **A** — secrets externalized, dependencies pinned and monitored, scanning in CI **that
+  gates the merge**, and boundary handling is correct where you read it.
+- **B** — good hygiene; automated scanning missing, or present but advisory only
+  (`|| true`, `continue-on-error`) so a finding never blocks anything.
 - **C** — no committed secrets, but dependencies unpinned or unmonitored, no scanning.
 - **D** — weak boundary handling, or dependencies badly stale.
 - **F** — a live credential in the repo, or an obvious injection path from untrusted input.
@@ -294,7 +295,9 @@ delivery health — throughput plus instability.
 ## Anti-deflation
 
 1. **Absence requires a shown search.** No search output in Pass 1, no finding — and
-   therefore no deduction.
+   therefore no deduction. A census line reading "nothing matched" is not a search
+   result about the repo; it is a statement about the census's own lookup tables. Tools
+   invoked from CI steps, Makefiles, or hooks are routinely missed. Go look.
 2. **Grade against the profile bar.** A student project is not a production service. Never
    deduct for enterprise ceremony the profile does not ask for (SBOM, CODEOWNERS, service
    mesh, chaos testing).

@@ -127,13 +127,22 @@ lockfiles, per-area tooling signals, high-confidence secret hits, and commit-his
 statistics (conventional-commit rate, author spread, how much of the history landed on
 its busiest day).
 
-Two rules for reading it:
+It reads file names, CI definitions, and git history. Three rules for reading its output:
 
 - It prefers `git ls-files`, so build output never inflates the counts. A non-git
   directory falls back to a filtered walk — and "not a git repository" is itself the
   single largest finding you will write that day.
-- **"none detected" is a prompt to go look, not a finding.** The signal table knows
-  common conventions, not every one. Confirm by reading before you grade.
+- **"nothing matched" is a prompt to go look, never a finding.** It means the lookup
+  tables matched nothing, not that the practice is absent. Tools get invoked from
+  Makefiles, `package.json` scripts, pre-commit hooks, and shell scripts that this scan
+  does not open. Confirm by reading before you grade — the census reports facts about its
+  own search, and turning that into a claim about the repo is the hallucinated-absence
+  failure this skill exists to prevent.
+- **`— CI steps that cannot fail the build —` is high-value.** A scanner or test suite
+  behind `continue-on-error: true`, `|| true`, or `fail: false` is configured but
+  advisory. That is a genuinely different state from both "present" and "absent", and it
+  is usually invisible to the owner — the badge is green. Grade it as *configured but not
+  gating* (see `rubric.md`), and quote the file and line.
 
 ### Step 2 — Read the repo
 
