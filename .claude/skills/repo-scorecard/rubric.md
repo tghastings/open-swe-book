@@ -238,7 +238,8 @@ or retros counts.
 ## 8 · AI-Assisted Practice — Ch. 13
 
 **Expects:** if AI tooling is used, it is used deliberately — durable project context
-(`CLAUDE.md`, `AGENTS.md`), human review of generated code, and awareness that generation
+(`AGENTS.md`, or a tool-specific equivalent), human review of generated code, and
+awareness that generation
 shifts effort to verification rather than removing it.
 
 **Look for:** agent instruction files and whether they are current; whether AI-assisted
@@ -288,7 +289,8 @@ delivery health — throughput plus instability.
 2. **No A in an area with a surviving Major finding.** No overall A with any surviving
    Critical.
 3. **Configuration is not practice.** A linter config with no CI step, a test suite that
-   never gates, a `CLAUDE.md` last touched at commit two — each caps its area at C.
+   never gates, an agent-instructions file last touched at commit two — each caps its
+   area at C.
 4. **Distribution check.** If six or more areas land A−/A, you are grading the presence of
    files. Re-run Pass 2 harder before publishing.
 

@@ -346,14 +346,20 @@ software lifecycle — process and teamwork (Chapters 1–2 and this appendix), 
 security (11), metrics (12), AI-assisted practice (13), and delivery and evolution
 (14–15). It has two modes, and you want them in this order.
 
-**Adopt** writes the book's practices into your project's `CLAUDE.md` — the file your
+**Adopt** writes the book's practices into your project's `AGENTS.md` — the file your
 coding agent reads at the start of every session. Test-driven development, Given/When/Then
 acceptance scenarios, commit and review standards, secrets handling, the definition of
 done: each rule stated concretely and cited to the chapter that explains it. Run it on the
 day you create the repository, and the practices are in force from the first commit rather
 than retrofitted in week 14. It works just as well on a project already underway, and it
-tailors itself — it fills in your actual test and lint commands and names the practices
-you do not have yet, so the block reads as a backlog rather than a fiction.
+tailors itself — it fills in your actual test and lint commands and flags practices it did
+not find, so the block reads as a backlog rather than a fiction.
+
+`AGENTS.md` is a **tool-neutral convention** (<https://agents.md/>): the same file is read
+by Claude Code, Cursor, Copilot, Codex, Gemini CLI, and others, so your team is not locked
+to whichever assistant you started with. If a tool insists on its own filename, keep
+`AGENTS.md` as the single source of truth and leave a one-line file pointing at it —
+two full copies drift apart within a sprint; a redirect cannot.
 
 **Score** then audits what the repository actually does, reporting a letter grade per area
 with specific findings. A grade you cannot trace to a chapter is not worth much; every

@@ -158,7 +158,7 @@ The sidebar provides a complete, linked table of contents, including chapters an
 - **Apply the book to your own project.** This repository ships a *repository scorecard*
   under [`.claude/skills/repo-scorecard/`](https://github.com/tghastings/open-swe-book/tree/main/.claude/skills/repo-scorecard)
   — instructions an AI coding agent follows, with two modes. **Adopt** writes the book's
-  practices into your project's `CLAUDE.md` (TDD, BDD, requirements, design, commits,
+  practices into your project's `AGENTS.md` (TDD, BDD, requirements, design, commits,
   security, CI/CD, stewardship, and a definition of done), tailored to your stack and
   working on a new or existing project. **Score** then audits the repository against the
   nine parts of the book that cover the software lifecycle, returning a letter grade per

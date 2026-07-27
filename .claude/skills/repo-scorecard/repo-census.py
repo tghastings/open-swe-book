@@ -109,7 +109,7 @@ SIGNALS: dict[str, dict[str, list[str]]] = {
         "docs dir": ["docs", "doc"],
     },
     "ai_practice": {
-        "agent instructions": ["CLAUDE.md", "AGENTS.md", ".cursorrules",
+        "agent instructions": ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".cursorrules",
                                ".github/copilot-instructions.md", ".windsurfrules"],
         "agent config dir": [".claude", ".cursor"],
     },

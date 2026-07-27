@@ -1,6 +1,6 @@
 ---
 name: repo-scorecard
-description: Apply the SDLC practices from "Software Engineering: Standing on the Shoulders of Giants" to a codebase — either ADOPT them (write TDD, BDD, security, CI and stewardship rules into the project's CLAUDE.md, for a new or existing project) or SCORE the repo against them (letter grade per area with triple-verified, actionable findings). Use when asked to score, grade, audit, or review a repo's engineering practices, or to set up / bootstrap a project with the book's principles.
+description: Apply the SDLC practices from "Software Engineering: Standing on the Shoulders of Giants" to a codebase — either ADOPT them (write TDD, BDD, security, CI and stewardship rules into the project's AGENTS.md or equivalent agent-instructions file, for a new or existing project) or SCORE the repo against them (letter grade per area with triple-verified, actionable findings). Use when asked to score, grade, audit, or review a repo's engineering practices, or to set up / bootstrap a project with the book's principles.
 ---
 
 # Repository scorecard
@@ -9,7 +9,7 @@ Two modes. Most projects want both, in this order.
 
 | Mode | When | Section |
 |---|---|---|
-| **Adopt** | Starting a project, or bringing an existing one under the book's practices. Writes the principles into `CLAUDE.md` so every future session follows them. | [Mode A](#mode-a--adopt-the-principles) |
+| **Adopt** | Starting a project, or bringing an existing one under the book's practices. Writes the principles into `AGENTS.md` so every future session follows them. | [Mode A](#mode-a--adopt-the-principles) |
 | **Score** | Auditing what a repo actually does. Letter grade per SDLC area with verified findings. | [Mode B](#mode-b--score-the-repository) |
 
 Adopt sets the standard; score measures against it. Running adopt first and score a sprint
@@ -22,11 +22,22 @@ later gives the owner a before/after they can point at.
 Install the book's SDLC practices into a project's agent-instructions file, so the rules
 are in context for every future session rather than living in a book nobody re-reads.
 
+The default target is **`AGENTS.md`** — the open, tool-neutral convention
+(<https://agents.md/>) that Claude Code, Cursor, Copilot, Codex, Gemini CLI, Aider and
+others read, and the practice Chapter 13 recommends. Nothing about the output is
+vendor-specific; it is Markdown stating the book's principles.
+
+For a tool that reads only its own filename, either target it directly
+(`--file CLAUDE.md`, `--file GEMINI.md`, `--file .github/copilot-instructions.md`) or keep
+`AGENTS.md` as the single source and add a redirect stub with `--pointer`. Prefer the
+pointer: two full copies drift, a one-line redirect cannot.
+
 ```bash
-python3 <skill-dir>/adopt-principles.py /path/to/project     # merge into CLAUDE.md
-python3 <skill-dir>/adopt-principles.py . --agents           # AGENTS.md instead
-python3 <skill-dir>/adopt-principles.py . --dry-run          # report, write nothing
-python3 <skill-dir>/adopt-principles.py . --print            # stdout only
+python3 <skill-dir>/adopt-principles.py /path/to/project        # merge into AGENTS.md
+python3 <skill-dir>/adopt-principles.py . --file CLAUDE.md      # any other target
+python3 <skill-dir>/adopt-principles.py . --pointer CLAUDE.md   # + redirect stub
+python3 <skill-dir>/adopt-principles.py . --dry-run             # report, write nothing
+python3 <skill-dir>/adopt-principles.py . --print               # stdout only
 ```
 
 **What it writes.** A tailored block covering every part of the lifecycle: requirements and
@@ -43,7 +54,7 @@ different opening advice than a mature codebase.
 
 **It never clobbers.** The block sits between `<!-- BEGIN swebook-principles -->` markers.
 Re-running replaces only what is between them; anything the owner writes outside survives.
-An existing `CLAUDE.md` with no markers gets the block appended, never overwritten.
+An existing file with no markers gets the block appended, never overwritten.
 
 **After running it**, tell the owner three things: which file changed, that their own
 content was preserved, and that re-running refreshes the block as the project matures.

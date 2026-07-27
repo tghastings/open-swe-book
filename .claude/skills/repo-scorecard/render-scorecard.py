@@ -498,9 +498,10 @@ $verify_html
 def render_fragment(d: dict) -> str:
     """Body-only: `<style>` + page content, no doctype/html/head/body.
 
-    For embedding — notably Claude Artifacts, which supply their own document
-    skeleton and their own theme toggle (hence no theme button here; the CSS
-    already answers both `prefers-color-scheme` and `[data-theme]`)."""
+    For embedding in any host page that supplies its own document skeleton and
+    theme control — a wiki, a static-site build, a docs portal, a published
+    artifact. No theme button is emitted, since the host owns that; the CSS
+    already answers both `prefers-color-scheme` and `[data-theme]`."""
     full = render_html(d, embedded=True)
     style = re.search(r"<style>.*?</style>", full, re.S)
     body = re.search(r"<body>(.*?)</body>", full, re.S)
@@ -750,7 +751,7 @@ def main() -> int:
     ap.add_argument("-o", "--out", help="output path (default: stdout)")
     ap.add_argument("--markdown", action="store_true", help="emit Markdown, not HTML")
     ap.add_argument("--fragment", action="store_true",
-                    help="body-only HTML for embedding (e.g. a Claude Artifact)")
+                    help="body-only HTML for embedding in a host page")
     args = ap.parse_args()
 
     try:

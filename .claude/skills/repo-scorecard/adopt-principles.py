@@ -1,14 +1,23 @@
 #!/usr/bin/env python3
-"""Install the book's SDLC principles into a project's CLAUDE.md (or AGENTS.md).
+"""Install the book's SDLC principles into a project's agent-instructions file.
 
-    python3 adopt-principles.py /path/to/project              # merge into CLAUDE.md
-    python3 adopt-principles.py . --agents                    # target AGENTS.md instead
-    python3 adopt-principles.py . --dry-run                   # show what would change
-    python3 adopt-principles.py . --print                     # just print the block
+    python3 adopt-principles.py /path/to/project           # merge into AGENTS.md
+    python3 adopt-principles.py . --file CLAUDE.md         # any other target
+    python3 adopt-principles.py . --pointer CLAUDE.md      # + a stub redirecting there
+    python3 adopt-principles.py . --dry-run                # show what would change
+    python3 adopt-principles.py . --print                  # just print the block
+
+Writes **AGENTS.md** by default — the open, tool-neutral convention (<https://agents.md/>)
+that Claude Code, Cursor, Copilot, Codex, Gemini CLI, Aider and others read. Nothing here
+is specific to one vendor: the principles are the book's, and the output is Markdown.
+
+For a tool that only reads its own filename, either target it directly with `--file`, or
+keep AGENTS.md as the single source and add a one-line stub with `--pointer` so the two
+can never drift apart.
 
 Works on a brand-new empty directory and on a mature codebase. The generated text is
-tailored to whatever stack is detected — test command, lint tooling, and a short note on
-which practices are not yet in place.
+tailored to whatever stack is detected — test command, lint tooling, and a hedged note on
+practices the scan did not find.
 
 **Never clobbers.** The block is delimited by HTML comment markers; re-running replaces
 only what is between them and leaves the rest of the file untouched. Anything you write
@@ -172,13 +181,36 @@ def merge(existing: str | None, block: str, project_name: str) -> tuple[str, str
     return existing + sep + "\n" + block, "appended"
 
 
+def write_pointer(path: pathlib.Path, target_name: str) -> None:
+    """One line redirecting a tool-specific file at the real instructions.
+
+    Keeps a single source of truth: two full copies drift, a pointer cannot."""
+    line = (f"See [{target_name}]({target_name}) — this project keeps its agent "
+            f"instructions there, in the tool-neutral AGENTS.md convention.\n")
+    if path.exists():
+        text = path.read_text(encoding="utf-8")
+        if target_name in text:
+            print(f"pointer already present: {path}")
+            return
+        path.write_text(text.rstrip() + "\n\n" + line, encoding="utf-8")
+        print(f"pointer appended: {path}")
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(line, encoding="utf-8")
+    print(f"pointer written: {path}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("path", nargs="?", default=".", help="project root (default: cwd)")
-    ap.add_argument("--agents", action="store_true",
-                    help="target AGENTS.md (tool-neutral) instead of CLAUDE.md")
-    ap.add_argument("--file", help="explicit target filename, overrides --agents")
+    ap.add_argument("--file", default="AGENTS.md",
+                    help="target filename (default: AGENTS.md — the tool-neutral "
+                         "convention). Use e.g. CLAUDE.md, GEMINI.md, .cursorrules, "
+                         "or .github/copilot-instructions.md for a specific tool.")
+    ap.add_argument("--pointer", metavar="FILE",
+                    help="also write a one-line stub at FILE redirecting to the target, "
+                         "for tools that only read their own filename")
     ap.add_argument("--dry-run", action="store_true", help="report, write nothing")
     ap.add_argument("--print", dest="print_only", action="store_true",
                     help="print the block to stdout and exit")
@@ -197,8 +229,7 @@ def main() -> int:
         sys.stdout.write(block)
         return 0
 
-    name = args.file or ("AGENTS.md" if args.agents else "CLAUDE.md")
-    target = project / name
+    target = project / args.file
     existing = target.read_text(encoding="utf-8") if target.exists() else None
     new_text, action = merge(existing, block, project.name)
 
@@ -207,17 +238,22 @@ def main() -> int:
         if action == "appended":
             print("  (existing content is preserved; the block is added at the end)")
         print(f"  block: {len(block.splitlines())} lines")
+        if args.pointer:
+            print(f"  would also write pointer: {project / args.pointer}")
         return 0
 
     if existing == new_text:
         print(f"{target} already current — no change")
-        return 0
+    else:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(new_text, encoding="utf-8")
+        print(f"{action}: {target}")
+        if action == "appended":
+            print("  existing content preserved above the block")
+        print("  re-run any time to refresh; edits outside the markers are kept")
 
-    target.write_text(new_text, encoding="utf-8")
-    print(f"{action}: {target}")
-    if action == "appended":
-        print("  existing content preserved above the block")
-    print("  re-run any time to refresh; edits outside the markers are kept")
+    if args.pointer:
+        write_pointer(project / args.pointer, args.file)
     return 0
 
 

@@ -18,9 +18,9 @@ There are two reasons an agent touches this repo. Jump to the one that applies.
 The repo ships a skill with two modes, for students running a course team project and for
 practitioners working on real code:
 
-- **Adopt** — write the book's SDLC practices into your project's `CLAUDE.md` (TDD, BDD,
+- **Adopt** — write the book's SDLC practices into your project's `AGENTS.md` (TDD, BDD,
   requirements, design, commits, security, delivery, stewardship) so every future agent
-  session follows them. Works on a new *or* existing project.
+  session follows them. Works on a new *or* existing project, with any AI tool.
 - **Score** — audit what the repository actually does against the nine SDLC areas the book
   teaches, with a letter grade per area and findings that cite the chapter teaching each fix.
 
@@ -30,30 +30,36 @@ Adopt sets the standard; score measures against it.
 
 ### Install it
 
-The skill needs to live where your agent looks for skills — which is your project, not
-this one. Copy it into whichever scope you want:
+**Nothing here is tied to one vendor.** The scripts are stdlib Python 3, the rubric and
+principles are Markdown, and the file they write is `AGENTS.md` — the open convention
+(<https://agents.md/>) that Claude Code, Cursor, Copilot, Codex, Gemini CLI, Aider and
+others read. Only the folder *name* follows Claude Code's skill-discovery path; every
+other tool can run the scripts directly, or be pointed at `SKILL.md` as a prompt.
 
 ```bash
-# just this project
+# Claude Code — copy where skills are discovered, for one project or all
 mkdir -p /path/to/your-project/.claude/skills
 cp -r .claude/skills/repo-scorecard /path/to/your-project/.claude/skills/
+cp -r .claude/skills/repo-scorecard ~/.claude/skills/          # machine-wide
 
-# or every project on this machine
-mkdir -p ~/.claude/skills
-cp -r .claude/skills/repo-scorecard ~/.claude/skills/
+# Any other tool — put it anywhere and call the scripts, or paste SKILL.md
+# into the assistant as instructions and let it drive them.
+cp -r .claude/skills/repo-scorecard /path/to/your-project/tools/
 ```
 
-Then, from your project, ask your agent to *"set this project up with the book's
-principles"* (adopt) or *"score this repo against the book"* (score) and it will pick the
-skill up. Everything is stdlib Python 3 and offline — no install step, no network, no API key.
+With Claude Code, ask for *"set this project up with the book's principles"* (adopt) or
+*"score this repo against the book"* (score) and it picks the skill up. With any other
+assistant, run the scripts below and hand it `rubric.md` when you want it to grade.
+No install step, no network, no API key.
 
 ### Run it directly
 
 The scripts also work standalone, without an agent:
 
 ```bash
-# ADOPT — merge the book's practices into this project's CLAUDE.md.
-# Tailored to the detected stack; --agents targets AGENTS.md; --dry-run to preview.
+# ADOPT — merge the book's practices into this project's AGENTS.md.
+# Tailored to the detected stack. --file targets another tool's filename;
+# --pointer adds a redirect stub; --dry-run previews.
 python3 .claude/skills/repo-scorecard/adopt-principles.py /path/to/your-project
 
 # SCORE — what the repo has: languages, tests, CI, linters, scanners, commit hygiene

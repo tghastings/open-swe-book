@@ -159,7 +159,7 @@ $project_context
 - Be suspicious of confident code touching security, concurrency, money, or time zones —
   the places where plausible and correct diverge most.
 - Keep this file current. It is the durable context that makes the next session useful;
-  a stale `CLAUDE.md` actively misleads.
+  a stale instructions file actively misleads.
 
 ### Definition of done
 
