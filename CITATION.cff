@@ -24,7 +24,7 @@ keywords:
   - software architecture
   - testing
   - CI/CD
-version: "1.0b14"
+version: "1.0b15"
 date-released: "2026-07-27"
 preferred-citation:
   type: book
@@ -34,6 +34,6 @@ preferred-citation:
       given-names: Thomas
       affiliation: "University of Colorado, Colorado Springs"
   year: 2026
-  edition: "First Edition, 1.0b14"
+  edition: "First Edition, 1.0b15"
   url: "https://www.swebook.org/"
   license: CC-BY-SA-4.0
